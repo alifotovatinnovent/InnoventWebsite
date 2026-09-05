@@ -15,3 +15,6 @@ shot/
 uploads/
 .thumbnail
 _ds/
+
+# Internal pre-launch review notes — kept locally, not published
+CONTENT-REVIEW.md
