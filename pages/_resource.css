@@ -263,5 +263,16 @@
 
 @media (max-width: 980px) {
   .wp-hero__inner, .wp-body__inner { grid-template-columns: 1fr; }
+  .wp-hero__inner > *, .wp-body__inner > * { min-width: 0; }
   .wp-toc { position: static; }
+}
+
+/* Small phones (360px and under): the 32px gutters plus the hero's content
+   minimum pushed the white-paper and blog pages past the viewport. */
+@media (max-width: 480px) {
+  .wp-hero__inner, .wp-body__inner,
+  .bl-hero__inner, .bl-body__inner { padding-left: 20px; padding-right: 20px; }
+  .wp-hero__meta, .breadcrumb { flex-wrap: wrap; }
+  .wp-hero__inner, .wp-body__inner,
+  .bl-hero__inner, .bl-body__inner { overflow-wrap: anywhere; }
 }
