@@ -245,7 +245,7 @@
      viewport, which is what made every page scroll sideways on a phone. This
      builds a burger + drawer instead. The markup is always created; megamenu.css
      shows it only under 860px, so desktop is untouched.                      */
-  function initMobileNav(navInner, links) {
+  function initMobileNav(navInner, links, keyForHref) {
     if (navInner.dataset.mnavReady) return;
     navInner.dataset.mnavReady = '1';
 
@@ -472,7 +472,7 @@
     backdrop.addEventListener('click', close);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
-    initMobileNav(navInner, links);
+    initMobileNav(navInner, links, keyForHref);
   }
 
   if (document.readyState === 'loading') {
