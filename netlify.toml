@@ -9,6 +9,18 @@
 # returning visitors' browsers until the cache expired. CSS and JS revalidate
 # on every request (cheap: Netlify answers with a 304 when unchanged), and
 # assets get a day rather than a year.
+# pt-live-deployment was a meta-refresh stub pointing at the workflow builder.
+# Serve it as a real 301 so search engines and browsers follow it properly.
+[[redirects]]
+  from = "/pages/pt-live-deployment.html"
+  to = "/pages/pt-workflow-builder.html"
+  status = 301
+
+[[redirects]]
+  from = "/pages/pt-live-deployment"
+  to = "/pages/pt-workflow-builder.html"
+  status = 301
+
 [[headers]]
   for = "/assets/*"
   [headers.values]
