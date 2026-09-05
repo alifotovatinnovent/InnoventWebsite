@@ -1,0 +1,282 @@
+/* Innovent — futuristic animations layer
+   Elegant easing curves, no bounce — feels engineered, not toy
+*/
+
+/* ─── Reveal on scroll ──────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-in { opacity: 1; transform: translateY(0); }
+[data-reveal][data-reveal-delay="1"].is-in { transition-delay: 80ms; }
+[data-reveal][data-reveal-delay="2"].is-in { transition-delay: 160ms; }
+[data-reveal][data-reveal-delay="3"].is-in { transition-delay: 240ms; }
+[data-reveal][data-reveal-delay="4"].is-in { transition-delay: 320ms; }
+[data-reveal][data-reveal-delay="5"].is-in { transition-delay: 400ms; }
+
+[data-reveal-x] {
+  opacity: 0; transform: translateX(40px);
+  transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal-x].is-in { opacity: 1; transform: translateX(0); }
+
+[data-reveal-scale] {
+  opacity: 0; transform: scale(0.96);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal-scale].is-in { opacity: 1; transform: scale(1); }
+
+/* ─── Hero — shimmer on accent text ─────────────────────── */
+.hero__title em {
+  background: linear-gradient(90deg, #7C5CFC 0%, #3B82F6 20%, #06B6D4 40%, #22D3EE 55%, #A855F7 75%, #EC4899 90%, #7C5CFC 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  animation: shimmer 9s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* ─── Hero rings — slow rotation ────────────────────────── */
+.hero__rings { animation: ring-spin 60s linear infinite; }
+.hero__rings circle:nth-child(1) { animation: ring-pulse 4s ease-in-out infinite; }
+.hero__rings circle:nth-child(2) { animation: ring-pulse 5s ease-in-out infinite 0.6s; }
+.hero__rings circle:nth-child(3) { animation: ring-pulse 6s ease-in-out infinite 1.2s; }
+@keyframes ring-spin {
+  to { transform: rotate(360deg); transform-origin: center; }
+}
+@keyframes ring-pulse {
+  0%, 100% { stroke-opacity: 0.18; }
+  50%      { stroke-opacity: 0.45; }
+}
+
+/* Eclipse — static (no float) */
+.hero__eclipse { animation: none; }
+
+/* ─── Hero nodes — typewriter-style entrance ────────────── */
+.hero__node {
+  animation: node-in 800ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.hero__node.n1 { animation-delay: 800ms; }
+.hero__node.n2 { animation-delay: 1100ms; }
+.hero__node.n3 { animation-delay: 1400ms; }
+.hero__node.n4 { animation-delay: 1700ms; }
+.hero__node.n5 { animation-delay: 2000ms; }
+.hero__node.n6 { animation-delay: 2300ms; }
+@keyframes node-in {
+  from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0);   }
+}
+
+/* ─── Hero — drifting particles ─────────────────────────── */
+.hero__particles {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.hero__particles span {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  opacity: 0;
+  animation: particle-drift 14s linear infinite;
+}
+@keyframes particle-drift {
+  0%   { transform: translate3d(0, 100vh, 0) scale(0.5); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.6; }
+  100% { transform: translate3d(40px, -10vh, 0) scale(1); opacity: 0; }
+}
+
+/* ─── Hero — scanning line ──────────────────────────────── */
+.hero__scan {
+  position: absolute; left: 0; right: 0;
+  height: 1px; pointer-events: none; z-index: 0;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246,0.6), transparent);
+  animation: scan 8s ease-in-out infinite;
+}
+@keyframes scan {
+  0%, 100% { top: 10%; opacity: 0; }
+  50%      { top: 90%; opacity: 1; }
+}
+
+/* ─── Section eyebrow — typewriter dash extend ──────────── */
+.eyebrow::before {
+  animation: eyebrow-extend 1.2s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+@keyframes eyebrow-extend {
+  from { width: 0; }
+  to   { width: 24px; }
+}
+
+/* ─── Platform stack — staggered layer entrance ─────────── */
+.stack__layer { animation: layer-in 800ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.stack__layer:nth-child(1) { animation-delay: 0ms; }
+.stack__layer:nth-child(3) { animation-delay: 80ms; }
+.stack__layer:nth-child(5) { animation-delay: 160ms; }
+.stack__layer:nth-child(7) { animation-delay: 240ms; }
+.stack__layer:nth-child(9) { animation-delay: 320ms; }
+@keyframes layer-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Connector line draws in */
+.stack__connect::before { animation: connect-draw 600ms ease 800ms backwards; }
+@keyframes connect-draw {
+  from { height: 0; }
+  to   { height: 100%; }
+}
+
+/* AI layer subtle glow loop */
+.stack__layer.is-ai { animation: ai-glow 4s ease-in-out infinite; }
+@keyframes ai-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246,0); }
+  50%      { box-shadow: 0 0 32px -8px rgba(59, 130, 246,0.4); }
+}
+
+/* ─── Buttons — sheen on hover ──────────────────────────── */
+.btn { position: relative; overflow: hidden; }
+.btn::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%);
+  transition: transform 600ms ease;
+  pointer-events: none;
+}
+.btn:hover::before { transform: translateX(100%); }
+.btn--primary { transition: all 200ms ease, transform 150ms ease; }
+.btn--primary:hover { transform: translateY(-1px); }
+.btn--primary:active { transform: translateY(0); }
+
+/* ─── Industries — corner accent on hover ───────────────── */
+.ind { position: relative; }
+.ind::before {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ind::after {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 1px; height: 0;
+  background: var(--accent);
+  transition: height 400ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
+}
+.ind:hover::before { width: 40px; }
+.ind:hover::after  { height: 40px; }
+.ind.is-new::before { background: var(--warm); }
+.ind.is-new::after  { background: var(--warm); }
+
+/* ─── Capabilities — icon orbit pulse ───────────────────── */
+.cap__icon { transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
+.cap:hover .cap__icon {
+  background: rgba(59, 130, 246,0.18);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246,0.3), 0 0 24px -4px rgba(59, 130, 246,0.4);
+}
+
+/* ─── C&C dashboard — live signals ──────────────────────── */
+.cc__dash-bar .dot { animation: cc-pulse 1.6s ease-in-out infinite; }
+@keyframes cc-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(255,134,66,0.2), 0 0 0 0 rgba(255,134,66,0.6); }
+  50%      { box-shadow: 0 0 0 2px rgba(255,134,66,0.2), 0 0 0 8px rgba(255,134,66,0); }
+}
+
+/* Map pin radar */
+.cc__map .pin.crit {
+  animation: pin-radar 2.2s ease-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+@keyframes pin-radar {
+  0%   { filter: drop-shadow(0 0 0 #FF4D5E); }
+  60%  { filter: drop-shadow(0 0 12px #FF4D5E); }
+  100% { filter: drop-shadow(0 0 0 #FF4D5E); }
+}
+
+/* Dashed connection line travelling */
+.cc__map path[stroke-dasharray] {
+  stroke-dasharray: 4 6;
+  animation: dash-flow 1.6s linear infinite;
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -20; }
+}
+
+/* Event feed — slide in then settle */
+.cc__event { animation: event-in 500ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.cc__event:nth-child(1) { animation-delay: 0ms; }
+.cc__event:nth-child(2) { animation-delay: 120ms; }
+.cc__event:nth-child(3) { animation-delay: 240ms; }
+@keyframes event-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Impact metrics — number "bloom" on enter ──────────── */
+.impact__num { display: inline-block; animation: bloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.impact__cell:nth-child(1) .impact__num { animation-delay: 0ms; }
+.impact__cell:nth-child(2) .impact__num { animation-delay: 120ms; }
+.impact__cell:nth-child(3) .impact__num { animation-delay: 240ms; }
+.impact__cell:nth-child(4) .impact__num { animation-delay: 360ms; }
+@keyframes bloom {
+  0%   { opacity: 0; transform: scale(0.94); letter-spacing: -0.06em; }
+  100% { opacity: 1; transform: scale(1);    letter-spacing: -0.03em; }
+}
+
+/* ─── ROI big number — flicker on change ────────────────── */
+.roi__result-num { transition: text-shadow 250ms ease; }
+.roi__result-num.is-changed { text-shadow: 0 0 24px rgba(59, 130, 246,0.4); }
+
+/* ─── Trust strip — logos scroll subtly ─────────────────── */
+.trust__logo { transition: all 250ms ease; }
+.trust__logo:hover { transform: translateY(-1px); }
+
+/* ─── C&C flagship tag — pulse outline ──────────────────── */
+.cc__flagship-tag { animation: flagship-pulse 3s ease-in-out infinite; position: relative; }
+@keyframes flagship-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,134,66,0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,134,66,0); }
+}
+
+/* ─── Hero CTA primary — breathing glow ─────────────────── */
+.hero__cta .btn--primary { animation: primary-breathe 4s ease-in-out infinite; }
+@keyframes primary-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246,0); }
+  50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246,0.25); }
+}
+
+/* ─── Nav locale dot — live pulse ───────────────────────── */
+.nav__locale::before { animation: live-pulse 2.4s ease-in-out infinite; }
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(74,222,128,0.2), 0 0 0 0 rgba(74,222,128,0.4); }
+  50%      { box-shadow: 0 0 0 2px rgba(74,222,128,0.2), 0 0 0 6px rgba(74,222,128,0); }
+}
+
+/* ─── Hero grid — subtle drift ──────────────────────────── */
+.hero__grid {
+  animation: grid-drift 40s linear infinite;
+}
+@keyframes grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 64px 64px, 64px 64px; }
+}
+
+/* ─── Reduced motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal], [data-reveal-x], [data-reveal-scale] { opacity: 1 !important; transform: none !important; }
+}

@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edge Runtime — Sub-10ms · x86 + ARM · Innovent</title>
+<meta name="description" content="A lightweight execution layer that runs directly on commodity x86 and ARM gateways . INNFINI processes sensor data, applies rules.">
+<link rel="canonical" href="https://www.innovent.io/pages/cap-edge.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Edge Runtime — Sub-10ms · x86 + ARM · Innovent">
+<meta property="og:description" content="A lightweight execution layer that runs directly on commodity x86 and ARM gateways . INNFINI processes sensor data, applies rules.">
+<meta property="og:url" content="https://www.innovent.io/pages/cap-edge.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Edge Runtime — Sub-10ms · x86 + ARM · Innovent">
+<meta name="twitter:description" content="A lightweight execution layer that runs directly on commodity x86 and ARM gateways . INNFINI processes sensor data, applies rules.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="../styles-edge-runtime.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+</head>
+<body class="page" data-page="platform">
+<div id="site-nav"></div>
+
+<div class="cs-hero" style="padding:80px 0 24px;">
+  <div class="cs-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="platform.html">Platform</a><span class="sep">/</span>
+      Edge Runtime
+    </div>
+  </div>
+</div>
+
+<!-- ─── EDGE RUNTIME ──────────────────────────────────────── -->
+<section id="edge-runtime" class="section edge" style="padding-top:40px;border-top:0;">
+  <div class="edge__bg"></div>
+  <div class="container">
+
+    <!-- ── PART 1 · Hero ── -->
+    <div class="edge__hero">
+      <div class="edge__copy">
+        <div class="eyebrow">// Edge Runtime · Sub-10ms · x86 + ARM</div>
+        <h2 class="edge__title">
+          Decide at the <em style="font-style:normal;color:var(--accent)">edge.</em><br>
+          Sync to the cloud.
+        </h2>
+        <p class="edge__lead">
+          A lightweight execution layer that runs <strong>directly on commodity x86 and ARM gateways</strong>. INNFINI processes sensor data, applies rules, runs local inference and triggers actions at the site — even before signals reach the central platform.
+        </p>
+        <div class="edge__sig">
+          <div class="edge__sig-item"><div class="edge__sig-num">&lt;10ms</div><div class="edge__sig-lab">Local inference</div></div>
+          <div class="edge__sig-item"><div class="edge__sig-num">98%</div><div class="edge__sig-lab">Bandwidth reduction</div></div>
+          <div class="edge__sig-item"><div class="edge__sig-num">72hr+</div><div class="edge__sig-lab">Offline buffer</div></div>
+        </div>
+        <div class="edge__chips">
+          <span class="edge__chip"><span class="edge__chip-dot"></span>Filter</span>
+          <span class="edge__chip"><span class="edge__chip-dot"></span>Infer</span>
+          <span class="edge__chip"><span class="edge__chip-dot"></span>Decide</span>
+          <span class="edge__chip"><span class="edge__chip-dot"></span>Sync</span>
+        </div>
+      </div>
+
+      <!-- Live edge gateway visualizer · 3-column flow -->
+      <div class="edge__motion" aria-hidden="true">
+        <div class="edge__panel">
+          <div class="edge__panel-bar">
+            <span class="edge__panel-dot edge__panel-dot--r"></span>
+            <span class="edge__panel-dot edge__panel-dot--y"></span>
+            <span class="edge__panel-dot edge__panel-dot--g"></span>
+            <span class="edge__panel-name">edge-node · GW-EDGE-04 · v4.0</span>
+            <span class="edge__panel-pill">Healthy</span>
+          </div>
+          <div class="edge__flow">
+            <div class="edge__col">
+              <div class="edge__col-h">Ingest · raw</div>
+              <div class="edge__stream edge__stream--in"><span class="edge__stream-name">RFID</span><span class="edge__stream-rate">12,847/s</span></div>
+              <div class="edge__stream edge__stream--in"><span class="edge__stream-name">Vision</span><span class="edge__stream-rate">2,140/s</span></div>
+              <div class="edge__stream edge__stream--in"><span class="edge__stream-name">BLE</span><span class="edge__stream-rate">2,840/s</span></div>
+              <div class="edge__stream edge__stream--in"><span class="edge__stream-name">Env</span><span class="edge__stream-rate">540/s</span></div>
+            </div>
+
+            <div class="edge__col-arrows" aria-hidden="true"><span>▶</span><span>▶</span><span>▶</span></div>
+
+            <div class="edge__gw">
+              <div class="edge__gw-block">
+                <div class="edge__gw-bar">
+                  <span class="edge__gw-led"></span>
+                  <span class="edge__gw-led edge__gw-led--y"></span>
+                  <span class="edge__gw-led edge__gw-led--b"></span>
+                  <span class="edge__gw-led edge__gw-led--b"></span>
+                  <span class="edge__gw-id">EDGE-04 · ARM64</span>
+                </div>
+                <div class="edge__gw-stages">
+                  <div class="edge__gw-stage is-on">Filter · dedupe · aggregate</div>
+                  <div class="edge__gw-stage is-on">Infer · vision · anomaly</div>
+                  <div class="edge__gw-stage is-on">Apply local rules</div>
+                  <div class="edge__gw-stage is-on">Buffer · offline-safe</div>
+                </div>
+                <div class="edge__gw-foot">
+                  <div class="edge__gw-stat">
+                    <span class="edge__gw-stat-k">CPU</span>
+                    <span class="edge__gw-stat-v">42%</span>
+                    <span class="edge__gw-meter"><span></span></span>
+                  </div>
+                  <div class="edge__gw-stat">
+                    <span class="edge__gw-stat-k">Inference p99</span>
+                    <span class="edge__gw-stat-v"><em>8.4</em>ms</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="edge__col-arrows" aria-hidden="true"><span>▶</span><span>▶</span><span>▶</span></div>
+
+            <div class="edge__col">
+              <div class="edge__col-h">Emit · meaningful</div>
+              <div class="edge__stream edge__stream--out"><span class="edge__stream-name">Asset events</span><span class="edge__stream-rate">47/s</span></div>
+              <div class="edge__stream edge__stream--out"><span class="edge__stream-name">Alerts</span><span class="edge__stream-rate">3/s</span></div>
+              <div class="edge__stream edge__stream--out"><span class="edge__stream-name">Detections</span><span class="edge__stream-rate">18/s</span></div>
+              <div class="edge__stream edge__stream--out"><span class="edge__stream-name">Audit log</span><span class="edge__stream-rate">12/s</span></div>
+            </div>
+          </div>
+          <div class="edge__panel-foot">
+            <span class="edge__metric"><span class="edge__metric-k">Reduction</span><span class="edge__metric-v">12.8k/s → 80/s</span></span>
+            <span class="edge__metric"><span class="edge__metric-k">Offline buffer</span><span class="edge__metric-v">42min retained · OK</span></span>
+            <span class="edge__metric"><span class="edge__metric-k">Cloud sync</span><span class="edge__metric-v">healthy · 84ms p95</span></span>
+            <span class="edge__metric"><span class="edge__metric-k">Sites</span><span class="edge__metric-v">12 nodes online</span></span>
+          </div>
+        </div>
+
+        <span class="edge__float edge__float--tl">Offline-resilient</span>
+        <span class="edge__float edge__float--tr">x86 + ARM</span>
+        <span class="edge__float edge__float--bl">Local rules</span>
+      </div>
+    </div>
+
+    <!-- ── PART 2 · 6-stage pipeline ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// How the Edge Runtime works</div>
+      <h2 class="section-title">Intelligence <em style="font-style:normal;color:var(--accent)">at the site.</em></h2>
+      <p class="section-lead">Six stages. INNFINI connects locally, filters the noise, runs inference on the gateway, applies your rules, buffers through outages, and syncs clean events back when the network's there.</p>
+    </div>
+
+    <ol class="edge__pipe">
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="6" width="10" height="8" rx="1"/><rect x="19" y="6" width="10" height="8" rx="1"/><rect x="3" y="18" width="10" height="8" rx="1"/><rect x="19" y="18" width="10" height="8" rx="1"/><line x1="13" y1="10" x2="19" y2="10" opacity="0.5"/><line x1="13" y1="22" x2="19" y2="22" opacity="0.5"/></svg></span>
+        <span class="edge__stage-num">01 · Connect</span>
+        <h4>Local I/O</h4>
+        <p>RFID readers, cameras, BLE gateways, sensors, PLCs, BMS controllers — all wired directly to the edge node, no cloud detour.</p>
+      </li>
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 8 L28 8 L24 16 L28 24 L4 24 L8 16 Z" opacity="0.6"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg></span>
+        <span class="edge__stage-num">02 · Filter</span>
+        <h4>Reduce the Noise</h4>
+        <p>Dedupe reads, cleanse signals, aggregate streams. <em>12,847/s raw</em> becomes a few dozen <em>meaningful events.</em></p>
+      </li>
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="16" cy="16" r="3" fill="currentColor"/><g opacity="0.85"><line x1="16" y1="4" x2="16" y2="8.5"/><line x1="16" y1="23.5" x2="16" y2="28"/><line x1="4" y1="16" x2="8.5" y2="16"/><line x1="23.5" y1="16" x2="28" y2="16"/></g><g opacity="0.5"><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/><line x1="21.5" y1="21.5" x2="24.5" y2="24.5"/><line x1="7.5" y1="24.5" x2="10.5" y2="21.5"/><line x1="21.5" y1="10.5" x2="24.5" y2="7.5"/></g></svg></span>
+        <span class="edge__stage-num">03 · Infer</span>
+        <h4>Sub-10ms Inference</h4>
+        <p>Vision, anomaly, classification, movement direction — fast local inference on x86 or ARM, no GPU required.</p>
+      </li>
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11" opacity="0.4"/><path d="M10 16.5 L14 20.5 L22.5 11"/></svg></span>
+        <span class="edge__stage-num">04 · Decide</span>
+        <h4>Local Rules</h4>
+        <p>Apply thresholds, business rules and decision logic at the gateway — alarms, escalations and actions fire instantly.</p>
+      </li>
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="20" width="22" height="6" rx="1" stroke="currentColor" fill="currentColor" fill-opacity="0.18"/><rect x="5" y="13" width="22" height="6" rx="1" stroke="currentColor" fill="currentColor" fill-opacity="0.32"/><rect x="5" y="6" width="22" height="6" rx="1" stroke="currentColor" fill="currentColor" fill-opacity="0.5"/></svg></span>
+        <span class="edge__stage-num">05 · Buffer</span>
+        <h4>Offline-Safe</h4>
+        <p>Store events locally during network drops. Continue local alerts. Preserve timestamps. Resume the moment uplink returns.</p>
+      </li>
+      <li class="edge__stage">
+        <span class="edge__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 12 L24 12"/><path d="M19 7 L24 12 L19 17" stroke-linejoin="round"/><path d="M24 20 L8 20"/><path d="M13 25 L8 20 L13 15" stroke-linejoin="round"/></svg></span>
+        <span class="edge__stage-num">06 · Sync</span>
+        <h4>Cloud Hand-off</h4>
+        <p>Clean, structured, time-stamped events stream securely back to INNFINI — feeding the graph, agents and dashboards.</p>
+      </li>
+    </ol>
+
+    <!-- ── PART 3 · Key capabilities ── -->
+    <div class="section-head edge__section-head edge__section-head--center">
+      <div class="eyebrow">// Key capabilities</div>
+      <h2 class="section-title">Mission-critical edge. <em style="font-style:normal;color:var(--accent)">Commodity hardware.</em></h2>
+      <p class="section-lead">Fast where speed matters. Resilient where uptime matters. Cheap where the math matters. No proprietary boxes, no GPU mandates, no vendor cages.</p>
+    </div>
+
+    <div class="edge__caps">
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="16" cy="16" r="3" fill="currentColor"/><g opacity="0.85"><line x1="16" y1="4" x2="16" y2="8.5"/><line x1="16" y1="23.5" x2="16" y2="28"/><line x1="4" y1="16" x2="8.5" y2="16"/><line x1="23.5" y1="16" x2="28" y2="16"/></g></svg></span>
+          <span class="edge__cap-tag">01 · Speed</span>
+        </div>
+        <h4>Sub-10ms Inference</h4>
+        <p>Run vision, anomaly, classification and movement models locally with sub-10ms latency — fast enough for safety-critical decisions.</p>
+        <div class="edge__cap-meta"><span>Vision detect</span><span>Anomaly</span><span>Classification</span></div>
+      </article>
+
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="4" y="9" width="24" height="14" rx="1.5"/><line x1="8" y1="13" x2="13" y2="13"/><line x1="8" y1="17" x2="11" y2="17"/><line x1="8" y1="20" x2="14" y2="20"/><circle cx="22" cy="16" r="2.4" fill="currentColor"/></svg></span>
+          <span class="edge__cap-tag">02 · Hardware</span>
+        </div>
+        <h4>x86 &amp; ARM Support</h4>
+        <p>Deploy on commodity gateways, industrial PCs, mini PCs, ruggedized field devices and edge servers. No proprietary boxes required.</p>
+        <div class="edge__cap-meta"><span>x86_64</span><span>ARM64</span><span>Rugged + IPC</span></div>
+      </article>
+
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="20" width="22" height="6" rx="1" fill="currentColor" opacity="0.2"/><rect x="5" y="20" width="22" height="6" rx="1" stroke="currentColor"/><rect x="5" y="13" width="22" height="6" rx="1" fill="currentColor" opacity="0.35"/><rect x="5" y="13" width="22" height="6" rx="1" stroke="currentColor"/><rect x="5" y="6" width="22" height="6" rx="1" fill="currentColor" opacity="0.55"/><rect x="5" y="6" width="22" height="6" rx="1" stroke="currentColor"/></svg></span>
+          <span class="edge__cap-tag">03 · Resilience</span>
+        </div>
+        <h4>Offline-Safe</h4>
+        <p>Keep capturing, processing and storing events through network drops. Resume sync transparently the moment uplink returns.</p>
+        <div class="edge__cap-meta"><span>Local buffer</span><span>Time-stamp preserved</span><span>Auto-resume</span></div>
+      </article>
+
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11" opacity="0.45"/><path d="M10 16.5 L14 20.5 L22.5 11"/></svg></span>
+          <span class="edge__cap-tag">04 · Logic</span>
+        </div>
+        <h4>Local Rules Engine</h4>
+        <p>Apply thresholds, validations, filters and business logic at the edge — the same rules language that runs in the cloud.</p>
+        <div class="edge__cap-meta"><span>Thresholds</span><span>Filters</span><span>Cloud-parity</span></div>
+      </article>
+
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 8 L28 8 L24 16 L28 24 L4 24 L8 16 Z" opacity="0.6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg></span>
+          <span class="edge__cap-tag">05 · Bandwidth</span>
+        </div>
+        <h4>Data Reduction</h4>
+        <p>Filter, aggregate and reduce traffic upstream. Send only the events that matter — 98% bandwidth saved on noisy sites.</p>
+        <div class="edge__cap-meta"><span>Dedupe</span><span>Aggregate</span><span>−98% upstream</span></div>
+      </article>
+
+      <article class="edge__cap">
+        <div class="edge__cap-head">
+          <span class="edge__cap-mo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 12 L24 12"/><path d="M19 7 L24 12 L19 17" stroke-linejoin="round"/><path d="M24 20 L8 20"/><path d="M13 25 L8 20 L13 15" stroke-linejoin="round"/></svg></span>
+          <span class="edge__cap-tag">06 · Secure</span>
+        </div>
+        <h4>Secure Sync</h4>
+        <p>mTLS-encrypted, signed and audited handoff back to INNFINI cloud. Every event has provenance from the gateway forward.</p>
+        <div class="edge__cap-meta"><span>mTLS</span><span>Signed events</span><span>Full audit</span></div>
+      </article>
+    </div>
+
+    <!-- ── PART 3b · Reference hardware ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// Reference hardware</div>
+      <h2 class="section-title">Four tiers, <em style="font-style:normal;color:var(--accent)">no proprietary box.</em></h2>
+      <p class="section-lead">The runtime is a single signed binary with no kernel modules. Sizing follows the workload, not a vendor SKU — these are the tiers we deploy against, and the workload each one carries in production.</p>
+    </div>
+    <table class="spec-table spec-table--fixed" style="margin-bottom:80px">
+      <colgroup><col style="width:13%"><col style="width:25%"><col style="width:21%"><col style="width:30%"><col style="width:11%"></colgroup>
+      <tr><th>Tier</th><th>Typical hardware</th><th>Footprint</th><th>Carries</th><th>Power</th></tr>
+      <tr><td><b>Micro</b></td><td>ARM64 gateway · 4 core · 4 GB</td><td>210 MB RAM · 1.2 GB disk</td><td>Rules + filtering, up to 40 sensor streams</td><td>&lt; 10 W</td></tr>
+      <tr><td><b>Standard</b></td><td>x86 industrial PC · 8 core · 16 GB</td><td>1.4 GB RAM · 40 GB disk</td><td>4 vision models, 8 camera streams, 500 sensors</td><td>35–65 W</td></tr>
+      <tr><td><b>Site</b></td><td>Edge server · 16 core · 64 GB · T4 or A2 GPU</td><td>6 GB RAM · 500 GB disk</td><td>24 camera streams, full local graph, 30-day buffer</td><td>180–300 W</td></tr>
+      <tr><td><b>Rugged / mobile</b></td><td>Fanless IP65 · ARM64 or x86 · DIN or vehicle mount</td><td>380 MB RAM · 8 GB disk</td><td>Vehicle telematics, mobile command, field kits</td><td>12–24 V DC</td></tr>
+    </table>
+
+    <!-- ── PART 3c · Latency budget ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// Latency budget</div>
+      <h2 class="section-title">Where the <em style="font-style:normal;color:var(--accent)">ten milliseconds go.</em></h2>
+      <p class="section-lead">Sub-10 ms is a budget, not a slogan. Measured on the Standard tier for a 1080p vision detection, frame arrival to action emitted — the same path a cloud round trip covers in 380–600 ms.</p>
+    </div>
+    <table class="spec-table spec-table--fixed" style="margin-bottom:80px">
+      <colgroup><col style="width:40%"><col style="width:10%"><col style="width:10%"><col style="width:40%"></colgroup>
+      <tr><th>Step</th><th>p50</th><th>p99</th><th>Notes</th></tr>
+      <tr><td>Frame capture and decode</td><td>1.8 ms</td><td>3.1 ms</td><td>Hardware decode where available</td></tr>
+      <tr><td>Pre-processing and tensor prep</td><td>0.9 ms</td><td>1.6 ms</td><td>Zero-copy into the accelerator</td></tr>
+      <tr><td>Model inference</td><td>3.4 ms</td><td>6.2 ms</td><td>INT8 quantised, batch of one</td></tr>
+      <tr><td>Rule evaluation</td><td>0.6 ms</td><td>1.1 ms</td><td>Same rule language as cloud</td></tr>
+      <tr><td>Action emit and local persist</td><td>1.1 ms</td><td>2.4 ms</td><td>Written before acknowledgement</td></tr>
+      <tr><td><b>End to end</b></td><td><b style="color:#6ee7b7">7.8 ms</b></td><td><b style="color:#6ee7b7">14.4 ms</b></td><td>Cloud round trip: 380–600 ms</td></tr>
+    </table>
+
+    <!-- ── PART 3d · Disconnected operation ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// Disconnected operation</div>
+      <h2 class="section-title">What still works when <em style="font-style:normal;color:var(--accent)">the link is gone.</em></h2>
+      <p class="section-lead">Every edge platform claims offline support. The honest question is which capabilities degrade, and in what order — so here is the full answer, including what does not survive.</p>
+    </div>
+    <table class="spec-table spec-table--fixed" style="margin-bottom:80px">
+      <colgroup><col style="width:24%"><col style="width:15%"><col style="width:61%"></colgroup>
+      <tr><th>Capability</th><th>Disconnected</th><th>Why</th></tr>
+      <tr><td>Sensor and video ingest</td><td><b style="color:#6ee7b7">Full</b></td><td>Nothing in the capture path depends on the uplink.</td></tr>
+      <tr><td>Local inference</td><td><b style="color:#6ee7b7">Full</b></td><td>Models are resident on the node, not called remotely.</td></tr>
+      <tr><td>Rules and local automation</td><td><b style="color:#6ee7b7">Full</b></td><td>Cached rule set continues; changes queue for the reconnect.</td></tr>
+      <tr><td>Local alerting and signage</td><td><b style="color:#6ee7b7">Full</b></td><td>On-site outputs are driven from the node itself.</td></tr>
+      <tr><td>Cross-site correlation</td><td><b style="color:#fbbf24">Degraded</b></td><td>The node can only correlate what it can see. Multi-site patterns resume on reconnect.</td></tr>
+      <tr><td>Graph enrichment</td><td><b style="color:#fbbf24">Degraded</b></td><td>Falls back to the cached subgraph for local assets; global lookups defer.</td></tr>
+      <tr><td>Consequential automation</td><td><b style="color:#fb7185">Held</b></td><td>Deliberate: actions needing central authority are queued for approval, never taken unilaterally.</td></tr>
+      <tr><td>Model retraining and promotion</td><td><b style="color:#fb7185">Suspended</b></td><td>Training is a central function. The node runs its current model unchanged.</td></tr>
+    </table>
+
+    <!-- ── PART 3e · Fleet operations ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// Fleet operations</div>
+      <h2 class="section-title">One node is a demo. <em style="font-style:normal;color:var(--accent)">Four hundred is the job.</em></h2>
+      <p class="section-lead">The difficulty of edge is not the first node — it is updating the four hundredth without a truck roll, and knowing which eleven are unhealthy right now.</p>
+    </div>
+    <div class="edge__caps" style="margin-bottom:80px">
+      <article class="edge__cap"><div class="edge__cap-head"><span class="edge__cap-tag">Rollout</span></div><h4>Staged and reversible</h4><p>Updates roll canary → ring → fleet with health gates between stages. A failed health check halts the wave automatically rather than continuing into the estate.</p><div class="edge__cap-meta"><span>Canary</span><span>Health gates</span><span>Auto-halt</span></div></article>
+      <article class="edge__cap"><div class="edge__cap-head"><span class="edge__cap-tag">Recovery</span></div><h4>A/B partitions</h4><p>The node keeps the previous image on a second partition. A failed boot or failed health check reverts locally without anyone visiting the site.</p><div class="edge__cap-meta"><span>Dual slot</span><span>Local rollback</span><span>No truck roll</span></div></article>
+      <article class="edge__cap"><div class="edge__cap-head"><span class="edge__cap-tag">Config</span></div><h4>Declared, not clicked</h4><p>Every node's state is declarative and versioned. A replacement box is provisioned by identity and converges to the correct configuration on first boot.</p><div class="edge__cap-meta"><span>Versioned</span><span>Drift-corrected</span><span>Fast RMA</span></div></article>
+      <article class="edge__cap"><div class="edge__cap-head"><span class="edge__cap-tag">Observability</span></div><h4>The node reports itself</h4><p>Temperature, disk wear, model confidence drift, buffer depth and uplink quality stream back as first-class telemetry — a degrading node raises an incident before it fails.</p><div class="edge__cap-meta"><span>Disk wear</span><span>Drift</span><span>Buffer depth</span></div></article>
+    </div>
+
+    <!-- ── PART 3f · Security ── -->
+    <div class="section-head edge__section-head">
+      <div class="eyebrow">// Edge security</div>
+      <h2 class="section-title">A node in a plant room is <em style="font-style:normal;color:var(--accent)">physically reachable.</em></h2>
+      <p class="section-lead">Edge hardware sits in corridors, cabinets and vehicles. The threat model assumes someone can touch it.</p>
+    </div>
+    <table class="spec-table" style="margin-bottom:0">
+      <tr><th>Control</th><th>Implementation</th></tr>
+      <tr><td>Measured boot</td><td>TPM 2.0 or ARM TrustZone verifies the boot chain. A node that fails attestation is refused enrolment and cannot rejoin the fleet.</td></tr>
+      <tr><td>Encryption at rest</td><td>Full-disk encryption with the key sealed to the TPM, so a removed drive is unreadable off the node.</td></tr>
+      <tr><td>Mutual TLS identity</td><td>Each node holds a unique hardware-bound certificate. Certificates rotate automatically and can be revoked centrally within seconds.</td></tr>
+      <tr><td>Signed artefacts</td><td>Runtime images, models and rule sets are signature-verified before load. An unsigned or altered artefact will not execute.</td></tr>
+      <tr><td>No inbound ports</td><td>The node dials out. There is no listening management port to scan, and no inbound path from the network into the runtime.</td></tr>
+      <tr><td>Tamper response</td><td>Chassis intrusion and unexpected reboots raise a security incident, and the node can be configured to seal its keys until re-attested.</td></tr>
+      <tr><td>Data minimisation</td><td>Video can be processed to events on-node and never transmitted, so imagery of people need not leave the site at all.</td></tr>
+    </table>
+
+    <!-- ── PART 4 · Business value ── -->
+    <div class="edge__value">
+      <div class="edge__value-head">
+        <div class="eyebrow">// Why it matters</div>
+        <h3>Faster, cheaper, <em style="font-style:normal;color:var(--accent)">always-on.</em></h3>
+      </div>
+      <div class="edge__value-grid">
+        <div class="edge__vcell">
+          <div class="edge__vnum">−85%</div>
+          <div class="edge__vname">Decision latency</div>
+          <p>Actions fire locally instead of round-tripping through the cloud — critical for safety, security and high-throughput operations.</p>
+        </div>
+        <div class="edge__vcell">
+          <div class="edge__vnum">100%</div>
+          <div class="edge__vname">Offline continuity</div>
+          <p>Sites keep scanning, dispatching, alerting and recording through network drops, brownouts and ISP outages.</p>
+        </div>
+        <div class="edge__vcell">
+          <div class="edge__vnum">−98%</div>
+          <div class="edge__vname">Bandwidth cost</div>
+          <p>Send clean operational events, not continuous raw streams — cuts upstream bandwidth on noisy RFID and vision sites.</p>
+        </div>
+        <div class="edge__vcell">
+          <div class="edge__vnum">12+</div>
+          <div class="edge__vname">Deployment shapes</div>
+          <p>x86 IPC, ARM gateway, rugged field unit, edge server, mini PC — pick the form factor that fits each site.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="edge__closing">
+      <strong>The Edge Runtime extends platform intelligence to the physical site</strong> —
+      enabling faster decisions, resilient operations and real-time automation even when connectivity is limited.
+    </p>
+
+  </div>
+</section>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Run INNFINI at your edge.</h2>
+    <p>A 60-minute architecture review with our solutions team. We map your sites, your hardware, and the workflows where edge processing changes the math.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Request review
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="platform.html">Full architecture →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related capabilities</h3>
+  <div class="cs-related__grid">
+    <a class="cs-related__card" href="cap-sensor-fabric.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Sensor Fabric</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+    <a class="cs-related__card" href="cap-connectors.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Connectors &amp; Integrations</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+    <a class="cs-related__card" href="cap-agentic-ai.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Agentic AI Runtime</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

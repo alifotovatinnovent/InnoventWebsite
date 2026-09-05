@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sub-100ms decisions at the edge — without a GPU · Innovent</title>
+<meta name="description" content="A GPU at every edge site is a non-starter at scale. Multiply $5,000+ per site by 100+ sites and the economics collapse.">
+<link rel="canonical" href="https://www.innovent.io/pages/blog-sub-100ms.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Sub-100ms decisions at the edge — without a GPU · Innovent">
+<meta property="og:description" content="A GPU at every edge site is a non-starter at scale. Multiply $5,000+ per site by 100+ sites and the economics collapse.">
+<meta property="og:url" content="https://www.innovent.io/pages/blog-sub-100ms.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sub-100ms decisions at the edge — without a GPU · Innovent">
+<meta name="twitter:description" content="A GPU at every edge site is a non-starter at scale. Multiply $5,000+ per site by 100+ sites and the economics collapse.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<link rel="stylesheet" href="_resource.css">
+</head>
+<body class="page" data-page="resources">
+<div id="site-nav"></div>
+
+<section class="bl-hero">
+  <div class="bl-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="resources.html#blog">Field Notes</a><span class="sep">/</span>
+      Engineering
+    </div>
+    <div class="bl-hero__meta">
+      <span class="bl-hero__cat">ENGINEERING</span>
+      <span>February 2026</span>
+      <span>15 min read</span>
+    </div>
+    <h1>Sub-100ms decisions at the edge — without a GPU</h1>
+    <div class="bl-hero__byline">
+      <div class="bl-hero__avatar">JP</div>
+      <span class="bl-hero__author">J. Park</span>
+      <span class="bl-hero__sep">·</span>
+      <span>Innovent · Engineering</span>
+    </div>
+  </div>
+</section>
+
+<article class="bl-body">
+  <div class="bl-body__inner">
+<p>A GPU at every edge site is a non-starter at scale. Multiply $5,000+ per site by 100+ sites and the economics collapse. We chose a harder path: production-grade inference on $400 commodity gateways. Here's how it works.</p>
+<h2>The model side</h2>
+<p>Three constraints drive the architecture. First, models must be quantized to int8 or smaller. Second, they must run on CPU. Third, they must fit in 4GB of RAM. The model architecture follows.</p>
+<ul><li>Vision: MobileNet-v3 backbone with custom heads per use case.</li><li>Anomaly: lightweight autoencoders with bounded reconstruction error.</li><li>Forecasting: ESN (echo-state networks) and gradient-boosted trees over deep models.</li><li>Object detection: int8 YOLOv8n family fine-tuned per site.</li></ul>
+<h2>The runtime side</h2>
+<p>Inference latency on commodity x86 (Atom-class) runs 30–80ms for our vision models. Three patterns get us there:</p>
+<h3>Pattern 1: Frame skipping</h3>
+<p>For continuous vision, we don't need to infer every frame. We infer key frames and interpolate. A 15-FPS camera becomes effectively 5-FPS inference — well within budget.</p>
+<h3>Pattern 2: Cascaded inference</h3>
+<p>A cheap "is something happening?" detector runs always-on. The expensive classifier only fires when the cheap detector triggers. The expensive model effectively runs at 1-FPS.</p>
+<h3>Pattern 3: Edge-local caching</h3>
+<p>Most decisions repeat. An LRU cache on the inference output catches the common case in microseconds. Cache hit rates on retail RFID workloads run 70%+.</p>
+<div class="callout"><h4>The honest answer</h4><p>You don't get GPU-class performance on CPU. You get good-enough performance for 90% of edge workloads at 1/10th the per-site cost. That trade-off is what makes the math work.</p></div>
+  </div>
+</article>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Want this depth applied to your operation?</h2>
+    <p>Our engineering and solutions teams brief in 60 minutes on architecture, deployment, and what works for your specific environment.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Talk to engineering
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="resources.html#blog">More from Field Notes →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related posts</h3>
+  <div class="cs-related__grid">
+      <a class="cs-related__card" href="cap-edge.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Edge runtime</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="cap-sensor-fabric.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Sensor fabric</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="blog-camera-rfid.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Camera-to-RFID fusion</h4>
+        <span class="arrow">Read →</span>
+      </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

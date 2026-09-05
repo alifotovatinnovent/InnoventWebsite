@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Air-gapped Innfini: the engineering trade-offs · Innovent</title>
+<meta name="description" content="Federal and defense environments demand air-gapped deployment. The cloud is not an option. The internet is not an option.">
+<link rel="canonical" href="https://www.innovent.io/pages/blog-air-gapped.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Air-gapped Innfini: the engineering trade-offs · Innovent">
+<meta property="og:description" content="Federal and defense environments demand air-gapped deployment. The cloud is not an option. The internet is not an option.">
+<meta property="og:url" content="https://www.innovent.io/pages/blog-air-gapped.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Air-gapped Innfini: the engineering trade-offs · Innovent">
+<meta name="twitter:description" content="Federal and defense environments demand air-gapped deployment. The cloud is not an option. The internet is not an option.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<link rel="stylesheet" href="_resource.css">
+</head>
+<body class="page" data-page="resources">
+<div id="site-nav"></div>
+
+<section class="bl-hero">
+  <div class="bl-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="resources.html#blog">Field Notes</a><span class="sep">/</span>
+      Security
+    </div>
+    <div class="bl-hero__meta">
+      <span class="bl-hero__cat">SECURITY</span>
+      <span>March 2026</span>
+      <span>11 min read</span>
+    </div>
+    <h1>Air-gapped Innfini: the engineering trade-offs</h1>
+    <div class="bl-hero__byline">
+      <div class="bl-hero__avatar">AV</div>
+      <span class="bl-hero__author">A. Volkov</span>
+      <span class="bl-hero__sep">·</span>
+      <span>Innovent · Engineering</span>
+    </div>
+  </div>
+</section>
+
+<article class="bl-body">
+  <div class="bl-body__inner">
+<p>Federal and defense environments demand air-gapped deployment. The cloud is not an option. The internet is not an option. Even DNS resolution to external hosts can be a non-starter. We've built Innfini to run in these environments. Here's what changes.</p>
+<h2>What still works</h2>
+<p>Most of Innfini doesn't care about the internet. The object graph, the event backbone, the connector layer, the edge runtime — all of these operate on local infrastructure. The model gateway can serve pre-deployed models locally. Agentic orchestration runs entirely on-prem.</p>
+<h2>What needs different patterns</h2>
+<h3>Model updates</h3>
+<p>Models can't pull from a remote model registry. Updates ship as signed artifacts through air-gapped media. We support the <code>oras</code> OCI artifact format for this — the same patterns federal agencies already use for container distribution.</p>
+<h3>License validation</h3>
+<p>License keys must validate without phoning home. We use offline cryptographic license tokens with limited time-to-live and rotation through the same air-gap media channel.</p>
+<h3>Telemetry</h3>
+<p>No telemetry leaves the air-gapped boundary. Operational telemetry is captured locally and can be exported on customer request through the same secure channels.</p>
+<div class="callout"><h4>The hard part</h4><p>It isn't any one technical change. It's the operational discipline of every team treating "the internet doesn't exist" as a first-class constraint, not an afterthought.</p></div>
+<h2>What you give up</h2>
+<p>Continuous improvement loops slow down. The platform updates on the customer's cadence, not ours. Model retraining requires customer-side ground truth. The trade-off is sovereignty — and for the customers who need it, it's the only option that exists.</p>
+  </div>
+</article>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Want this depth applied to your operation?</h2>
+    <p>Our engineering and solutions teams brief in 60 minutes on architecture, deployment, and what works for your specific environment.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Talk to engineering
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="resources.html#blog">More from Field Notes →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related posts</h3>
+  <div class="cs-related__grid">
+      <a class="cs-related__card" href="cap-edge.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Edge runtime</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="cc-defense.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Defense & Federal</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="cap-agentic-ai.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Agentic AI runtime</h4>
+        <span class="arrow">Read →</span>
+      </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

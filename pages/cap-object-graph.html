@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Object & Event Graph — A living map of your operation · Innovent</title>
+<meta name="description" content="Every asset, place, person, device, workflow and signal — represented as a connected node in a real-time operational graph.">
+<link rel="canonical" href="https://www.innovent.io/pages/cap-object-graph.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Object &amp; Event Graph — A living map of your operation · Innovent">
+<meta property="og:description" content="Every asset, place, person, device, workflow and signal — represented as a connected node in a real-time operational graph.">
+<meta property="og:url" content="https://www.innovent.io/pages/cap-object-graph.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Object &amp; Event Graph — A living map of your operation · Innovent">
+<meta name="twitter:description" content="Every asset, place, person, device, workflow and signal — represented as a connected node in a real-time operational graph.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="../mockup-system.css">
+<link rel="stylesheet" href="../styles-object-graph.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+</head>
+<body class="page" data-page="platform">
+<div id="site-nav"></div>
+
+<!-- Breadcrumb strip -->
+<div class="cs-hero" style="padding:80px 0 24px;">
+  <div class="cs-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="platform.html">Platform</a><span class="sep">/</span>
+      Object & Event Graph
+    </div>
+  </div>
+</div>
+
+<!-- ─── OBJECT & EVENT GRAPH ──────────────────────────────── -->
+<section id="object-graph" class="section oeg" style="padding-top:40px;border-top:0;">
+  <div class="oeg__bg"></div>
+  <div class="container">
+
+    <!-- ── PART 1 · Hero ── -->
+    <div class="oeg__hero">
+      <div class="oeg__copy">
+        <div class="eyebrow">// The Object &amp; Event Graph · The foundation layer</div>
+        <h2 class="oeg__title">
+          A living map of <em style="font-style:normal;color:var(--accent)">your operation.</em>
+        </h2>
+        <p class="oeg__lead">
+          Every asset, place, person, device, workflow and signal — represented as a connected node in a <strong>real-time operational graph</strong>. INNFINI doesn't just store the data. It understands how every thing relates to every other thing.
+        </p>
+        <div class="oeg__sig">
+          <div class="oeg__sig-item"><div class="oeg__sig-num">12M+</div><div class="oeg__sig-lab">Objects modeled</div></div>
+          <div class="oeg__sig-item"><div class="oeg__sig-num">86M+</div><div class="oeg__sig-lab">Live relationships</div></div>
+          <div class="oeg__sig-item"><div class="oeg__sig-num">100%</div><div class="oeg__sig-lab">Auditable timeline</div></div>
+        </div>
+        <div class="oeg__chips">
+          <span class="oeg__chip"><span class="oeg__chip-dot"></span>Objects</span>
+          <span class="oeg__chip"><span class="oeg__chip-dot"></span>Relationships</span>
+          <span class="oeg__chip"><span class="oeg__chip-dot"></span>Events</span>
+          <span class="oeg__chip"><span class="oeg__chip-dot"></span>Context</span>
+        </div>
+      </div>
+
+      <!-- Live causality trace -->
+      <div class="oeg__motion" aria-hidden="true">
+        <div class="oeg__panel">
+          <div class="oeg__panel-bar">
+            <span class="oeg__panel-dot oeg__panel-dot--r"></span>
+            <span class="oeg__panel-dot oeg__panel-dot--y"></span>
+            <span class="oeg__panel-dot oeg__panel-dot--g"></span>
+            <span class="oeg__panel-name">object-event-graph · causality trace</span>
+            <span class="oeg__panel-pill">Live</span>
+          </div>
+          <div class="oeg__graph-wrap">
+            <svg data-oeg-explorer role="img" aria-label="Causality trace: six typed object lanes — event, device, asset, place, incident and workflow — against a wall-clock time axis, with a nine-step chain of consequence from an RFID scan through a mis-route incident to the asset being rerouted"></svg>
+          </div>
+          <div class="oeg__panel-foot">
+            <span class="oeg__metric"><span class="oeg__metric-k">Nodes</span><span class="oeg__metric-v">12.4M</span></span>
+            <span class="oeg__metric"><span class="oeg__metric-k">Relationships</span><span class="oeg__metric-v">86.2M</span></span>
+            <span class="oeg__metric"><span class="oeg__metric-k">Events / s</span><span class="oeg__metric-v">14,820</span></span>
+            <span class="oeg__metric"><span class="oeg__metric-k">Query latency</span><span class="oeg__metric-v">23ms</span></span>
+          </div>
+        </div>
+
+        <span class="oeg__float oeg__float--tl">Typed objects</span>
+        <span class="oeg__float oeg__float--bl">Audit-traceable</span>
+      </div>
+    </div>
+
+    <!-- ── PART 2 · How the graph works · 5-stage pipeline ── -->
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// How the graph works</div>
+      <h2 class="section-title">From isolated records to <em style="font-style:normal;color:var(--accent)">connected intelligence.</em></h2>
+      <p class="section-lead">Five layers. Every operational element becomes a typed node, every action becomes an event, every relationship becomes context — and the platform's AI gets the data it needs to reason properly.</p>
+    </div>
+
+    <ol class="oeg__pipe">
+      <li class="oeg__stage">
+        <span class="oeg__stage-mark">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="8" cy="8" r="2.4" fill="currentColor"/>
+            <circle cx="24" cy="8" r="2.4" fill="currentColor" opacity="0.5"/>
+            <circle cx="8" cy="24" r="2.4" fill="currentColor" opacity="0.5"/>
+            <circle cx="24" cy="24" r="2.4" fill="currentColor"/>
+            <rect x="13" y="13" width="6" height="6" fill="currentColor" opacity="0.85"/>
+          </svg>
+        </span>
+        <span class="oeg__stage-num">01 · Objects</span>
+        <h4>Typed Nodes</h4>
+        <p>Every asset, person, place, device, workflow and system record becomes a typed node with attributes, status, ownership and lifecycle.</p>
+      </li>
+      <li class="oeg__stage">
+        <span class="oeg__stage-mark">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+            <line x1="6" y1="10" x2="26" y2="10" opacity="0.45"/>
+            <line x1="6" y1="10" x2="16" y2="24" opacity="0.45"/>
+            <line x1="26" y1="10" x2="16" y2="24" opacity="0.45"/>
+            <circle cx="6" cy="10" r="2.4" fill="currentColor"/>
+            <circle cx="26" cy="10" r="2.4" fill="currentColor"/>
+            <circle cx="16" cy="24" r="2.4" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="oeg__stage-num">02 · Relationships</span>
+        <h4>Connected Edges</h4>
+        <p>Nodes are linked through ownership, location, assignment, detection, approval and dependency relationships — built continuously, automatically.</p>
+      </li>
+      <li class="oeg__stage">
+        <span class="oeg__stage-mark">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+            <line x1="4" y1="16" x2="28" y2="16" opacity="0.5"/>
+            <circle cx="9" cy="16" r="1.6" fill="currentColor"/>
+            <circle cx="23" cy="16" r="1.6" fill="currentColor"/>
+            <circle cx="16" cy="16" r="3" fill="currentColor">
+              <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </span>
+        <span class="oeg__stage-num">03 · Events</span>
+        <h4>Time-stamped Timeline</h4>
+        <p>Every movement, reading, alert, update, inspection and workflow step becomes a time-stamped event linked to the objects it touched.</p>
+      </li>
+      <li class="oeg__stage">
+        <span class="oeg__stage-mark">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+            <rect x="5" y="20" width="22" height="6" rx="1" fill="currentColor" opacity="0.15"/>
+            <rect x="5" y="20" width="22" height="6" rx="1" stroke="currentColor"/>
+            <rect x="5" y="13" width="22" height="6" rx="1" fill="currentColor" opacity="0.28"/>
+            <rect x="5" y="13" width="22" height="6" rx="1" stroke="currentColor"/>
+            <rect x="5" y="6" width="22" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+            <rect x="5" y="6" width="22" height="6" rx="1" stroke="currentColor"/>
+          </svg>
+        </span>
+        <span class="oeg__stage-num">04 · Context</span>
+        <h4>Auto-built Context</h4>
+        <p>Live events fuse with object history, rules, ownership, location and operational status — so every signal arrives with its full backstory.</p>
+      </li>
+      <li class="oeg__stage">
+        <span class="oeg__stage-mark">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+            <g opacity="0.8">
+              <line x1="16" y1="4" x2="16" y2="8.5"/>
+              <line x1="16" y1="23.5" x2="16" y2="28"/>
+              <line x1="4" y1="16" x2="8.5" y2="16"/>
+              <line x1="23.5" y1="16" x2="28" y2="16"/>
+            </g>
+            <g opacity="0.5">
+              <line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/>
+              <line x1="21.5" y1="21.5" x2="24.5" y2="24.5"/>
+              <line x1="7.5" y1="24.5" x2="10.5" y2="21.5"/>
+              <line x1="21.5" y1="10.5" x2="24.5" y2="7.5"/>
+            </g>
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="2.2s" repeatCount="indefinite"/>
+          </svg>
+        </span>
+        <span class="oeg__stage-num">05 · Intelligence</span>
+        <h4>AI &amp; Decisioning</h4>
+        <p>Agents, ML models and the Decision Engine query the graph — and reason with full context, not isolated records.</p>
+      </li>
+    </ol>
+
+    <!-- ── PART 3 · Key capabilities ── -->
+    <div class="section-head oeg__section-head oeg__section-head--center">
+      <div class="eyebrow">// Key capabilities</div>
+      <h2 class="section-title">One graph. <em style="font-style:normal;color:var(--accent)">Every operational answer.</em></h2>
+      <p class="section-lead">A structured intelligence layer that powers every other capability on the platform — from agent reasoning to root-cause analysis to audit-grade compliance.</p>
+    </div>
+
+    <div class="oeg__caps">
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+              <circle cx="8" cy="8" r="2.4" fill="currentColor"/>
+              <circle cx="24" cy="8" r="2.4" fill="currentColor" opacity="0.55"/>
+              <circle cx="8" cy="24" r="2.4" fill="currentColor" opacity="0.55"/>
+              <circle cx="24" cy="24" r="2.4" fill="currentColor"/>
+              <rect x="13" y="13" width="6" height="6" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">01 · Foundation</span>
+        </div>
+        <h4>Typed Nodes</h4>
+        <p>Represent every asset, place, person, device, signal, workflow and incident as a structured object with attributes, status, owner and lifecycle stage.</p>
+        <div class="oeg__cap-meta">
+          <span>Attributes &amp; status</span>
+          <span>Ownership</span>
+          <span>Lifecycle stage</span>
+        </div>
+      </article>
+
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+              <line x1="6" y1="10" x2="26" y2="10" opacity="0.45"/>
+              <line x1="6" y1="10" x2="16" y2="24" opacity="0.45"/>
+              <line x1="26" y1="10" x2="16" y2="24" opacity="0.45"/>
+              <circle cx="6" cy="10" r="2.4" fill="currentColor"/>
+              <circle cx="26" cy="10" r="2.4" fill="currentColor"/>
+              <circle cx="16" cy="24" r="2.4" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">02 · Connections</span>
+        </div>
+        <h4>Relationship Mapping</h4>
+        <p>Understand how every object is connected across locations, systems, teams and processes — and what depends on what when something changes.</p>
+        <div class="oeg__cap-meta">
+          <span>Asset ↔ location</span>
+          <span>Person ↔ task</span>
+          <span>Sensor ↔ zone</span>
+        </div>
+      </article>
+
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+              <line x1="4" y1="16" x2="28" y2="16" opacity="0.5"/>
+              <circle cx="9" cy="16" r="1.6" fill="currentColor"/>
+              <circle cx="23" cy="16" r="1.6" fill="currentColor"/>
+              <circle cx="16" cy="16" r="3" fill="currentColor">
+                <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">03 · History</span>
+        </div>
+        <h4>Event Timeline</h4>
+        <p>Track every movement, reading, update, alert, approval and action over time. Replay any object's history at any granularity — second-by-second.</p>
+        <div class="oeg__cap-meta">
+          <span>Time-stamped events</span>
+          <span>Replay &amp; rewind</span>
+          <span>Long-term retention</span>
+        </div>
+      </article>
+
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3">
+              <circle cx="16" cy="16" r="2.4" fill="currentColor"/>
+              <circle cx="16" cy="16" r="6" stroke="currentColor">
+                <animate attributeName="r" values="3;9" dur="1.8s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.9;0" dur="1.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="16" cy="16" r="6" stroke="currentColor">
+                <animate attributeName="r" values="3;9" dur="1.8s" begin="0.7s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.6;0" dur="1.8s" begin="0.7s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">04 · State</span>
+        </div>
+        <h4>Real-Time State</h4>
+        <p>Know the current location, status, owner, condition and operational state of every object — and exactly what was true at any past moment.</p>
+        <div class="oeg__cap-meta">
+          <span>Current state</span>
+          <span>Temporal queries</span>
+          <span>Sub-second freshness</span>
+        </div>
+      </article>
+
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <circle cx="16" cy="6" r="2.4" fill="currentColor"/>
+              <circle cx="7" cy="18" r="2" fill="currentColor" opacity="0.7"/>
+              <circle cx="16" cy="18" r="2" fill="currentColor" opacity="0.7"/>
+              <circle cx="25" cy="18" r="2" fill="currentColor" opacity="0.7"/>
+              <circle cx="7" cy="27" r="1.6" fill="currentColor" opacity="0.5"/>
+              <circle cx="25" cy="27" r="1.6" fill="currentColor" opacity="0.5"/>
+              <line x1="16" y1="9" x2="7" y2="16" opacity="0.4"/>
+              <line x1="16" y1="9" x2="16" y2="16" opacity="0.4"/>
+              <line x1="16" y1="9" x2="25" y2="16" opacity="0.4"/>
+              <line x1="7" y1="20" x2="7" y2="25" opacity="0.4"/>
+              <line x1="25" y1="20" x2="25" y2="25" opacity="0.4"/>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">05 · Investigate</span>
+        </div>
+        <h4>Root Cause Visibility</h4>
+        <p>Trace what happened before, during and after any event. Surface what triggered it, what was affected and what changed downstream — without leaving the platform.</p>
+        <div class="oeg__cap-meta">
+          <span>Backward trace</span>
+          <span>Forward impact</span>
+          <span>Dependency graph</span>
+        </div>
+      </article>
+
+      <article class="oeg__cap">
+        <div class="oeg__cap-head">
+          <span class="oeg__cap-mo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <circle cx="16" cy="16" r="3" fill="currentColor"/>
+              <g opacity="0.85">
+                <line x1="16" y1="4" x2="16" y2="8.5"/>
+                <line x1="16" y1="23.5" x2="16" y2="28"/>
+                <line x1="4" y1="16" x2="8.5" y2="16"/>
+                <line x1="23.5" y1="16" x2="28" y2="16"/>
+              </g>
+              <g opacity="0.5">
+                <line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/>
+                <line x1="21.5" y1="21.5" x2="24.5" y2="24.5"/>
+                <line x1="7.5" y1="24.5" x2="10.5" y2="21.5"/>
+                <line x1="21.5" y1="10.5" x2="24.5" y2="7.5"/>
+              </g>
+            </svg>
+          </span>
+          <span class="oeg__cap-tag">06 · AI-Ready</span>
+        </div>
+        <h4>Structured Context</h4>
+        <p>Give AI agents, ML models and the Decision Engine the connected, typed, audit-grade context they need to recommend and automate with confidence.</p>
+        <div class="oeg__cap-meta">
+          <span>Agent grounding</span>
+          <span>ML feature store</span>
+          <span>Decision provenance</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- ── PART 4 · Business value ── -->
+    <div class="oeg__value">
+      <div class="oeg__value-head">
+        <div class="eyebrow">// Why it matters</div>
+        <h3>From <em style="font-style:normal;color:var(--accent)">isolated records</em> to <em style="font-style:normal;color:var(--accent)">connected intelligence.</em></h3>
+      </div>
+      <div class="oeg__value-grid">
+        <div class="oeg__vcell">
+          <div class="oeg__vnum">100%</div>
+          <div class="oeg__vname">Complete visibility</div>
+          <p>Every asset, person, location, system and event — connected in one operational view, not scattered across silos.</p>
+        </div>
+        <div class="oeg__vcell">
+          <div class="oeg__vnum">−74%</div>
+          <div class="oeg__vname">Faster investigation</div>
+          <p>Trace incidents, exceptions and movements end-to-end without manually checking five different systems.</p>
+        </div>
+        <div class="oeg__vcell">
+          <div class="oeg__vnum">2.8×</div>
+          <div class="oeg__vname">Smarter automation</div>
+          <p>AI agents and workflows fire on relationships, context and impact — not isolated data points.</p>
+        </div>
+        <div class="oeg__vcell">
+          <div class="oeg__vnum">100%</div>
+          <div class="oeg__vname">Audit-traceable</div>
+          <p>A complete, immutable record of every event, relationship change, workflow action and system update.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="oeg__closing">
+      <strong>The Object &amp; Event Graph turns operational data from isolated records into connected intelligence</strong> —
+      giving every decision, every workflow and every AI agent the context needed to act with confidence.
+    </p>
+
+  </div>
+</section>
+
+<section class="section"><div class="container">
+
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// The type system</div>
+      <h2 class="section-title">Eight core types. <em style="font-style:normal;color:var(--accent)">Shape is the schema.</em></h2>
+      <p class="section-lead">Every node is a typed object with a stable identity and an owner. The glyph tells you the type at a glance — the same shapes are used everywhere else in the product.</p>
+    </div>
+    <div class="mk oeg__fig">
+      <div class="mk__bar">
+        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
+        <span class="mk__name">object-event-graph · types</span>
+      </div>
+      <div class="mk__canvas"><svg data-oeg-fig="types" role="img" aria-label="Eight core types. Shape is the schema."></svg></div>
+    </div>
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// Relationship schema</div>
+      <h2 class="section-title">Every permitted edge, <em style="font-style:normal;color:var(--accent)">enforced at write time.</em></h2>
+      <p class="section-lead">The graph is not free-form. Source type, target type and cardinality are declared up front, so a malformed relationship cannot be created — and a traversal can be reasoned about before it runs.</p>
+    </div>
+    <div class="mk oeg__fig">
+      <div class="mk__bar">
+        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
+        <span class="mk__name">object-event-graph · edges</span>
+      </div>
+      <div class="mk__canvas"><svg data-oeg-fig="edges" role="img" aria-label="The edges are where the answers live."></svg></div>
+    </div>
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// Temporal model</div>
+      <h2 class="section-title">The graph remembers <em style="font-style:normal;color:var(--accent)">every version.</em></h2>
+      <p class="section-lead">Two clocks, not one: when a fact was true, and when the system learned it. Late data lands at its real time without rewriting history.</p>
+    </div>
+    <div class="mk oeg__fig">
+      <div class="mk__bar">
+        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
+        <span class="mk__name">object-event-graph · temporal</span>
+      </div>
+      <div class="mk__canvas"><svg data-oeg-fig="temporal" role="img" aria-label="The graph remembers every version."></svg></div>
+    </div>
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// Query performance</div>
+      <h2 class="section-title">Traversal speed is <em style="font-style:normal;color:var(--accent)">the product.</em></h2>
+      <p class="section-lead">A two-hop query is a join. A five-hop query is an answer. Indicative figures at production scale.</p>
+    </div>
+    <div class="mk oeg__fig">
+      <div class="mk__bar">
+        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
+        <span class="mk__name">object-event-graph · latency</span>
+      </div>
+      <div class="mk__canvas"><svg data-oeg-fig="latency" role="img" aria-label="Traversal speed is the product."></svg></div>
+    </div>
+    <div class="section-head oeg__section-head">
+      <div class="eyebrow">// Governance</div>
+      <h2 class="section-title">Authority is evaluated <em style="font-style:normal;color:var(--accent)">hop by hop.</em></h2>
+      <p class="section-lead">A shared graph does not mean shared access. Every node and every edge in a traversal is authorised individually — allowed, redacted or denied — and the whole decision trail is written to audit, including what was refused.</p>
+    </div>
+    <div class="mk oeg__fig">
+      <div class="mk__bar">
+        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
+        <span class="mk__name">object-event-graph · boundary</span>
+      </div>
+      <div class="mk__canvas"><svg data-oeg-fig="boundary" role="img" aria-label="One graph, many boundaries."></svg></div>
+    </div>
+
+  </div></section>
+
+<!-- ─── CTA + Related ─── -->
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>See the Object & Event Graph running in your environment.</h2>
+    <p>A 60-minute architecture review with our solutions team. We map your sensors, your systems, and the workflows where this capability moves the needle.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Request review
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="platform.html">Full architecture →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related capabilities</h3>
+  <div class="cs-related__grid">
+    
+    <a class="cs-related__card" href="cap-agentic-ai.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Agentic AI Runtime</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+    <a class="cs-related__card" href="cap-decision-engine.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Decision Engine &amp; ML</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+    <a class="cs-related__card" href="cap-sensor-fabric.html">
+      <span class="cs-related__card-client">// Capability</span>
+      <h4>Sensor Fabric</h4>
+      <span class="arrow">Read capability →</span>
+    </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+<script src="../graph-visuals.js"></script>
+<script src="../graph-explorer.js"></script>
+</body></html>

@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Civil Defense — Innovent</title>
+<meta name="description" content="Slide the knobs, see your payback period, 3-year ROI, where the savings come from, and a cumulative cash-flow curve.">
+<link rel="canonical" href="https://www.innovent.io/pages/ind-civil-defense.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Civil Defense — Innovent">
+<meta property="og:description" content="Slide the knobs, see your payback period, 3-year ROI, where the savings come from, and a cumulative cash-flow curve.">
+<meta property="og:url" content="https://www.innovent.io/pages/ind-civil-defense.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Civil Defense — Innovent">
+<meta name="twitter:description" content="Slide the knobs, see your payback period, 3-year ROI, where the savings come from, and a cumulative cash-flow curve.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="_roi-calc.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="../styles-civil-defense.css">
+</head><body class="page cd" data-page="industries">
+<div id="site-nav"></div>
+
+<section class="cd__hero">
+  <div class="cd__hero-grid">
+    <div>
+      <div class="cd__hero-eyebrow">Defense &amp; Security / Civil Defense</div>
+      <h1 class="cd__hero-title">Civil Defense<br>Command &amp; <em>Readiness</em>.</h1>
+      <p class="cd__hero-deck">Real-time visibility for fire trucks, equipment, officers, incidents and operational readiness — from the station to the scene.</p>
+      <div class="cd__hero-meta">
+        <div class="cd__hero-meta-item">Readiness<b>96%</b></div>
+        <div class="cd__hero-meta-item">Items tagged<b>50</b></div>
+        <div class="cd__hero-meta-item">Audit ledger<b>100%</b></div>
+      </div>
+      <div class="cd__hero-ctas">
+        <a class="btn btn--primary" href="request-demo.html">Request demo
+          <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <a class="btn btn--secondary" href="command-control.html">Command &amp; Control</a>
+      </div>
+    </div>
+    <div class="cd__hud"><svg viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <radialGradient id="hud-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#7dd3fc" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hud-scan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#7dd3fc" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Top status bar -->
+  <g transform="translate(20,18)">
+    <text font-family="var(--font-mono)" font-size="10" fill="#7dd3fc" letter-spacing="0.22em">INNFINI CONTROL · LIVE</text>
+    <line x1="0" y1="10" x2="960" y2="10" stroke="rgba(125,211,252,0.15)"/>
+  </g>
+  <g transform="translate(20,42)" font-family="var(--font-mono)" font-size="9" fill="#7dd3fc" letter-spacing="0.16em">
+    <text>UTC 14:32:08</text>
+    <text x="120">FLEET · 12 / 14</text>
+    <text x="260">READINESS · 96%</text>
+    <text x="420">ALERTS · 03</text>
+    <text x="540">UPLINK · OK</text>
+    <text x="640">ENCRYPT · TLS</text>
+  </g>
+
+  <!-- Central radar / scope -->
+  <g transform="translate(500,360)">
+    <circle r="180" fill="url(#hud-core)"/>
+    <circle r="180" fill="none" stroke="rgba(125,211,252,0.35)" stroke-width="1.2"/>
+    <circle r="140" fill="none" stroke="rgba(125,211,252,0.20)" stroke-width="1"/>
+    <circle r="100" fill="none" stroke="rgba(125,211,252,0.18)" stroke-width="0.9"/>
+    <circle r="60" fill="none" stroke="rgba(125,211,252,0.22)" stroke-width="0.8"/>
+    <!-- Cross-hairs -->
+    <line x1="-180" y1="0" x2="180" y2="0" stroke="rgba(125,211,252,0.12)" stroke-dasharray="4 4"/>
+    <line x1="0" y1="-180" x2="0" y2="180" stroke="rgba(125,211,252,0.12)" stroke-dasharray="4 4"/>
+    <!-- Tick marks around outer ring -->
+    <g stroke="rgba(125,211,252,0.45)" stroke-width="1">
+      <line x1="180.0" y1="0.0" x2="168.0" y2="0.0"/><line x1="177.3" y1="31.3" x2="171.4" y2="30.2"/><line x1="169.1" y1="61.6" x2="163.5" y2="59.5"/><line x1="155.9" y1="90.0" x2="150.7" y2="87.0"/><line x1="137.9" y1="115.7" x2="133.3" y2="111.8"/><line x1="115.7" y1="137.9" x2="111.8" y2="133.3"/><line x1="90.0" y1="155.9" x2="87.0" y2="150.7"/><line x1="61.6" y1="169.1" x2="59.5" y2="163.5"/><line x1="31.3" y1="177.3" x2="30.2" y2="171.4"/><line x1="0.0" y1="180.0" x2="0.0" y2="168.0"/><line x1="-31.3" y1="177.3" x2="-30.2" y2="171.4"/><line x1="-61.6" y1="169.1" x2="-59.5" y2="163.5"/><line x1="-90.0" y1="155.9" x2="-87.0" y2="150.7"/><line x1="-115.7" y1="137.9" x2="-111.8" y2="133.3"/><line x1="-137.9" y1="115.7" x2="-133.3" y2="111.8"/><line x1="-155.9" y1="90.0" x2="-150.7" y2="87.0"/><line x1="-169.1" y1="61.6" x2="-163.5" y2="59.5"/><line x1="-177.3" y1="31.3" x2="-171.4" y2="30.2"/><line x1="-180.0" y1="0.0" x2="-168.0" y2="0.0"/><line x1="-177.3" y1="-31.3" x2="-171.4" y2="-30.2"/><line x1="-169.1" y1="-61.6" x2="-163.5" y2="-59.5"/><line x1="-155.9" y1="-90.0" x2="-150.7" y2="-87.0"/><line x1="-137.9" y1="-115.7" x2="-133.3" y2="-111.8"/><line x1="-115.7" y1="-137.9" x2="-111.8" y2="-133.3"/><line x1="-90.0" y1="-155.9" x2="-87.0" y2="-150.7"/><line x1="-61.6" y1="-169.1" x2="-59.5" y2="-163.5"/><line x1="-31.3" y1="-177.3" x2="-30.2" y2="-171.4"/><line x1="-0.0" y1="-180.0" x2="-0.0" y2="-168.0"/><line x1="31.3" y1="-177.3" x2="30.2" y2="-171.4"/><line x1="61.6" y1="-169.1" x2="59.5" y2="-163.5"/><line x1="90.0" y1="-155.9" x2="87.0" y2="-150.7"/><line x1="115.7" y1="-137.9" x2="111.8" y2="-133.3"/><line x1="137.9" y1="-115.7" x2="133.3" y2="-111.8"/><line x1="155.9" y1="-90.0" x2="150.7" y2="-87.0"/><line x1="169.1" y1="-61.6" x2="163.5" y2="-59.5"/><line x1="177.3" y1="-31.3" x2="171.4" y2="-30.2"/>
+    </g>
+    <!-- Rotating sweep -->
+    <g>
+      <path d="M 0 0 L 180 0 A 180 180 0 0 0 130 -125 Z" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.30)" stroke-width="0.8">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    <!-- Inner data hex ring -->
+    <g stroke="#7dd3fc" stroke-width="1" fill="none">
+      <polygon points="32,0 16,-28 -16,-28 -32,0 -16,28 16,28"/>
+      <polygon points="46,0 23,-40 -23,-40 -46,0 -23,40 23,40" opacity="0.45"/>
+    </g>
+    <!-- Detected targets -->
+    <g><circle cx="70" cy="-40" r="3" fill="#fda4af"/><circle cx="70" cy="-40" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="0.0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.0s" repeatCount="indefinite"/></circle></g><g><circle cx="120" cy="30" r="3" fill="#fda4af"/><circle cx="120" cy="30" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="0.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.4s" repeatCount="indefinite"/></circle></g><g><circle cx="-80" cy="60" r="3" fill="#fda4af"/><circle cx="-80" cy="60" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.8s" repeatCount="indefinite"/></circle></g><g><circle cx="-50" cy="-90" r="3" fill="#fda4af"/><circle cx="-50" cy="-90" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"/></circle></g><g><circle cx="140" cy="-95" r="3" fill="#fda4af"/><circle cx="140" cy="-95" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="1.6s" repeatCount="indefinite"/></circle></g><g><circle cx="-130" cy="-20" r="3" fill="#fda4af"/><circle cx="-130" cy="-20" r="3" fill="none" stroke="#fda4af" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.4s" begin="2.0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="2.0s" repeatCount="indefinite"/></circle></g>
+    <!-- Center dot -->
+    <circle r="4" fill="#7dd3fc"/>
+  </g>
+
+  <!-- Left panel: telemetry bars -->
+  <g transform="translate(40,90)">
+    <text font-family="var(--font-mono)" font-size="10" fill="#7dd3fc" letter-spacing="0.18em">TELEMETRY · LIVE</text>
+    <line x1="0" y1="14" x2="180" y2="14" stroke="rgba(125,211,252,0.20)"/>
+    <g><text font-family="var(--font-mono)" font-size="9.5" letter-spacing="0.14em" fill="#94a3b8" y="36">CPU</text><text font-family="var(--font-mono)" font-size="11" font-weight="700" fill="#7dd3fc" x="180" y="36" text-anchor="end">64%</text><rect x="0" y="44" width="180" height="6" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.20)" stroke-width="0.5"/><rect x="0" y="44" width="115.2" height="6" fill="#7dd3fc"/></g><g><text font-family="var(--font-mono)" font-size="9.5" letter-spacing="0.14em" fill="#94a3b8" y="80">MEM</text><text font-family="var(--font-mono)" font-size="11" font-weight="700" fill="#7dd3fc" x="180" y="80" text-anchor="end">52%</text><rect x="0" y="88" width="180" height="6" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.20)" stroke-width="0.5"/><rect x="0" y="88" width="93.60000000000001" height="6" fill="#7dd3fc"/></g><g><text font-family="var(--font-mono)" font-size="9.5" letter-spacing="0.14em" fill="#94a3b8" y="124">NET</text><text font-family="var(--font-mono)" font-size="11" font-weight="700" fill="#7dd3fc" x="180" y="124" text-anchor="end">82%</text><rect x="0" y="132" width="180" height="6" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.20)" stroke-width="0.5"/><rect x="0" y="132" width="147.6" height="6" fill="#7dd3fc"/></g><g><text font-family="var(--font-mono)" font-size="9.5" letter-spacing="0.14em" fill="#94a3b8" y="168">RFID</text><text font-family="var(--font-mono)" font-size="11" font-weight="700" fill="#7dd3fc" x="180" y="168" text-anchor="end">96%</text><rect x="0" y="176" width="180" height="6" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.20)" stroke-width="0.5"/><rect x="0" y="176" width="172.8" height="6" fill="#7dd3fc"/></g><g><text font-family="var(--font-mono)" font-size="9.5" letter-spacing="0.14em" fill="#94a3b8" y="212">EDGE</text><text font-family="var(--font-mono)" font-size="11" font-weight="700" fill="#7dd3fc" x="180" y="212" text-anchor="end">38%</text><rect x="0" y="220" width="180" height="6" fill="rgba(125,211,252,0.10)" stroke="rgba(125,211,252,0.20)" stroke-width="0.5"/><rect x="0" y="220" width="68.4" height="6" fill="#7dd3fc"/></g>
+  </g>
+
+  <!-- Left bottom: spectrum analyzer -->
+  <g transform="translate(40,420)">
+    <text font-family="var(--font-mono)" font-size="10" fill="#7dd3fc" letter-spacing="0.18em">SIGNAL · UHF</text>
+    <line x1="0" y1="14" x2="180" y2="14" stroke="rgba(125,211,252,0.20)"/>
+    <g transform="translate(0,30)">
+      <rect x="0" y="46.77505418547725" width="4" height="13.22494581452275" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="13.22494581452275;6.612472907261375;13.22494581452275" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="46.77505418547725;53.38752709273862;46.77505418547725" dur="1.5s" repeatCount="indefinite"/></rect><rect x="6" y="22.801028190438338" width="4" height="37.19897180956166" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="37.19897180956166;18.59948590478083;37.19897180956166" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="22.801028190438338;41.400514095219165;22.801028190438338" dur="1.7s" repeatCount="indefinite"/></rect><rect x="12" y="10.641509279519838" width="4" height="49.35849072048016" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="49.35849072048016;24.67924536024008;49.35849072048016" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="10.641509279519838;35.32075463975992;10.641509279519838" dur="1.9s" repeatCount="indefinite"/></rect><rect x="18" y="7.70428908756098" width="4" height="52.29571091243902" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="52.29571091243902;26.14785545621951;52.29571091243902" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="7.70428908756098;33.85214454378049;7.70428908756098" dur="2.1s" repeatCount="indefinite"/></rect><rect x="24" y="22.913773248028868" width="4" height="37.08622675197113" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="37.08622675197113;18.543113375985566;37.08622675197113" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="22.913773248028868;41.45688662401443;22.913773248028868" dur="1.5s" repeatCount="indefinite"/></rect><rect x="30" y="42.06724039257246" width="4" height="17.932759607427542" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="17.932759607427542;8.966379803713771;17.932759607427542" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="42.06724039257246;51.03362019628623;42.06724039257246" dur="1.7s" repeatCount="indefinite"/></rect><rect x="36" y="27.7945359321483" width="4" height="32.2054640678517" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="32.2054640678517;16.10273203392585;32.2054640678517" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="27.7945359321483;43.89726796607415;27.7945359321483" dur="1.9s" repeatCount="indefinite"/></rect><rect x="42" y="13.929024353664119" width="4" height="46.07097564633588" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="46.07097564633588;23.03548782316794;46.07097564633588" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="13.929024353664119;36.96451217683206;13.929024353664119" dur="2.1s" repeatCount="indefinite"/></rect><rect x="48" y="5.0117873139953275" width="4" height="54.98821268600467" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="54.98821268600467;27.494106343002336;54.98821268600467" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="5.0117873139953275;32.505893656997664;5.0117873139953275" dur="1.5s" repeatCount="indefinite"/></rect><rect x="54" y="12.00376089293146" width="4" height="47.99623910706854" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="47.99623910706854;23.99811955353427;47.99623910706854" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="12.00376089293146;36.001880446465734;12.00376089293146" dur="1.7s" repeatCount="indefinite"/></rect><rect x="60" y="36.115415500998935" width="4" height="23.884584499001065" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="23.884584499001065;11.942292249500532;23.884584499001065" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="36.115415500998935;48.05770775049947;36.115415500998935" dur="1.9s" repeatCount="indefinite"/></rect><rect x="66" y="34.727524976685146" width="4" height="25.27247502331485" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="25.27247502331485;12.636237511657425;25.27247502331485" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="34.727524976685146;47.36376248834257;34.727524976685146" dur="2.1s" repeatCount="indefinite"/></rect><rect x="72" y="14.653839566047566" width="4" height="45.346160433952434" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="45.346160433952434;22.673080216976217;45.346160433952434" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="14.653839566047566;37.32691978302378;14.653839566047566" dur="1.5s" repeatCount="indefinite"/></rect><rect x="78" y="7.206446408643544" width="4" height="52.793553591356456" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="52.793553591356456;26.396776795678228;52.793553591356456" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="7.206446408643544;33.60322320432177;7.206446408643544" dur="1.7s" repeatCount="indefinite"/></rect><rect x="84" y="12.769857715113432" width="4" height="47.23014228488657" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="47.23014228488657;23.615071142443284;47.23014228488657" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="12.769857715113432;36.384928857556716;12.769857715113432" dur="1.9s" repeatCount="indefinite"/></rect><rect x="90" y="32.46029165380589" width="4" height="27.53970834619411" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="27.53970834619411;13.769854173097055;27.53970834619411" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="32.46029165380589;46.23014582690294;32.46029165380589" dur="2.1s" repeatCount="indefinite"/></rect><rect x="96" y="42.25191687443538" width="4" height="17.74808312556462" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="17.74808312556462;8.87404156278231;17.74808312556462" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="42.25191687443538;51.12595843721769;42.25191687443538" dur="1.5s" repeatCount="indefinite"/></rect><rect x="102" y="16.148800638003166" width="4" height="43.851199361996834" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="43.851199361996834;21.925599680998417;43.851199361996834" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="16.148800638003166;38.07440031900158;16.148800638003166" dur="1.7s" repeatCount="indefinite"/></rect><rect x="108" y="8.293414276675307" width="4" height="51.70658572332469" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="51.70658572332469;25.853292861662347;51.70658572332469" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="8.293414276675307;34.14670713833765;8.293414276675307" dur="1.9s" repeatCount="indefinite"/></rect><rect x="114" y="7.310280523045485" width="4" height="52.689719476954515" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="52.689719476954515;26.344859738477258;52.689719476954515" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="7.310280523045485;33.655140261522746;7.310280523045485" dur="2.1s" repeatCount="indefinite"/></rect><rect x="120" y="20.733148778838483" width="4" height="39.26685122116152" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="39.26685122116152;19.63342561058076;39.26685122116152" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="20.733148778838483;40.36657438941924;20.733148778838483" dur="1.5s" repeatCount="indefinite"/></rect><rect x="126" y="43.64385276267836" width="4" height="16.356147237321643" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="16.356147237321643;8.178073618660822;16.356147237321643" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="43.64385276267836;51.82192638133918;43.64385276267836" dur="1.7s" repeatCount="indefinite"/></rect><rect x="132" y="25.118539226169105" width="4" height="34.881460773830895" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="34.881460773830895;17.440730386915448;34.881460773830895" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="25.118539226169105;42.55926961308455;25.118539226169105" dur="1.9s" repeatCount="indefinite"/></rect><rect x="138" y="4.255665123403247" width="4" height="55.74433487659675" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="55.74433487659675;27.872167438298376;55.74433487659675" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="4.255665123403247;32.127832561701624;4.255665123403247" dur="2.1s" repeatCount="indefinite"/></rect><rect x="144" y="10.375956083149376" width="4" height="49.624043916850624" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="49.624043916850624;24.812021958425312;49.624043916850624" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="10.375956083149376;35.18797804157469;10.375956083149376" dur="1.5s" repeatCount="indefinite"/></rect><rect x="150" y="23.15064557858412" width="4" height="36.84935442141588" fill="#7dd3fc" opacity="0.4"><animate attributeName="height" values="36.84935442141588;18.42467721070794;36.84935442141588" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="23.15064557858412;41.57532278929206;23.15064557858412" dur="1.7s" repeatCount="indefinite"/></rect><rect x="156" y="42.826372741236916" width="4" height="17.173627258763084" fill="#7dd3fc" opacity="0.48333333333333334"><animate attributeName="height" values="17.173627258763084;8.586813629381542;17.173627258763084" dur="1.9s" repeatCount="indefinite"/><animate attributeName="y" values="42.826372741236916;51.41318637061846;42.826372741236916" dur="1.9s" repeatCount="indefinite"/></rect><rect x="162" y="30.19859015249854" width="4" height="29.80140984750146" fill="#7dd3fc" opacity="0.5666666666666667"><animate attributeName="height" values="29.80140984750146;14.90070492375073;29.80140984750146" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="30.19859015249854;45.09929507624927;30.19859015249854" dur="2.1s" repeatCount="indefinite"/></rect><rect x="168" y="12.264315479476515" width="4" height="47.735684520523485" fill="#7dd3fc" opacity="0.65"><animate attributeName="height" values="47.735684520523485;23.867842260261742;47.735684520523485" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="12.264315479476515;36.13215773973826;12.264315479476515" dur="1.5s" repeatCount="indefinite"/></rect><rect x="174" y="6.279527396197494" width="4" height="53.720472603802506" fill="#7dd3fc" opacity="0.7333333333333334"><animate attributeName="height" values="53.720472603802506;26.860236301901253;53.720472603802506" dur="1.7s" repeatCount="indefinite"/><animate attributeName="y" values="6.279527396197494;33.13976369809875;6.279527396197494" dur="1.7s" repeatCount="indefinite"/></rect>
+    </g>
+  </g>
+
+  <!-- Right top: satellite + uplink card -->
+  <g transform="translate(800,90)">
+    <text font-family="var(--font-mono)" font-size="10" fill="#7dd3fc" letter-spacing="0.18em">UPLINK · SAT-04</text>
+    <line x1="0" y1="14" x2="160" y2="14" stroke="rgba(125,211,252,0.20)"/>
+    <!-- Satellite icon -->
+    <g transform="translate(60,60)" stroke="#7dd3fc" stroke-width="1.4" fill="none">
+      <rect x="-12" y="-8" width="24" height="16" rx="2" fill="rgba(125,211,252,0.10)"/>
+      <line x1="-30" y1="-2" x2="-14" y2="-2"/>
+      <line x1="14" y1="-2" x2="30" y2="-2"/>
+      <line x1="-30" y1="2" x2="-14" y2="2"/>
+      <line x1="14" y1="2" x2="30" y2="2"/>
+      <line x1="0" y1="-22" x2="0" y2="-8"/>
+      <circle r="3" cx="0" cy="-22" fill="#fcd34d" stroke="none"><animate attributeName="opacity" values="1;0.4;1" dur="1.6s" repeatCount="indefinite"/></circle>
+    </g>
+    <text font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8" y="110" letter-spacing="0.12em">LATENCY 84ms</text>
+    <text font-family="var(--font-mono)" font-size="9.5" fill="#a7f3d0" y="126" letter-spacing="0.12em">STATUS · NOMINAL</text>
+  </g>
+
+  <!-- Right middle: world dot map -->
+  <g transform="translate(740,260)">
+    <text font-family="var(--font-mono)" font-size="10" fill="#7dd3fc" letter-spacing="0.18em">GLOBAL · 12 SITES</text>
+    <line x1="0" y1="14" x2="220" y2="14" stroke="rgba(125,211,252,0.20)"/>
+    <!-- Dotted "world map" (abstract) -->
+    <g fill="rgba(125,211,252,0.55)">
+      <circle cx="110.0" cy="130.0" r="0.9"/><circle cx="180.9" cy="123.3" r="0.9"/><circle cx="218.4" cy="104.7" r="0.9"/><circle cx="205.0" cy="78.9" r="0.9"/><circle cx="146.8" cy="52.1" r="0.9"/><circle cx="71.4" cy="30.9" r="0.9"/><circle cx="14.1" cy="20.6" r="0.9"/><circle cx="1.9" cy="23.5" r="0.9"/><circle cx="40.6" cy="39.0" r="0.9"/><circle cx="111.8" cy="63.4" r="0.9"/><circle cx="182.3" cy="90.6" r="0.9"/><circle cx="218.7" cy="114.0" r="0.9"/><circle cx="204.0" cy="127.8" r="0.9"/><circle cx="145.1" cy="128.7" r="0.9"/><circle cx="69.7" cy="116.5" r="0.9"/><circle cx="13.2" cy="94.1" r="0.9"/><circle cx="2.3" cy="67.0" r="0.9"/><circle cx="42.0" cy="41.9" r="0.9"/><circle cx="113.7" cy="24.9" r="0.9"/><circle cx="183.7" cy="20.2" r="0.9"/><circle cx="219.0" cy="28.9" r="0.9"/><circle cx="203.0" cy="48.8" r="0.9"/><circle cx="143.3" cy="75.2" r="0.9"/><circle cx="68.0" cy="101.6" r="0.9"/><circle cx="12.4" cy="121.4" r="0.9"/><circle cx="2.7" cy="129.9" r="0.9"/><circle cx="43.5" cy="124.9" r="0.9"/><circle cx="115.5" cy="107.7" r="0.9"/><circle cx="185.0" cy="82.5" r="0.9"/><circle cx="219.2" cy="55.5" r="0.9"/><circle cx="202.0" cy="33.2" r="0.9"/><circle cx="141.6" cy="21.2" r="0.9"/><circle cx="66.3" cy="22.3" r="0.9"/><circle cx="11.5" cy="36.4" r="0.9"/><circle cx="3.1" cy="59.9" r="0.9"/><circle cx="45.0" cy="87.1" r="0.9"/><circle cx="117.4" cy="111.3" r="0.9"/><circle cx="186.4" cy="126.7" r="0.9"/><circle cx="219.4" cy="129.4" r="0.9"/><circle cx="201.0" cy="118.8" r="0.9"/><circle cx="139.8" cy="97.4" r="0.9"/><circle cx="64.6" cy="70.6" r="0.9"/><circle cx="10.7" cy="44.9" r="0.9"/><circle cx="3.6" cy="26.5" r="0.9"/><circle cx="46.5" cy="20.0" r="0.9"/><circle cx="119.2" cy="27.0" r="0.9"/><circle cx="187.7" cy="45.7" r="0.9"/><circle cx="219.6" cy="71.6" r="0.9"/><circle cx="200.0" cy="98.3" r="0.9"/><circle cx="138.0" cy="119.4" r="0.9"/><circle cx="62.9" cy="129.5" r="0.9"/><circle cx="9.9" cy="126.3" r="0.9"/><circle cx="4.0" cy="110.6" r="0.9"/><circle cx="48.0" cy="86.1" r="0.9"/><circle cx="121.1" cy="58.9" r="0.9"/><circle cx="189.0" cy="35.7" r="0.9"/><circle cx="219.7" cy="22.1" r="0.9"/><circle cx="198.9" cy="21.4" r="0.9"/><circle cx="136.2" cy="33.9" r="0.9"/><circle cx="61.2" cy="56.4" r="0.9"/><circle cx="9.2" cy="83.5" r="0.9"/><circle cx="4.5" cy="108.5" r="0.9"/><circle cx="49.5" cy="125.3" r="0.9"/><circle cx="122.9" cy="129.8" r="0.9"/><circle cx="190.3" cy="120.9" r="0.9"/><circle cx="219.8" cy="100.7" r="0.9"/><circle cx="197.8" cy="74.3" r="0.9"/><circle cx="134.4" cy="48.0" r="0.9"/><circle cx="59.6" cy="28.3" r="0.9"/><circle cx="8.5" cy="20.1" r="0.9"/><circle cx="5.1" cy="25.3" r="0.9"/><circle cx="51.1" cy="42.7" r="0.9"/><circle cx="124.8" cy="68.0" r="0.9"/><circle cx="191.5" cy="95.0" r="0.9"/><circle cx="219.9" cy="117.1" r="0.9"/><circle cx="196.6" cy="128.9" r="0.9"/><circle cx="132.6" cy="127.5" r="0.9"/><circle cx="57.9" cy="113.3" r="0.9"/><circle cx="7.8" cy="89.7" r="0.9"/><circle cx="5.7" cy="62.5" r="0.9"/><circle cx="52.6" cy="38.3" r="0.9"/><circle cx="126.6" cy="23.2" r="0.9"/><circle cx="192.7" cy="20.7" r="0.9"/><circle cx="220.0" cy="31.5" r="0.9"/><circle cx="195.5" cy="53.0" r="0.9"/><circle cx="130.8" cy="79.9" r="0.9"/><circle cx="56.3" cy="105.5" r="0.9"/><circle cx="7.1" cy="123.7" r="0.9"/><circle cx="6.3" cy="130.0" r="0.9"/><circle cx="54.2" cy="122.8" r="0.9"/><circle cx="128.4" cy="103.9" r="0.9"/><circle cx="193.9" cy="77.9" r="0.9"/><circle cx="220.0" cy="51.2" r="0.9"/><circle cx="194.3" cy="30.4" r="0.9"/><circle cx="129.0" cy="20.4" r="0.9"/><circle cx="54.7" cy="23.8" r="0.9"/><circle cx="6.5" cy="39.8" r="0.9"/><circle cx="6.9" cy="64.4" r="0.9"/><circle cx="55.8" cy="91.5" r="0.9"/><circle cx="130.2" cy="114.7" r="0.9"/><circle cx="195.1" cy="128.1" r="0.9"/><circle cx="220.0" cy="128.5" r="0.9"/><circle cx="193.1" cy="115.8" r="0.9"/><circle cx="127.2" cy="93.1" r="0.9"/><circle cx="53.1" cy="66.0" r="0.9"/><circle cx="5.8" cy="41.1" r="0.9"/><circle cx="7.5" cy="24.5" r="0.9"/><circle cx="57.4" cy="20.2" r="0.9"/><circle cx="132.0" cy="29.4" r="0.9"/><circle cx="196.3" cy="49.7" r="0.9"/><circle cx="219.9" cy="76.2" r="0.9"/><circle cx="191.9" cy="102.4" r="0.9"/><circle cx="125.3" cy="121.9" r="0.9"/><circle cx="51.6" cy="129.9" r="0.9"/><circle cx="5.3" cy="124.5" r="0.9"/><circle cx="8.2" cy="106.9" r="0.9"/><circle cx="59.1" cy="81.6" r="0.9"/><circle cx="133.9" cy="54.6" r="0.9"/><circle cx="197.4" cy="32.6" r="0.9"/><circle cx="219.9" cy="21.0" r="0.9"/>
+    </g>
+    <!-- Active sites -->
+    <g><circle cx="40" cy="40" r="2.6" fill="#a7f3d0"/><circle cx="40" cy="40" r="2.6" fill="none" stroke="#a7f3d0" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.6s" begin="0.0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.6s" begin="0.0s" repeatCount="indefinite"/></circle></g><g><circle cx="100" cy="60" r="2.6" fill="#a7f3d0"/><circle cx="100" cy="60" r="2.6" fill="none" stroke="#a7f3d0" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.6s" begin="0.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.6s" begin="0.5s" repeatCount="indefinite"/></circle></g><g><circle cx="160" cy="55" r="2.6" fill="#a7f3d0"/><circle cx="160" cy="55" r="2.6" fill="none" stroke="#a7f3d0" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.6s" begin="1.0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.6s" begin="1.0s" repeatCount="indefinite"/></circle></g><g><circle cx="80" cy="90" r="2.6" fill="#a7f3d0"/><circle cx="80" cy="90" r="2.6" fill="none" stroke="#a7f3d0" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.6s" begin="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.6s" begin="1.5s" repeatCount="indefinite"/></circle></g><g><circle cx="170" cy="90" r="2.6" fill="#a7f3d0"/><circle cx="170" cy="90" r="2.6" fill="none" stroke="#a7f3d0" stroke-width="0.9"><animate attributeName="r" values="2;10" dur="2.6s" begin="2.0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.6s" begin="2.0s" repeatCount="indefinite"/></circle></g>
+  </g>
+
+  <!-- Right bottom: incident card -->
+  <g transform="translate(740,460)">
+    <rect width="220" height="120" rx="3" fill="rgba(8,13,24,0.85)" stroke="rgba(125,211,252,0.30)"/>
+    <text x="14" y="22" font-family="var(--font-mono)" font-size="10" letter-spacing="0.18em" fill="#fda4af">INC-8872323</text>
+    <text x="14" y="46" font-family="var(--font-display)" font-size="18" font-weight="600" fill="#f1f5f9">Low O2 · Veh 2</text>
+    <line x1="14" y1="58" x2="206" y2="58" stroke="rgba(255,255,255,0.10)"/>
+    <text x="14" y="78" font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8">RESPONSE 4:32</text>
+    <text x="14" y="94" font-family="var(--font-mono)" font-size="9.5" fill="#a7f3d0">DISPATCHED</text>
+    <text x="14" y="110" font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8">UNIT M-04 · ETA 3</text>
+  </g>
+
+  <!-- Bottom panel: 3-up histograms -->
+  <g transform="translate(40,600)">
+    <line x1="0" y1="0" x2="920" y2="0" stroke="rgba(255,255,255,0.10)"/>
+    <g transform="translate(0,14)">
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8" letter-spacing="0.14em">UNITS</text>
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#7dd3fc" x="280" text-anchor="end" letter-spacing="0.14em">12 / 14</text>
+      <g transform="translate(0,18)">
+        <rect x="0" y="26" width="5" height="30" fill="#7dd3fc" opacity="0.45"/><rect x="8" y="15.452638150707536" width="5" height="40.547361849292464" fill="#7dd3fc" opacity="0.45"/><rect x="16" y="7.487638334226276" width="5" height="48.512361665773724" fill="#7dd3fc" opacity="0.45"/><rect x="24" y="4.055110294710801" width="5" height="51.9448897052892" fill="#7dd3fc" opacity="0.45"/><rect x="32" y="5.995456609835003" width="5" height="50.004543390165" fill="#7dd3fc" opacity="0.45"/><rect x="40" y="12.833612829712962" width="5" height="43.16638717028704" fill="#7dd3fc" opacity="0.45"/><rect x="48" y="22.89535982268292" width="5" height="33.10464017731708" fill="#7dd3fc" opacity="0.45"/><rect x="56" y="33.71723100917164" width="5" height="22.282768990828362" fill="#7dd3fc" opacity="0.45"/><rect x="64" y="42.64965489677442" width="5" height="13.35034510322558" fill="#7dd3fc" opacity="0.45"/><rect x="72" y="47.505662588632134" width="5" height="8.494337411367866" fill="#7dd3fc" opacity="0.45"/><rect x="80" y="47.09633404258905" width="5" height="8.903665957410954" fill="#7dd3fc" opacity="0.45"/><rect x="88" y="41.52188716254862" width="5" height="14.478112837451377" fill="#7dd3fc" opacity="0.45"/><rect x="96" y="32.14714096037637" width="5" height="23.85285903962363" fill="#7dd3fc" opacity="0.45"/><rect x="104" y="21.267360262068053" width="5" height="34.73263973793195" fill="#7dd3fc" opacity="0.45"/><rect x="112" y="11.546294828186639" width="5" height="44.45370517181336" fill="#7dd3fc" opacity="0.45"/><rect x="120" y="5.364000510955748" width="5" height="50.63599948904425" fill="#7dd3fc" opacity="0.45"/><rect x="128" y="4.234118574285596" width="5" height="51.765881425714404" fill="#7dd3fc" opacity="0.45"/><rect x="136" y="8.433283522283212" width="5" height="47.56671647771679" fill="#7dd3fc" opacity="0.45"/><rect x="144" y="16.933393324681354" width="5" height="39.066606675318646" fill="#7dd3fc" opacity="0.45"/><rect x="152" y="27.653324650159803" width="5" height="28.346675349840197" fill="#7dd3fc" opacity="0.45"/><rect x="160" y="37.968464439566134" width="5" height="18.031535560433866" fill="#7dd3fc" opacity="0.45"/><rect x="168" y="45.35330671937674" width="5" height="10.646693280623259" fill="#7dd3fc" opacity="0.45"/><rect x="176" y="47.99978454411548" width="5" height="8.000215455884524" fill="#7dd3fc" opacity="0.45"/><rect x="184" y="45.259947843145426" width="5" height="10.740052156854572" fill="#7dd3fc" opacity="0.45"/><rect x="192" y="37.80460419600957" width="5" height="18.19539580399043" fill="#7dd3fc" opacity="1"/><rect x="200" y="27.459081741726415" width="5" height="28.540918258273585" fill="#7dd3fc" opacity="1"/><rect x="208" y="16.756325189813893" width="5" height="39.24367481018611" fill="#7dd3fc" opacity="1"/><rect x="216" y="8.316742615864342" width="5" height="47.68325738413566" fill="#7dd3fc" opacity="1"/><rect x="224" y="4.206638174712857" width="5" height="51.79336182528714" fill="#fda4af" opacity="1"/><rect x="232" y="5.432308778456971" width="5" height="50.56769122154303" fill="#7dd3fc" opacity="1"/><rect x="240" y="11.693667516543428" width="5" height="44.30633248345657" fill="#7dd3fc" opacity="1"/><rect x="248" y="21.457715397368474" width="5" height="34.542284602631526" fill="#7dd3fc" opacity="0.45"/><rect x="256" y="32.33387296663143" width="5" height="23.666127033368564" fill="#7dd3fc" opacity="0.45"/><rect x="264" y="41.65927753212071" width="5" height="14.340722467879292" fill="#7dd3fc" opacity="0.45"/><rect x="272" y="47.15074482135025" width="5" height="8.84925517864975" fill="#7dd3fc" opacity="0.45"/><rect x="280" y="47.46377212029947" width="5" height="8.536227879700533" fill="#7dd3fc" opacity="0.45"/>
+      </g>
+    </g><g transform="translate(320,14)">
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8" letter-spacing="0.14em">WATER L</text>
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#7dd3fc" x="280" text-anchor="end" letter-spacing="0.14em">1,500</text>
+      <g transform="translate(0,18)">
+        <rect x="0" y="7.487638334226276" width="5" height="48.512361665773724" fill="#7dd3fc" opacity="0.45"/><rect x="8" y="4.055110294710801" width="5" height="51.9448897052892" fill="#7dd3fc" opacity="0.45"/><rect x="16" y="5.995456609835003" width="5" height="50.004543390165" fill="#7dd3fc" opacity="0.45"/><rect x="24" y="12.833612829712962" width="5" height="43.16638717028704" fill="#7dd3fc" opacity="0.45"/><rect x="32" y="22.89535982268292" width="5" height="33.10464017731708" fill="#7dd3fc" opacity="0.45"/><rect x="40" y="33.71723100917164" width="5" height="22.282768990828362" fill="#7dd3fc" opacity="0.45"/><rect x="48" y="42.64965489677442" width="5" height="13.35034510322558" fill="#7dd3fc" opacity="0.45"/><rect x="56" y="47.505662588632134" width="5" height="8.494337411367866" fill="#7dd3fc" opacity="0.45"/><rect x="64" y="47.09633404258905" width="5" height="8.903665957410954" fill="#7dd3fc" opacity="0.45"/><rect x="72" y="41.52188716254862" width="5" height="14.478112837451377" fill="#7dd3fc" opacity="0.45"/><rect x="80" y="32.14714096037637" width="5" height="23.85285903962363" fill="#7dd3fc" opacity="0.45"/><rect x="88" y="21.267360262068053" width="5" height="34.73263973793195" fill="#7dd3fc" opacity="0.45"/><rect x="96" y="11.546294828186639" width="5" height="44.45370517181336" fill="#7dd3fc" opacity="0.45"/><rect x="104" y="5.364000510955748" width="5" height="50.63599948904425" fill="#7dd3fc" opacity="0.45"/><rect x="112" y="4.234118574285596" width="5" height="51.765881425714404" fill="#7dd3fc" opacity="0.45"/><rect x="120" y="8.433283522283212" width="5" height="47.56671647771679" fill="#7dd3fc" opacity="0.45"/><rect x="128" y="16.933393324681354" width="5" height="39.066606675318646" fill="#7dd3fc" opacity="0.45"/><rect x="136" y="27.653324650159803" width="5" height="28.346675349840197" fill="#7dd3fc" opacity="0.45"/><rect x="144" y="37.968464439566134" width="5" height="18.031535560433866" fill="#7dd3fc" opacity="0.45"/><rect x="152" y="45.35330671937674" width="5" height="10.646693280623259" fill="#7dd3fc" opacity="0.45"/><rect x="160" y="47.99978454411548" width="5" height="8.000215455884524" fill="#7dd3fc" opacity="0.45"/><rect x="168" y="45.259947843145426" width="5" height="10.740052156854572" fill="#7dd3fc" opacity="0.45"/><rect x="176" y="37.80460419600957" width="5" height="18.19539580399043" fill="#7dd3fc" opacity="0.45"/><rect x="184" y="27.459081741726415" width="5" height="28.540918258273585" fill="#7dd3fc" opacity="0.45"/><rect x="192" y="16.756325189813893" width="5" height="39.24367481018611" fill="#7dd3fc" opacity="1"/><rect x="200" y="8.316742615864342" width="5" height="47.68325738413566" fill="#7dd3fc" opacity="1"/><rect x="208" y="4.206638174712857" width="5" height="51.79336182528714" fill="#7dd3fc" opacity="1"/><rect x="216" y="5.432308778456971" width="5" height="50.56769122154303" fill="#7dd3fc" opacity="1"/><rect x="224" y="11.693667516543428" width="5" height="44.30633248345657" fill="#fda4af" opacity="1"/><rect x="232" y="21.457715397368474" width="5" height="34.542284602631526" fill="#7dd3fc" opacity="1"/><rect x="240" y="32.33387296663143" width="5" height="23.666127033368564" fill="#7dd3fc" opacity="1"/><rect x="248" y="41.65927753212071" width="5" height="14.340722467879292" fill="#7dd3fc" opacity="0.45"/><rect x="256" y="47.15074482135025" width="5" height="8.84925517864975" fill="#7dd3fc" opacity="0.45"/><rect x="264" y="47.46377212029947" width="5" height="8.536227879700533" fill="#7dd3fc" opacity="0.45"/><rect x="272" y="42.52171942897687" width="5" height="13.478280571023127" fill="#7dd3fc" opacity="0.45"/><rect x="280" y="33.53457360633148" width="5" height="22.465426393668523" fill="#7dd3fc" opacity="0.45"/>
+      </g>
+    </g><g transform="translate(640,14)">
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#94a3b8" letter-spacing="0.14em">FOAM %</text>
+      <text font-family="var(--font-mono)" font-size="9.5" fill="#7dd3fc" x="280" text-anchor="end" letter-spacing="0.14em">87%</text>
+      <g transform="translate(0,18)">
+        <rect x="0" y="5.995456609835003" width="5" height="50.004543390165" fill="#7dd3fc" opacity="0.45"/><rect x="8" y="12.833612829712962" width="5" height="43.16638717028704" fill="#7dd3fc" opacity="0.45"/><rect x="16" y="22.89535982268292" width="5" height="33.10464017731708" fill="#7dd3fc" opacity="0.45"/><rect x="24" y="33.71723100917164" width="5" height="22.282768990828362" fill="#7dd3fc" opacity="0.45"/><rect x="32" y="42.64965489677442" width="5" height="13.35034510322558" fill="#7dd3fc" opacity="0.45"/><rect x="40" y="47.505662588632134" width="5" height="8.494337411367866" fill="#7dd3fc" opacity="0.45"/><rect x="48" y="47.09633404258905" width="5" height="8.903665957410954" fill="#7dd3fc" opacity="0.45"/><rect x="56" y="41.52188716254862" width="5" height="14.478112837451377" fill="#7dd3fc" opacity="0.45"/><rect x="64" y="32.14714096037637" width="5" height="23.85285903962363" fill="#7dd3fc" opacity="0.45"/><rect x="72" y="21.267360262068053" width="5" height="34.73263973793195" fill="#7dd3fc" opacity="0.45"/><rect x="80" y="11.546294828186639" width="5" height="44.45370517181336" fill="#7dd3fc" opacity="0.45"/><rect x="88" y="5.364000510955748" width="5" height="50.63599948904425" fill="#7dd3fc" opacity="0.45"/><rect x="96" y="4.234118574285596" width="5" height="51.765881425714404" fill="#7dd3fc" opacity="0.45"/><rect x="104" y="8.433283522283212" width="5" height="47.56671647771679" fill="#7dd3fc" opacity="0.45"/><rect x="112" y="16.933393324681354" width="5" height="39.066606675318646" fill="#7dd3fc" opacity="0.45"/><rect x="120" y="27.653324650159803" width="5" height="28.346675349840197" fill="#7dd3fc" opacity="0.45"/><rect x="128" y="37.968464439566134" width="5" height="18.031535560433866" fill="#7dd3fc" opacity="0.45"/><rect x="136" y="45.35330671937674" width="5" height="10.646693280623259" fill="#7dd3fc" opacity="0.45"/><rect x="144" y="47.99978454411548" width="5" height="8.000215455884524" fill="#7dd3fc" opacity="0.45"/><rect x="152" y="45.259947843145426" width="5" height="10.740052156854572" fill="#7dd3fc" opacity="0.45"/><rect x="160" y="37.80460419600957" width="5" height="18.19539580399043" fill="#7dd3fc" opacity="0.45"/><rect x="168" y="27.459081741726415" width="5" height="28.540918258273585" fill="#7dd3fc" opacity="0.45"/><rect x="176" y="16.756325189813893" width="5" height="39.24367481018611" fill="#7dd3fc" opacity="0.45"/><rect x="184" y="8.316742615864342" width="5" height="47.68325738413566" fill="#7dd3fc" opacity="0.45"/><rect x="192" y="4.206638174712857" width="5" height="51.79336182528714" fill="#7dd3fc" opacity="1"/><rect x="200" y="5.432308778456971" width="5" height="50.56769122154303" fill="#7dd3fc" opacity="1"/><rect x="208" y="11.693667516543428" width="5" height="44.30633248345657" fill="#7dd3fc" opacity="1"/><rect x="216" y="21.457715397368474" width="5" height="34.542284602631526" fill="#7dd3fc" opacity="1"/><rect x="224" y="32.33387296663143" width="5" height="23.666127033368564" fill="#fda4af" opacity="1"/><rect x="232" y="41.65927753212071" width="5" height="14.340722467879292" fill="#7dd3fc" opacity="1"/><rect x="240" y="47.15074482135025" width="5" height="8.84925517864975" fill="#7dd3fc" opacity="1"/><rect x="248" y="47.46377212029947" width="5" height="8.536227879700533" fill="#7dd3fc" opacity="0.45"/><rect x="256" y="42.52171942897687" width="5" height="13.478280571023127" fill="#7dd3fc" opacity="0.45"/><rect x="264" y="33.53457360633148" width="5" height="22.465426393668523" fill="#7dd3fc" opacity="0.45"/><rect x="272" y="22.702701387415047" width="5" height="33.29729861258495" fill="#7dd3fc" opacity="0.45"/><rect x="280" y="12.678122866168778" width="5" height="43.32187713383122" fill="#7dd3fc" opacity="0.45"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Horizontal scan beam over entire HUD -->
+  <rect x="0" y="0" width="1000" height="2" fill="url(#hud-scan)">
+    <animate attributeName="y" values="0;720;0" dur="14s" repeatCount="indefinite"/>
+  </rect>
+</svg></div>
+  </div>
+</section>
+
+<section class="cd__sec">
+  <div class="cd__sec-inner">
+    <div class="cd__sec-head">
+      <div class="cd__sec-num">01 / Problem</div>
+      <div>
+        <h2 class="cd__sec-title">Operational readiness <em>cannot depend on manual checks.</em></h2>
+        <p class="cd__sec-deck">In Civil Defense, seconds matter. Pre-departure inventory, missing-tool discovery, officer safety visibility and post-incident accountability all live in different systems — or no system at all.</p>
+      </div>
+    </div>
+    <div class="cd__stats">
+      <div class="cd__stat"><div class="cd__stat-v">20<em>min</em></div><div class="cd__stat-n">Manual count</div><div class="cd__stat-d">Per truck · pre-shift</div></div>
+      <div class="cd__stat"><div class="cd__stat-v">—</div><div class="cd__stat-n">Asset history</div><div class="cd__stat-d">Spreadsheets · unknown</div></div>
+      <div class="cd__stat"><div class="cd__stat-v">Radio</div><div class="cd__stat-n">Health data</div><div class="cd__stat-d">Voice calls only</div></div>
+      <div class="cd__stat"><div class="cd__stat-v">After</div><div class="cd__stat-n">Audit trail</div><div class="cd__stat-d">Reconstructed from memory</div></div>
+    </div>
+    <div class="cd__pull">"The problem is not only emergency response. The problem is <em>readiness before the response begins.</em>"</div>
+  </div>
+</section>
+
+<section class="cd__sec">
+  <div class="cd__sec-inner">
+    <div class="cd__sec-head">
+      <div class="cd__sec-num">02 / Platform</div>
+      <div>
+        <h2 class="cd__sec-title">Seven surfaces. <em>One platform.</em></h2>
+        <p class="cd__sec-deck">INNFINI combines RFID asset monitoring, mobile handhelds, officer wearables, vehicle telematics, AI-assisted dashboards and incident-zone intelligence into one operational command layer.</p>
+      </div>
+    </div>
+    <div class="cd__blocks">
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 32 L4 16 L26 16 L26 32 Z"/><path d="M26 22 L34 22 L42 28 L42 32 L26 32"/><circle cx="12" cy="36" r="3"/><circle cx="34" cy="36" r="3"/><line x1="14" y1="22" x2="20" y2="22"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></line></svg></div><div class="cd__block-tag">A · Trucks</div><h3 class="cd__block-h">RFID truck readiness</h3><p class="cd__block-p">Fixed RFID readers inside fire trucks auto-detect tagged equipment. Real-time presence checks. Missing items flagged before departure.</p></article>
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="6" width="20" height="36" rx="3"/><circle cx="24" cy="36" r="1.4" fill="#7dd3fc"/><rect x="18" y="12" width="12" height="18" rx="1" stroke="none" fill="rgba(125,211,252,0.18)"/><line x1="20" y1="16" x2="28" y2="16"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/></line><line x1="20" y1="20" x2="28" y2="20"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.2s" repeatCount="indefinite"/></line><line x1="20" y1="24" x2="26" y2="24"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.4s" repeatCount="indefinite"/></line></svg></div><div class="cd__block-tag">B · Mobile</div><h3 class="cd__block-h">Handheld field ops</h3><p class="cd__block-p">Rugged RFID/barcode handhelds for cycle counts, Geiger-style lookup, transfers, custodian changes — Wi-Fi or batch sync.</p></article>
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 28 L12 28 L16 20 L22 36 L26 24 L30 28 L44 28"><animate attributeName="stroke-dasharray" values="0 100;80 100" dur="2.4s" repeatCount="indefinite"/></path></svg></div><div class="cd__block-tag">C · Officers</div><h3 class="cd__block-h">Vital tracking</h3><p class="cd__block-p">BLE officer ID + biometric wearable streams heart rate, SpO2, temperature, fall detection and indoor/outdoor location to command.</p></article>
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="6"/><circle cx="24" cy="24" r="2" fill="#7dd3fc"/><line x1="24" y1="2" x2="24" y2="6"/><line x1="24" y1="42" x2="24" y2="46"/><line x1="2" y1="24" x2="6" y2="24"/><line x1="42" y1="24" x2="46" y2="24"/><g><circle cx="36" cy="14" r="2" fill="#fda4af"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/></circle></g></svg></div><div class="cd__block-tag">D · Command</div><h3 class="cd__block-h">Incident command</h3><p class="cd__block-p">Live map with vehicle markers, draw-zone tally of vehicles, personnel, water, foam and equipment — formatted for the unit leader.</p></article>
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30 L8 18 L26 18 L26 30 Z"/><path d="M26 22 L36 22 L42 28 L42 30 L26 30"/><circle cx="14" cy="34" r="3"/><circle cx="36" cy="34" r="3"/><g><rect x="11" y="22" width="3" height="5" fill="rgba(167,243,208,0.5)"><animate attributeName="height" values="2;5;2" dur="1.4s" repeatCount="indefinite"/></rect><rect x="16" y="22" width="3" height="3" fill="rgba(252,211,77,0.5)"><animate attributeName="height" values="2;5;2" dur="1.4s" begin="0.2s" repeatCount="indefinite"/></rect><rect x="21" y="22" width="3" height="4" fill="rgba(167,243,208,0.5)"><animate attributeName="height" values="2;5;2" dur="1.4s" begin="0.4s" repeatCount="indefinite"/></rect></g></svg></div><div class="cd__block-tag">E · Vehicles</div><h3 class="cd__block-h">Telematics &amp; resources</h3><p class="cd__block-p">Vehicle telematics, shutter sensors, water and foam levels, fuel, engine diagnostics — connected into truck-resource cards.</p></article>
+      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px; opacity:0.85; transition:opacity 200ms ease, transform 200ms ease;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="28" height="20" rx="3"/><circle cx="18" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></circle><circle cx="30" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" begin="0.4s" repeatCount="indefinite"/></circle><path d="M18 28 Q24 32 30 28"/><line x1="24" y1="6" x2="24" y2="14"/><line x1="6" y1="24" x2="10" y2="24"/><line x1="38" y1="24" x2="42" y2="24"/></svg></div><div class="cd__block-tag">F · AI</div><h3 class="cd__block-h">Next-best action</h3><p class="cd__block-p">AI proposes vehicle assignment, safety escalations and pre-departure gating. Cited reasoning. Operator approves.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="cd__sec">
+  <div class="cd__sec-inner">
+    <div class="cd__sec-head">
+      <div class="cd__sec-num">03 / Features</div>
+      <div><h2 class="cd__sec-title">From station to scene. <em>Visible.</em></h2></div>
+    </div>
+
+    <div class="cd__feature">
+      <div class="cd__feature-visual" style="position:relative; background:transparent; aspect-ratio: 16/10; overflow:visible;">
+  <!-- Fire truck image — smaller, fully contained, centered -->
+  <img src="../assets/product/firetruck-readiness.png" alt="Pump Unit 01 · readiness scan" style="display:block; max-width:55%; max-height:80%; width:auto; height:auto; object-fit:contain; object-position:center; margin:auto; position:absolute; inset:0;">
+
+  <!-- Top-left: PUMP UNIT 01 — 96% readiness ring -->
+  <div style="position:absolute; top:6%; left:4%; padding:14px 18px; background:rgba(0,0,0,0.62); display:flex; align-items:center; gap:16px; min-width:200px;">
+    <div style="position:relative; width:72px; height:72px; flex-shrink:0;">
+      <svg width="72" height="72" viewBox="0 0 72 72" style="transform: rotate(-90deg);">
+        <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(125,211,252,0.20)" stroke-width="4"/>
+        <circle cx="36" cy="36" r="30" fill="none" stroke="#7dd3fc" stroke-width="4" stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round">
+          <animate attributeName="stroke-dashoffset" from="188.5" to="7.5" dur="2.4s" begin="0s" fill="freeze" calcMode="spline" keySplines="0.22 1 0.36 1" keyTimes="0;1"/>
+        </circle>
+      </svg>
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:20px; font-weight:700; color:#fff; letter-spacing:-0.02em; animation: cd-fade-up 0.6s ease-out 0.6s both;">96%</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-mono); font-size:10px; color:#7dd3fc; letter-spacing:0.20em; font-weight:600;">PUMP UNIT 01</div>
+      <div style="font-family:var(--font-mono); font-size:10px; color:#cbd5e1; letter-spacing:0.16em; margin-top:4px;">READINESS · LIVE</div>
+      <div style="display:inline-flex; align-items:center; gap:6px; margin-top:6px; font-family:var(--font-mono); font-size:9px; color:#a7f3d0; letter-spacing:0.16em;"><span style="width:6px;height:6px;border-radius:50%;background:#a7f3d0; box-shadow:0 0 6px #a7f3d0; animation: cd-blink 1.4s infinite;"></span>STREAMING</div>
+    </div>
+  </div>
+
+  <!-- Top-right: DETECTED -->
+  <div style="position:absolute; top:6%; right:4%; padding:14px 20px; background:rgba(0,0,0,0.62); min-width:180px;">
+    <div style="font-family:var(--font-mono); font-size:10px; color:#a7f3d0; letter-spacing:0.20em; font-weight:600;">DETECTED</div>
+    <div style="font-family:var(--font-display); font-size:36px; font-weight:700; color:#fff; letter-spacing:-0.025em; margin-top:6px; line-height:1; display:flex; align-items:baseline; gap:6px;">
+      <span style="display:inline-block; min-width:60px;"><span style="display:inline-block; animation: cd-count-up 1.6s ease-out forwards;">248</span></span>
+      <span style="font-size:16px; color:#94a3b8; font-weight:500;">/ 253</span>
+    </div>
+    <div style="margin-top:8px; height:3px; background:rgba(255,255,255,0.08); overflow:hidden;">
+      <div style="height:100%; background:#a7f3d0; width:0; animation: cd-bar-detect 1.8s ease-out 0.2s forwards;"></div>
+    </div>
+  </div>
+
+  <!-- Bottom-left: MISSING -->
+  <div style="position:absolute; bottom:6%; left:4%; padding:14px 20px; background:rgba(0,0,0,0.62); min-width:200px;">
+    <div style="font-family:var(--font-mono); font-size:10px; color:#fda4af; letter-spacing:0.18em; font-weight:600; display:flex; align-items:center; gap:6px;">
+      <span style="font-size:13px;">⚠</span> MISSING · 5 ITEMS
+    </div>
+    <div style="font-family:var(--font-display); font-size:36px; font-weight:700; color:#fda4af; letter-spacing:-0.025em; margin-top:4px; line-height:1;">
+      <span style="display:inline-block; animation: cd-fade-up 0.8s ease-out 0.4s both;">05</span>
+    </div>
+    <div style="font-family:var(--font-mono); font-size:10px; color:#cbd5e1; letter-spacing:0.10em; margin-top:6px; animation: cd-fade-up 0.8s ease-out 0.7s both;">SCBA-12 · NOZZLE-07 · +3</div>
+  </div>
+
+  <!-- Bottom-right: MAINT DUE -->
+  <div style="position:absolute; bottom:6%; right:4%; padding:14px 20px; background:rgba(0,0,0,0.62); min-width:180px;">
+    <div style="font-family:var(--font-mono); font-size:10px; color:#fcd34d; letter-spacing:0.20em; font-weight:600;">MAINT DUE</div>
+    <div style="font-family:var(--font-display); font-size:36px; font-weight:700; color:#fcd34d; letter-spacing:-0.025em; margin-top:4px; line-height:1;">
+      <span style="display:inline-block; animation: cd-fade-up 0.8s ease-out 0.6s both;">03</span>
+    </div>
+    <div style="font-family:var(--font-mono); font-size:10px; color:#cbd5e1; letter-spacing:0.10em; margin-top:6px; animation: cd-fade-up 0.8s ease-out 0.9s both;">HOSE-08 · TOOL-22 · +1</div>
+  </div>
+
+  <!-- Pulsing scan points on the truck body -->
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+    <g><circle cx="40" cy="55" r="0.7" fill="#7dd3fc"/><circle cx="40" cy="55" r="0.7" fill="none" stroke="#7dd3fc" stroke-width="0.2"><animate attributeName="r" values="0.4;3" dur="2.4s" begin="0.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.2s" repeatCount="indefinite"/></circle></g>
+    <g><circle cx="60" cy="52" r="0.7" fill="#7dd3fc"/><circle cx="60" cy="52" r="0.7" fill="none" stroke="#7dd3fc" stroke-width="0.2"><animate attributeName="r" values="0.4;3" dur="2.4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.8s" repeatCount="indefinite"/></circle></g>
+    <g><circle cx="48" cy="42" r="0.7" fill="#7dd3fc"/><circle cx="48" cy="42" r="0.7" fill="none" stroke="#7dd3fc" stroke-width="0.2"><animate attributeName="r" values="0.4;3" dur="2.4s" begin="1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="1.4s" repeatCount="indefinite"/></circle></g>
+  </svg>
+</div>
+      
+      <div class="cd__feature-caption">
+        <div class="cd__feature-caption-num">A · Truck readiness</div>
+        <h3>Every truck. <em>Every shift.</em></h3>
+        <p>Fixed RFID readers continuously verify that the right equipment is on the right truck — before deployment, during response and after closure.</p>
+        <ul><li>Hoses · SCBA · tools · PPE</li><li>Missing-item alerts</li><li>Maintenance + lifecycle history</li></ul>
+      </div>
+    </div>
+
+    <div class="cd__feature cd__feature--reverse">
+      <div class="cd__feature-visual" style="position:relative; background:transparent; aspect-ratio: auto; display:flex; align-items:center; justify-content:center; padding:0;">
+        <img src="../assets/product/handheld-pair.png" alt="INNFINI Mobile · handheld devices" style="display:block; width:100%; height:auto; max-width:100%; object-fit:contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); animation: cd-fade-up 0.8s ease-out 0.2s both;">
+      </div>
+      <div class="cd__feature-caption">
+        <div class="cd__feature-caption-num">B · Mobile handhelds</div>
+        <h3>Find anything. <em>In seconds.</em></h3>
+        <p>Field teams scan, locate, transfer and update assets directly from rugged RFID handhelds. Real-time sync to the platform.</p>
+        <ul><li>Cycle count by zone or vehicle</li><li>Geiger-style asset lookup</li><li>Custodian + condition updates</li></ul>
+      </div>
+    </div>
+
+    <div class="cd__feature">
+      <div class="cd__feature-visual"><img src="../assets/product/cd-team-health.png" alt="Team health · officer vital cards"></div>
+      <div class="cd__feature-caption">
+        <div class="cd__feature-caption-num">C · Officer vitals</div>
+        <h3>Every firefighter. <em>Live.</em></h3>
+        <p>BLE officer IDs and biometric wearables stream identity, location and health indicators to the command picture — with threshold-based escalation.</p>
+        <ul><li>Heart rate · SpO2 · temperature</li><li>Fall &amp; no-motion detection</li><li>100-hour battery · IP submersible</li></ul>
+      </div>
+    </div>
+
+    <div class="cd__feature cd__feature--reverse">
+      <div class="cd__feature-visual"><img src="../assets/product/cd-incident-map.png" alt="Incident command · location map"></div>
+      <div class="cd__feature-caption">
+        <div class="cd__feature-caption-num">D · Incident command</div>
+        <h3>Draw a zone. <em>See everything.</em></h3>
+        <p>Commanders draw an incident zone on the map. The platform tallies vehicles, personnel, equipment, water and foam inside it — formatted for the unit leader.</p>
+        <ul><li>Live incident timeline</li><li>Resource counts in-zone</li><li>Per-vehicle status cards</li></ul>
+      </div>
+    </div>
+
+    <div class="cd__feature">
+      <div class="cd__feature-visual"><svg viewBox="0 0 720 450" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <rect width="720" height="450" fill="#0d121e"/>
+  <text x="32" y="46" font-family="var(--font-mono)" font-size="11" letter-spacing="0.22em" fill="#7dd3fc">AI · NEXT-BEST ACTION</text>
+  <line x1="32" y1="64" x2="688" y2="64" stroke="rgba(255,255,255,0.08)"/>
+  <text x="32" y="150" font-family="var(--font-display)" font-size="34" font-weight="600" fill="#fff" letter-spacing="-0.02em">Pump-01 missing 2 assets</text>
+  <text x="32" y="182" font-family="var(--font-display)" font-size="20" font-weight="500" fill="#94a3b8">Readiness 96% · SCBA-12 required</text>
+  <line x1="32" y1="216" x2="200" y2="216" stroke="#7dd3fc" stroke-width="1.5"/>
+  <text x="32" y="248" font-family="var(--font-mono)" font-size="11" fill="#7dd3fc" letter-spacing="0.18em">RECOMMENDED</text>
+  <text x="32" y="290" font-family="var(--font-display)" font-size="20" font-weight="600" fill="#fff">Assign replacement from Station Storage</text>
+  <text x="32" y="318" font-family="var(--font-display)" font-size="20" font-weight="600" fill="#fff">— or dispatch Tanker-02</text>
+</svg></div>
+      <div class="cd__feature-caption">
+        <div class="cd__feature-caption-num">E · AI advisor</div>
+        <h3>AI proposes. <em>The commander decides.</em></h3>
+        <p>Cited recommendations for vehicle assignment, safety escalation and pre-departure gating. The operator always approves.</p>
+        <ul><li>Cited reasoning · confidence</li><li>SOP attached inline</li><li>Tier-2 approval where needed</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</section>
+
+<section class="cd__sec">
+  <div class="cd__sec-inner">
+
+    <div class="cd__sec-head">
+      <div class="cd__sec-num">04 / Case study</div>
+      <div>
+        <h2 class="cd__sec-title">Integrated Digital Operations &amp; <em>Readiness Platform.</em></h2>
+        <p class="cd__sec-deck"><strong style="color:var(--ink-100)">Client</strong> · Abu Dhabi Civil Defense &nbsp;&nbsp;<span style="color:rgba(255,255,255,0.15)">|</span>&nbsp;&nbsp; <strong style="color:var(--ink-100)">Project</strong> · INNFini · national Command-and-Control platform</p>
+      </div>
+    </div>
+
+    <!-- Feature image with stats overlay -->
+    <div style="position:relative; border:1px solid rgba(255,255,255,0.10); overflow:hidden; margin-bottom:64px;">
+      <img src="../assets/product/adcd-fleet.png" alt="Abu Dhabi Civil Defense fleet" style="display:block; width:100%; height:auto;">
+      <div style="background: linear-gradient(90deg, rgba(125,211,252,1) 0%, rgba(125,211,252,0.92) 100%); color:#0a0f1a; padding:18px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; font-family:var(--font-mono); font-size:12px; letter-spacing:0.14em; font-weight:600;">
+        <span>NATIONAL-LEVEL COMMAND &amp; CONTROL</span>
+        <span style="opacity:0.5">·</span>
+        <span>10 STATIONS</span>
+        <span style="opacity:0.5">·</span>
+        <span>ERP + READINESS PLATFORM</span>
+      </div>
+    </div>
+
+    <!-- Headline KPI strip -->
+    <div class="cd__stats" style="margin: 0 0 80px; border-top: 1px solid rgba(255,255,255,0.10);">
+      <div class="cd__stat"><div class="cd__stat-v"><em>National</em></div><div class="cd__stat-n">Command &amp; Control</div><div class="cd__stat-d">Unified operating picture · UAE-wide</div></div>
+      <div class="cd__stat"><div class="cd__stat-v"><em>10</em></div><div class="cd__stat-n">Civil Defense stations</div><div class="cd__stat-d">RFID-tagged equipment · every truck</div></div>
+      <div class="cd__stat"><div class="cd__stat-v"><em>2</em></div><div class="cd__stat-n">Systems integrated</div><div class="cd__stat-d">ERP · readiness platform</div></div>
+      <div class="cd__stat"><div class="cd__stat-v"><em>Real-time</em></div><div class="cd__stat-n">Operational readiness</div><div class="cd__stat-d">From the station to the scene</div></div>
+    </div>
+
+    <!-- Two-column · Challenges + Solution -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 80px;">
+      <div>
+        <div class="cd__feature-caption-num">Challenges</div>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li style="font-family:var(--font-body); font-size:15px; line-height:1.6; color:var(--ink-80); padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:22px 1fr; gap:8px;"><span style="color:var(--accent)">→</span><span>Nation-wide Civil Defense operations across 100+ stations — fragmented systems with limited integration across asset, fleet, health, video and emergency response.</span></li>
+          <li style="font-family:var(--font-body); font-size:15px; line-height:1.6; color:var(--ink-80); padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:22px 1fr; gap:8px;"><span style="color:var(--accent)">→</span><span>Lack of real-time visibility into vehicle status, asset availability, officer location, vital signs and equipment readiness across the national fleet.</span></li>
+          <li style="font-family:var(--font-body); font-size:15px; line-height:1.6; color:var(--ink-80); padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:22px 1fr; gap:8px;"><span style="color:var(--accent)">→</span><span>Manual, siloed processes degrading response time, situational awareness and field-to-command coordination at national scale.</span></li>
+          <li style="font-family:var(--font-body); font-size:15px; line-height:1.6; color:var(--ink-80); padding:14px 0; display:grid; grid-template-columns:22px 1fr; gap:8px;"><span style="color:var(--accent)">→</span><span>Need for a single national command-and-control fabric unifying every mission-critical system into one operating picture.</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="cd__feature-caption-num">Solution</div>
+        <p style="font-family:var(--font-body); font-size:15.5px; line-height:1.7; color:var(--ink-80); margin:0 0 20px;">Deployed <strong style="color:var(--ink-100)">INNFini</strong> as the <em style="font-style:normal; color:var(--accent)">national-level Command-and-Control system</em> for Abu Dhabi Civil Defense — rolled out across <em style="font-style:normal; color:var(--accent)">100+ stations</em> and unifying <em style="font-style:normal; color:var(--accent)">13+ existing mission-critical systems</em> across personnel, vehicles, stations and assets.</p>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Fleet telemetry, vehicle diagnostics &amp; predictive-maintenance feeds for real-time fleet performance monitoring.</span></li>
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Continuous officer monitoring — vital-signs wearables and live GPS location tracking for every officer in the field.</span></li>
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Water-flow / water-level and foam-level sensors for continuous monitoring of firefighting resources.</span></li>
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Bay-door &amp; shutter sensors monitoring every station entry and exit in real time.</span></li>
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Unified video intelligence — in-vehicle cameras, dash cams, body-worn cams &amp; station CCTV for full situational awareness.</span></li>
+          <li style="font-family:var(--font-body); font-size:14.5px; line-height:1.6; color:var(--ink-80); padding:9px 0; display:grid; grid-template-columns:18px 1fr; gap:8px;"><span style="color:var(--accent)">•</span><span>Reporting &amp; Analytics, asset &amp; equipment management and emergency dispatch — all surfaced through a single operating picture.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Business impact · 4-up KPI tile row -->
+    <div class="cd__feature-caption-num" style="margin-bottom:24px;">Business Impact</div>
+    <div class="cd__blocks cd__blocks--4">
+      <article class="cd__block">
+        <div class="cd__block-tag">Readiness</div>
+        <h3 class="cd__block-h">Real-time across 10 stations</h3>
+        <p class="cd__block-p">Every piece of firefighting equipment RFID-tagged and verified on and off the truck, before and after each mission.</p>
+      </article>
+      <article class="cd__block">
+        <div class="cd__block-tag">Response</div>
+        <h3 class="cd__block-h">Faster at national scale</h3>
+        <p class="cd__block-p">Centralized visibility and data-driven decision-making across emergency response.</p>
+      </article>
+      <article class="cd__block">
+        <div class="cd__block-tag">Officer safety</div>
+        <h3 class="cd__block-h">Enhanced safety</h3>
+        <p class="cd__block-p">Continuous health, vital-signs and live GPS-location monitoring across every station.</p>
+      </article>
+      <article class="cd__block">
+        <div class="cd__block-tag">Equipment</div>
+        <h3 class="cd__block-h">Reduced downtime</h3>
+        <p class="cd__block-p">Predictive monitoring and unified asset telemetry — fleet-wide maintenance risk down.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section--band">
+  <div class="container">
+    <div class="section-head section-head--center" style="margin-bottom:32px;">
+      <div class="eyebrow">// 3-year ROI · industry-tuned</div>
+      <h2 class="section-title">Model the savings <em style="font-style:normal;color:var(--accent,#7dd3fc)">for your operation.</em></h2>
+      <p class="section-lead">Slide the knobs, see your payback period, 3-year ROI, where the savings come from, and a cumulative cash-flow curve.</p>
+    </div>
+    <div data-roi-calc data-industry="civildefense"></div>
+  </div>
+</section>
+
+<section class="cd__outro">
+  <div class="cd__outro-inner">
+    <h2>Ready to digitize Civil Defense <em>readiness and response?</em></h2>
+    <div class="cd__outro-actions">
+      <a class="btn btn--primary" href="request-demo.html">Request demo
+        <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a class="btn btn--secondary" href="command-control.html">Command &amp; Control →</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script><script src="../megamenu.js"></script>
+<script src="_roi-calc.js"></script>
+</body></html>

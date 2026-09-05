@@ -1,0 +1,205 @@
+/* IBM Design System — Carbon-based tokens
+   Brand: IBM marketing surfaces
+   Fonts: IBM Plex Sans (SIL OFL, loaded from Google Fonts)
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* ─── COLOR ────────────────────────────────────────────── */
+
+  /* Brand accent (the only chromatic accent) */
+  --ibm-blue:           #0f62fe;   /* primary */
+  --ibm-blue-hover:     #0050e6;
+  --ibm-blue-60:        #0043ce;   /* link hover */
+  --ibm-blue-80:        #002d9c;   /* pressed primary */
+  --ibm-on-primary:     #ffffff;
+
+  /* Ink */
+  --ink:                #161616;   /* default text, hairline-strong */
+  --ink-muted:          #525252;   /* secondary text */
+  --ink-subtle:         #8c8c8c;   /* tertiary, disabled */
+  --inverse-ink:        #ffffff;   /* on dark */
+  --inverse-ink-muted:  #c6c6c6;
+
+  /* Surface */
+  --canvas:             #ffffff;   /* default page bg */
+  --surface-1:          #f4f4f4;   /* inputs, bands */
+  --surface-2:          #e0e0e0;   /* disabled, separators-as-fill */
+  --inverse-canvas:     #161616;   /* footer */
+  --inverse-surface-1:  #262626;
+
+  /* Hairlines */
+  --hairline:           #e0e0e0;
+  --hairline-strong:    #161616;
+
+  /* Semantic */
+  --success:            #24a148;
+  --warning:            #f1c21b;
+  --error:              #da1e28;
+  --info:               #0f62fe;
+
+  /* ─── TYPE (raw scale) ─────────────────────────────────── */
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --fs-display-xl: 76px;   --fw-display-xl: 300; --lh-display-xl: 1.17; --ls-display-xl: -0.5px;
+  --fs-display-lg: 60px;   --fw-display-lg: 300; --lh-display-lg: 1.17; --ls-display-lg: -0.4px;
+  --fs-display-md: 42px;   --fw-display-md: 300; --lh-display-md: 1.20; --ls-display-md: 0;
+  --fs-headline:   32px;   --fw-headline:   400; --lh-headline:   1.25; --ls-headline:   0;
+  --fs-card-title: 24px;   --fw-card-title: 400; --lh-card-title: 1.33; --ls-card-title: 0;
+  --fs-subhead:    20px;   --fw-subhead:    400; --lh-subhead:    1.40; --ls-subhead:    0;
+  --fs-body-lg:    18px;   --fw-body-lg:    400; --lh-body-lg:    1.50; --ls-body-lg:    0;
+  --fs-body:       16px;   --fw-body:       400; --lh-body:       1.50; --ls-body:       0.16px;
+  --fs-body-sm:    14px;   --fw-body-sm:    400; --lh-body-sm:    1.29; --ls-body-sm:    0.16px;
+  --fs-body-em:    14px;   --fw-body-em:    600; --lh-body-em:    1.29; --ls-body-em:    0.16px;
+  --fs-caption:    12px;   --fw-caption:    400; --lh-caption:    1.33; --ls-caption:    0.32px;
+  --fs-button:     14px;   --fw-button:     400; --lh-button:     1.29; --ls-button:     0.16px;
+
+  /* ─── SPACING (4px base) ───────────────────────────────── */
+  --space-xxs: 4px;
+  --space-xs:  8px;
+  --space-sm:  12px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-xxl: 48px;
+  --space-section: 96px;
+
+  /* ─── RADIUS ────────────────────────────────────────────── */
+  --r-none: 0px;
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-md:   6px;
+  --r-lg:   8px;
+  --r-pill: 9999px;
+
+  /* ─── MOTION ────────────────────────────────────────────── */
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --dur-fast-01:   70ms;
+  --dur-fast-02:  110ms;
+  --dur-mod-01:   150ms;
+  --dur-mod-02:   240ms;
+
+  /* ─── SEMANTIC TYPE ROLES (use these in product code) ───── */
+}
+
+/* ─── SEMANTIC TEXT ROLES ──────────────────────────────────
+   Apply via class — keeps the raw scale separate from usage.
+*/
+body, .text-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--ink);
+}
+
+h1, .h1, .display-xl {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display-xl); font-weight: var(--fw-display-xl);
+  line-height: var(--lh-display-xl); letter-spacing: var(--ls-display-xl);
+  color: var(--ink); margin: 0;
+}
+h2, .h2, .display-lg {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display-lg); font-weight: var(--fw-display-lg);
+  line-height: var(--lh-display-lg); letter-spacing: var(--ls-display-lg);
+  color: var(--ink); margin: 0;
+}
+h3, .h3, .display-md {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display-md); font-weight: var(--fw-display-md);
+  line-height: var(--lh-display-md); letter-spacing: var(--ls-display-md);
+  color: var(--ink); margin: 0;
+}
+h4, .h4, .headline {
+  font-family: var(--font-sans);
+  font-size: var(--fs-headline); font-weight: var(--fw-headline);
+  line-height: var(--lh-headline); color: var(--ink); margin: 0;
+}
+.card-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-card-title); font-weight: var(--fw-card-title);
+  line-height: var(--lh-card-title); color: var(--ink);
+}
+.subhead {
+  font-family: var(--font-sans);
+  font-size: var(--fs-subhead); font-weight: var(--fw-subhead);
+  line-height: var(--lh-subhead); color: var(--ink-muted);
+}
+.body-lg {
+  font-size: var(--fs-body-lg); font-weight: var(--fw-body-lg);
+  line-height: var(--lh-body-lg);
+}
+.body-sm {
+  font-size: var(--fs-body-sm); font-weight: var(--fw-body-sm);
+  line-height: var(--lh-body-sm); letter-spacing: var(--ls-body-sm);
+}
+.body-em {
+  font-size: var(--fs-body-em); font-weight: var(--fw-body-em);
+  line-height: var(--lh-body-em); letter-spacing: var(--ls-body-em);
+}
+.caption, small {
+  font-size: var(--fs-caption); font-weight: var(--fw-caption);
+  line-height: var(--lh-caption); letter-spacing: var(--ls-caption);
+  color: var(--ink-muted);
+}
+.eyebrow {
+  font-size: 14px; font-weight: 400; line-height: 1.29;
+  letter-spacing: 0.16px; color: var(--ink-muted);
+  /* Carbon: sentence case, no all-caps tracking */
+}
+
+a, .link {
+  color: var(--ibm-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--dur-fast-02) var(--ease-productive);
+}
+a:hover, .link:hover { color: var(--ibm-blue-60); }
+
+/* ─── BUTTON PRIMITIVES ────────────────────────────────────
+   These mirror the component tokens; useful for prototypes.
+*/
+.btn {
+  font-family: var(--font-sans);
+  font-size: var(--fs-button); font-weight: var(--fw-button);
+  line-height: var(--lh-button); letter-spacing: var(--ls-button);
+  padding: 12px 16px;
+  border-radius: var(--r-none);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 12px;
+  min-height: 48px;
+  transition: background var(--dur-fast-02) var(--ease-productive),
+              color    var(--dur-fast-02) var(--ease-productive);
+}
+.btn--primary { background: var(--ibm-blue); color: var(--ibm-on-primary); padding-right: 64px; }
+.btn--primary:hover { background: var(--ibm-blue-hover); }
+.btn--primary:active { background: var(--ibm-blue-80); }
+
+.btn--secondary { background: var(--ink); color: var(--inverse-ink); padding-right: 64px; }
+.btn--secondary:hover { background: #393939; }
+
+.btn--tertiary { background: var(--canvas); color: var(--ibm-blue); border-color: var(--ibm-blue); padding-right: 64px; }
+.btn--tertiary:hover { background: var(--ibm-blue); color: var(--ibm-on-primary); }
+
+.btn--ghost { background: transparent; color: var(--ibm-blue); padding: 12px 16px; }
+.btn--ghost:hover { background: #e8e8e8; }
+
+.btn--danger { background: var(--error); color: var(--ibm-on-primary); padding-right: 64px; }
+
+/* ─── INPUT ───────────────────────────────────────────────── */
+.input {
+  background: var(--surface-1); color: var(--ink);
+  font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  padding: 11px 16px;
+  border: 0; border-bottom: 1px solid var(--ink-muted);
+  border-radius: var(--r-none);
+  outline: none; min-height: 40px;
+}
+.input:focus { border-bottom: 2px solid var(--ibm-blue); padding-bottom: 10px; }
+.input--error { border-bottom: 2px solid var(--error); padding-bottom: 10px; }

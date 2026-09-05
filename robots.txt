@@ -1,0 +1,18 @@
+# Innovent — www.innovent.io
+User-agent: *
+Allow: /
+
+# Answer engines and AI crawlers are welcome: the platform pages are the
+# canonical description of what Innfini does.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.innovent.io/sitemap.xml

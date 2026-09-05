@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversational Ops — Ask anything, get grounded answers · Innovent</title>
+<meta name="description" content="Ask anything in natural language. Investigate issues, summarize performance, verify evidence and trigger workflows — without navigating dashboards.">
+<link rel="canonical" href="https://www.innovent.io/pages/pc-conversational.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Conversational Ops — Ask anything, get grounded answers · Innovent">
+<meta property="og:description" content="Ask anything in natural language. Investigate issues, summarize performance, verify evidence and trigger workflows — without navigating dashboards.">
+<meta property="og:url" content="https://www.innovent.io/pages/pc-conversational.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conversational Ops — Ask anything, get grounded answers · Innovent">
+<meta name="twitter:description" content="Ask anything in natural language. Investigate issues, summarize performance, verify evidence and trigger workflows — without navigating dashboards.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="../styles-platform-capability.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<style>
+.co__chat { padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+.co__msg { padding: 14px 16px; border-radius: 10px; max-width: 92%; }
+.co__msg--u { align-self: flex-end; background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.30); }
+.co__msg--a { align-self: flex-start; background: rgba(8,13,24,0.7); border: 1px solid rgba(96,165,250,0.18); }
+.co__msg-role { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em; color: var(--ink-70); text-transform: uppercase; margin-bottom: 6px; }
+.co__msg p { font-family: var(--font-body, var(--font-display)); font-size: 13px; line-height: 1.55; color: var(--ink-90, var(--ink-80)); margin: 0; }
+.co__msg p strong { color: var(--ink-100); }
+.co__msg--a { max-width: 100%; }
+.co__msg-role time { float: right; letter-spacing: 0.06em; color: var(--ink-70); text-transform: none; }
+.co__badge { font-size: 9px; letter-spacing: 0.14em; color: #6ee7b7; border: 1px solid rgba(110,231,183,0.45); background: rgba(110,231,183,0.10); border-radius: 3px; padding: 2px 6px; margin-left: 6px; }
+
+/* session context strip */
+.co__ctx { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(125,211,252,0.10); }
+.co__ctx-k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-70); }
+.co__ctx-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); margin-right: 4px; }
+
+/* query resolution */
+.co__resolve { border: 1px solid rgba(125,211,252,0.14); border-radius: 7px; overflow: hidden; margin-bottom: 12px; }
+.co__resolve-row { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 7px 11px; border-bottom: 1px solid rgba(125,211,252,0.07); }
+.co__resolve-row:last-child { border-bottom: 0; }
+.co__resolve-k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-70); }
+.co__resolve-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); min-width: 0; overflow-wrap: break-word; }
+.co__resolve-v i { font-style: normal; color: #6ee7b7; }
+.co__resolve-v--code { color: #7dd3fc; }
+
+/* retrieval trace */
+.co__retrieve { border: 1px solid rgba(125,211,252,0.14); border-radius: 7px; padding: 10px 11px; margin-bottom: 12px; }
+.co__retrieve-head { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-70); margin-bottom: 8px; }
+.co__src { display: grid; grid-template-columns: 16px minmax(0,1fr) 96px 54px 32px; gap: 8px; align-items: center; padding: 5px 0; }
+.co__src-n { font-family: var(--font-mono); font-size: 9px; color: #7dd3fc; text-align: center; border: 1px solid rgba(125,211,252,0.35); border-radius: 3px; line-height: 14px; }
+.co__src-t { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.co__src-m { font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-70); }
+.co__src-bar { height: 4px; border-radius: 2px; background: rgba(125,211,252,0.12); overflow: hidden; }
+.co__src-bar i { display: block; height: 100%; background: #7dd3fc; opacity: 0.8; }
+.co__src-c { font-family: var(--font-mono); font-size: 9.5px; color: #7dd3fc; text-align: right; }
+
+.co__answer sup { font-family: var(--font-mono); font-size: 8.5px; color: #7dd3fc; padding: 0 1px; }
+
+/* inline timeline */
+.co__tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(125,211,252,0.10); border: 1px solid rgba(125,211,252,0.12); border-radius: 7px; overflow: hidden; margin-top: 12px; }
+.co__tl-step { background: rgba(8,13,24,0.9); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.co__tl-step span { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--ink-70); }
+.co__tl-step b { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--ink-100); }
+.co__tl-step i { font-style: normal; font-family: var(--font-mono); font-size: 9px; color: var(--ink-70); }
+.co__tl-step.is-bad b { color: #fb7185; } .co__tl-step.is-ok b { color: #6ee7b7; }
+
+/* pattern callout */
+.co__pattern { display: flex; gap: 9px; align-items: flex-start; margin-top: 12px; padding: 10px 12px; border-radius: 7px; background: rgba(196,181,253,0.08); border: 1px solid rgba(196,181,253,0.35); font-size: 12px; line-height: 1.5; color: var(--ink-80); }
+.co__pattern strong { color: #c4b5fd; }
+.co__pattern-dot { width: 7px; height: 7px; border-radius: 50%; background: #c4b5fd; box-shadow: 0 0 8px #c4b5fd; margin-top: 5px; flex: 0 0 auto; }
+
+.co__actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 12px; }
+.co__action { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; padding: 7px 10px; border-radius: 5px; border: 1px solid var(--accent); background: rgba(59,130,246,0.10); color: #93c5fd; cursor: default; }
+.co__action em { font-style: normal; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #6ee7b7; }
+.co__action--ghost { border-color: var(--hair); background: transparent; color: var(--ink-80); }
+.co__action--ghost em { color: #fbbf24; }
+
+.co__suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 14px; }
+.co__suggest span { font-family: var(--font-mono); font-size: 10px; color: var(--ink-70); border: 1px solid var(--hair); border-radius: 999px; padding: 5px 11px; }
+@media (max-width: 900px) {
+  .co__tl { grid-template-columns: 1fr 1fr; }
+  .co__actions { grid-template-columns: 1fr; }
+  .co__src { grid-template-columns: 16px minmax(0,1fr) 54px; }
+  .co__src-bar, .co__src-m { display: none; }
+}
+.co__input { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--hair); background: rgba(255,255,255,0.015); }
+.co__input-field { flex: 1; padding: 10px 14px; border: 1px solid var(--hair); border-radius: 6px; background: rgba(8,13,24,0.5); font-family: var(--font-mono); font-size: 12px; color: var(--ink-70); }
+.co__input-send { font-family: var(--font-mono); font-size: 11px; padding: 8px 14px; border-radius: 6px; background: var(--accent); color: #0a0f1a; border: 0; font-weight: 600; cursor: default; }
+</style>
+</head>
+<body class="page" data-page="platform">
+<div id="site-nav"></div>
+
+<div class="cs-hero" style="padding:80px 0 24px;">
+  <div class="cs-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="platform.html">Platform</a><span class="sep">/</span>
+      Conversational Ops
+    </div>
+  </div>
+</div>
+
+<section id="conversational-ops" class="section pc">
+  <div class="pc__bg"></div>
+  <div class="container">
+
+    <div class="pc__hero">
+      <div class="pc__copy">
+        <div class="eyebrow">// Conversational Ops · Ask anything · Get grounded answers</div>
+        <h2 class="pc__title">Plain English.<br><em style="font-style:normal;color:var(--accent)">Real answers.</em></h2>
+        <p class="pc__lead">Ask anything in natural language. Investigate issues, summarize performance, verify evidence and trigger workflows — without navigating dashboards. <strong>Every answer is grounded in operational records</strong> with citations to the underlying events.</p>
+        <div class="pc__sig">
+          <div class="pc__sig-item"><div class="pc__sig-num">100%</div><div class="pc__sig-lab">Grounded responses</div></div>
+          <div class="pc__sig-item"><div class="pc__sig-num">6</div><div class="pc__sig-lab">Persona profiles</div></div>
+          <div class="pc__sig-item"><div class="pc__sig-num">AR + EN</div><div class="pc__sig-lab">Languages</div></div>
+        </div>
+        <div class="pc__chips">
+          <span class="pc__chip"><span class="pc__chip-dot"></span>Ask</span>
+          <span class="pc__chip"><span class="pc__chip-dot"></span>Answer</span>
+          <span class="pc__chip"><span class="pc__chip-dot"></span>Cite</span>
+          <span class="pc__chip"><span class="pc__chip-dot"></span>Act</span>
+        </div>
+      </div>
+      <div class="pc__motion" aria-hidden="true">
+        <div class="pc__panel">
+          <div class="pc__panel-bar">
+            <span class="pc__panel-dot pc__panel-dot--r"></span><span class="pc__panel-dot pc__panel-dot--y"></span><span class="pc__panel-dot pc__panel-dot--g"></span>
+            <span class="pc__panel-name">conversational-ops · supervisor · live</span>
+            <span class="pc__panel-pill">Online</span>
+          </div>
+          <div class="co__chat">
+
+            <div class="co__ctx">
+              <span class="co__ctx-k">Session</span><span class="co__ctx-v">sup_rosa · Zone C</span>
+              <span class="co__ctx-k">Scope</span><span class="co__ctx-v">Supervisor · read + act</span>
+              <span class="co__ctx-k">Turn</span><span class="co__ctx-v">4 of 4</span>
+            </div>
+
+            <div class="co__msg co__msg--u">
+              <div class="co__msg-role">Supervisor · M. Rosa <time>14:52:06</time></div>
+              <p>Why was Work Order #482 delayed?</p>
+            </div>
+
+            <div class="co__msg co__msg--a">
+              <div class="co__msg-role">Innfini <span class="co__badge">Grounded</span> <time>+1.2s</time></div>
+
+              <div class="co__resolve">
+                <div class="co__resolve-row"><span class="co__resolve-k">Intent</span><span class="co__resolve-v">explain_delay</span></div>
+                <div class="co__resolve-row"><span class="co__resolve-k">Entity</span><span class="co__resolve-v">work_order · WO-482 <i>resolved</i></span></div>
+                <div class="co__resolve-row"><span class="co__resolve-k">Query</span><span class="co__resolve-v co__resolve-v--code">MATCH (w:WorkOrder {id:'482'})-[*1..3]-(n)</span></div>
+              </div>
+
+              <div class="co__retrieve">
+                <div class="co__retrieve-head"><span>Retrieved evidence</span><span>4 sources · 38 ms</span></div>
+                <div class="co__src"><span class="co__src-n">1</span><span class="co__src-t">Technician check-in</span><span class="co__src-m">13:26 · mobile</span><span class="co__src-bar"><i style="width:96%"></i></span><span class="co__src-c">0.96</span></div>
+                <div class="co__src"><span class="co__src-n">2</span><span class="co__src-t">Inventory log · Store Room B</span><span class="co__src-m">13:31 · WMS</span><span class="co__src-bar"><i style="width:99%"></i></span><span class="co__src-c">0.99</span></div>
+                <div class="co__src"><span class="co__src-n">3</span><span class="co__src-t">Depot transfer record</span><span class="co__src-m">14:18 · ERP</span><span class="co__src-bar"><i style="width:94%"></i></span><span class="co__src-c">0.94</span></div>
+                <div class="co__src"><span class="co__src-n">4</span><span class="co__src-t">WO-482 state timeline</span><span class="co__src-m">15:04 · graph</span><span class="co__src-bar"><i style="width:100%"></i></span><span class="co__src-c">1.00</span></div>
+              </div>
+
+              <p class="co__answer">WO <strong>#482</strong> breached SLA by <strong>42 minutes</strong>. The technician checked in on time<sup>1</sup> but could not start: the required spare was out of stock in <strong>Store Room B</strong><sup>2</sup>. A depot transfer arrived at 14:18<sup>3</sup>, work resumed, and the order completed at 15:04<sup>4</sup>.</p>
+
+              <div class="co__tl">
+                <div class="co__tl-step"><span>13:26</span><b>Checked in</b><i>on time</i></div>
+                <div class="co__tl-step is-bad"><span>13:31</span><b>Blocked</b><i>part unavailable</i></div>
+                <div class="co__tl-step"><span>14:18</span><b>Part arrived</b><i>depot transfer</i></div>
+                <div class="co__tl-step is-ok"><span>15:04</span><b>Completed</b><i>+42m over SLA</i></div>
+              </div>
+
+              <div class="co__pattern">
+                <span class="co__pattern-dot"></span>
+                <span><strong>Pattern detected.</strong> Store Room B has caused 7 of the last 11 SLA breaches in Zone C — all on fast-moving spares below reorder point.</span>
+              </div>
+
+              <div class="co__actions">
+                <span class="co__action">Raise reorder point · Store&nbsp;B<em>auto</em></span>
+                <span class="co__action">Notify inventory lead<em>auto</em></span>
+                <span class="co__action co__action--ghost">Open stock-out investigation<em>approval</em></span>
+                <span class="co__action co__action--ghost">Export SLA report<em>auto</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="co__input">
+            <span class="co__input-field">Ask Innfini anything…</span>
+            <span class="co__input-send">Ask</span>
+          </div>
+          <div class="co__suggest">
+            <span>Which other WOs are at risk today?</span>
+            <span>Show Store Room B stock-outs this month</span>
+          </div>
+      </div>
+    </div>
+
+    <div class="section-head pc__section-head">
+      <div class="eyebrow">// How conversational ops works</div>
+      <h2 class="section-title">Ask → answer → <em style="font-style:normal;color:var(--accent)">act.</em></h2>
+      <p class="section-lead">Six stages between a question and the action it triggers. Every response is grounded against real operational records — no hallucination, no generic AI prose.</p>
+    </div>
+    <ol class="pc__pipe">
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="7" width="22" height="16" rx="2"/><path d="M11 23 L11 27 L16 23"/></svg></span><span class="pc__stage-num">01 · Ask</span><h4>Natural language</h4><p>Plain English (and Arabic). Operators, supervisors, executives — same interface, different scope.</p></li>
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="14" cy="14" r="7"/><path d="M19 19 L26 26" stroke-linecap="round" stroke-width="1.6"/></svg></span><span class="pc__stage-num">02 · Retrieve</span><h4>Across the graph</h4><p>Search objects, events, workflows, sensor data, documents, images and connected systems.</p></li>
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="7" width="22" height="16" rx="2"/><line x1="10" y1="12" x2="22" y2="12" opacity="0.5"/><line x1="10" y1="16" x2="20" y2="16" opacity="0.5"/><line x1="10" y1="20" x2="18" y2="20" opacity="0.5"/></svg></span><span class="pc__stage-num">03 · Answer</span><h4>Grounded prose</h4><p>Generate a natural-language answer rooted in actual records — never invented.</p></li>
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 6 L24 6 L24 26 L8 26 Z"/><line x1="11" y1="12" x2="21" y2="12" opacity="0.5"/><line x1="11" y1="16" x2="19" y2="16" opacity="0.5"/><line x1="11" y1="20" x2="17" y2="20" opacity="0.5"/></svg></span><span class="pc__stage-num">04 · Cite</span><h4>Source chips</h4><p>Every claim links back to the source record, log entry, image, approval or timeline event.</p></li>
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4 L19 12 L28 12 L21 18 L24 27 L16 22 L8 27 L11 18 L4 12 L13 12 Z"/></svg></span><span class="pc__stage-num">05 · Recommend</span><h4>Next best action</h4><p>Suggest the right next step — with rationale and links to the underlying signals.</p></li>
+      <li class="pc__stage"><span class="pc__stage-mark"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 4 L8 18 L15 18 L13 28 L24 13 L17 13 Z" fill="currentColor"/></svg></span><span class="pc__stage-num">06 · Act</span><h4>One click</h4><p>Trigger a task, escalation, work order, report or approval — without leaving the conversation.</p></li>
+    </ol>
+
+    <div class="section-head pc__section-head pc__section-head--center">
+      <div class="eyebrow">// Ask questions like</div>
+      <h2 class="section-title">Same interface. <em style="font-style:normal;color:var(--accent)">Every role.</em></h2>
+    </div>
+    <div class="pc__caps">
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Operator</span></div><h4>"Where is asset A123 now?"</h4><p>Live location, last seen, assigned team, current state and the path it took to get there.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Supervisor</span></div><h4>"Why did this incident breach SLA?"</h4><p>Root-cause narrative with citations to logs, checks, parts and people involved.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Manager</span></div><h4>"Top risks across all sites this morning?"</h4><p>Ranked summary by severity and business impact, drillable to specific events.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Executive</span></div><h4>"Summarize yesterday's safety incidents."</h4><p>Concise executive brief — incidents, causes, response times, open follow-ups.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Auditor</span></div><h4>"Inspections missing photos this week?"</h4><p>Compliance gaps with full audit-grade citation chain.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Field team</span></div><h4>"Vehicles still in the yard?"</h4><p>Live yard view with vehicle IDs, dwell times and assigned jobs.</p></article>
+    </div>
+
+    <div class="section-head pc__section-head pc__section-head--center">
+      <div class="eyebrow">// Answers you can trust</div>
+      <h2 class="section-title">Grounded. Cited. <em style="font-style:normal;color:var(--accent)">Auditable.</em></h2>
+      <p class="section-lead">Every response is built from actual operational records. Citations show the source — and operators can click through to verify before acting.</p>
+    </div>
+    <div class="pc__uses">
+      <article class="pc__use"><h4>Citations attached to every answer</h4><p>Source records — asset history, RFID reads, sensor logs, work-order timelines, inspection photos, approvals, ERP transactions, incidents, user-activity logs and location events.</p><div class="pc__use-flow"><span>Asset history</span><span>RFID reads</span><span>Sensor logs</span><span>WO timeline</span></div></article>
+      <article class="pc__use"><h4>Conversational actions</h4><p>From question to action without leaving the chat: create a task, open an incident, assign a technician, escalate, generate a report, notify a team, update asset status or start an approval flow.</p><div class="pc__use-flow"><span>Create task</span><span>Open incident</span><span>Notify</span><span>Approval</span></div></article>
+    </div>
+
+    <div class="pc__value">
+      <div class="pc__value-head"><div class="eyebrow">// Why it matters</div><h3>Operations <em style="font-style:normal;color:var(--accent)">at the speed of a question.</em></h3></div>
+      <div class="pc__value-grid">
+        <div class="pc__vcell"><div class="pc__vnum">−68%</div><div class="pc__vname">Investigation time</div><p>Operators get root-cause narratives in seconds — instead of clicking through five dashboards.</p></div>
+        <div class="pc__vcell"><div class="pc__vnum">100%</div><div class="pc__vname">Cited responses</div><p>Every claim links to a source record. No generic answers. No invented numbers.</p></div>
+        <div class="pc__vcell"><div class="pc__vnum">3.4×</div><div class="pc__vname">Answers / hour</div><p>Supervisors handle more questions, faster — without operators needing to learn the dashboard layout.</p></div>
+        <div class="pc__vcell"><div class="pc__vnum">AR + EN</div><div class="pc__vname">Bilingual native</div><p>Native Arabic and English — same answers, same citations, same actions on either side.</p></div>
+      </div>
+    </div>
+
+    <p class="pc__closing"><strong>Conversational Ops turns natural language into operational action</strong> — with citations, recommendations and one-click execution.</p>
+
+  </div>
+</section>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Ask Innfini anything about your operation.</h2>
+    <p>A 60-minute architecture review with our solutions team. We connect your data, your systems and your roles to a single conversational surface.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Request review</a>
+    <a class="btn btn--secondary" href="platform.html">Full architecture →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related capabilities</h3>
+  <div class="cs-related__grid"><a class="cs-related__card" href="pc-agentic-orchestration.html"><span class="cs-related__card-client">// Capability</span><h4>Agentic Orchestration</h4><span class="arrow">Read capability →</span></a><a class="cs-related__card" href="pc-computer-vision.html"><span class="cs-related__card-client">// Capability</span><h4>Computer Vision</h4><span class="arrow">Read capability →</span></a><a class="cs-related__card" href="pc-predictive.html"><span class="cs-related__card-client">// Capability</span><h4>Predictive Analytics</h4><span class="arrow">Read capability →</span></a></div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

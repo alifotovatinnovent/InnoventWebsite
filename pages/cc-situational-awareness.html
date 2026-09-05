@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Situational Awareness — Command &amp; Control · Innovent</title>
+<meta name="description" content="INNFINI creates a unified geo-temporal operating picture across every real-time data source. Incidents, sensors, cameras, assets.">
+<link rel="canonical" href="https://www.innovent.io/pages/cc-situational-awareness.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Situational Awareness — Command &amp; Control · Innovent">
+<meta property="og:description" content="INNFINI creates a unified geo-temporal operating picture across every real-time data source. Incidents, sensors, cameras, assets.">
+<meta property="og:url" content="https://www.innovent.io/pages/cc-situational-awareness.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Situational Awareness — Command &amp; Control · Innovent">
+<meta name="twitter:description" content="INNFINI creates a unified geo-temporal operating picture across every real-time data source. Incidents, sensors, cameras, assets.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="../styles-situational-awareness.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+</head>
+<body class="page" data-page="cc">
+<div id="site-nav"></div>
+
+<div class="cs-hero" style="padding:80px 0 24px;">
+  <div class="cs-hero__inner"><div class="breadcrumb">
+    <a href="../index.html">Home</a><span class="sep">/</span>
+    <a href="command-control.html">Command &amp; Control</a><span class="sep">/</span>
+    Situational Awareness
+  </div></div>
+</div>
+
+<section id="situational-awareness" class="section sa">
+  <div class="sa__bg"></div>
+  <div class="container">
+
+    <!-- ── PART 1 · Hero (text left, motion right) ── -->
+    <div class="sa__hero">
+      <div class="sa__copy">
+        <div class="eyebrow">// Command &amp; Control · Situational awareness</div>
+        <h2 class="sa__title">One canvas. <em style="font-style:normal;color:var(--accent)">Every signal.</em></h2>
+        <p class="sa__lead">
+          INNFINI creates a unified <strong>geo-temporal operating picture</strong> across every real-time data source. Incidents, sensors, cameras, assets, field teams and SOPs are linked to time, location, status, severity, ownership and operational context — so operators always know <strong>what is happening, where, who is affected, and what is being done</strong>.
+        </p>
+        <div class="sa__sig">
+          <div class="sa__sig-item"><div class="sa__sig-num">1</div><div class="sa__sig-lab">Geo-temporal canvas</div></div>
+          <div class="sa__sig-item"><div class="sa__sig-num">∞</div><div class="sa__sig-lab">Layers · sources</div></div>
+          <div class="sa__sig-item"><div class="sa__sig-num">Real-time</div><div class="sa__sig-lab">+ time playback</div></div>
+        </div>
+        <div class="sa__chips">
+          <span class="sa__chip"><span class="sa__chip-dot"></span>What</span>
+          <span class="sa__chip"><span class="sa__chip-dot"></span>Where</span>
+          <span class="sa__chip"><span class="sa__chip-dot"></span>Who</span>
+          <span class="sa__chip"><span class="sa__chip-dot"></span>Action</span>
+        </div>
+      </div>
+      <div class="sa__motion" aria-hidden="true">
+        <div class="sa__panel">
+          <div class="sa__panel-bar">
+            <span class="sa__panel-dot sa__panel-dot--r"></span>
+            <span class="sa__panel-dot sa__panel-dot--y"></span>
+            <span class="sa__panel-dot sa__panel-dot--g"></span>
+            <span class="sa__panel-name">ops-command · live map · all layers</span>
+            <span class="sa__panel-pill">Live</span>
+          </div>
+          <div class="sa__map-mini"><svg id="sa-cop-mini" viewBox="0 0 640 480" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Live common operational picture: Dubai metro, five active incidents, four field units"></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PART 2 · The full dashboard mockup (large interactive-looking surface) ── -->
+    <div class="sa__section-head">
+      <div class="eyebrow">// One pane of glass</div>
+      <h2 class="section-title">Map-centered. <em style="font-style:normal;color:var(--accent)">Layer-rich. Time-aware.</em></h2>
+      <p class="section-lead">The operations command canvas places the map at the center, fuses every operational layer on top, and lets operators filter, scrub and act — all without leaving the screen.</p>
+    </div>
+
+    <div class="sa__dashboard">
+      <div class="sa__db-bar">
+        <span class="sa__panel-dot sa__panel-dot--r"></span>
+        <span class="sa__panel-dot sa__panel-dot--y"></span>
+        <span class="sa__panel-dot sa__panel-dot--g"></span>
+        <span class="sa__db-bar-title">ops-command · district map · 23 active · 5 critical</span>
+        <span class="sa__db-bar-pill">Streaming</span>
+      </div>
+      <div class="sa__db-filters">
+        <span class="sa__db-fk">Filters</span>
+        <span class="sa__db-fchip sa__db-fchip--on">Agency · Police + Fire</span>
+        <span class="sa__db-fchip">Zone · Downtown</span>
+        <span class="sa__db-fchip sa__db-fchip--on">Asset · Vehicles + Cameras</span>
+        <span class="sa__db-fchip">Incident · Traffic</span>
+        <span class="sa__db-fchip sa__db-fchip--high">Severity · Critical · High</span>
+        <span class="sa__db-fchip">+ 4 more</span>
+      </div>
+      <div class="sa__db-grid">
+        <div class="sa__db-map"><svg id="sa-cop-main" viewBox="0 0 1100 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Innfini common operational picture: sectors, camera fields of view, unit tracks and active incidents over the Dubai metro area"></svg></div>
+        <aside class="sa__db-side">
+          <h6>Active incidents · 5</h6>
+          <article class="sa__incident">
+            <div class="sa__incident-head">
+              <span class="sa__incident-sev sa__incident-sev--c">Critical</span>
+              <span class="sa__incident-loc">5th &amp; Main · 14:32</span>
+            </div>
+            <h5>Multi-vehicle collision</h5>
+            <div class="sa__incident-meta"><span><b>Team</b> Engine-12</span><span><b>SOP</b> TR-04</span></div>
+          </article>
+          <article class="sa__incident">
+            <div class="sa__incident-head">
+              <span class="sa__incident-sev sa__incident-sev--h">High</span>
+              <span class="sa__incident-loc">Port-B · 14:18</span>
+            </div>
+            <h5>Unauthorized perimeter breach</h5>
+            <div class="sa__incident-meta"><span><b>Team</b> Patrol-22</span><span><b>SOP</b> SEC-07</span></div>
+          </article>
+          <article class="sa__incident">
+            <div class="sa__incident-head">
+              <span class="sa__incident-sev sa__incident-sev--m">Medium</span>
+              <span class="sa__incident-loc">Civic Park · 13:55</span>
+            </div>
+            <h5>Crowd density above threshold</h5>
+            <div class="sa__incident-meta"><span><b>Team</b> Unit-9</span><span><b>SOP</b> CR-02</span></div>
+          </article>
+          <article class="sa__incident">
+            <div class="sa__incident-head">
+              <span class="sa__incident-sev sa__incident-sev--h">High</span>
+              <span class="sa__incident-loc">Riverside · 13:42</span>
+            </div>
+            <h5>Air-quality sensor anomaly</h5>
+            <div class="sa__incident-meta"><span><b>Team</b> Hazmat-3</span><span><b>SOP</b> ENV-11</span></div>
+          </article>
+        </aside>
+      </div>
+      <div class="sa__db-timeline">
+        <span class="sa__tl-k">Timeline</span>
+        <div class="sa__tl-track">
+          <span class="sa__tl-tick sa__tl-tick--m" style="left:8%"></span>
+          <span class="sa__tl-tick sa__tl-tick--h" style="left:22%"></span>
+          <span class="sa__tl-tick sa__tl-tick--m" style="left:34%"></span>
+          <span class="sa__tl-tick sa__tl-tick--c" style="left:42%"></span>
+          <span class="sa__tl-tick sa__tl-tick--h" style="left:58%"></span>
+          <span class="sa__tl-tick sa__tl-tick--m" style="left:65%"></span>
+          <span class="sa__tl-tick sa__tl-tick--c" style="left:78%"></span>
+          <span class="sa__tl-tick sa__tl-tick--h" style="left:88%"></span>
+          <span class="sa__tl-head" style="left:78%"></span>
+        </div>
+        <span class="sa__tl-label">14:32 · live</span>
+      </div>
+    </div>
+
+    
+    <!-- Real production screenshot -->
+    <div class="pt__shot" style="border:1px solid var(--hair); border-radius:14px; overflow:hidden; margin: 0 0 96px;">
+      <div class="pt__shot-bar" style="display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.02);">
+        <span class="pt__screen-dot pt__screen-dot--r" style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+        <span class="pt__screen-dot pt__screen-dot--y" style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+        <span class="pt__screen-dot pt__screen-dot--g" style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+        <span class="pt__shot-name" style="margin-left:10px; font-family:var(--font-mono); font-size:12px; color:var(--ink-70)">Abu Dhabi Ports · Situational Awareness · production view</span>
+        <span class="pt__shot-pill" style="margin-left:auto; font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#28c840; border:1px solid rgba(40,200,64,0.4); border-radius:999px; padding:4px 10px;">Production</span>
+      </div>
+      <img src="../assets/product/sa-abu-dhabi-ports.png" alt="Situational Awareness production view · Abu Dhabi Ports" style="display:block; width:100%; height:auto;">
+      <div class="pt__shot-cap" style="padding:18px 22px; border-top:1px solid var(--hair); background:rgba(255,255,255,0.015); font-size:13.5px; color:var(--ink-70); line-height:1.55;"><strong>Live production deployment · Abu Dhabi Ports.</strong> The Situational Awareness module running against real operational data: 7 active incidents, 12 available teams, 23 open actions, 145 active assets. Zone polygons (Zone 1, 2, 3) overlay the satellite map with live incident counts (red badges) and asset/camera markers. Right pane lists active incidents with severity tags (High / Medium), team assignments and pending tasks. Top strip pins weather (28°C partly cloudy · NE 12 km/h) and air quality (AQI 42 · Good) right next to multi-axis filters (Agency · Zone · Asset Type · Incident Type · Severity). Bottom timeline shows the day's event stream with a "now" cursor at 14:38:22 — operators scrub backward to replay any past minute.</div>
+    </div>
+
+    <!-- ── PART 3 · Layer capabilities (8 things on the canvas) ── -->
+    <div class="sa__section-head sa__section-head--center">
+      <div class="eyebrow">// What lives on the canvas</div>
+      <h2 class="section-title">Eight layers. <em style="font-style:normal;color:var(--accent)">One operating picture.</em></h2>
+    </div>
+    <div class="sa__caps">
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4 L 28 26 L 4 26 Z"/><line x1="16" y1="12" x2="16" y2="19"/><circle cx="16" cy="23" r="1" fill="currentColor"/></svg></div><div class="sa__cap-tag">Live</div><h4>Incidents</h4><p>Live incident markers with severity, status, owner, SOP and team assignment.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="9" width="20" height="14" rx="2"/><circle cx="13" cy="16" r="4"/><circle cx="13" cy="16" r="1.4" fill="currentColor"/><path d="M23 13 L 29 9 L 29 23 L 23 19 Z" fill="currentColor" opacity="0.4"/></svg></div><div class="sa__cap-tag">Vision</div><h4>Cameras</h4><p>Geo-pinned camera nodes — click for live stream, recent detections and triggers.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="11" width="22" height="12" rx="1"/><circle cx="9" cy="25" r="2"/><circle cx="22" cy="25" r="2"/><path d="M25 11 L 29 14 L 29 23 L 25 23"/></svg></div><div class="sa__cap-tag">Sensors</div><h4>Sensors &amp; Assets</h4><p>RFID, BLE, GPS, environmental and IoT signals fused into asset-level positions.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="3.4"/><circle cx="22" cy="13" r="2.6"/><path d="M4 25 C 4 20, 7 17, 11 17 C 15 17, 18 20, 18 25"/><path d="M18 25 C 18 22, 20 20, 23 20 C 26 20, 28 22, 28 25"/></svg></div><div class="sa__cap-tag">Crews</div><h4>Field Teams</h4><p>Vehicle, patrol, hazmat and crew locations with skill, role and SLA timers.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 3" stroke-linejoin="round"><path d="M8 5 L 26 8 L 28 22 L 12 28 L 4 18 Z"/></svg></div><div class="sa__cap-tag">Rules</div><h4>Geofenced Zones</h4><p>Operational zones, geofences and SOP boundaries — drawn live on the map.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 7 L 12 4 L 20 7 L 28 4 L 28 25 L 20 28 L 12 25 L 4 28 Z"/><line x1="12" y1="4" x2="12" y2="25"/><line x1="20" y1="7" x2="20" y2="28"/></svg></div><div class="sa__cap-tag">Layers</div><h4>Severity Markers</h4><p>Critical / High / Medium / Low color-coded for at-a-glance triage.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M16 8 L 16 16 L 22 19"/></svg></div><div class="sa__cap-tag">Time</div><h4>Event Playback</h4><p>Scrub backwards through the day, hour or minute. Replay any past picture.</p></article>
+      <article class="sa__cap"><div class="sa__cap-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 L 28 6 L 19 17 L 19 27 L 13 24 L 13 17 Z"/></svg></div><div class="sa__cap-tag">Filters</div><h4>Multi-axis Filters</h4><p>Agency · zone · asset type · incident type · severity — combinable, savable.</p></article>
+    </div>
+
+    <!-- ── PART 4 · Environmental overlays ── -->
+    <div class="sa__section-head">
+      <div class="eyebrow">// Overlays</div>
+      <h2 class="section-title">Layered context — <em style="font-style:normal;color:var(--accent)">on demand.</em></h2>
+      <p class="section-lead">Stack weather, traffic, air-quality and environmental layers on top of the operational picture. Same canvas, more dimensions.</p>
+    </div>
+    <div class="sa__overlays">
+      <div class="sa__ov"><span class="sa__ov-dot" style="background:#7dd3fc"></span><div><div class="sa__ov-name">Weather</div><div class="sa__ov-sub">Live precipitation, wind, lightning, temperature.</div></div></div>
+      <div class="sa__ov"><span class="sa__ov-dot" style="background:#fcd34d"></span><div><div class="sa__ov-name">Traffic</div><div class="sa__ov-sub">Live road density, closures, route delays.</div></div></div>
+      <div class="sa__ov"><span class="sa__ov-dot" style="background:#fda4af"></span><div><div class="sa__ov-name">Environmental</div><div class="sa__ov-sub">Air quality, noise, hazardous-material plumes.</div></div></div>
+      <div class="sa__ov"><span class="sa__ov-dot" style="background:#a7f3d0"></span><div><div class="sa__ov-name">Network &amp; Power</div><div class="sa__ov-sub">Outages, utility status, comms-coverage gaps.</div></div></div>
+    </div>
+
+    <!-- ── PART 5 · Why it matters ── -->
+    <div class="sa__value">
+      <div class="sa__value-head"><div class="eyebrow">// Why it matters</div><h3>From dashboards to <em style="font-style:normal;color:var(--accent)">decisions.</em></h3></div>
+      <div class="sa__value-grid">
+        <div class="sa__vcell"><div class="sa__vname">01 · Unify</div><h4>One Source of Truth</h4><p>Every agency, system and feed on one canvas — no swivel-chair.</p></div>
+        <div class="sa__vcell"><div class="sa__vname">02 · Act</div><h4>Faster Response</h4><p>Severity, SOP and team availability surfaced at the marker — assign in one click.</p></div>
+        <div class="sa__vcell"><div class="sa__vname">03 · Replay</div><h4>Time-Aware</h4><p>Scrub the timeline to see exactly what was true at any past minute.</p></div>
+        <div class="sa__vcell"><div class="sa__vname">04 · Scale</div><h4>From Site to City</h4><p>Same map, same layers — from a single building to a multi-agency district.</p></div>
+      </div>
+    </div>
+    <p class="sa__closing"><strong>Situational Awareness turns the chaos of multi-source ops into a single operating picture</strong> — one map, every layer, every signal, full time travel.</p>
+  </div>
+</section>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div><h2>See your operation on the situational-awareness canvas.</h2><p>A live walkthrough with our solutions team — your maps, your sensors, your incidents, your SOPs.</p></div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Request demo</a>
+    <a class="btn btn--secondary" href="command-control.html">Command &amp; Control overview →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// More from Command &amp; Control</h3>
+  <div class="cs-related__grid">
+    <a class="cs-related__card" href="cc-public-safety.html"><span class="cs-related__card-client">// C2</span><h4>Public Safety &amp; 911</h4><span class="arrow">View →</span></a>
+    <a class="cs-related__card" href="cc-critical-infra.html"><span class="cs-related__card-client">// C2</span><h4>Critical Infrastructure</h4><span class="arrow">View →</span></a>
+    <a class="cs-related__card" href="cc-ports.html"><span class="cs-related__card-client">// C2</span><h4>Ports &amp; Logistics</h4><span class="arrow">View →</span></a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+<script src="../sa-map.js"></script>
+</body></html>

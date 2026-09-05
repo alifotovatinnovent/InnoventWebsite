@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why agentic AI breaks in production — and how we fixed it · Innovent</title>
+<meta name="description" content="Most agentic AI demos work brilliantly until they hit production. We learned this the hard way running goal-driven agents inside Civil Defense.">
+<link rel="canonical" href="https://www.innovent.io/pages/blog-agentic-ai-production.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Why agentic AI breaks in production — and how we fixed it · Innovent">
+<meta property="og:description" content="Most agentic AI demos work brilliantly until they hit production. We learned this the hard way running goal-driven agents inside Civil Defense.">
+<meta property="og:url" content="https://www.innovent.io/pages/blog-agentic-ai-production.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why agentic AI breaks in production — and how we fixed it · Innovent">
+<meta name="twitter:description" content="Most agentic AI demos work brilliantly until they hit production. We learned this the hard way running goal-driven agents inside Civil Defense.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<link rel="stylesheet" href="_resource.css">
+</head>
+<body class="page" data-page="resources">
+<div id="site-nav"></div>
+
+<section class="bl-hero">
+  <div class="bl-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="resources.html#blog">Field Notes</a><span class="sep">/</span>
+      Engineering
+    </div>
+    <div class="bl-hero__meta">
+      <span class="bl-hero__cat">ENGINEERING</span>
+      <span>May 2026</span>
+      <span>12 min read</span>
+    </div>
+    <h1>Why agentic AI breaks in production — and how we fixed it</h1>
+    <div class="bl-hero__byline">
+      <div class="bl-hero__avatar">KP</div>
+      <span class="bl-hero__author">Dr. K. Patel</span>
+      <span class="bl-hero__sep">·</span>
+      <span>Innovent · Engineering</span>
+    </div>
+  </div>
+</section>
+
+<article class="bl-body">
+  <div class="bl-body__inner">
+<p>Most agentic AI demos work brilliantly until they hit production. We learned this the hard way running goal-driven agents inside Civil Defense, police forces, and chemical plants. The failure modes are predictable. The fixes are unglamorous. Here's what three years of deployment taught us.</p>
+<h2>The first failure: tool hallucination</h2>
+<p>When an LLM picks a tool that doesn't exist, you don't find out until production. Schema-strict tool registries prevent this — every tool has a typed signature, and the planner can only emit calls that match. We rejected pure function-calling APIs in favor of <strong>typed action grammars</strong> that the planner generates against, not in spite of.</p>
+<div class="callout"><h4>Lesson</h4><p>If your agent framework lets the LLM invent tool names, you don't have a framework. You have a chatbot with extra steps.</p></div>
+<h2>The second failure: policy drift</h2>
+<p>Approval policies that live in prompt text decay. The model summarizes them, paraphrases them, eventually forgets them. We moved every policy into <strong>structural guardrails</strong> — code that runs after the model proposes an action and before the system executes it. The model can't bypass what isn't in its execution path.</p>
+<h2>The third failure: multi-agent gridlock</h2>
+<p>When two agents share a workspace, they fight. We watched a dispatch agent and a maintenance agent argue over the same vehicle for 14 minutes in a staging environment. The fix isn't smarter coordination — it's <strong>explicit lock acquisition</strong> in the object graph. Whoever holds the lock wins. Conflicts surface as events, not as silent races.</p>
+<h2>The fourth failure: silent regression</h2>
+<p>Agents drift. Last quarter's "good enough" model becomes this quarter's liability. We run <strong>shadow agents</strong> on every production decision — the live agent acts, the shadow agent predicts. When divergence crosses threshold, the shadow gets promoted or the live agent gets retrained.</p>
+<blockquote>A production agent isn't a model. It's a model, a typed action grammar, structural policy, lock-protected state, and shadow evaluation — together. Anything less and you're running a demo.</blockquote>
+<h2>What we won't do anymore</h2>
+<ul><li>Prompt-only policy enforcement.</li><li>Unbounded tool registries.</li><li>Shared mutable state without locks.</li><li>Trusting demo performance.</li></ul>
+<p>None of this is novel computer science. All of it is the difference between an agent that works in a demo and an agent that runs Dubai Police's critical-asset chain-of-custody.</p>
+  </div>
+</article>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Want this depth applied to your operation?</h2>
+    <p>Our engineering and solutions teams brief in 60 minutes on architecture, deployment, and what works for your specific environment.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Talk to engineering
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="resources.html#blog">More from Field Notes →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related posts</h3>
+  <div class="cs-related__grid">
+      <a class="cs-related__card" href="blog-camera-rfid.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Camera-to-RFID fusion: a practitioner's guide</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="blog-air-gapped.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Air-gapped Innfini: the engineering trade-offs</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="blog-sub-100ms.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Sub-100ms decisions at the edge — without a GPU</h4>
+        <span class="arrow">Read →</span>
+      </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

@@ -1,0 +1,70 @@
+/* Single-industry ROI calculator — extracted from main page */
+.roi-i { background: var(--bg-1); border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; }
+.roi-i__head { padding: 24px 28px 18px; border-bottom: 1px solid var(--hair); background: var(--bg-deep); display:flex; flex-wrap:wrap; gap:18px; align-items:baseline; justify-content:space-between; }
+.roi-i__head h3 { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 26px); color: var(--ink-100); margin: 0; letter-spacing: -0.01em; }
+.roi-i__head .eyebrow { margin-bottom:0; }
+.roi-i__head p { font-family: var(--font-mono); font-size: 11px; color: var(--ink-70); letter-spacing: 0.04em; margin: 4px 0 0; }
+
+.roi-i__body { display: grid; grid-template-columns: 1fr 1.4fr; }
+.roi-i__inputs { padding: 28px; border-right: 1px solid var(--hair); background: var(--bg-deep); }
+.roi-i__inputs-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--hair); }
+.roi-i__inputs-label { font-family: var(--font-display); font-size: 15px; font-weight: 500; color: var(--ink-100); letter-spacing: -0.005em; }
+.roi-i__inputs-pill { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.25); border-radius: 999px; }
+
+.roi-i__field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+.roi-i__field-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.roi-i__field-head label { font-size: 13px; color: var(--ink-80); font-weight: 500; flex: 1; min-width: 0; }
+.roi-i__field-head .val { font-family: var(--font-mono); font-size: 13.5px; color: var(--accent); font-weight: 500; white-space: nowrap; flex-shrink: 0; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; text-align: right; }
+.roi-i__field input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:4px; background: rgba(255,255,255,0.06); border-radius:2px; cursor:pointer; }
+.roi-i__field input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:16px; height:16px; background: var(--accent); border-radius:50%; border:3px solid var(--bg-deep); box-shadow: 0 0 0 1px var(--accent); cursor:pointer; }
+.roi-i__field input[type=range]::-moz-range-thumb { width:16px; height:16px; background: var(--accent); border-radius:50%; border:3px solid var(--bg-deep); cursor:pointer; }
+.roi-i__field .help { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-70); letter-spacing: 0.04em; }
+
+.roi-i__method { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--hair); }
+.roi-i__method-head { font-family: var(--font-mono); font-size: 10.5px; color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+.roi-i__method ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.roi-i__method li { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; line-height: 1.5; color: var(--ink-70); }
+.roi-i__method li::before { content:""; flex-shrink:0; width:4px; height:4px; background: var(--accent); border-radius:50%; margin-top:8px; }
+.roi-i__method li b { color: var(--ink-100); font-weight:500; }
+.roi-i__method li i { font-style:normal; color: var(--ink-70); font-family: var(--font-mono); font-size:10px; letter-spacing:0.03em; display:block; margin-top:2px; }
+
+.roi-i__results { padding: 28px; display: flex; flex-direction: column; gap: 22px; }
+.roi-i__hero-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 1px; background: var(--hair); border: 1px solid var(--hair); border-radius: 10px; overflow:hidden; }
+.roi-i__hero-card { background: var(--bg-1); padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; }
+.roi-i__hero-card--lead { background: linear-gradient(135deg, rgba(59,130,246,0.16), rgba(59,130,246,0.04)); }
+.roi-i__hero-lab { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-70); letter-spacing: 0.14em; text-transform: uppercase; }
+.roi-i__hero-card--lead .roi-i__hero-lab { color: var(--accent); }
+.roi-i__hero-big { font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); font-weight:500; color: var(--ink-100); letter-spacing:-0.03em; line-height:1; font-feature-settings:"tnum"; font-variant-numeric: tabular-nums; }
+.roi-i__hero-card--lead .roi-i__hero-big { color: var(--accent); }
+.roi-i__hero-sub { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-70); letter-spacing:0.04em; line-height:1.4; font-feature-settings:"tnum"; font-variant-numeric: tabular-nums; }
+
+.roi-i__breakdown { background: var(--bg-deep); border: 1px solid var(--hair); border-radius: 10px; padding: 20px 22px; }
+.roi-i__breakdown-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.roi-i__breakdown-head h4 { font-family: var(--font-display); font-size: 14px; font-weight:500; color: var(--ink-100); letter-spacing:-0.005em; margin:0; }
+.roi-i__breakdown-meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-70); letter-spacing: 0.06em; }
+.roi-i__bar { display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: rgba(255,255,255,0.04); }
+.roi-i__bar-seg { height:100%; transition: flex-basis 600ms cubic-bezier(0.22,1,0.36,1), background 240ms ease; min-width:4px; }
+.roi-i__legend { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; margin-top: 16px; }
+.roi-i__legend-row { display:flex; align-items:center; gap:10px; font-size:12px; color: var(--ink-80); }
+.roi-i__legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.roi-i__legend-name { flex:1; }
+.roi-i__legend-val { font-family: var(--font-mono); font-size:12px; color: var(--ink-100); font-weight:500; font-feature-settings:"tnum"; font-variant-numeric: tabular-nums; min-width:60px; text-align:right; }
+
+.roi-i__chart { background: var(--bg-deep); border:1px solid var(--hair); border-radius:10px; padding: 20px 22px 12px; }
+.roi-i__chart svg { width:100%; height:220px; display:block; }
+.roi-i__chart-line, .roi-i__chart-fill { transition: d 320ms cubic-bezier(0.22, 1, 0.36, 1); }
+.roi-i__chart-break-line, .roi-i__chart-break-dot, .roi-i__chart-break-label { transition: x1 320ms, x2 320ms, cx 320ms, x 320ms; }
+
+.roi-i__foot { padding: 16px 28px; border-top: 1px solid var(--hair); background: var(--bg-deep); display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap; }
+.roi-i__foot-tag { font-family: var(--font-mono); font-size: 10.5px; color: var(--accent); letter-spacing:0.16em; flex-shrink:0; }
+.roi-i__foot span:last-child { flex:1; font-family: var(--font-mono); font-size:11px; color: var(--ink-70); line-height:1.6; letter-spacing:0.03em; }
+
+@media (max-width: 1100px) {
+  .roi-i__body { grid-template-columns: 1fr; }
+  .roi-i__inputs { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .roi-i__hero-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .roi-i__hero-grid { grid-template-columns: 1fr; }
+  .roi-i__legend { grid-template-columns: 1fr; }
+}

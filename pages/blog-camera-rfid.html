@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Camera-to-RFID fusion: a practitioner's guide · Innovent</title>
+<meta name="description" content="Cameras see well. RFID counts well. Each lies in its own way. The interesting work in industrial computer vision isn't about either sensor alone.">
+<link rel="canonical" href="https://www.innovent.io/pages/blog-camera-rfid.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Innovent">
+<meta property="og:title" content="Camera-to-RFID fusion: a practitioner's guide · Innovent">
+<meta property="og:description" content="Cameras see well. RFID counts well. Each lies in its own way. The interesting work in industrial computer vision isn't about either sensor alone.">
+<meta property="og:url" content="https://www.innovent.io/pages/blog-camera-rfid.html">
+<meta property="og:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Camera-to-RFID fusion: a practitioner's guide · Innovent">
+<meta name="twitter:description" content="Cameras see well. RFID counts well. Each lies in its own way. The interesting work in industrial computer vision isn't about either sensor alone.">
+<meta name="twitter:image" content="https://www.innovent.io/assets/innovent/og-default.jpg">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-sections.css">
+<link rel="stylesheet" href="../animations.css">
+<link rel="stylesheet" href="../megamenu.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="_casestudy.css">
+<link rel="stylesheet" href="_resource.css">
+</head>
+<body class="page" data-page="resources">
+<div id="site-nav"></div>
+
+<section class="bl-hero">
+  <div class="bl-hero__inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="resources.html#blog">Field Notes</a><span class="sep">/</span>
+      Research
+    </div>
+    <div class="bl-hero__meta">
+      <span class="bl-hero__cat">RESEARCH</span>
+      <span>April 2026</span>
+      <span>18 min read</span>
+    </div>
+    <h1>Camera-to-RFID fusion: a practitioner's guide</h1>
+    <div class="bl-hero__byline">
+      <div class="bl-hero__avatar">MC</div>
+      <span class="bl-hero__author">M. Chen</span>
+      <span class="bl-hero__sep">·</span>
+      <span>Innovent · Engineering</span>
+    </div>
+  </div>
+</section>
+
+<article class="bl-body">
+  <div class="bl-body__inner">
+<p>Cameras see well. RFID counts well. Each lies in its own way. The interesting work in industrial computer vision isn't about either sensor alone — it's about fusing them so the lies cancel out. Here's how we do it in production.</p>
+<h2>Why neither alone is enough</h2>
+<p>RFID gives you "this tag is in this zone" with near-perfect counts but no spatial information beneath the antenna footprint. Vision gives you precise positions but is blind to occluded objects, mistakes carbon-fiber for steel, and breaks under shift-changing light.</p>
+<p>Fusion is where the magic happens. The camera tells you <em>where</em>; the RFID tells you <em>what</em>. Together you get item-level position tracking that beats either modality alone.</p>
+<h2>The pipeline</h2>
+<p>In production, our pipeline runs four stages — detection, association, fusion, and reconciliation. Each has its own failure modes.</p>
+<h3>Stage 1: Detection</h3>
+<p>A fine-tuned YOLO-class model identifies object candidates in each frame. We train per site because lighting, angles, and object classes are too varied for a generic model.</p>
+<h3>Stage 2: Association</h3>
+<p>RFID reads are timestamped. Vision detections are timestamped. We associate them using a Hungarian-algorithm-style assignment that considers spatial proximity, RFID signal strength, and time alignment.</p>
+<h3>Stage 3: Fusion</h3>
+<p>Once associated, an Kalman-filter tracks each object's position across frames. RFID updates anchor the track to identity. Vision updates refine the position.</p>
+<h3>Stage 4: Reconciliation</h3>
+<p>A nightly job reconciles the day's tracks against ground truth — manual cycle counts, ERP records, or the next-day reality. Drift gets fed back into retraining.</p>
+<div class="callout"><h4>Calibration tip</h4><p>The biggest source of error in fusion is RFID antenna placement. Spend a week walking the site with a calibration cart before you trust any model.</p></div>
+<p>We see 99%+ match accuracy in production on yard operations. That number breaks if the antenna placement breaks, if the camera angles change, or if a new SKU enters without retraining. Maintenance discipline matters more than model architecture.</p>
+  </div>
+</article>
+
+<section class="cs-cta"><div class="cs-cta__inner">
+  <div>
+    <h2>Want this depth applied to your operation?</h2>
+    <p>Our engineering and solutions teams brief in 60 minutes on architecture, deployment, and what works for your specific environment.</p>
+  </div>
+  <div class="cs-cta__buttons">
+    <a class="btn btn--primary" href="request-demo.html">Talk to engineering
+      <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <a class="btn btn--secondary" href="resources.html#blog">More from Field Notes →</a>
+  </div>
+</div></section>
+
+<section class="cs-related"><div class="cs-related__inner">
+  <h3>// Related posts</h3>
+  <div class="cs-related__grid">
+      <a class="cs-related__card" href="cap-sensor-fabric.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Sensor fabric</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="cap-decision-engine.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Decision engine</h4>
+        <span class="arrow">Read →</span>
+      </a>
+      <a class="cs-related__card" href="blog-sub-100ms.html">
+        <span class="cs-related__card-client">// Related</span>
+        <h4>Sub-100ms decisions at the edge</h4>
+        <span class="arrow">Read →</span>
+      </a>
+  </div>
+</div></section>
+
+<div id="site-footer"></div>
+<script src="_chrome.js"></script>
+<script src="../megamenu.js"></script>
+</body></html>

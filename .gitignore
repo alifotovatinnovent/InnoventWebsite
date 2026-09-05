@@ -1,0 +1,17 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Nothing here is built, so there is no dist/ or node_modules/ to ignore.
+# Preview artefacts only.
+screenshots/
+shot/
+*.log
+
+# Claude Design scratch — pasted screenshots and source decks, not used by the site
+uploads/
+.thumbnail
+_ds/

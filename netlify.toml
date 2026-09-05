@@ -1,0 +1,46 @@
+# Publish config for Netlify. No build step — the site is static HTML, so the
+# repository root is published as-is.
+[build]
+  publish = "."
+  command = ""
+
+# Long cache for immutable-ish assets, none for HTML so content updates are
+# picked up immediately.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Serve /pages/foo for /pages/foo.html so the URLs are shareable without the
+# extension. Canonical tags still point at the .html form — change both together
+# if the URL structure is revisited.
+[[redirects]]
+  from = "/pages/:slug"
+  to = "/pages/:slug.html"
+  status = 200
+
+# Apex to www, matching the canonical host used in sitemap.xml and llms.txt.
+[[redirects]]
+  from = "https://innovent.io/*"
+  to = "https://www.innovent.io/:splat"
+  status = 301
+  force = true

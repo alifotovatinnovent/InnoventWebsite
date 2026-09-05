@@ -1,0 +1,270 @@
+/* ═══════════════════════════════════════════════════════════════
+   INNFINI · MOCKUP SYSTEM
+   One vocabulary for every product mockup on the site.
+
+   Panels grow to their content — nothing here sets a fixed height
+   or aspect-ratio on a shell. Fixed ratios belong on a canvas child
+   (.mk__canvas), never on the shell, or overlays get clipped.
+
+   Shell        .mk / .mk__bar / .mk__body / .mk__foot
+   Layout       .mk__split · .mk__cols · .mk__stack
+   Metrics      .mk__kpis / .mk__kpi
+   Content      .mk__sec · .mk__facts · .mk__rows · .mk__list
+   Atoms        .mk__chip · .mk__tag · .mk__sev · .mk__meter · .mk__btn
+   Overlays     .mk__canvas · .mk__pin · .mk__hud
+   Severity     data-sev="critical|high|medium|low|ok|ai"
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --mk-bg:        #080e1b;
+  --mk-bg-2:      #0b1424;
+  --mk-bg-3:      rgba(255,255,255,0.022);
+  --mk-line:      rgba(125,211,252,0.13);
+  --mk-line-soft: rgba(125,211,252,0.07);
+  --mk-ink:       #e6f0fb;
+  --mk-ink-2:     #a9bdd6;
+  --mk-ink-3:     #71859e;
+  --mk-accent:    #7dd3fc;
+
+  --mk-critical:  #fb7185;
+  --mk-high:      #fbbf24;
+  --mk-medium:    #7dd3fc;
+  --mk-low:       #94a3b8;
+  --mk-ok:        #6ee7b7;
+  --mk-ai:        #c4b5fd;
+
+  --mk-r:      12px;   /* shell radius */
+  --mk-r-sm:   8px;    /* inner radius */
+  --mk-pad:    18px;
+  --mk-gap:    14px;
+}
+
+/* ── severity channel ── */
+.mk [data-sev]            { --sev: var(--mk-medium); }
+.mk [data-sev="critical"] { --sev: var(--mk-critical); }
+.mk [data-sev="high"]     { --sev: var(--mk-high); }
+.mk [data-sev="medium"]   { --sev: var(--mk-medium); }
+.mk [data-sev="low"]      { --sev: var(--mk-low); }
+.mk [data-sev="ok"]       { --sev: var(--mk-ok); }
+.mk [data-sev="ai"]       { --sev: var(--mk-ai); }
+
+/* ── shell ── */
+.mk {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-r);
+  background: linear-gradient(180deg, var(--mk-bg) 0%, var(--mk-bg-2) 100%);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.05);
+  overflow: hidden;
+  font-family: var(--font-body, system-ui, sans-serif);
+}
+
+.mk__bar {
+  display: flex; align-items: center; gap: 9px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--mk-line);
+  background: var(--mk-bg-3);
+  flex: 0 0 auto;
+}
+.mk__dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
+.mk__dot--r { background: #ff5f57; }
+.mk__dot--y { background: #febc2e; }
+.mk__dot--g { background: #28c840; }
+.mk__name {
+  margin-left: 8px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11.5px; letter-spacing: 0.02em; color: var(--mk-ink-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mk__pill {
+  margin-left: auto; flex: 0 0 auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sev, var(--mk-ok));
+  border: 1px solid color-mix(in oklab, var(--sev, var(--mk-ok)) 45%, transparent);
+  border-radius: 999px; padding: 4px 10px;
+}
+.mk__pill::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; box-shadow: 0 0 8px currentColor;
+  animation: mk-pulse 1.7s ease-in-out infinite;
+}
+@keyframes mk-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.mk__body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.mk__foot {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--mk-line);
+  background: rgba(0,0,0,0.25);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px; letter-spacing: 0.1em; color: var(--mk-ink-3);
+}
+.mk__foot-r { margin-left: auto; }
+
+/* ── layout ── */
+.mk__split { display: grid; grid-template-columns: 1.05fr 1fr; flex: 1 1 auto; min-height: 0; }
+.mk__split > * + * { border-left: 1px solid var(--mk-line); }
+.mk__cols  { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--mk-line-soft); flex: 1 1 auto; }
+.mk__cols > * { background: var(--mk-bg); }
+.mk__stack { display: flex; flex-direction: column; gap: var(--mk-gap); padding: var(--mk-pad); }
+
+/* a fixed-ratio drawing surface — the ONLY place a ratio belongs */
+.mk__canvas { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #060d1a; }
+.mk__canvas > svg { display: block; width: 100%; height: 100%; }
+.mk__canvas--wide { aspect-ratio: 2/1; }
+.mk__canvas--sq   { aspect-ratio: 4/3; }
+
+/* ── KPI strip ── */
+.mk__kpis {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  gap: 10px; padding: 14px 16px;
+  border-bottom: 1px solid var(--mk-line);
+}
+.mk__kpi {
+  border: 1px solid var(--mk-line); border-radius: var(--mk-r-sm);
+  padding: 11px 13px; background: rgba(255,255,255,0.015);
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
+.mk__kpi[data-sev] { border-color: color-mix(in oklab, var(--sev) 42%, transparent); background: color-mix(in oklab, var(--sev) 7%, transparent); }
+.mk__kpi-k { font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mk-ink-3); }
+.mk__kpi-v { font-family: var(--font-display, sans-serif); font-size: 21px; font-weight: 600; letter-spacing: -0.02em; color: var(--mk-ink); line-height: 1; }
+.mk__kpi-v[data-sev] { color: var(--sev); }
+.mk__kpi-s { font-family: var(--font-mono, ui-monospace, monospace); font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mk-ink-3); }
+
+/* ── section head inside a panel ── */
+.mk__sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.mk__sec h6 {
+  margin: 0; font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mk-ink-3);
+}
+.mk__sec-r { font-family: var(--font-mono, ui-monospace, monospace); font-size: 9.5px; letter-spacing: 0.1em; color: var(--mk-accent); }
+
+/* ── fact grid ── */
+.mk__facts {
+  /* Fixed 2 columns, NOT auto-fit: auto-fit packed 3 tracks at ~390px, so any
+     4-item fact set orphaned one cell beside a 2-column-wide empty gap. */
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--mk-line-soft);
+  border: 1px solid var(--mk-line); border-radius: var(--mk-r-sm); overflow: hidden;
+}
+.mk__fact { background: var(--mk-bg); padding: 9px 11px; display: flex; flex-direction: column; gap: 3px; }
+.mk__fact span { font-family: var(--font-mono, ui-monospace, monospace); font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mk-ink-3); }
+.mk__fact b { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; font-weight: 500; color: var(--mk-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk__facts--3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ── rows (units, responders, feeds) ── */
+.mk__rows { display: flex; flex-direction: column; }
+.mk__row {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--mk-line-soft);
+}
+.mk__row:last-child { border-bottom: 0; }
+.mk__row b { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; font-weight: 500; color: var(--mk-ink); }
+.mk__row-s { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; color: var(--mk-ink-3); }
+.mk__led { width: 7px; height: 7px; border-radius: 50%; background: var(--sev, var(--mk-ok)); box-shadow: 0 0 7px var(--sev, var(--mk-ok)); }
+
+/* ── timeline ── */
+.mk__list { list-style: none; margin: 0; padding: 0 0 0 15px; position: relative; display: flex; flex-direction: column; gap: 9px; }
+.mk__list::before { content: ""; position: absolute; left: 3px; top: 5px; bottom: 5px; width: 1px; background: var(--mk-line); }
+.mk__list li { position: relative; display: grid; grid-template-columns: 62px minmax(0,1fr); gap: 10px; align-items: baseline; }
+.mk__list li::before {
+  content: ""; position: absolute; left: -15px; top: 5px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--mk-bg); border: 1px solid var(--mk-accent); opacity: 0.6;
+}
+.mk__list li[data-sev]::before { background: var(--sev); border-color: var(--sev); opacity: 1; box-shadow: 0 0 8px var(--sev); }
+.mk__list-t { font-family: var(--font-mono, ui-monospace, monospace); font-size: 9.5px; color: var(--mk-ink-3); }
+.mk__list-e { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; color: var(--mk-ink-2); line-height: 1.4; }
+
+/* ── atoms ── */
+.mk__tag {
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 8.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--mk-ink-2);
+  border: 1px solid var(--mk-line); border-radius: 4px; padding: 3px 7px;
+}
+.mk__sev {
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 8.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  color: var(--sev); background: color-mix(in oklab, var(--sev) 15%, transparent);
+  border: 1px solid color-mix(in oklab, var(--sev) 45%, transparent);
+  border-radius: 4px; padding: 3px 7px;
+}
+.mk__chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px;
+  color: var(--mk-ink-3); border: 1px solid var(--mk-line);
+  border-radius: 5px; padding: 4px 8px;
+}
+.mk__chip[data-sev] { color: var(--sev); border-color: color-mix(in oklab, var(--sev) 40%, transparent); background: color-mix(in oklab, var(--sev) 8%, transparent); }
+.mk__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.mk__meter { display: flex; align-items: center; gap: 9px; }
+.mk__meter-k { font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mk-ink-3); }
+.mk__meter-t { flex: 1; height: 4px; border-radius: 2px; background: rgba(125,211,252,0.14); overflow: hidden; }
+.mk__meter-f { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--mk-accent), var(--mk-ai)); }
+.mk__meter-v { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10.5px; font-weight: 600; color: var(--mk-ai); }
+
+.mk__btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.mk__btn {
+  font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase; text-align: center;
+  padding: 8px 9px; border-radius: 5px; cursor: default;
+  border: 1px solid var(--mk-line); color: var(--mk-ink-2); background: transparent;
+}
+.mk__btn--primary { grid-column: 1 / -1; background: var(--mk-accent); border-color: var(--mk-accent); color: #071120; font-weight: 700; }
+
+/* ── overlay pins on a canvas ── */
+.mk__pin {
+  position: absolute; z-index: 3;
+  display: flex; align-items: flex-start; gap: 8px;
+  width: 176px; padding: 9px 11px;
+  border-radius: 9px; background: rgba(8,13,24,0.94);
+  border: 1px solid var(--sev, var(--mk-critical));
+  box-shadow: 0 14px 30px -16px rgba(0,0,0,0.9);
+  backdrop-filter: blur(6px);
+}
+.mk__pin-ico { width: 19px; height: 19px; flex: 0 0 auto; color: var(--sev); }
+.mk__pin-ico svg { width: 100%; height: 100%; }
+.mk__pin-b { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.mk__pin-k { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 8px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--sev); }
+.mk__pin-k time { margin-left: auto; color: var(--mk-ink-3); font-weight: 400; }
+.mk__pin-t { font-family: var(--font-display, sans-serif); font-size: 11.5px; font-weight: 600; color: var(--mk-ink); line-height: 1.15; }
+.mk__pin-s { font-size: 9.5px; color: var(--mk-ink-3); line-height: 1.25; }
+
+/* ── HUD text on a canvas ── */
+.mk__hud { position: absolute; z-index: 2; font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mk-ink-3); }
+.mk__hud--tl { top: 12px; left: 14px; }
+.mk__hud--tr { top: 12px; right: 14px; }
+.mk__hud--bl { bottom: 12px; left: 14px; }
+.mk__hud--br { bottom: 12px; right: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk__pill::before { animation: none !important; }
+}
+@media (max-width: 900px) {
+  .mk__split, .mk__cols { grid-template-columns: 1fr; }
+  .mk__split > * + * { border-left: 0; border-top: 1px solid var(--mk-line); }
+  .mk__kpis { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+  .mk__pin { position: static; width: auto; }
+}
+
+
+/* ── Hero alignment ──
+   A mockup panel in a two-column hero matches the copy column's height:
+   it's taken out of flow so its own content can't drive the row. */
+@media (min-width: 1081px) {
+  /* Panel matches the copy column's height. It stays IN FLOW — taking it out
+     with position:absolute left the wrapper with no content to size against,
+     so the row collapsed and the panel vanished. */
+  .ind__hero, .smc__hero { align-items: stretch; }
+  .ind__hero .ind__mo, .smc__hero .smc__motion { display: flex; min-height: 0; }
+  .ind__hero .ind__mo > .mk, .smc__hero .smc__motion > .mk { flex: 1 1 auto; width: 100%; }
+  /* the canvas yields height first; docked strips keep their size */
+  .mk .mk__canvas { flex: 1 1 auto; min-height: 0; }
+  .mk .mk__kpis, .mk .mk__stack, .mk .mk__bar, .mk .mk__foot { flex: 0 0 auto; }
+}
