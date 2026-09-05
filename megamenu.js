@@ -194,6 +194,14 @@
     },
   };
 
+  // MENUS hrefs are written homepage-relative ("pages/x.html"). Injected from a
+  // sub-page that resolves to /pages/pages/x.html — a 404. Make them absolute.
+  function url(h) {
+    if (!h) return h;
+    if (/^(https?:|mailto:|tel:|#|\/)/i.test(h)) return h;
+    return '/' + h.replace(/^\.?\//, '');
+  }
+
   function buildMega(key, def) {
     const panel = document.createElement('div');
     panel.className = 'mega';
@@ -205,13 +213,13 @@
       const active = idx === 0 ? ' is-active' : '';
       catsHtml += `<a class="mega__cat${active}" data-cat="${cat.id}" href="#">${cat.label}</a>`;
       const itemsHtml = cat.items.map(it => `
-        <a class="mega__item" href="${it.h}">
+        <a class="mega__item" href="${url(it.h)}">
           <h5>${it.t}</h5>
           <p>${it.d}</p>
         </a>`).join('');
       panelsHtml += `
         <div class="mega__panel${active}" data-panel="${cat.id}">
-          <a class="mega__heading" href="${cat.href || def.href}">${cat.label} <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="mega__heading" href="${url(cat.href || def.href)}">${cat.label} <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></a>
           <div class="mega__grid">${itemsHtml}</div>
         </div>`;
     });
@@ -221,7 +229,7 @@
         <aside class="mega__sidebar">
           <div class="mega__sidebar-label">${def.title}</div>
           <nav class="mega__cats">${catsHtml}</nav>
-          <a class="mega__explore" href="${def.href}">
+          <a class="mega__explore" href="${url(def.href)}">
             <span>Explore ${def.title}</span>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
           </a>
@@ -229,6 +237,99 @@
         <section class="mega__body">${panelsHtml}</section>
       </div>`;
     return panel;
+  }
+
+
+  /* ── Mobile navigation ─────────────────────────────────────────────
+     Below 860px the mega menu is hidden and the six nav links overflow the
+     viewport, which is what made every page scroll sideways on a phone. This
+     builds a burger + drawer instead. The markup is always created; megamenu.css
+     shows it only under 860px, so desktop is untouched.                      */
+  function initMobileNav(navInner, links) {
+    if (navInner.dataset.mnavReady) return;
+    navInner.dataset.mnavReady = '1';
+
+    var burger = document.createElement('button');
+    burger.className = 'nav__burger';
+    burger.type = 'button';
+    burger.setAttribute('aria-label', 'Open menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<span></span><span></span><span></span>';
+    navInner.appendChild(burger);
+
+    var groups = '';
+    Array.prototype.forEach.call(links.querySelectorAll('a.nav__link'), function (a) {
+      var href = a.getAttribute('href') || '';
+      var key = keyForHref(href);
+      var label = (a.textContent || '').trim();
+      var def = key && MENUS[key];
+      if (!def) {
+        groups += '<a class="mnav__link" href="' + href + '">' + label + '</a>';
+        return;
+      }
+      var subs = '';
+      def.categories.forEach(function (cat) {
+        subs += '<div class="mnav__cat">' + cat.label + '</div>';
+        cat.items.forEach(function (it) {
+          subs += '<a class="mnav__sublink" href="' + url(it.h) + '">' + it.t + '</a>';
+        });
+      });
+      subs += '<a class="mnav__all" href="' + url(def.href) + '">Explore ' + def.title + ' &rarr;</a>';
+      groups +=
+        '<div class="mnav__group">' +
+          '<button class="mnav__toggle" type="button" aria-expanded="false">' + label +
+            '<svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5"/></svg>' +
+          '</button>' +
+          '<div class="mnav__sub">' + subs + '</div>' +
+        '</div>';
+    });
+
+    var right = navInner.querySelector('.nav__right');
+    var ctas = right ? right.innerHTML : '';
+
+    var drawer = document.createElement('div');
+    drawer.className = 'mnav';
+    drawer.innerHTML =
+      '<div class="mnav__scrim"></div>' +
+      '<aside class="mnav__panel" role="dialog" aria-modal="true" aria-label="Menu">' +
+        '<div class="mnav__head"><span>Menu</span>' +
+          '<button class="mnav__close" type="button" aria-label="Close menu">&times;</button></div>' +
+        '<nav class="mnav__list">' + groups + '</nav>' +
+        '<div class="mnav__cta">' + ctas + '</div>' +
+      '</aside>';
+    document.body.appendChild(drawer);
+
+    function open() {
+      drawer.classList.add('is-open');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('mnav-lock');
+    }
+    function close() {
+      drawer.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('mnav-lock');
+    }
+    burger.addEventListener('click', function () {
+      drawer.classList.contains('is-open') ? close() : open();
+    });
+    drawer.querySelector('.mnav__close').addEventListener('click', close);
+    drawer.querySelector('.mnav__scrim').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    // Tapping any destination closes the drawer so the new page isn't behind it.
+    Array.prototype.forEach.call(drawer.querySelectorAll('a[href]'), function (a) {
+      a.addEventListener('click', close);
+    });
+    // Accordion — one section open at a time keeps the list scannable.
+    Array.prototype.forEach.call(drawer.querySelectorAll('.mnav__toggle'), function (t) {
+      t.addEventListener('click', function () {
+        var g = t.parentElement, wasOpen = g.classList.contains('is-open');
+        Array.prototype.forEach.call(drawer.querySelectorAll('.mnav__group'), function (x) {
+          x.classList.remove('is-open');
+          x.querySelector('.mnav__toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!wasOpen) { g.classList.add('is-open'); t.setAttribute('aria-expanded', 'true'); }
+      });
+    });
   }
 
   function init() {
@@ -370,6 +471,8 @@
 
     backdrop.addEventListener('click', close);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    initMobileNav(navInner, links);
   }
 
   if (document.readyState === 'loading') {

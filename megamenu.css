@@ -241,3 +241,136 @@
   .mega, .mega-backdrop { display: none !important; }
   .nav__item > .nav__link .chev { display: none; }
 }
+
+/* ══ Mobile navigation ═════════════════════════════════════════════════════
+   Everything below is inert at desktop widths: the burger and the drawer are
+   display:none until 860px, which is also where the mega menu switches off.
+   No existing desktop rule is touched.                                       */
+.nav__burger,
+.mnav { display: none; }
+
+@media (max-width: 860px) {
+  /* The six links in a row are what pushed every page 134px wider than the
+     viewport on a phone. Hand navigation to the drawer instead. */
+  .nav__links,
+  .nav__right { display: none !important; }
+
+  .nav__inner { gap: 12px; padding: 0 16px; }
+  .nav__brand { margin-right: auto; }
+  .nav__brand img { height: 38px !important; }
+
+  .nav__burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;              /* 44px — a comfortable tap target */
+    height: 44px;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid var(--hair, rgba(125,211,252,0.18));
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .nav__burger span {
+    display: block;
+    height: 1.5px;
+    background: var(--ink-90, #e2e8f0);
+    border-radius: 2px;
+    transition: transform 180ms ease, opacity 140ms ease;
+  }
+  .nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mnav { display: block; position: fixed; inset: 0; z-index: 200; pointer-events: none; }
+  .mnav__scrim {
+    position: absolute; inset: 0;
+    background: rgba(2, 6, 16, 0.72);
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+  .mnav__panel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: min(86vw, 360px);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-1, #0a1224);
+    border-left: 1px solid var(--hair, rgba(125,211,252,0.14));
+    transform: translateX(100%);
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    overscroll-behavior: contain;
+  }
+  .mnav.is-open { pointer-events: auto; }
+  .mnav.is-open .mnav__scrim { opacity: 1; }
+  .mnav.is-open .mnav__panel { transform: translateX(0); }
+  body.mnav-lock { overflow: hidden; }
+
+  .mnav__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--hair, rgba(125,211,252,0.12));
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-70, #94a3b8);
+    flex-shrink: 0;
+  }
+  .mnav__close {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    font-size: 26px; line-height: 1;
+    background: transparent; border: 0; cursor: pointer;
+    color: var(--ink-80, #cbd5e1);
+  }
+
+  .mnav__list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 6px 0 20px; }
+
+  .mnav__toggle,
+  .mnav__link {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 20px;
+    background: transparent; border: 0;
+    font-family: inherit; font-size: 15.5px; font-weight: 500;
+    color: var(--ink-90, #e2e8f0);
+    text-align: left; text-decoration: none;
+    cursor: pointer;
+  }
+  .mnav__toggle svg { width: 12px; height: 12px; flex-shrink: 0; transition: transform 200ms ease; }
+  .mnav__group.is-open .mnav__toggle { color: var(--accent, #7dd3fc); }
+  .mnav__group.is-open .mnav__toggle svg { transform: rotate(180deg); }
+
+  .mnav__sub { display: none; padding: 2px 0 12px; background: rgba(255,255,255,0.02); }
+  .mnav__group.is-open .mnav__sub { display: block; }
+  .mnav__cat {
+    padding: 12px 20px 6px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-60, #64748b);
+  }
+  .mnav__sublink,
+  .mnav__all {
+    display: block;
+    min-height: 44px;
+    padding: 12px 20px 12px 32px;
+    font-size: 14.5px; line-height: 1.35;
+    color: var(--ink-80, #cbd5e1);
+    text-decoration: none;
+  }
+  .mnav__all { color: var(--accent, #7dd3fc); font-weight: 600; padding-left: 20px; }
+
+  .mnav__cta {
+    display: grid; gap: 10px;
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--hair, rgba(125,211,252,0.12));
+    flex-shrink: 0;
+  }
+  .mnav__cta .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+    font-size: 14.5px;
+  }
+}
