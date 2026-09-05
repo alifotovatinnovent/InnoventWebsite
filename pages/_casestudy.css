@@ -307,6 +307,9 @@
      762px inside a 390px screen. */
   .cs-section--cols > * { min-width: 0; }
   .cs-fig svg { max-width: 100%; height: auto; }
+  /* Same automatic-minimum trap in the stats row: a long unbroken label kept
+     the two tracks wider than the screen. */
+  .cs-stats > * { min-width: 0; overflow-wrap: anywhere; }
   .cs-stats { grid-template-columns: repeat(2, 1fr); }
   .cs-subsys { grid-template-columns: 1fr; }
   .cs-cta__inner { grid-template-columns: 1fr; align-items: stretch; }
