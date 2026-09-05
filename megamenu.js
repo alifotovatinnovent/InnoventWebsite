@@ -237,6 +237,13 @@
     const links = navInner.querySelector('.nav__links');
     if (!links) return;
 
+    // init() is called more than once on purpose — the nav may be injected by
+    // _chrome.js after this script runs — so it has to be idempotent. Without
+    // this guard the second pass wraps every link a second time and builds a
+    // duplicate set of panels.
+    if (links.dataset.megaReady) return;
+    links.dataset.megaReady = '1';
+
     // Map existing links to menu keys by page slug.
     // Hrefs vary by context — the homepage uses "pages/platform.html", the
     // sub-pages use "platform.html", and Netlify's pretty-URL post-processing
