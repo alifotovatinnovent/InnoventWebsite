@@ -4,22 +4,25 @@
   publish = "."
   command = ""
 
-# Long cache for immutable-ish assets, none for HTML so content updates are
-# picked up immediately.
+# Filenames here are not content-hashed — there is no build step — so nothing
+# can be cached as immutable: a fix to a .js or .css file would sit unseen in
+# returning visitors' browsers until the cache expired. CSS and JS revalidate
+# on every request (cheap: Netlify answers with a 304 when unchanged), and
+# assets get a day rather than a year.
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=86400"
 
 [[headers]]
   for = "/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.js"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.html"
