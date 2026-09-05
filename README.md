@@ -3,7 +3,7 @@
 Marketing site for **Innovent** and its platform **Innfini**. Static HTML with
 no build step — 113 pages, hand-authored, plus a set of generated SVG consoles.
 
-Live at `https://www.innovent.io`.
+Live at `https://innovent.io`.
 
 ## Running locally
 

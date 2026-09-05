@@ -1,4 +1,4 @@
-# Innovent — www.innovent.io
+# Innovent — innovent.io
 User-agent: *
 Allow: /
 
@@ -15,4 +15,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.innovent.io/sitemap.xml
+Sitemap: https://innovent.io/sitemap.xml

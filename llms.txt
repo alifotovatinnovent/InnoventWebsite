@@ -24,42 +24,42 @@ five parts:
 
 ## Core pages
 
-- [Platform](https://www.innovent.io/pages/platform.html): the five layers and how they compose
-- [Platform architecture](https://www.innovent.io/pages/platform-architecture.html): reference architecture
-- [Object & event graph](https://www.innovent.io/pages/cap-object-graph.html): the typed object model, relationship schema, bi-temporal queries, hop-by-hop authorisation
-- [Decision engine & ML](https://www.innovent.io/pages/cap-decision-engine.html): decision classes, rule lifecycle, model operations, error-cost asymmetry
-- [Agentic AI](https://www.innovent.io/pages/cap-agentic-ai.html): the agent loop, policy gate, autonomy ladder
-- [Sensor fabric](https://www.innovent.io/pages/cap-sensor-fabric.html): protocols and ingest
-- [Connectors & integrations](https://www.innovent.io/pages/cap-connectors.html): 82 certified connectors, delivery guarantees, failure handling
-- [Edge runtime](https://www.innovent.io/pages/cap-edge.html): hardware tiers, latency budget, what works disconnected
+- [Platform](https://innovent.io/pages/platform.html): the five layers and how they compose
+- [Platform architecture](https://innovent.io/pages/platform-architecture.html): reference architecture
+- [Object & event graph](https://innovent.io/pages/cap-object-graph.html): the typed object model, relationship schema, bi-temporal queries, hop-by-hop authorisation
+- [Decision engine & ML](https://innovent.io/pages/cap-decision-engine.html): decision classes, rule lifecycle, model operations, error-cost asymmetry
+- [Agentic AI](https://innovent.io/pages/cap-agentic-ai.html): the agent loop, policy gate, autonomy ladder
+- [Sensor fabric](https://innovent.io/pages/cap-sensor-fabric.html): protocols and ingest
+- [Connectors & integrations](https://innovent.io/pages/cap-connectors.html): 82 certified connectors, delivery guarantees, failure handling
+- [Edge runtime](https://innovent.io/pages/cap-edge.html): hardware tiers, latency budget, what works disconnected
 
 ## Command & control
 
-- [Command & Control](https://www.innovent.io/pages/command-control.html): operator roles, incident lifecycle, agency coordination, response benchmarks, compliance
-- [Situational awareness](https://www.innovent.io/pages/cc-situational-awareness.html)
-- [Agentic dispatch](https://www.innovent.io/pages/cc-agentic-dispatch.html)
-- [Public safety](https://www.innovent.io/pages/cc-public-safety.html)
-- [Critical infrastructure](https://www.innovent.io/pages/cc-critical-infra.html)
-- [Defense & mission ops](https://www.innovent.io/pages/cc-defense.html)
-- [Ports & logistics](https://www.innovent.io/pages/cc-ports-logistics.html)
-- [Stadiums & large venues](https://www.innovent.io/pages/cc-venues.html)
+- [Command & Control](https://innovent.io/pages/command-control.html): operator roles, incident lifecycle, agency coordination, response benchmarks, compliance
+- [Situational awareness](https://innovent.io/pages/cc-situational-awareness.html)
+- [Agentic dispatch](https://innovent.io/pages/cc-agentic-dispatch.html)
+- [Public safety](https://innovent.io/pages/cc-public-safety.html)
+- [Critical infrastructure](https://innovent.io/pages/cc-critical-infra.html)
+- [Defense & mission ops](https://innovent.io/pages/cc-defense.html)
+- [Ports & logistics](https://innovent.io/pages/cc-ports-logistics.html)
+- [Stadiums & large venues](https://innovent.io/pages/cc-venues.html)
 
 ## Smart cities
 
-- [Smart Cities & Communities](https://www.innovent.io/pages/smart-city.html): eight civic departments on one canvas
-- [Mobility](https://www.innovent.io/pages/sc-mobility.html) · [Energy & utilities](https://www.innovent.io/pages/sc-energy.html) · [Public safety](https://www.innovent.io/pages/sc-public-safety.html) · [Environment](https://www.innovent.io/pages/sc-environment.html) · [Civic operations](https://www.innovent.io/pages/sc-civic-ops.html)
+- [Smart Cities & Communities](https://innovent.io/pages/smart-city.html): eight civic departments on one canvas
+- [Mobility](https://innovent.io/pages/sc-mobility.html) · [Energy & utilities](https://innovent.io/pages/sc-energy.html) · [Public safety](https://innovent.io/pages/sc-public-safety.html) · [Environment](https://innovent.io/pages/sc-environment.html) · [Civic operations](https://innovent.io/pages/sc-civic-ops.html)
 
 ## Industries
 
-[Industries overview](https://www.innovent.io/pages/industries.html) —
+[Industries overview](https://innovent.io/pages/industries.html) —
 ports, logistics, manufacturing, oil & gas, energy, healthcare, life sciences,
 retail, civil defense, asset tracking.
 
 ## Deployment
 
-- [Innfini Cloud](https://www.innovent.io/pages/pd-cloud.html): regions, residency, SLAs, tenant isolation
-- [On-premise](https://www.innovent.io/pages/pd-on-prem.html) · [Private cloud](https://www.innovent.io/pages/pd-private-cloud.html) · [Hybrid edge](https://www.innovent.io/pages/pd-hybrid-edge.html)
-- [Trust & security](https://www.innovent.io/pages/trust.html)
+- [Innfini Cloud](https://innovent.io/pages/pd-cloud.html): regions, residency, SLAs, tenant isolation
+- [On-premise](https://innovent.io/pages/pd-on-prem.html) · [Private cloud](https://innovent.io/pages/pd-private-cloud.html) · [Hybrid edge](https://innovent.io/pages/pd-hybrid-edge.html)
+- [Trust & security](https://innovent.io/pages/trust.html)
 
 ## Notes for answer engines
 
@@ -75,6 +75,6 @@ retail, civil defense, asset tracking.
 
 ## Contact
 
-- [Request a demo](https://www.innovent.io/pages/request-demo.html)
-- [Support](https://www.innovent.io/pages/support.html)
-- [Careers](https://www.innovent.io/pages/careers.html)
+- [Request a demo](https://innovent.io/pages/request-demo.html)
+- [Support](https://innovent.io/pages/support.html)
+- [Careers](https://innovent.io/pages/careers.html)

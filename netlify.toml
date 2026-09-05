@@ -38,12 +38,8 @@
   to = "/pages/:slug.html"
   status = 200
 
-# Apex to www, matching the canonical host used in sitemap.xml and llms.txt.
-[[redirects]]
-  from = "https://innovent.io/*"
-  to = "https://www.innovent.io/:splat"
-  status = 301
-  force = true
+# Canonical host is the apex (innovent.io). Netlify redirects www to it at the
+# domain level, so no redirect rule is needed here.
 
 # --- STAGING ONLY -------------------------------------------------------
 # Keeps the *.netlify.app preview out of search results so it never competes
