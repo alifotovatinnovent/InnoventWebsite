@@ -302,6 +302,11 @@
 
 @media (max-width: 980px) {
   .cs-section--cols { grid-template-columns: 1fr; gap: 24px; }
+  /* Without min-width:0 a grid item is floored at its content's min-content
+     width, and the inline SVG figures (900-unit viewBox) held the track at
+     762px inside a 390px screen. */
+  .cs-section--cols > * { min-width: 0; }
+  .cs-fig svg { max-width: 100%; height: auto; }
   .cs-stats { grid-template-columns: repeat(2, 1fr); }
   .cs-subsys { grid-template-columns: 1fr; }
   .cs-cta__inner { grid-template-columns: 1fr; align-items: stretch; }

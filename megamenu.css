@@ -284,7 +284,10 @@
   .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-  .mnav { display: block; position: fixed; inset: 0; z-index: 200; pointer-events: none; }
+  /* overflow:hidden matters: the panel is parked at translateX(100%), and
+     without clipping it counts toward the document's scroll width and
+     re-introduces the sideways scroll this drawer exists to remove. */
+  .mnav { display: block; position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
   .mnav__scrim {
     position: absolute; inset: 0;
     background: rgba(2, 6, 16, 0.72);
