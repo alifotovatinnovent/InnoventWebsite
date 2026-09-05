@@ -44,3 +44,13 @@
   to = "https://www.innovent.io/:splat"
   status = 301
   force = true
+
+# --- STAGING ONLY -------------------------------------------------------
+# Keeps the *.netlify.app preview out of search results so it never competes
+# with innovent.io. DELETE THIS BLOCK at DNS cutover, or the live site stays
+# unindexed.
+[context.production.headers]
+  for = "/*"
+  [context.production.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+# --- END STAGING ONLY ---------------------------------------------------
