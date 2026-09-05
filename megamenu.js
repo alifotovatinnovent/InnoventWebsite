@@ -237,24 +237,29 @@
     const links = navInner.querySelector('.nav__links');
     if (!links) return;
 
-    // Map existing links to menu keys by href
-    const linkMap = {
-      'pages/platform.html': 'platform',
-      'pages/command-control.html': 'cc',
-      'pages/smart-city.html': 'smart-city',
-      'pages/industries.html': 'industries',
-      'pages/resources.html': 'resources',
-      'pages/careers.html': 'careers',
-      'pages/support.html': 'support',
-      // Sub-pages (relative)
-      'platform.html': 'platform',
-      'command-control.html': 'cc',
-      'smart-city.html': 'smart-city',
-      'industries.html': 'industries',
-      'resources.html': 'resources',
-      'careers.html': 'careers',
-      'support.html': 'support',
+    // Map existing links to menu keys by page slug.
+    // Hrefs vary by context — the homepage uses "pages/platform.html", the
+    // sub-pages use "platform.html", and Netlify's pretty-URL post-processing
+    // rewrites both to "/pages/platform". Matching on whole hrefs missed every
+    // one of those variants and left the nav with no dropdowns, so normalise to
+    // the slug instead: drop any query or hash, take the last path segment, and
+    // strip a trailing .html.
+    const slugMap = {
+      'platform': 'platform',
+      'command-control': 'cc',
+      'smart-city': 'smart-city',
+      'industries': 'industries',
+      'resources': 'resources',
+      'careers': 'careers',
+      'support': 'support',
     };
+
+    function keyForHref(href) {
+      if (!href) return null;
+      const path = href.split('#')[0].split('?')[0].replace(/\/+$/, '');
+      const slug = path.split('/').pop().replace(/\.html$/i, '');
+      return slugMap[slug] || null;
+    }
 
     // Backdrop
     const backdrop = document.createElement('div');
@@ -268,7 +273,7 @@
     const items = [];
     Array.from(links.querySelectorAll('a.nav__link')).forEach(a => {
       const href = a.getAttribute('href') || '';
-      const key = linkMap[href];
+      const key = keyForHref(href);
       if (!key || !MENUS[key]) return;
 
       // Wrap in nav__item
