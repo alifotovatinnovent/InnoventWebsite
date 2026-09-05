@@ -946,3 +946,19 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 .nav__inner { max-width: var(--container, 1280px); margin: 0 auto; }
 .nav__links { flex-wrap: nowrap !important; }
 .nav__link { white-space: nowrap !important; }
+
+/* ══ Small phones (≤480px) ═════════════════════════════════════════════════
+   Nothing here applies above 480px, so desktop and laptop layout is untouched.
+   The 32px gutters and a few content minimums pushed narrow screens past the
+   viewport; this trims the gutters and lets flex/grid children shrink.        */
+@media (max-width: 480px) {
+  .container { padding-left: 20px; padding-right: 20px; }
+  .container > *,
+  .hero__inner > *,
+  .hero__copy > * { min-width: 0; }
+  .hero__inner,
+  .hero__copy { overflow-wrap: anywhere; }
+  .hero__eyebrow,
+  .hero__cta,
+  .hero__stats { flex-wrap: wrap; }
+}
