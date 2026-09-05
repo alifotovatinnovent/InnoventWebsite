@@ -1,5 +1,7 @@
 /* ─── Innovent · shared page chrome ─────────────────────── */
-:root { --maxw: 1320px; }
+/* Content gutter. 1280px matches .container (styles.css) and .cs-hero__inner
+   (_casestudy.css) so body copy starts at the same x on every page. */
+:root { --maxw: 1280px; }
 
 /* Page shell */
 body.page { background: var(--bg-deep); color: var(--ink-80); font-family: var(--font-body); }
@@ -24,7 +26,6 @@ body.page { background: var(--bg-deep); color: var(--ink-80); font-family: var(-
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: 56px;
   align-items: center;
-  max-width: none;
 }
 .page-hero__copy { max-width: 580px; }
 .page-hero h1 {
