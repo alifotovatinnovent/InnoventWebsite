@@ -40,13 +40,3 @@
 
 # Canonical host is the apex (innovent.io). Netlify redirects www to it at the
 # domain level, so no redirect rule is needed here.
-
-# --- STAGING ONLY -------------------------------------------------------
-# Keeps the *.netlify.app preview out of search results so it never competes
-# with innovent.io. DELETE THIS BLOCK at DNS cutover, or the live site stays
-# unindexed.
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-# --- END STAGING ONLY ---------------------------------------------------
