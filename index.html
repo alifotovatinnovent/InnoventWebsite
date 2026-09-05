@@ -44,7 +44,7 @@
 </span>
     </a>
     <nav class="nav__links">
-      <a class="nav__link" href="pages/platform.html">Platform</a>
+      <a class="nav__link" href="pages/platform.html">Innfini Platform</a>
       <a class="nav__link" href="pages/command-control.html">Command &amp; Control</a>
       <a class="nav__link" href="pages/smart-city.html">Smart Cities</a>
       <a class="nav__link" href="pages/industries.html">Industries</a>
@@ -4675,12 +4675,13 @@
      here, before paint, also avoids a flash of unthemed content. -->
 <script>
 const INNOVENT_TWEAKS = /*EDITMODE-BEGIN*/{
-  "accent": "#3B82F6",
+  "accent": "#7dd3fc",
   "mood": "cinematic",
   "geometry": "rounded"
 }/*EDITMODE-END*/;
 
 const ACCENT_VARIANTS = {
+  '#7dd3fc': { dim: '#38BDF8', light: '#BAE6FD', halo: '125,211,252'  }, // site accent — matches styles.css
   '#3B82F6': { dim: '#2563EB', light: '#60A5FA', halo: '59,130,246'   }, // electric blue
   '#8B5CF6': { dim: '#7C3AED', light: '#A78BFA', halo: '139,92,246'   }, // logo purple
   '#06B6D4': { dim: '#0891B2', light: '#22D3EE', halo: '6,182,212'    }, // cyan teal
@@ -4732,7 +4733,6 @@ window.applyInnoventTheme = function applyInnoventTheme(t) {
       .trusted { background-color: transparent; }
 
       /* Geometry: pills / cards / inputs */
-      .btn, .btn--primary, .btn--secondary, .btn--ghost, .btn--warm, .btn--sm,
       .nav__locale, .nav__link, .trust__badge,
       .roi__pill, .roi2__inputs-pill, .roi2__pill,
       .compl-card__status, .pg__legend li,
