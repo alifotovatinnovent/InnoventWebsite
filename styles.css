@@ -956,9 +956,10 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
   .container > *,
   .hero__inner > *,
   .hero__copy > * { min-width: 0; }
-  .hero__inner,
-  .hero__copy { overflow-wrap: anywhere; }
   .hero__eyebrow,
-  .hero__cta,
-  .hero__stats { flex-wrap: wrap; }
+  .hero__cta { flex-wrap: wrap; }
+  /* Three stats across a phone leaves ~96px per cell, which was narrow enough
+     to split "<180ms" across two lines. One per row instead — and no
+     overflow-wrap override, which is what was breaking the numbers. */
+  .hero__sig { grid-template-columns: 1fr !important; gap: 16px; }
 }
