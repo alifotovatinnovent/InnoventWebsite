@@ -38,25 +38,7 @@
   }, { threshold: 0.5 });
   counters.forEach(el => counterIO.observe(el));
 
-  // Hero particles — spawn 18 drifting dots
-  const hero = document.querySelector(".hero");
-  if (hero) {
-    const layer = document.createElement("div");
-    layer.className = "hero__particles";
-    for (let i = 0; i < 18; i++) {
-      const s = document.createElement("span");
-      s.style.left = (Math.random() * 100) + "%";
-      s.style.animationDelay = (Math.random() * 14) + "s";
-      s.style.animationDuration = (10 + Math.random() * 8) + "s";
-      s.style.opacity = (0.3 + Math.random() * 0.5);
-      const scan = document.createElement("div");
-      layer.appendChild(s);
-    }
-    hero.appendChild(layer);
-    const scan = document.createElement("div");
-    scan.className = "hero__scan";
-    hero.appendChild(scan);
-  }
+  // (hero particle dots removed at Ali's request — 6 Sep 2026)
 
   // ROI big number — flicker glow when value changes
   const roiNum = document.getElementById("savings");

@@ -461,3 +461,103 @@
 .ps__cad-sev--a, .ps__cad-sev--h { background: var(--sig-wash); border: 1px solid var(--sig-line); color: var(--sig); }
 .ps__cad-sev--b, .ps__cad-sev--m { background: rgba(252,211,77,0.12); border: 1px solid rgba(252,211,77,0.4); color: #fcd34d; }
 .ps__cad-sev--c, .ps__cad-sev--l { background: rgba(125,211,252,0.10); border: 1px solid rgba(125,211,252,0.35); color: var(--accent); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SHARED cc- PAGE COMPONENTS
+   cc-defense, cc-critical-infra, cc-smart-city-ops, cc-stadium, cc-ports and
+   cc-venues load this stylesheet too and still use the original split/tile/
+   console components. cc-public-safety no longer references any of them, so
+   these rules are inert there.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Motion panel · 911 dispatch console */
+.ps__motion { position:relative; padding:14px; }
+.ps__panel { border:1px solid var(--hair); border-radius:14px; background: linear-gradient(180deg, rgba(8,13,24,0.96), rgba(8,13,24,0.86)); box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6); overflow:hidden; }
+.ps__panel-bar { display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.02); }
+.ps__panel-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.ps__panel-dot--r { background:#ff5f57; }
+.ps__panel-dot--y { background:#febc2e; }
+.ps__panel-dot--g { background:#28c840; }
+.ps__panel-name { margin-left:12px; font-family: var(--font-mono); font-size:12.5px; color: var(--ink-70); }
+.ps__panel-pill { margin-left:auto; font-family: var(--font-mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#fda4af; border:1px solid rgba(244,114,182,0.45); border-radius:999px; padding:4px 10px; display:inline-flex; align-items:center; gap:6px; }
+.ps__panel-pill::before { content:""; width:6px; height:6px; border-radius:50%; background:#fda4af; box-shadow:0 0 8px #fda4af; animation: ps-pulse 1.6s infinite; }
+.ps__mini { display:grid; grid-template-columns: 1fr; gap:1px; background:rgba(125,211,252,0.10); }
+.ps__map-mini { aspect-ratio: 16/9; overflow:hidden; }
+.ps__mini > div { background:rgba(8,13,24,0.85); padding:14px 16px; overflow:hidden; }
+.ps__mini > .ps__map-mini { padding:0; }
+.ps__mini h6 { font-family: var(--font-mono); font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; margin:0 0 10px; color:#fda4af; }
+.ps__cad-row { display:grid; grid-template-columns: 50px 1fr auto; gap:8px; padding:7px 8px; border:1px solid rgba(125,211,252,0.10); border-radius:5px; background:rgba(8,13,24,0.5); margin-bottom:6px; align-items:center; }
+.ps__cad-row b { color:var(--ink-100); }
+.ps__cad-text { font-family: var(--font-mono); font-size:10px; color:var(--ink-90); }
+.ps__map-mini svg { display:block; width:100%; height:100%; }
+/* Section heads */
+.ps__section-head { margin: 0 0 48px; max-width: 880px; }
+.ps__section-head--center { text-align:center; margin-left:auto; margin-right:auto; }
+/* Generic split-layout panel · used for each capability section */
+.ps__split { display:grid; grid-template-columns: 1.05fr 1fr; gap:0; border:1px solid var(--hair); border-radius:14px; overflow:hidden; background:rgba(8,13,24,0.5); margin-bottom:90px; }
+.ps__split-bar { grid-column: 1/-1; display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.02); }
+.ps__split-bar .ps__panel-dot { display:inline-block; }
+.ps__split-name { margin-left:10px; font-family: var(--font-mono); font-size:12.5px; color:var(--ink-70); }
+.ps__split-pill { margin-left:auto; font-family: var(--font-mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#93c5fd; border:1px solid rgba(125,211,252,0.45); border-radius:999px; padding:4px 10px; }
+.ps__split-l { padding: 24px 26px; border-right:1px solid var(--hair); background:rgba(255,255,255,0.012); }
+.ps__split-l h3 { font-family: var(--font-display); font-size:24px; font-weight:600; color:var(--ink-100); margin: 6px 0 12px; letter-spacing:-0.015em; line-height:1.15; }
+.ps__split-l h3 em { font-style: normal; color:#fda4af; }
+.ps__split-l p { font-size:14px; line-height:1.6; color: var(--ink-70); margin: 0 0 14px; max-width: 460px; }
+.ps__split-l p strong { color: var(--ink-100); font-weight:500; }
+.ps__split-bullets { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+.ps__split-bullets li { display:grid; grid-template-columns: 16px 1fr; gap:8px; font-family: var(--font-mono); font-size:11.5px; color: var(--ink-80); align-items:start; line-height:1.4; }
+.ps__split-bullets li::before { content:"▸"; color:#fda4af; }
+.ps__ai-id { font-family: var(--font-mono); font-size:9.5px; color: var(--ink-70); letter-spacing:0.10em; }
+.ps__btn--p { background:#c4b5fd; color:#0a0f1a; border:1px solid #c4b5fd; font-weight:700; }
+.ps__btn--w { background:rgba(234,179,8,0.10); color:#fcd34d; border:1px solid rgba(234,179,8,0.5); }
+/* Business value tiles */
+.ps__tiles { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-bottom:96px; }
+.ps__tile { border:1px solid var(--hair); border-radius:14px; padding:24px 22px; background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.005)); transition: transform 220ms ease, border-color 220ms ease; }
+.ps__tile:hover { transform: translateY(-3px); border-color: rgba(244,114,182,0.4); }
+.ps__tile-ico { width:38px; height:38px; border:1px solid rgba(244,114,182,0.35); border-radius:9px; background: rgba(244,114,182,0.06); display:inline-flex; align-items:center; justify-content:center; color:#fda4af; margin-bottom:14px; }
+.ps__tile-ico svg { width:20px; height:20px; }
+.ps__tile h4 { font-family: var(--font-display); font-size:17px; color:var(--ink-100); margin:0 0 8px; letter-spacing:-0.005em; }
+.ps__tile p { font-size:13px; line-height:1.55; color: var(--ink-70); margin:0; }
+.ps__split-l { border-right:0; border-bottom:1px solid var(--hair); }
+.ps__tiles { grid-template-columns: repeat(2,1fr); }
+/* Site rollup under the alarm feed — fills the column, adds real context */
+.ps__roll { display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:rgba(125,211,252,0.10); border:1px solid rgba(125,211,252,0.12); border-radius:7px; overflow:hidden; margin-top:14px; }
+.ps__roll-c { background:rgba(8,13,24,0.9); padding:9px 10px; display:flex; flex-direction:column; gap:3px; }
+.ps__roll-k { font-family:var(--font-mono); font-size:8px; letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-70); }
+.ps__roll-v { font-family:var(--font-display); font-size:16px; font-weight:600; color:var(--ink-100); line-height:1; }
+.ps__roll-v--ok { color:#6ee7b7; }
+.ps__roll-v--warn { color:#fbbf24; }
+.ps__sites { margin-top:14px; }
+.ps__site { display:grid; grid-template-columns:auto 1fr auto auto; gap:10px; align-items:center; padding:8px 0; border-bottom:1px solid rgba(125,211,252,0.07); }
+.ps__site:last-child { border-bottom:0; }
+.ps__site-d { width:7px; height:7px; border-radius:50%; }
+.ps__site-n { font-family:var(--font-mono); font-size:10.5px; color:var(--ink-90); }
+.ps__site-m { font-family:var(--font-mono); font-size:9px; color: var(--ink-70); }
+.ps__site-b { font-family:var(--font-mono); font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-70); border:1px solid rgba(125,211,252,0.16); border-radius:4px; padding:2px 6px; }
+.ps__motion { position: relative; min-height: 100%; }
+.ps__motion .ps__panel {
+    position: absolute; inset: 14px;
+    height: auto !important; width: auto;
+    display: flex; flex-direction: column;
+  }
+.ps__panel .ps__mini { flex: 1 1 auto; min-height: 0; grid-template-rows: auto 1fr; }
+.ps__panel .ps__map-mini { flex: 0 0 auto; }
+.ps__panel .ps__mini > div:last-child { min-height: 0; overflow: hidden; }
+
+@media (max-width: 1080px) {
+  .ps__split { grid-template-columns: 1fr; }
+  .ps__split-l { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .ps__tiles { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  .ps__tiles, .ps__bridge { grid-template-columns: 1fr; }
+  .ps__mini { grid-template-columns: 1fr; }
+  .ps__split-l, .ps__split-r { padding: 20px 18px; }
+}
+
+
+/* Mint variant of the outcomes grid — cc-defense uses mint where public safety
+   uses sky. Structure identical; only the accent moves. */
+.out--mint .out__head h2 em,
+.out--mint .out__item > span { color: #a7f3d0; }

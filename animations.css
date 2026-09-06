@@ -76,37 +76,6 @@
   to   { opacity: 1; transform: translateY(0);   filter: blur(0);   }
 }
 
-/* ─── Hero — drifting particles ─────────────────────────── */
-.hero__particles {
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  overflow: hidden;
-}
-.hero__particles span {
-  position: absolute;
-  width: 2px; height: 2px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent);
-  opacity: 0;
-  animation: particle-drift 14s linear infinite;
-}
-@keyframes particle-drift {
-  0%   { transform: translate3d(0, 100vh, 0) scale(0.5); opacity: 0; }
-  10%  { opacity: 0.6; }
-  90%  { opacity: 0.6; }
-  100% { transform: translate3d(40px, -10vh, 0) scale(1); opacity: 0; }
-}
-
-/* ─── Hero — scanning line ──────────────────────────────── */
-.hero__scan {
-  position: absolute; left: 0; right: 0;
-  height: 1px; pointer-events: none; z-index: 0;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246,0.6), transparent);
-  animation: scan 8s ease-in-out infinite;
-}
-@keyframes scan {
-  0%, 100% { top: 10%; opacity: 0; }
-  50%      { top: 90%; opacity: 1; }
 }
 
 /* ─── Section eyebrow — typewriter dash extend ──────────── */

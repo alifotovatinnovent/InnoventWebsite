@@ -970,3 +970,7 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 @media (max-width: 860px) { .nav__brand img { width: 123px; max-width: 123px; } }
 @media (max-width: 480px) { .nav__brand img { width: 109px; max-width: 109px; }
   .foot__brand .nav__brand img { width: 130px; max-width: 130px; } }
+
+/* The Innfini platform section is now a lead-in to "By the numbers" — its
+   6-scene carousel was removed, so it should not hold a full section's tail. */
+#platform.section { padding-bottom: 8px; }

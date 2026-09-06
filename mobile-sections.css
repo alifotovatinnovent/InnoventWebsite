@@ -24,69 +24,7 @@
     gap: 28px !important;
     margin-bottom: 0 !important;
   }
-  .agr .agr-panel .agr__hero > * { min-width: 0; }
-  .agr .agr-panel { overflow: visible; }
-  .agr .agr-tabs { grid-template-columns: 1fr 1fr; }
-
-  /* ── 2. Signals carousel ────────────────────────────────────────────────
-     Each .ifs-sig was placed by percentage on a 16/9 stage. At phone width
-     ten 92px tiles cannot sit on that circle without colliding, so drop the
-     radial arrangement and let the scene flow as a two-column grid.
-
-     The scenes stay absolutely positioned and keep their original
-     opacity/visibility switching — the carousel script owns that, and making
-     the height depend on an .is-active class collapses the section to nothing
-     before the script first runs. The box gets a fixed mobile height instead. */
-  .innf-story .ifs,
-  section .ifs {
-    aspect-ratio: auto !important;
-    height: 860px;
-  }
-
-  .innf-story .ifs .ifs-scene,
-  section .ifs .ifs-scene {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 12px;
-    align-content: start;
-    padding: 20px 14px 24px;
-    overflow-y: auto;
-  }
-
-  /* Headings, the core graphic and the caption run the full width; the
-     signal tiles fill the two columns beneath them. */
-  .innf-story .ifs .ifs-scene > .ifs-eyebrow,
-  .innf-story .ifs .ifs-scene > .ifs-cap,
-  .innf-story .ifs .ifs-scene > .ifs-sigcore,
-  section .ifs .ifs-scene > .ifs-eyebrow,
-  section .ifs .ifs-scene > .ifs-cap,
-  section .ifs .ifs-scene > .ifs-sigcore {
-    position: static;
-    inset: auto;
-    transform: none;
-    grid-column: 1 / -1;
-    width: auto;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .innf-story .ifs .ifs-scene > .ifs-eyebrow,
-  section .ifs .ifs-scene > .ifs-eyebrow { justify-content: flex-start; text-align: left; }
-
-  .innf-story .ifs .ifs-scene > .ifs-sig,
-  section .ifs .ifs-scene > .ifs-sig {
-    position: static;
-    inset: auto;
-    transform: none;
-    width: auto;
-    animation: none !important;   /* the fly-in was choreographed for the circle */
-    opacity: 1 !important;
-  }
-
-  /* Connector lines and the drifting dots only read against the radial
-     layout — they become noise once the tiles are on a grid. */
-  .innf-story .ifs .ifs-edge,
-  .innf-story .ifs .ifs-dot,
-  section .ifs .ifs-edge,
-  section .ifs .ifs-dot { display: none !important; }
+.agr .agr-panel .agr__hero > * { min-width: 0; }
+.agr .agr-panel { overflow: visible; }
+.agr .agr-tabs { grid-template-columns: 1fr 1fr; }
 }
