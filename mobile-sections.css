@@ -1,0 +1,95 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   Mobile treatment for the homepage's two bespoke visual sections.
+
+   Both were authored as fixed desktop compositions and had no mobile
+   behaviour, so on a phone the agentic-runtime panels clipped their right
+   column and the signals diagram stacked its labels on top of each other.
+
+   Selectors here are deliberately more specific than the originals: those
+   live in inline <style> blocks inside index.html, which come after this
+   file in document order, so equal specificity would lose the cascade.
+
+   Nothing in this file applies above 860px.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 860px) {
+
+  /* ── 1. Agentic runtime panels ──────────────────────────────────────────
+     .agr-panel .agr__hero pinned a two-column grid (1.04fr 0.96fr) with a
+     specificity the responsive rule couldn't beat, so the terminal mockup ran
+     past the panel's overflow:hidden edge and was cut in half. One column. */
+  .agr .agr-panel .agr__hero,
+  .agr .agr-panel .agr__builder {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    margin-bottom: 0 !important;
+  }
+  .agr .agr-panel .agr__hero > * { min-width: 0; }
+  .agr .agr-panel { overflow: visible; }
+  .agr .agr-tabs { grid-template-columns: 1fr 1fr; }
+
+  /* ── 2. Signals carousel ────────────────────────────────────────────────
+     Each .ifs-sig was placed by percentage on a 16/9 stage. At phone width
+     ten 92px tiles cannot sit on that circle without colliding, so drop the
+     radial arrangement and let the scene flow as a two-column grid. */
+  .innf-story .ifs,
+  section .ifs {
+    aspect-ratio: auto !important;
+    height: auto;
+    overflow: visible;
+  }
+  .innf-story .ifs .ifs__stage,
+  section .ifs .ifs__stage { position: relative; inset: auto; }
+
+  .innf-story .ifs .ifs-scene,
+  section .ifs .ifs-scene {
+    position: relative;
+    inset: auto;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    padding: 22px 14px 26px;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 12px;
+    align-items: start;
+  }
+  .innf-story .ifs .ifs-scene.is-active,
+  section .ifs .ifs-scene.is-active { display: grid; }
+
+  /* Headings, the core graphic and the caption run the full width; the
+     signal tiles fill the two columns beneath them. */
+  .innf-story .ifs .ifs-scene > .ifs-eyebrow,
+  .innf-story .ifs .ifs-scene > .ifs-cap,
+  .innf-story .ifs .ifs-scene > .ifs-sigcore,
+  section .ifs .ifs-scene > .ifs-eyebrow,
+  section .ifs .ifs-scene > .ifs-cap,
+  section .ifs .ifs-scene > .ifs-sigcore {
+    position: static;
+    inset: auto;
+    transform: none;
+    grid-column: 1 / -1;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .innf-story .ifs .ifs-scene > .ifs-eyebrow,
+  section .ifs .ifs-scene > .ifs-eyebrow { justify-content: flex-start; text-align: left; }
+
+  .innf-story .ifs .ifs-scene > .ifs-sig,
+  section .ifs .ifs-scene > .ifs-sig {
+    position: static;
+    inset: auto;
+    transform: none;
+    width: auto;
+    animation: none !important;   /* the fly-in was choreographed for the circle */
+    opacity: 1 !important;
+  }
+
+  /* Connector lines and the drifting dots only read against the radial
+     layout — they become noise once the tiles are on a grid. */
+  .innf-story .ifs .ifs-edge,
+  .innf-story .ifs .ifs-dot,
+  section .ifs .ifs-edge,
+  section .ifs .ifs-dot { display: none !important; }
+}
