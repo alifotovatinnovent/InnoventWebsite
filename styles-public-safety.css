@@ -416,6 +416,8 @@
   .beat--mirror .beat__head { order: 1; }
   .beat--mirror .beat__vis { order: 2; }
   .out__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* the map letterboxes once it is full-width — don't reserve desktop height */
+  .ps__map-bg, .beat--roomy .ps__map-bg { min-height: 360px; }
   .out__item:nth-child(3n) { border-right: 1px solid var(--hair); padding-right: 34px; }
   .out__item:nth-child(2n) { border-right: 0; padding-right: 0; }
   .ps__agencies { grid-template-columns: repeat(2, 1fr); }
@@ -436,7 +438,9 @@
   .ps__close { padding: 32px 24px; }
   .ps__audit-list li { grid-template-columns: 10px 1fr; }
   .ps__audit-time { grid-column: 2; }
-  .ps__plate { aspect-ratio: 4 / 3; }
+  .ps__plate { aspect-ratio: 1 / 1; }
+  .ps__plate img { width: 78%; right: -3%; }
+  .ps__map-bg, .beat--roomy .ps__map-bg { min-height: 230px; }
   .ps__plate-card { left: 14px; right: 14px; bottom: 14px; width: auto; max-width: none; }
   .ps__plate-clock { padding: 7px 10px; }
   .ps__plate-clock b { font-size: 17px; }
