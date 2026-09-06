@@ -134,7 +134,7 @@ p { margin: 0; }
 }
 .nav__inner { display: flex; align-items: center; height: 72px; padding: 0 32px; gap: 24px; max-width: 1440px; margin: 0 auto; }
 .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav__brand img { width: 32px; height: 32px; object-fit: contain; }
+.nav__brand img { width: 200px; height: auto; max-width: 200px; object-fit: contain; display: block; }
 .nav__brand-text { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--ink-100); letter-spacing: -0.02em; }
 .nav__brand-text span { color: var(--accent); }
 .nav__links { display: flex; gap: 2px; flex: 0 1 auto; justify-content: center; margin: 0 auto; flex-wrap: nowrap; overflow: hidden; }
@@ -963,3 +963,10 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
      overflow-wrap override, which is what was breaking the numbers. */
   .hero__sig { grid-template-columns: 1fr !important; gap: 16px; }
 }
+
+/* ── Brand wordmark (Penumbra crescent-in-the-O) ──────────────────────── */
+.nav__brand { flex: 0 0 auto; }
+.foot__brand .nav__brand img { width: 210px; max-width: 210px; }
+@media (max-width: 860px) { .nav__brand img { width: 176px; max-width: 176px; } }
+@media (max-width: 480px) { .nav__brand img { width: 156px; max-width: 156px; }
+  .foot__brand .nav__brand img { width: 186px; max-width: 186px; } }

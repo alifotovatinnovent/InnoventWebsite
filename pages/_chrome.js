@@ -8,7 +8,7 @@
 <header class="nav">
   <div class="nav__inner">
     <a class="nav__brand" href="../index.html">
-      <img src="../assets/innovent/logo-nov-cropped.webp" alt="Innovent" style="height:50px;width:auto;object-fit:contain">
+      <img src="../assets/innovent/logo-wordmark.webp?v=20260906g" alt="Innovent" width="1000" height="86">
     </a>
     <nav class="nav__links">
       <a class="nav__link${isActive('platform')}" href="platform.html">Innfini Platform</a>
@@ -31,7 +31,7 @@
     <div class="foot__grid">
       <div class="foot__brand">
         <a class="nav__brand" href="../index.html" style="margin-bottom:14px;display:inline-flex">
-          <img src="../assets/innovent/logo-nov-cropped.webp" alt="Innovent" style="height:53px;width:auto;object-fit:contain">
+          <img src="../assets/innovent/logo-wordmark.webp?v=20260906g" alt="Innovent" width="1000" height="86">
         </a>
         <p>The world's first AI-native operating platform for physical infrastructure. Headquartered in Los Angeles, deployed across five continents.</p>
       </div>
