@@ -29,77 +29,156 @@
 <link rel="stylesheet" href="_page.css?v=20260908m">
 <link rel="stylesheet" href="_casestudy.css?v=20260908m">
 <style>
-.co__chat { padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
-.co__msg { padding: 14px 16px; border-radius: 10px; max-width: 92%; }
-.co__msg--u { align-self: flex-end; background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.30); }
-.co__msg--a { align-self: flex-start; background: rgba(8,13,24,0.7); border: 1px solid rgba(96,165,250,0.18); }
-.co__msg-role { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em; color: var(--ink-70); text-transform: uppercase; margin-bottom: 6px; }
-.co__msg p { font-family: var(--font-body, var(--font-display)); font-size: 13px; line-height: 1.55; color: var(--ink-90, var(--ink-80)); margin: 0; }
-.co__msg p strong { color: var(--ink-100); }
-.co__msg--a { max-width: 100%; }
-.co__msg-role time { float: right; letter-spacing: 0.06em; color: var(--ink-70); text-transform: none; }
-.co__badge { font-size: 9px; letter-spacing: 0.14em; color: #6ee7b7; border: 1px solid rgba(110,231,183,0.45); background: rgba(110,231,183,0.10); border-radius: 3px; padding: 2px 6px; margin-left: 6px; }
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONVERSATIONAL OPS — page-local styles
+   Scoped to this page only. The shared .pc__* system in
+   styles-platform-capability.css is used unchanged and is NOT overridden
+   here except where a rule is explicitly scoped to .co-page.
+
+   The console is a transcript, not a chat app: no rounded speech bubbles,
+   no tinted cards. Turns are separated by rules and by a single accent
+   stripe on the human turn. Evidence is a ruled table because that is what
+   evidence is. One accent (the site blue) plus sky for machine-read values;
+   the only other hue is the one that carries state.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.co-page { --sky: #7dd3fc; --rule: rgba(125,211,252,0.12); --rule-2: rgba(125,211,252,0.22); }
+
+/* grid items default to min-width:auto, so the widest unbreakable thing in
+   the hero copy (the AR + EN figure) sets a floor the single-column layout
+   cannot shrink below — the column then overhangs the container on small
+   phones. Let the column shrink instead. */
+.co-page .pc__hero > *, .co-page .pc__copy > * { min-width: 0; }
+.co-page .pc__sig-item { min-width: 0; }
+/* "AR + EN" is a figure, not a sentence — it should not break across lines */
+.co-page .pc__sig-num { white-space: nowrap; font-size: 28px; }
+.co-page .pc__sig-item + .pc__sig-item { padding-left: 18px; }
+.co-page .pc__sig-item { padding-right: 18px; }
+
+/* the hero eyebrow is three clauses long; at the shared tracking it breaks
+   onto a second line with one orphaned word */
+.co-page .pc__copy .eyebrow { letter-spacing: 0.1em; font-size: 10.5px; }
+
+/* the hero title is the page's h1 — same treatment the shared sheet gives h2 */
+.co-page .pc__copy h1.pc__title {
+  font-family: var(--font-display); font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.04; letter-spacing: -0.025em; color: var(--ink-100); margin: 18px 0 22px;
+}
+
+/* the shared sheet shrinks the whole panel to 80%; this console is denser
+   than its siblings' and reads better nearer full size */
+.co-page .pc__motion { zoom: 0.9; padding: 0; }
+.co-page .pc__panel { border-radius: 4px; }
+.co-page .pc__panel-bar { padding: 12px 16px; }
+
+/* ── transcript ─────────────────────────────────────────────────────────── */
+.co__chat { padding: 0; display: flex; flex-direction: column; }
 
 /* session context strip */
-.co__ctx { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(125,211,252,0.10); }
-.co__ctx-k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-70); }
-.co__ctx-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); margin-right: 4px; }
+.co__ctx { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 11px 18px; border-bottom: 1px solid var(--rule); background: rgba(125,211,252,0.02); }
+.co__ctx-k { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-70); }
+.co__ctx-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); margin-right: 6px; }
 
-/* query resolution */
-.co__resolve { border: 1px solid rgba(125,211,252,0.14); border-radius: 7px; overflow: hidden; margin-bottom: 12px; }
-.co__resolve-row { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 7px 11px; border-bottom: 1px solid rgba(125,211,252,0.07); }
+.co__msg { padding: 16px 18px; max-width: 100%; border: 0; border-radius: 0; background: none; }
+.co__msg--u { border-left: 2px solid var(--accent); background: rgba(59,130,246,0.045); }
+.co__msg--a { border-top: 1px solid var(--rule); }
+.co__msg-role { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.18em; color: var(--ink-70); text-transform: uppercase; margin-bottom: 9px; }
+.co__msg-role time { margin-left: auto; letter-spacing: 0.08em; color: var(--ink-70); text-transform: none; font-size: 9.5px; }
+.co__msg--u p { font-family: var(--font-display); font-size: 16px; line-height: 1.4; color: var(--ink-100); margin: 0; letter-spacing: -0.01em; }
+.co__msg p { font-size: 13px; line-height: 1.6; color: var(--ink-90, var(--ink-80)); margin: 0; }
+.co__msg p strong { color: var(--ink-100); font-weight: 600; }
+.co__badge { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.16em; color: #6ee7b7; border: 0; background: none; padding: 0; }
+.co__badge::before { content: "· "; color: var(--ink-70); }
+
+/* query resolution — three keyed rows, hairline separated */
+.co__resolve { border: 0; border-radius: 0; margin: 0 0 16px; border-top: 1px solid var(--rule); }
+.co__resolve-row { display: grid; grid-template-columns: 68px minmax(0,1fr); gap: 12px; padding: 7px 0; border-bottom: 1px solid rgba(125,211,252,0.06); }
 .co__resolve-row:last-child { border-bottom: 0; }
-.co__resolve-k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-70); }
-.co__resolve-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); min-width: 0; overflow-wrap: break-word; }
+.co__resolve-k { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-70); padding-top: 2px; }
+.co__resolve-v { font-family: var(--font-mono); font-size: 11px; color: var(--ink-90); min-width: 0; overflow-wrap: anywhere; }
 .co__resolve-v i { font-style: normal; color: #6ee7b7; }
-.co__resolve-v--code { color: #7dd3fc; }
+.co__resolve-v--code { color: var(--sky); }
 
-/* retrieval trace */
-.co__retrieve { border: 1px solid rgba(125,211,252,0.14); border-radius: 7px; padding: 10px 11px; margin-bottom: 12px; }
-.co__retrieve-head { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-70); margin-bottom: 8px; }
-.co__src { display: grid; grid-template-columns: 16px minmax(0,1fr) 96px 54px 32px; gap: 8px; align-items: center; padding: 5px 0; }
-.co__src-n { font-family: var(--font-mono); font-size: 9px; color: #7dd3fc; text-align: center; border: 1px solid rgba(125,211,252,0.35); border-radius: 3px; line-height: 14px; }
-.co__src-t { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-90); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* retrieval trace — a ruled evidence table */
+.co__retrieve { border: 0; border-radius: 0; padding: 0; margin: 0 0 16px; }
+.co__retrieve-head { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-70); padding-bottom: 7px; border-bottom: 1px solid var(--rule-2); margin-bottom: 0; }
+.co__src { display: grid; grid-template-columns: 18px minmax(0,1fr) 104px 56px 34px; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(125,211,252,0.06); }
+.co__src:last-child { border-bottom: 0; }
+.co__src-n { font-family: var(--font-mono); font-size: 9px; color: var(--sky); text-align: left; border: 0; border-radius: 0; line-height: 1; }
+.co__src-t { font-family: var(--font-mono); font-size: 11px; color: var(--ink-90); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .co__src-m { font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-70); }
-.co__src-bar { height: 4px; border-radius: 2px; background: rgba(125,211,252,0.12); overflow: hidden; }
-.co__src-bar i { display: block; height: 100%; background: #7dd3fc; opacity: 0.8; }
-.co__src-c { font-family: var(--font-mono); font-size: 9.5px; color: #7dd3fc; text-align: right; }
+.co__src-bar { height: 2px; border-radius: 0; background: rgba(125,211,252,0.14); overflow: hidden; }
+.co__src-bar i { display: block; height: 100%; background: var(--sky); opacity: 0.85; }
+.co__src-c { font-family: var(--font-mono); font-size: 9.5px; color: var(--sky); text-align: right; }
 
-.co__answer sup { font-family: var(--font-mono); font-size: 8.5px; color: #7dd3fc; padding: 0 1px; }
+.co__answer { padding-top: 2px; }
+.co__answer sup { font-family: var(--font-mono); font-size: 8.5px; color: var(--sky); padding: 0 1px; }
 
-/* inline timeline */
-.co__tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(125,211,252,0.10); border: 1px solid rgba(125,211,252,0.12); border-radius: 7px; overflow: hidden; margin-top: 12px; }
-.co__tl-step { background: rgba(8,13,24,0.9); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
-.co__tl-step span { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--ink-70); }
-.co__tl-step b { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--ink-100); }
+/* inline timeline — four ruled beats */
+.co__tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: none; border: 0; border-top: 1px solid var(--rule); border-radius: 0; overflow: visible; margin-top: 16px; }
+.co__tl-step { background: none; padding: 11px 14px 0 0; display: flex; flex-direction: column; gap: 3px; border-top: 2px solid rgba(125,211,252,0.18); margin-right: 1px; }
+.co__tl-step.is-bad { border-top-color: rgba(251,113,133,0.55); }
+.co__tl-step.is-ok { border-top-color: rgba(110,231,183,0.55); }
+.co__tl-step span { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--ink-70); }
+.co__tl-step b { font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: var(--ink-100); letter-spacing: -0.005em; }
 .co__tl-step i { font-style: normal; font-family: var(--font-mono); font-size: 9px; color: var(--ink-70); }
-.co__tl-step.is-bad b { color: #fb7185; } .co__tl-step.is-ok b { color: #6ee7b7; }
+.co__tl-step.is-bad b { color: #fb7185; }
+.co__tl-step.is-ok b { color: #6ee7b7; }
 
-/* pattern callout */
-.co__pattern { display: flex; gap: 9px; align-items: flex-start; margin-top: 12px; padding: 10px 12px; border-radius: 7px; background: rgba(196,181,253,0.08); border: 1px solid rgba(196,181,253,0.35); font-size: 12px; line-height: 1.5; color: var(--ink-80); }
-.co__pattern strong { color: #c4b5fd; }
-.co__pattern-dot { width: 7px; height: 7px; border-radius: 50%; background: #c4b5fd; box-shadow: 0 0 8px #c4b5fd; margin-top: 5px; flex: 0 0 auto; }
+/* pattern callout — a marked aside, not a tinted box */
+.co__pattern { display: block; margin-top: 16px; padding: 0 0 0 13px; border-left: 2px solid rgba(196,181,253,0.55); border-radius: 0; background: none; font-size: 12.5px; line-height: 1.55; color: var(--ink-80); }
+.co__pattern strong { color: #c4b5fd; font-weight: 600; }
+.co__pattern-dot { display: none; }
 
-.co__actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 12px; }
-.co__action { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; padding: 7px 10px; border-radius: 5px; border: 1px solid var(--accent); background: rgba(59,130,246,0.10); color: #93c5fd; cursor: default; }
-.co__action em { font-style: normal; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #6ee7b7; }
-.co__action--ghost { border-color: var(--hair); background: transparent; color: var(--ink-80); }
+/* offered actions — a ruled list with the approval mode in the margin */
+.co__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; margin-top: 18px; border-top: 1px solid var(--rule-2); }
+.co__action { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.02em; padding: 9px 0; border: 0; border-bottom: 1px solid rgba(125,211,252,0.06); border-radius: 0; background: none; color: #93c5fd; cursor: default; }
+.co__actions .co__action:nth-last-child(-n+2) { border-bottom: 0; }
+.co__action em { font-style: normal; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: #6ee7b7; flex: 0 0 auto; }
+.co__action--ghost { color: var(--ink-80); }
 .co__action--ghost em { color: #fbbf24; }
 
-.co__suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 14px; }
-.co__suggest span { font-family: var(--font-mono); font-size: 10px; color: var(--ink-70); border: 1px solid var(--hair); border-radius: 999px; padding: 5px 11px; }
+/* composer */
+.co__input { display: flex; gap: 10px; align-items: center; padding: 11px 18px; border-top: 1px solid var(--rule-2); background: rgba(255,255,255,0.012); }
+.co__input-field { flex: 1; padding: 0; border: 0; border-radius: 0; background: none; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-70); }
+.co__input-field::before { content: "› "; color: var(--accent); }
+.co__input-send { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; background: none; border: 1px solid rgba(59,130,246,0.5); color: #93c5fd; font-weight: 500; cursor: default; }
+.co__suggest { display: flex; flex-wrap: wrap; gap: 0 18px; padding: 10px 18px 12px; border-top: 1px solid var(--rule); }
+.co__suggest span { font-family: var(--font-mono); font-size: 10px; color: var(--ink-70); border: 0; border-radius: 0; padding: 2px 0; }
+.co__suggest span::before { content: "↗ "; color: var(--ink-70); opacity: 0.6; }
+
+/* ── page rhythm ────────────────────────────────────────────────────────── */
+.co-page .spec-table { margin-bottom: 120px; }
+.co-page .spec-table td b { color: var(--ink-100); font-weight: 600; }
+.co-page .spec-table td .co__ro { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--ink-70); }
+.co-page .pc__caps { margin-bottom: 120px; }
+.co-page .pc__cap h4 { font-size: 18px; }
+
 @media (max-width: 900px) {
-  .co__tl { grid-template-columns: 1fr 1fr; }
+  .co__tl { grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .co__tl-step:nth-child(-n+2) { margin-bottom: 14px; }
   .co__actions { grid-template-columns: 1fr; }
-  .co__src { grid-template-columns: 16px minmax(0,1fr) 54px; }
+  .co__actions .co__action:nth-last-child(-n+2) { border-bottom: 1px solid rgba(125,211,252,0.06); }
+  .co__actions .co__action:last-child { border-bottom: 0; }
+  .co__src { grid-template-columns: 18px minmax(0,1fr) 56px; }
   .co__src-bar, .co__src-m { display: none; }
+  .co-page .pc__motion { zoom: 1; }
 }
-.co__input { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--hair); background: rgba(255,255,255,0.015); }
-.co__input-field { flex: 1; padding: 10px 14px; border: 1px solid var(--hair); border-radius: 6px; background: rgba(8,13,24,0.5); font-family: var(--font-mono); font-size: 12px; color: var(--ink-70); }
-.co__input-send { font-family: var(--font-mono); font-size: 11px; padding: 8px 14px; border-radius: 6px; background: var(--accent); color: #0a0f1a; border: 0; font-weight: 600; cursor: default; }
+@media (max-width: 640px) {
+  /* three stat figures on one phone-width row squeeze "AR + EN" onto two
+     lines; let them wrap two-up instead */
+  .co-page .pc__sig-item { flex: 0 0 50%; padding-right: 16px; }
+  .co__msg, .co__ctx, .co__input, .co__suggest { padding-left: 14px; padding-right: 14px; }
+  .co__msg--u p { font-size: 15px; }
+  .co__resolve-row { grid-template-columns: 60px minmax(0,1fr); gap: 9px; }
+  .co-page .spec-table, .co-page .pc__caps { margin-bottom: 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .co__msg, .co__src, .co__tl-step { animation: none !important; }
+}
 </style>
 </head>
-<body class="page" data-page="platform">
+<body class="page co-page" data-page="platform">
 <div id="site-nav"></div>
 
 <div class="cs-hero" style="padding:80px 0 24px;">
@@ -119,7 +198,7 @@
     <div class="pc__hero">
       <div class="pc__copy">
         <div class="eyebrow">// Conversational Ops · Ask anything · Get grounded answers</div>
-        <h2 class="pc__title">Plain English.<br><em style="font-style:normal;color:var(--accent)">Real answers.</em></h2>
+        <h1 class="pc__title">Plain English.<br><em style="font-style:normal;color:var(--accent)">Real answers.</em></h1>
         <p class="pc__lead">Ask anything in natural language. Investigate issues, summarize performance, verify evidence and trigger workflows — without navigating dashboards. <strong>Every answer is grounded in operational records</strong> with citations to the underlying events.</p>
         <div class="pc__sig">
           <div class="pc__sig-item"><div class="pc__sig-num">100%</div><div class="pc__sig-lab">Grounded responses</div></div>
@@ -201,6 +280,7 @@
             <span>Which other WOs are at risk today?</span>
             <span>Show Store Room B stock-outs this month</span>
           </div>
+        </div>
       </div>
     </div>
 
@@ -221,15 +301,32 @@
     <div class="section-head pc__section-head pc__section-head--center">
       <div class="eyebrow">// Ask questions like</div>
       <h2 class="section-title">Same interface. <em style="font-style:normal;color:var(--accent)">Every role.</em></h2>
+      <p class="section-lead">One surface, six profiles. The question you are allowed to ask, and the answer you get back, are both shaped by who is asking.</p>
     </div>
     <div class="pc__caps">
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Operator</span></div><h4>"Where is asset A123 now?"</h4><p>Live location, last seen, assigned team, current state and the path it took to get there.</p></article>
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Supervisor</span></div><h4>"Why did this incident breach SLA?"</h4><p>Root-cause narrative with citations to logs, checks, parts and people involved.</p></article>
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Manager</span></div><h4>"Top risks across all sites this morning?"</h4><p>Ranked summary by severity and business impact, drillable to specific events.</p></article>
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Executive</span></div><h4>"Summarize yesterday's safety incidents."</h4><p>Concise executive brief — incidents, causes, response times, open follow-ups.</p></article>
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Auditor</span></div><h4>"Inspections missing photos this week?"</h4><p>Compliance gaps with full audit-grade citation chain.</p></article>
-      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-tag">Field team</span></div><h4>"Vehicles still in the yard?"</h4><p>Live yard view with vehicle IDs, dwell times and assigned jobs.</p></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M16 27s8-7.2 8-13a8 8 0 1 0-16 0c0 5.8 8 13 8 13Z"/><circle cx="16" cy="14" r="3"/></svg></span><span class="pc__cap-tag">01 · Operator</span></div><h4>"Where is asset A123 now?"</h4><p>Live location, last seen, assigned team, current state and the path it took to get there.</p><div class="pc__cap-meta"><span>Live position</span><span>Last seen</span><span>Custody</span></div></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="7" y="6" width="18" height="21" rx="2"/><path d="M12 4h8v4h-8z"/><path d="M12 17l3 3 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="pc__cap-tag">02 · Supervisor</span></div><h4>"Why did this incident breach SLA?"</h4><p>Root-cause narrative with citations to logs, checks, parts and people involved.</p><div class="pc__cap-meta"><span>Root cause</span><span>Timeline</span><span>Citations</span></div></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M6 26h20"/><path d="M10 26V16"/><path d="M16 26V9"/><path d="M22 26V19"/></svg></span><span class="pc__cap-tag">03 · Manager</span></div><h4>"Top risks across all sites this morning?"</h4><p>Ranked summary by severity and business impact, drillable to specific events.</p><div class="pc__cap-meta"><span>Cross-site</span><span>Ranked</span><span>Drill-down</span></div></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 5h10l5 5v17H9z"/><path d="M19 5v5h5" opacity="0.6"/><line x1="13" y1="16" x2="21" y2="16" opacity="0.5"/><line x1="13" y1="20" x2="19" y2="20" opacity="0.5"/></svg></span><span class="pc__cap-tag">04 · Executive</span></div><h4>"Summarize yesterday's safety incidents."</h4><p>Concise executive brief — incidents, causes, response times, open follow-ups.</p><div class="pc__cap-meta"><span>Aggregate</span><span>No personal records</span></div></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 7h18M7 13h18M7 19h9"/><circle cx="21" cy="21" r="5"/><path d="M25 25l3 3" stroke-linecap="round"/></svg></span><span class="pc__cap-tag">05 · Auditor</span></div><h4>"Inspections missing photos this week?"</h4><p>Compliance gaps with full audit-grade citation chain.</p><div class="pc__cap-meta"><span>Full history</span><span>Read-only</span></div></article>
+      <article class="pc__cap"><div class="pc__cap-head"><span class="pc__cap-mo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 10h14v11H4z"/><path d="M18 14h5l4 4v3h-9z"/><circle cx="9" cy="23" r="2.4"/><circle cx="22" cy="23" r="2.4"/></svg></span><span class="pc__cap-tag">06 · Field team</span></div><h4>"Vehicles still in the yard?"</h4><p>Live yard view with vehicle IDs, dwell times and assigned jobs.</p><div class="pc__cap-meta"><span>Own jobs</span><span>Works offline</span></div></article>
     </div>
+
+    <div class="section-head pc__section-head">
+      <div class="eyebrow">// Scope and permissions</div>
+      <h2 class="section-title">The same question, <em style="font-style:normal;color:var(--accent)">answered differently.</em></h2>
+      <p class="section-lead">Conversational Ops inherits your existing role model rather than introducing a second one. A question is answered from the records the asker could already open — nothing more. Where a request exceeds that scope, the assistant says so instead of partially answering.</p>
+    </div>
+    <table class="spec-table spec-table--fixed">
+      <colgroup><col style="width:16%"><col style="width:32%"><col style="width:28%"><col style="width:24%"></colgroup>
+      <tr><th>Profile</th><th>Can see</th><th>Can trigger directly</th><th>Requires approval</th></tr>
+      <tr><td><b>Operator</b></td><td>Assets, jobs and events in their assigned zone</td><td>Status updates, check-ins, photo capture</td><td>Anything outside the zone</td></tr>
+      <tr><td><b>Supervisor</b></td><td>All activity in their zone, across every role in it</td><td>Task creation, reassignment, escalation</td><td>Spend, contracts, roster changes</td></tr>
+      <tr><td><b>Manager</b></td><td>Every site in their business unit</td><td>Reports, cross-site escalation</td><td>Budget-affecting actions</td></tr>
+      <tr><td><b>Executive</b></td><td>Aggregates across sites — no individual personnel records</td><td>Reports and briefs</td><td><span class="co__ro">read-only by default</span></td></tr>
+      <tr><td><b>Auditor</b></td><td>Full record history, including superseded and deleted states</td><td>Nothing — evidence export only</td><td><span class="co__ro">read-only, always</span></td></tr>
+      <tr><td><b>Field team</b></td><td>Their own jobs, cached for offline use</td><td>Job state, evidence capture</td><td>Closing a job already past SLA</td></tr>
+    </table>
 
     <div class="section-head pc__section-head pc__section-head--center">
       <div class="eyebrow">// Answers you can trust</div>
@@ -240,6 +337,36 @@
       <article class="pc__use"><h4>Citations attached to every answer</h4><p>Source records — asset history, RFID reads, sensor logs, work-order timelines, inspection photos, approvals, ERP transactions, incidents, user-activity logs and location events.</p><div class="pc__use-flow"><span>Asset history</span><span>RFID reads</span><span>Sensor logs</span><span>WO timeline</span></div></article>
       <article class="pc__use"><h4>Conversational actions</h4><p>From question to action without leaving the chat: create a task, open an incident, assign a technician, escalate, generate a report, notify a team, update asset status or start an approval flow.</p><div class="pc__use-flow"><span>Create task</span><span>Open incident</span><span>Notify</span><span>Approval</span></div></article>
     </div>
+
+    <div class="section-head pc__section-head">
+      <div class="eyebrow">// What "grounded" is holding you to</div>
+      <h2 class="section-title">A guarantee is only useful <em style="font-style:normal;color:var(--accent)">if it can fail loudly.</em></h2>
+      <p class="section-lead">"Grounded" is an easy word to put on a slide. These are the five rules the assistant is actually held to, and what each one does when it cannot be met.</p>
+    </div>
+    <table class="spec-table spec-table--fixed">
+      <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
+      <tr><th>Rule</th><th>What happens when it cannot be met</th></tr>
+      <tr><td><b>Every claim carries a source</b></td><td>A sentence that cannot be traced to a record does not get written. Citations are generated with the answer, not attached afterwards, so an uncited claim is a failed answer rather than a tidy one.</td></tr>
+      <tr><td><b>No evidence, no answer</b></td><td>Where the records do not settle the question, the assistant says what is missing and which system would hold it. It does not fill the gap from general knowledge — a plausible answer with no record behind it is the failure mode this whole design exists to prevent.</td></tr>
+      <tr><td><b>Answers respect the asker</b></td><td>Retrieval runs under the asker's own permissions, so a record they cannot open cannot appear in a summary either. Scope is enforced before generation, never by asking the model to keep a secret.</td></tr>
+      <tr><td><b>Freshness is stated, not assumed</b></td><td>Every cited record carries its own timestamp and source system. Where a feed is stale or an integration is down, the answer says so rather than quietly reporting yesterday's position as today's.</td></tr>
+      <tr><td><b>Questions and answers are logged</b></td><td>Every exchange is retained with the evidence it used and the actions it offered — so an answer that turned out to be wrong can be reconstructed, not just regretted.</td></tr>
+    </table>
+
+    <div class="section-head pc__section-head">
+      <div class="eyebrow">// Honest limits</div>
+      <h2 class="section-title">What it <em style="font-style:normal;color:var(--accent)">will not do for you.</em></h2>
+      <p class="section-lead">Most disappointment with conversational interfaces comes from expectations nobody stated at the outset. These are ours, stated at the outset.</p>
+    </div>
+    <table class="spec-table spec-table--fixed" style="margin-bottom:120px">
+      <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
+      <tr><th>Limit</th><th>Why</th></tr>
+      <tr><td>It only knows what is connected</td><td>Conversational Ops answers from the systems on the platform. A process that lives in someone's spreadsheet or in a WhatsApp thread is invisible to it — and it will tell you it is, rather than guessing around the gap.</td></tr>
+      <tr><td>It will not guess at intent</td><td>An ambiguous question gets a clarifying question back, not a confident answer to the wrong one. That is slower on the first turn and considerably faster overall.</td></tr>
+      <tr><td>It is not an approval shortcut</td><td>Actions offered in the conversation run through the same approval chain as actions taken anywhere else. Asking in plain English changes the interface, not the authority.</td></tr>
+      <tr><td>It does not replace the record</td><td>The answer is a reading of the underlying records, and the records remain the system of truth. Every citation is a link precisely so the reading can be checked against the source before anyone acts on it.</td></tr>
+      <tr><td>It inherits your data quality</td><td>Where check-ins are logged late or scans are missed, the narrative will faithfully reproduce the gap. The assistant makes bad data more visible — it does not make it good.</td></tr>
+    </table>
 
     <div class="pc__value">
       <div class="pc__value-head"><div class="eyebrow">// Why it matters</div><h3>Operations <em style="font-style:normal;color:var(--accent)">at the speed of a question.</em></h3></div>
