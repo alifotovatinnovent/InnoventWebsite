@@ -977,9 +977,10 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 .nav .nav__brand img { margin-top: -2px; }
 .foot__brand .nav__brand img { width: 186px; max-width: 186px; }
 @media (max-width: 860px) { .nav__brand img { width: 155px; max-width: 155px; }
-  .nav .nav__brand { margin-left: -14px; } }
+  /* nav__inner padding is only 16px here — keep ~12px of gutter */
+  .nav .nav__brand { margin-left: -4px; } }
 @media (max-width: 480px) { .nav__brand img { width: 138px; max-width: 138px; }
-  .nav .nav__brand { margin-left: -9px; }
+  .nav .nav__brand { margin-left: -4px; }
   .foot__brand .nav__brand img { width: 165px; max-width: 165px; } }
 
 /* The Innfini platform section is now a lead-in to "By the numbers" — its
