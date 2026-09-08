@@ -967,6 +967,10 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 /* ── Brand wordmark (Penumbra crescent-in-the-O) ──────────────────────── */
 .nav__brand { flex: 0 0 auto; }
 .nav .nav__brand { margin-left: -20px; }
+/* Deeper pull only where the 1280px nav__inner is centred and there is outer
+   room to give. Below 1360px the inner runs edge-to-edge and a bigger negative
+   margin would crowd the viewport edge. */
+@media (min-width: 1360px) { .nav .nav__brand { margin-left: -28px; } }
 /* The menu links sit ~0.9px above their line-box centre (font ascent/descent),
    so box-centring the logo leaves it fractionally low against the TEXT.
    Measured at 1440px: logo centre 36.00, link-box centre 35.99, glyph centre 35.09. */
