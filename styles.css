@@ -967,6 +967,10 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 /* ── Brand wordmark (Penumbra crescent-in-the-O) ──────────────────────── */
 .nav__brand { flex: 0 0 auto; }
 .nav .nav__brand { margin-left: -20px; }
+/* The menu links sit ~0.9px above their line-box centre (font ascent/descent),
+   so box-centring the logo leaves it fractionally low against the TEXT.
+   Measured at 1440px: logo centre 36.00, link-box centre 35.99, glyph centre 35.09. */
+.nav .nav__brand img { margin-top: -1px; }
 .foot__brand .nav__brand img { width: 186px; max-width: 186px; }
 @media (max-width: 860px) { .nav__brand img { width: 155px; max-width: 155px; }
   .nav .nav__brand { margin-left: -14px; } }
