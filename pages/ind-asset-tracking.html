@@ -26,6 +26,362 @@
 <link rel="stylesheet" href="_roi-calc.css?v=20260908m">
 <link rel="stylesheet" href="_page.css?v=20260908m">
 <link rel="stylesheet" href="../styles-civil-defense.css?v=20260908m">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   ARMORY HERO — live RFID scan over the weapon cabinet
+   One 6s cycle drives everything: a sweep crosses the rack, and each tag
+   marker is delayed to the moment the sweep reaches its own x position, so
+   the reads read as caused by the sweep rather than merely simultaneous.
+   Every overlay lives inside .arm__frame — the image's own box — so the
+   percentage positions stay pinned to the photograph at any width.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.arm {
+  --sky: #7dd3fc; --mint: #a7f3d0;
+  --hair: rgba(125,211,252,0.16);
+  --cycle: 6s;
+  position: relative; width: 100%;
+  border: 1px solid var(--hair); border-radius: 4px;
+  background:
+    radial-gradient(620px 420px at 58% 40%, rgba(125,211,252,0.10), transparent 68%),
+    linear-gradient(180deg, rgba(8,13,24,0.92), rgba(6,10,18,0.98));
+  overflow: hidden;
+}
+.arm__grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(125,211,252,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125,211,252,0.055) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(78% 72% at 52% 46%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(78% 72% at 52% 46%, #000 30%, transparent 100%);
+}
+
+.arm__stage { position: relative; padding: 76px 0 126px; }
+.arm__frame { position: relative; width: 60%; margin: 0 auto; }
+.arm__cab { display: block; width: 100%; height: auto; position: relative; z-index: 2;
+  filter: drop-shadow(0 38px 56px rgba(0,0,0,0.6)); }
+.arm__floor {
+  position: absolute; left: 16%; right: 16%; bottom: 108px; height: 58px; z-index: 1;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(125,211,252,0.20), transparent 70%);
+  filter: blur(7px);
+}
+
+/* ── sweep ──────────────────────────────────────────────────────────────── */
+.arm__sweep {
+  position: absolute; top: -3%; bottom: -3%; left: 0; width: 14%; z-index: 3;
+  pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(90deg, transparent, rgba(125,211,252,0.16) 52%, rgba(125,211,252,0.55) 90%, rgba(205,240,255,0.95) 100%);
+  animation: arm-sweep var(--cycle) linear infinite;
+}
+@keyframes arm-sweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  4%   { opacity: 1; }
+  66%  { transform: translateX(714%); opacity: 1; }
+  73%  { transform: translateX(780%); opacity: 0; }
+  100% { transform: translateX(780%); opacity: 0; }
+}
+
+/* ── tag markers ────────────────────────────────────────────────────────── */
+/* sized as a share of the frame so they hold their scale against the photo */
+.arm__tag {
+  position: absolute; z-index: 4; transform: translate(-50%,-50%);
+  width: 3.4%; aspect-ratio: 1; min-width: 12px; pointer-events: none;
+}
+.arm__tag::before {
+  content: ""; position: absolute; inset: 0; border-radius: 2px;
+  border: 1.5px solid rgba(125,211,252,0.22);
+  animation: arm-bracket var(--cycle) linear infinite;
+}
+.arm__tag::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 34%; height: 34%;
+  transform: translate(-50%,-50%); border-radius: 50%; background: var(--sky);
+  animation: arm-dot var(--cycle) linear infinite;
+}
+@keyframes arm-bracket {
+  0%, 1%   { border-color: rgba(125,211,252,0.20); transform: scale(1); }
+  3%       { border-color: #cdefff; transform: scale(1.4); }
+  8%       { border-color: rgba(167,243,208,0.95); transform: scale(1); }
+  88%      { border-color: rgba(167,243,208,0.7); transform: scale(1); }
+  96%,100% { border-color: rgba(125,211,252,0.20); transform: scale(1); }
+}
+@keyframes arm-dot {
+  0%, 1%   { background: rgba(125,211,252,0.30); box-shadow: none; }
+  3%       { background: #f2fbff; box-shadow: 0 0 14px 4px rgba(125,211,252,0.85); }
+  8%       { background: var(--mint); box-shadow: 0 0 7px 1px rgba(167,243,208,0.55); }
+  88%      { background: var(--mint); box-shadow: 0 0 7px 1px rgba(167,243,208,0.45); }
+  96%,100% { background: rgba(125,211,252,0.30); box-shadow: none; }
+}
+/* id chip — only on the kit column; six rifle chips at one height would pile
+   onto each other, and the read log already carries their ids */
+.arm__tag b {
+  position: absolute; right: calc(100% + 8px); top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono, ui-monospace); font-size: 8.5px; font-weight: 500;
+  letter-spacing: 0.1em; white-space: nowrap; color: var(--mint);
+  background: rgba(6,10,18,0.88); border: 1px solid rgba(167,243,208,0.30);
+  padding: 2px 6px; border-radius: 2px; opacity: 0;
+  animation: arm-chip var(--cycle) linear infinite;
+}
+.arm__tag--r b { display: none; }
+@keyframes arm-chip {
+  0%, 4%   { opacity: 0; transform: translateY(-50%) translateX(5px); }
+  9%       { opacity: 1; transform: translateY(-50%) translateX(0); }
+  86%      { opacity: 1; }
+  94%,100% { opacity: 0; }
+}
+
+/* ── HUD plates ─────────────────────────────────────────────────────────── */
+.arm__plate {
+  position: absolute; z-index: 6; display: flex; flex-direction: column; gap: 3px;
+  padding: 8px 11px; border: 1px solid var(--hair); border-radius: 3px;
+  background: rgba(6,10,18,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono, ui-monospace);
+}
+.arm__plate-k { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sky); font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.arm__plate-v { font-size: 9.5px; line-height: 1.35; letter-spacing: 0.04em; color: #94a3b8; }
+.arm__plate--tl { top: 16px; left: 16px; }
+.arm__plate--tr { top: 16px; right: 16px; }
+.arm__plate--tr .arm__plate-k { color: var(--mint); }
+.arm__live { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); flex: 0 0 auto;
+  animation: arm-live 1.5s ease-in-out infinite; }
+@keyframes arm-live { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+.arm__count { display: inline-block; height: 1em; overflow: hidden; vertical-align: -0.16em; color: #e2e8f0; }
+.arm__count i { display: block; font-style: normal; height: 1em; line-height: 1em;
+  animation: arm-count var(--cycle) step-end infinite; }
+/* the count races up while the sweep is crossing, then holds at the full rack */
+/* stops are the same instants the markers fire: the four kit tags read
+   together as the sweep clears the shelf column, then one rifle at a time */
+@keyframes arm-count {
+  0%    { transform: translateY(0); }
+  14%   { transform: translateY(-4em); }
+  23%   { transform: translateY(-5em); }
+  26.5% { transform: translateY(-6em); }
+  29.7% { transform: translateY(-7em); }
+  33.2% { transform: translateY(-8em); }
+  36.5% { transform: translateY(-9em); }
+  39.8% { transform: translateY(-10em); }
+  95%   { transform: translateY(-10em); }
+  100%  { transform: translateY(0); }
+}
+
+/* ── read log ───────────────────────────────────────────────────────────── */
+.arm__log {
+  position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 6;
+  border: 1px solid var(--hair); border-radius: 3px; background: rgba(6,10,18,0.9);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 8px 12px 9px;
+  font-family: var(--font-mono, ui-monospace);
+}
+.arm__log-h { display: flex; justify-content: space-between; gap: 12px; font-size: 8px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #64748b; padding-bottom: 6px;
+  margin-bottom: 5px; border-bottom: 1px solid rgba(125,211,252,0.10); }
+.arm__log-row { display: grid; grid-template-columns: 58px minmax(0,1fr) 66px; gap: 10px;
+  font-size: 9.5px; line-height: 1.75; color: #cbd5e1; opacity: 0;
+  animation: arm-row var(--cycle) linear infinite; }
+.arm__log-row > span { color: #64748b; }
+.arm__log-row em { font-style: normal; color: var(--mint); text-align: right; letter-spacing: 0.08em; }
+@keyframes arm-row {
+  0%, 3%   { opacity: 0; transform: translateY(3px); }
+  8%       { opacity: 1; transform: translateY(0); }
+  88%      { opacity: 1; }
+  95%,100% { opacity: 0; }
+}
+
+@media (max-width: 1080px) { .arm__frame { width: 66%; } }
+@media (max-width: 860px) {
+  .arm__stage { padding: 70px 0 118px; }
+  .arm__frame { width: 74%; }
+  .arm__tag b { font-size: 8px; }
+}
+@media (max-width: 620px) {
+  .arm__plate--tr { display: none; }
+  .arm__stage { padding: 62px 0 108px; }
+  .arm__frame { width: 82%; }
+  .arm__tag b { display: none; }
+  .arm__log-row { grid-template-columns: 50px minmax(0,1fr); font-size: 9px; }
+  .arm__log-row em { display: none; }
+  .arm__log-h span + span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arm__sweep { display: none; }
+  .arm__tag::before, .arm__tag::after, .arm__tag b, .arm__log-row, .arm__count i, .arm__live {
+    animation: none !important; opacity: 1 !important; }
+  .arm__tag::before { border-color: rgba(167,243,208,0.85); transform: none; }
+  .arm__tag::after { background: var(--mint); }
+  .arm__log-row { transform: none; }
+  .arm__count i { transform: translateY(-10em); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ARMORY PAGE — sections below the hero
+   Page-local. styles-civil-defense.css is shared with ind-civil-defense.html
+   and is not touched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Six surfaces · denser ruled grid ───────────────────────────────────── */
+/* the shared .cd__blocks is a two-up grid with 44px padding and three lines
+   of copy in each cell, so most of each cell is empty. Three up, with the
+   specifications that were buried in the paragraph pulled out as rows. */
+.arm-sur { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid rgba(255,255,255,0.10); }
+.arm-sur__i {
+  padding: 30px 26px 26px; border-right: 1px solid rgba(255,255,255,0.10);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  display: flex; flex-direction: column; transition: background 200ms ease;
+}
+.arm-sur__i:nth-child(3n) { border-right: 0; }
+.arm-sur__i:nth-last-child(-n+3) { border-bottom: 0; }
+.arm-sur__i:hover { background: rgba(125,211,252,0.035); }
+.arm-sur__top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.arm-sur__ico { width: 34px; height: 34px; flex: 0 0 auto; color: #7dd3fc;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(125,211,252,0.28); border-radius: 3px; background: rgba(125,211,252,0.05); }
+.arm-sur__ico svg { width: 22px; height: 22px; display: block; }
+.arm-sur__tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-70); }
+.arm-sur__h { font-family: var(--font-display); font-size: 18px; font-weight: 600;
+  line-height: 1.22; color: var(--ink-100); letter-spacing: -0.008em; margin: 0 0 10px; }
+.arm-sur__p { font-family: var(--font-body); font-size: 13.5px; line-height: 1.55;
+  color: var(--ink-70); margin: 0 0 18px; }
+.arm-sur__specs { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.09); }
+.arm-sur__spec { display: grid; grid-template-columns: 84px minmax(0,1fr); gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.055);
+  font-family: var(--font-mono); font-size: 10px; line-height: 1.45; }
+.arm-sur__spec:last-child { border-bottom: 0; }
+.arm-sur__spec dt { color: var(--ink-70); letter-spacing: 0.12em; text-transform: uppercase; margin: 0; }
+.arm-sur__spec dd { color: #cbd5e1; margin: 0; letter-spacing: 0.02em; }
+
+/* ── Lifecycle · animated state machine ─────────────────────────────────── */
+.arm-life {
+  position: relative; border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(10,15,26,0.85), rgba(6,9,15,0.95));
+  padding: 34px 30px 30px; overflow: hidden;
+}
+.arm-life__h { display: flex; justify-content: space-between; align-items: baseline;
+  gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-70);
+  padding-bottom: 14px; border-bottom: 1px solid rgba(125,211,252,0.14); margin-bottom: 30px; }
+.arm-life__h b { color: #7dd3fc; font-weight: 600; }
+.arm-life__track { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; }
+/* the rail the token runs along, pinned to the row of state dots */
+/* the rail must start and end on the dot centres, not on the track edges,
+   or the token stops between states instead of on them: each state cell is
+   a fifth of the track and its 27px dot sits at the cell's left edge */
+.arm-life__rail { position: absolute; left: 13.5px; right: calc(20% - 13.5px); top: 13px;
+  height: 1px; background: rgba(125,211,252,0.18); }
+.arm-life__rail::after {
+  content: ""; position: absolute; top: -3px; left: 0; width: 7px; height: 7px;
+  border-radius: 50%; background: #eaf8ff; box-shadow: 0 0 12px 3px rgba(125,211,252,0.9);
+  animation: arm-token 10s cubic-bezier(0.65,0,0.35,1) infinite;
+}
+@keyframes arm-token {
+  0%   { left: 0%; opacity: 0; }
+  3%   { left: 0%; opacity: 1; }
+  18%  { left: 0%; }
+  23%  { left: 25%; }
+  38%  { left: 25%; }
+  43%  { left: 50%; }
+  58%  { left: 50%; }
+  63%  { left: 75%; }
+  78%  { left: 75%; }
+  83%  { left: 100%; }
+  96%  { left: 100%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+.arm-life__st { position: relative; padding: 0 14px 0 0; opacity: 0.42;
+  animation: arm-cell 10s linear infinite; }
+/* the whole cell comes up as the token arrives — a dot tint alone is too
+   quiet to read as movement at this size */
+@keyframes arm-cell { 0%, 17% { opacity: 1; } 20%, 100% { opacity: 0.42; } }
+.arm-life__dot { position: relative; width: 27px; height: 27px; border-radius: 50%;
+  border: 1px solid rgba(125,211,252,0.25); background: #070b12;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-70);
+  margin-bottom: 16px; z-index: 1;
+  animation: arm-st 10s linear infinite; }
+@keyframes arm-st {
+  0%, 17%   { border-color: rgba(125,211,252,0.85); color: #eaf8ff;
+              background: rgba(125,211,252,0.16); box-shadow: 0 0 0 4px rgba(125,211,252,0.10); }
+  20%, 100% { border-color: rgba(125,211,252,0.25); color: #64748b;
+              background: #070b12; box-shadow: none; }
+}
+/* nth-child counts the rail div as child 1, so the states are children 2-6 */
+.arm-life__st:nth-child(3), .arm-life__st:nth-child(3) .arm-life__dot { animation-delay: 2s; }
+.arm-life__st:nth-child(4), .arm-life__st:nth-child(4) .arm-life__dot { animation-delay: 4s; }
+.arm-life__st:nth-child(5), .arm-life__st:nth-child(5) .arm-life__dot { animation-delay: 6s; }
+.arm-life__st:nth-child(6), .arm-life__st:nth-child(6) .arm-life__dot { animation-delay: 8s; }
+.arm-life__k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #7dd3fc; margin-bottom: 8px; }
+.arm-life__t { font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  color: var(--ink-100); line-height: 1.25; margin: 0 0 7px; letter-spacing: -0.005em; }
+.arm-life__d { font-family: var(--font-body); font-size: 12.5px; line-height: 1.5;
+  color: var(--ink-70); margin: 0 0 12px; }
+.arm-life__ev { font-family: var(--font-mono); font-size: 9.5px; line-height: 1.7;
+  color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 9px; }
+.arm-life__ev span { display: block; }
+.arm-life__ev span::before { content: "· "; color: #7dd3fc; }
+
+/* ── Hardware reference table ───────────────────────────────────────────── */
+.arm-spec { width: 100%; border-collapse: collapse; table-layout: fixed;
+  font-family: var(--font-body); font-size: 13.5px; }
+.arm-spec tr { border-bottom: 1px solid rgba(255,255,255,0.09); }
+.arm-spec tr:last-child { border-bottom: 0; }
+.arm-spec th, .arm-spec td { padding: 14px 16px 14px 0; text-align: left; vertical-align: top;
+  overflow-wrap: break-word; }
+.arm-spec th { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-70); font-weight: 500;
+  border-bottom: 1px solid rgba(125,211,252,0.22); padding-bottom: 11px; }
+.arm-spec td { color: var(--ink-70); line-height: 1.55; }
+.arm-spec td b { color: var(--ink-100); font-weight: 600; }
+.arm-spec td code { font-family: var(--font-mono); font-size: 11.5px; color: #7dd3fc;
+  letter-spacing: 0.02em; }
+
+@media (max-width: 1080px) {
+  .arm-sur { grid-template-columns: repeat(2, 1fr); }
+  .arm-sur__i:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.10); }
+  .arm-sur__i:nth-child(2n) { border-right: 0; }
+  .arm-sur__i:nth-last-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .arm-sur__i:nth-last-child(-n+2) { border-bottom: 0; }
+  .arm-life__track { grid-template-columns: repeat(2, 1fr); gap: 26px 20px; }
+  .arm-life__rail { display: none; }
+  .arm-spec { font-size: 13px; }
+}
+@media (max-width: 680px) {
+  .arm-sur { grid-template-columns: 1fr; }
+  .arm-sur__i, .arm-sur__i:nth-child(3n), .arm-sur__i:nth-child(2n) { border-right: 0; }
+  .arm-sur__i:nth-last-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .arm-sur__i:last-child { border-bottom: 0; }
+  .arm-life { padding: 26px 20px 22px; }
+  .arm-life__track { grid-template-columns: 1fr; gap: 22px; }
+  .arm-spec, .arm-spec tbody, .arm-spec tr, .arm-spec td { display: block; width: auto; }
+  .arm-spec thead { display: none; }
+  .arm-spec tr { padding: 14px 0; }
+  .arm-spec td { padding: 2px 0; }
+  .arm-spec td:first-child { padding-bottom: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arm-life__rail::after, .arm-life__dot, .arm-life__st { animation: none !important; }
+  .arm-life__dot { color: #7dd3fc; background: rgba(125,211,252,0.10); }
+  .arm-life__st { opacity: 1; }
+}
+
+/* the shared hero grid keeps 32px gutters and lets its columns size to their
+   own min-content, so on a 320px phone the title and the meta row push the
+   column wider than the viewport. Page-local, so ind-civil-defense is
+   unaffected. */
+@media (max-width: 400px) {
+  .cd__hero-grid { padding: 0 18px; gap: 32px; }
+  .cd__hero-grid > * { min-width: 0; }
+  .cd__hero-title { font-size: 36px; }
+  .cd__hero-meta { gap: 20px; flex-wrap: wrap; }
+  .cd__hero-meta-item b { font-size: 22px; }
+  .cd__hero-ctas { flex-wrap: wrap; }
+  .cd__sec-inner { padding: 0 18px; }
+  .cd__stat { padding: 28px 18px; }
+  .cd__stat-v { font-size: 42px; }
+  .cd__blocks .cd__block, .arm-sur__i { padding-left: 20px; padding-right: 20px; }
+  .arm-life { padding: 22px 16px 18px; }
+}
+</style>
 </head><body class="page cd" data-page="industries">
 <div id="site-nav"></div>
 
@@ -45,18 +401,48 @@
         <a class="btn btn--secondary" href="command-control.html">Command &amp; Control</a>
       </div>
     </div>
-    <div class="cd__hud" style="position:relative; aspect-ratio: 16/10; background: radial-gradient(700px 380px at 50% 55%, rgba(125,211,252,0.18), transparent 60%), #000; overflow:hidden;">
-  <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" style="position:absolute; inset:0; width:100%; height:100%;">
-    <defs><pattern id="cas-grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(125,211,252,0.08)" stroke-width="0.7"/></pattern></defs>
-    <rect width="1600" height="1000" fill="url(#cas-grid)"/>
-  </svg>
-  <img src="../assets/product/weapon-wireframe.webp" alt="" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:75%; max-width:1200px; height:auto; mix-blend-mode:screen; pointer-events:none;" loading="lazy" decoding="async">
-  <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
-    <g><circle cx="1110" cy="280" r="6" fill="#7dd3fc"/><circle cx="1110" cy="280" r="6" fill="none" stroke="#7dd3fc" stroke-width="1.2"><animate attributeName="r" values="4;28" dur="2.4s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0s" repeatCount="indefinite"/></circle></g><g><circle cx="900" cy="450" r="6" fill="#7dd3fc"/><circle cx="900" cy="450" r="6" fill="none" stroke="#7dd3fc" stroke-width="1.2"><animate attributeName="r" values="4;28" dur="2.4s" begin="0.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.4s" repeatCount="indefinite"/></circle></g><g><circle cx="640" cy="640" r="6" fill="#7dd3fc"/><circle cx="640" cy="640" r="6" fill="none" stroke="#7dd3fc" stroke-width="1.2"><animate attributeName="r" values="4;28" dur="2.4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="0.8s" repeatCount="indefinite"/></circle></g><g><circle cx="1300" cy="280" r="6" fill="#7dd3fc"/><circle cx="1300" cy="280" r="6" fill="none" stroke="#7dd3fc" stroke-width="1.2"><animate attributeName="r" values="4;28" dur="2.4s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"/></circle></g><g><circle cx="380" cy="600" r="6" fill="#7dd3fc"/><circle cx="380" cy="600" r="6" fill="none" stroke="#7dd3fc" stroke-width="1.2"><animate attributeName="r" values="4;28" dur="2.4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2.4s" begin="1.6s" repeatCount="indefinite"/></circle></g>
-    <g transform="translate(40,40)"><rect width="320" height="44" rx="8" fill="rgba(8,13,24,0.85)" stroke="rgba(125,211,252,0.35)" stroke-width="1"/><text x="14" y="20" font-family="ui-monospace" font-size="11" font-weight="700" fill="#7dd3fc" letter-spacing="0.18em">WX-114 · FULL SCAN · LIVE</text><text x="14" y="34" font-family="ui-monospace" font-size="10" fill="#94a3b8">5 components verified · chain of custody OK</text></g>
-    <g transform="translate(1240,40)"><rect width="320" height="44" rx="8" fill="rgba(8,13,24,0.85)" stroke="rgba(125,211,252,0.35)" stroke-width="1"/><text x="14" y="20" font-family="ui-monospace" font-size="11" font-weight="700" fill="#a7f3d0" letter-spacing="0.18em">CUSTODY · VERIFIED</text><text x="14" y="34" font-family="ui-monospace" font-size="10" fill="#94a3b8">Custodian · Sgt Park</text></g>
-    <g transform="translate(580,920)"><rect width="440" height="50" rx="8" fill="rgba(8,13,24,0.85)" stroke="rgba(125,211,252,0.35)" stroke-width="1"/><text x="14" y="22" font-family="ui-monospace" font-size="11" fill="#a7f3d0" letter-spacing="0.14em" font-weight="700">RFID · 600/s · BIOMETRIC · LEDGER</text><text x="14" y="38" font-family="ui-monospace" font-size="9" fill="#94a3b8">Issue · transfer · return · 100% audit</text></g>
-  </svg>
+    <div class="arm" aria-hidden="true">
+  <div class="arm__grid"></div>
+
+  <div class="arm__plate arm__plate--tl">
+    <div class="arm__plate-k"><span class="arm__live"></span>Rack scan · live</div>
+    <div class="arm__plate-v">Cabinet A-07 · <span class="arm__count"><i>00<br>01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10</i></span> / 10 read</div>
+  </div>
+
+  <div class="arm__plate arm__plate--tr">
+    <div class="arm__plate-k">Custody · verified</div>
+    <div class="arm__plate-v">Armourer · Sgt Park · biometric</div>
+  </div>
+
+  <div class="arm__stage">
+    <div class="arm__floor"></div>
+    <div class="arm__frame">
+      <img class="arm__cab" src="../assets/product/weapon-cabinet.webp?v=20260908m" width="676" height="828"
+           alt="RFID-tagged weapon storage cabinet, rifles racked on the right and kit on the shelves"
+           loading="eager" decoding="async">
+      <div class="arm__sweep"></div>
+
+      <div class="arm__tag" style="left:22.5%;top:16.3%;animation-delay:.84s"><b>NVG-221</b></div>
+      <div class="arm__tag" style="left:22.5%;top:34.5%;animation-delay:.84s"><b>KIT-118</b></div>
+      <div class="arm__tag" style="left:22.5%;top:47.3%;animation-delay:.84s"><b>KIT-124</b></div>
+      <div class="arm__tag" style="left:22.5%;top:60.3%;animation-delay:.84s"><b>KIT-131</b></div>
+
+      <div class="arm__tag arm__tag--r" style="left:39.9%;top:42%;animation-delay:1.38s"></div>
+      <div class="arm__tag arm__tag--r" style="left:46.2%;top:42%;animation-delay:1.59s"></div>
+      <div class="arm__tag arm__tag--r" style="left:51.8%;top:42%;animation-delay:1.78s"></div>
+      <div class="arm__tag arm__tag--r" style="left:57.7%;top:42%;animation-delay:1.99s"></div>
+      <div class="arm__tag arm__tag--r" style="left:63.6%;top:42%;animation-delay:2.19s"></div>
+      <div class="arm__tag arm__tag--r" style="left:69.5%;top:42%;animation-delay:2.39s"></div>
+    </div>
+  </div>
+
+  <div class="arm__log">
+    <div class="arm__log-h"><span>Read log · UHF 865–868 MHz</span><span>600 tags/s · 3 m</span></div>
+    <div class="arm__log-row" style="animation-delay:.84s"><span>08:14:02</span>KIT-118 · night-vision and pouches<em>in rack</em></div>
+    <div class="arm__log-row" style="animation-delay:1.38s"><span>08:14:02</span>WX-114-01 · rifle, serial bound<em>in rack</em></div>
+    <div class="arm__log-row" style="animation-delay:1.78s"><span>08:14:03</span>WX-114-03 · rifle, serial bound<em>in rack</em></div>
+    <div class="arm__log-row" style="animation-delay:2.39s"><span>08:14:03</span>WX-114-06 · rifle, serial bound<em>in rack</em></div>
+  </div>
 </div>
   </div>
 </section>
@@ -89,13 +475,13 @@
         <p class="cd__sec-deck">INNFINI combines tagged weapons, fixed RFID readers, rugged handhelds, smart gates with biometric, AI-assisted anomaly advisor and an immutable audit ledger into one operational layer.</p>
       </div>
     </div>
-    <div class="cd__blocks">
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><circle cx="14" cy="24" r="2" fill="#7dd3fc"/><path d="M20 18 Q24 22 24 24 Q24 26 20 30"/><path d="M26 14 Q32 19 32 24 Q32 29 26 34"/><path d="M32 10 Q40 17 40 24 Q40 31 32 38"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/></path></svg></div><div class="cd__block-tag">A · Hardware</div><h3 class="cd__block-h">UHF reader · handheld · tags</h3><p class="cd__block-p">1045 UHF reader with concentrated-field antenna · handheld + tablet form-factors · Metal Skin / CX652 / FX772 tag families · ISO18000-63 · range 1.2–3 m.</p></article>
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 26 L34 26 L40 24 L42 26 L42 28 L34 28 L30 32 L20 32 L20 26"/><circle cx="12" cy="32" r="2"/><circle cx="26" cy="32" r="2"/><path d="M12 32 L 14 36 L 18 36"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/></path></svg></div><div class="cd__block-tag">B · Software</div><h3 class="cd__block-h">Weapon Management Solution</h3><p class="cd__block-p">Dashboard, requests, pre-assignment, transactions, shift management, location, role and user — with biometric binding and approval hierarchies.</p></article>
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><rect x="8" y="8" width="4" height="32"/><rect x="36" y="8" width="4" height="32"/><line x1="12" y1="14" x2="36" y2="14"/><line x1="12" y1="40" x2="36" y2="40"/><circle cx="24" cy="24" r="6" stroke-dasharray="3 2"><animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="4s" repeatCount="indefinite"/></circle><circle cx="24" cy="24" r="1.5" fill="#7dd3fc"/></svg></div><div class="cd__block-tag">C · Smart Gate</div><h3 class="cd__block-h">Biometric portal + alarm</h3><p class="cd__block-p">Narrow-beam long-range antennas at exit gates · GPIO alarm on unauthorized exit · biometric scan ties every passage to an identity.</p></article>
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><path d="M16 14 Q24 8 32 14"/><path d="M14 20 Q24 14 34 20"/><path d="M14 26 Q24 22 34 26"/><path d="M16 32 Q24 30 32 32"/><path d="M18 38 Q24 38 30 38"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/></path></svg></div><div class="cd__block-tag">D · Identity</div><h3 class="cd__block-h">Bound to verified person</h3><p class="cd__block-p">Federated identity · biometric capture · approval routing · zero standing access. Every transaction tied to a verified custodian.</p></article>
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><rect x="10" y="14" width="28" height="20" rx="3"/><circle cx="18" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></circle><circle cx="30" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" begin="0.4s" repeatCount="indefinite"/></circle><path d="M18 28 Q24 32 30 28"/><line x1="24" y1="6" x2="24" y2="14"/></svg></div><div class="cd__block-tag">E · AI</div><h3 class="cd__block-h">Anomaly advisor</h3><p class="cd__block-p">Threshold and pattern-based alerts · cited reasoning · operator approves. Surfaces unauthorized movement before it escalates.</p></article>
-      <article class="cd__block"><div class="cd__block-ico" style="margin-bottom:18px;"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="6" width="28" height="36" rx="2"/><line x1="16" y1="14" x2="32" y2="14"/><line x1="16" y1="20" x2="32" y2="20"/><line x1="16" y1="26" x2="32" y2="26"/><line x1="16" y1="32" x2="28" y2="32"/><circle cx="34" cy="32" r="2" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></circle></svg></div><div class="cd__block-tag">F · Audit</div><h3 class="cd__block-h">Immutable ledger</h3><p class="cd__block-p">Issue · transfer · return · inspection. Every event timestamped, attributed and signed. Audit-grade by default.</p></article>
+    <div class="arm-sur">
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><circle cx="14" cy="24" r="2" fill="#7dd3fc"/><path d="M20 18 Q24 22 24 24 Q24 26 20 30"/><path d="M26 14 Q32 19 32 24 Q32 29 26 34"/><path d="M32 10 Q40 17 40 24 Q40 31 32 38"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/></path></svg></span><span class="arm-sur__tag">A · Hardware</span></div><h3 class="arm-sur__h">UHF reader, handheld and tags</h3><p class="arm-sur__p">Fixed and handheld UHF readers with concentrated-field antennas, and tag families that survive being bolted to steel.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Reader</dt><dd>1045 UHF · concentrated-field antenna</dd></div><div class="arm-sur__spec"><dt>Tags</dt><dd>Metal Skin · CX652 · FX772</dd></div><div class="arm-sur__spec"><dt>Range</dt><dd>1.2 – 3 m · ISO 18000-63</dd></div></dl></article>
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 26 L34 26 L40 24 L42 26 L42 28 L34 28 L30 32 L20 32 L20 26"/><circle cx="12" cy="32" r="2"/><circle cx="26" cy="32" r="2"/><path d="M12 32 L 14 36 L 18 36"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/></path></svg></span><span class="arm-sur__tag">B · Software</span></div><h3 class="arm-sur__h">Weapon Management Solution</h3><p class="arm-sur__p">The operating layer for the armoury: who may draw what, who holds it now, and what happened to it in between.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Modules</dt><dd>Requests · pre-assignment · transactions</dd></div><div class="arm-sur__spec"><dt>Also</dt><dd>Shift · location · role · user</dd></div><div class="arm-sur__spec"><dt>Binding</dt><dd>Biometric, with approval hierarchies</dd></div></dl></article>
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><rect x="8" y="8" width="4" height="32"/><rect x="36" y="8" width="4" height="32"/><line x1="12" y1="14" x2="36" y2="14"/><line x1="12" y1="40" x2="36" y2="40"/><circle cx="24" cy="24" r="6" stroke-dasharray="3 2"><animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="4s" repeatCount="indefinite"/></circle><circle cx="24" cy="24" r="1.5" fill="#7dd3fc"/></svg></span><span class="arm-sur__tag">C · Smart gate</span></div><h3 class="arm-sur__h">Biometric portal and alarm</h3><p class="arm-sur__p">Narrow-beam antennas at the exit read only what actually passes through, and the passage is tied to a person.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Antenna</dt><dd>Narrow-beam, long-range</dd></div><div class="arm-sur__spec"><dt>Alarm</dt><dd>GPIO on unauthorised exit</dd></div><div class="arm-sur__spec"><dt>Identity</dt><dd>Biometric scan at every passage</dd></div></dl></article>
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><path d="M16 14 Q24 8 32 14"/><path d="M14 20 Q24 14 34 20"/><path d="M14 26 Q24 22 34 26"/><path d="M16 32 Q24 30 32 32"/><path d="M18 38 Q24 38 30 38"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/></path></svg></span><span class="arm-sur__tag">D · Identity</span></div><h3 class="arm-sur__h">Bound to a verified person</h3><p class="arm-sur__p">No weapon moves against an anonymous account. Every transaction resolves to a custodian who was verified at the time.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Identity</dt><dd>Federated · biometric capture</dd></div><div class="arm-sur__spec"><dt>Routing</dt><dd>Approval chain per transaction</dd></div><div class="arm-sur__spec"><dt>Access</dt><dd>Zero standing access</dd></div></dl></article>
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round"><rect x="10" y="14" width="28" height="20" rx="3"/><circle cx="18" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></circle><circle cx="30" cy="22" r="1.6" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" begin="0.4s" repeatCount="indefinite"/></circle><path d="M18 28 Q24 32 30 28"/><line x1="24" y1="6" x2="24" y2="14"/></svg></span><span class="arm-sur__tag">E · AI</span></div><h3 class="arm-sur__h">Anomaly advisor</h3><p class="arm-sur__p">Threshold and pattern alerts that surface unauthorised movement early — and that show their working, so an operator can judge them.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Detects</dt><dd>Threshold and pattern anomalies</dd></div><div class="arm-sur__spec"><dt>Shows</dt><dd>Cited reasoning · confidence</dd></div><div class="arm-sur__spec"><dt>Decides</dt><dd>The operator approves the action</dd></div></dl></article>
+      <article class="arm-sur__i"><div class="arm-sur__top"><span class="arm-sur__ico"><svg viewBox="0 0 48 48"  fill="none" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="6" width="28" height="36" rx="2"/><line x1="16" y1="14" x2="32" y2="14"/><line x1="16" y1="20" x2="32" y2="20"/><line x1="16" y1="26" x2="32" y2="26"/><line x1="16" y1="32" x2="28" y2="32"/><circle cx="34" cy="32" r="2" fill="#7dd3fc"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></circle></svg></span><span class="arm-sur__tag">F · Audit</span></div><h3 class="arm-sur__h">Immutable ledger</h3><p class="arm-sur__p">Issue, transfer, return and inspection are append-only events. Nothing is edited in place, so the history cannot quietly change.</p><dl class="arm-sur__specs"><div class="arm-sur__spec"><dt>Events</dt><dd>Issue · transfer · return · inspect</dd></div><div class="arm-sur__spec"><dt>Record</dt><dd>Timestamped · attributed · signed</dd></div><div class="arm-sur__spec"><dt>Export</dt><dd>Regulator-ready</dd></div></dl></article>
     </div>
   </div>
 </section>
@@ -151,7 +537,7 @@
         <div style="position:absolute; right:32px; top:24px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em; color:#a7f3d0; padding:4px 10px; border:1px solid rgba(167,243,208,0.40); border-radius:999px; background:rgba(167,243,208,0.06);">
           BIOMETRIC · VERIFIED
         </div>
-        <img src="../assets/product/rfid-smart-gate.png" alt="INNFINI smart RFID gate · narrow-beam UHF · biometric access control" style="display:block; max-width:78%; max-height:74%; width:auto; height:auto; object-fit:contain; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.55)) drop-shadow(0 0 30px rgba(125,211,252,0.10));"/ loading="lazy" decoding="async">
+        <img src="../assets/product/rfid-smart-gate.png" alt="INNFINI smart RFID gate · narrow-beam UHF · biometric access control" style="display:block; max-width:78%; max-height:74%; width:auto; height:auto; object-fit:contain; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.55)) drop-shadow(0 0 30px rgba(125,211,252,0.10));" loading="lazy" decoding="async">
         <div style="position:absolute; left:32px; bottom:24px; right:32px; display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; color:#94a3b8;">
           <span>NARROW-BEAM ANTENNA · GPIO ALARM · IDENTITY-BOUND</span>
           <span style="color:#7dd3fc;">CT-04 · LIVE</span>
@@ -272,9 +658,38 @@
 
 <section class="cd__sec">
   <div class="cd__sec-inner">
+    <div class="cd__sec-head">
+      <div class="cd__sec-num">04 / Lifecycle</div>
+      <div>
+        <h2 class="cd__sec-title">One serial. <em>Five states.</em></h2>
+        <p class="cd__sec-deck">A weapon is never simply "in" or "out". It moves through five recorded states, and every transition writes an event against the same serial — so the question "where was this, and who had it" has one answer rather than several.</p>
+      </div>
+    </div>
+
+    <div class="arm-life" aria-hidden="true">
+      <div class="arm-life__h"><span>Weapon <b>WX-114-03</b> · lifecycle</span><span>Every transition is an event · append-only</span></div>
+      <div class="arm-life__track">
+        <div class="arm-life__rail"></div>
+        <div class="arm-life__st"><div class="arm-life__dot">01</div><div class="arm-life__k">In rack</div><h4 class="arm-life__t">Tagged and counted</h4><p class="arm-life__d">Fixed readers verify the rack on a cycle, so the count is a fact rather than a paperwork exercise.</p><div class="arm-life__ev"><span>Rack read · every cycle</span><span>Count reconciled automatically</span></div></div><div class="arm-life__st"><div class="arm-life__dot">02</div><div class="arm-life__k">Issued</div><h4 class="arm-life__t">Bound to a person</h4><p class="arm-life__d">A biometric match at the counter binds the serial to a named custodian before the weapon leaves.</p><div class="arm-life__ev"><span>Biometric match</span><span>Custody record opened</span></div></div><div class="arm-life__st"><div class="arm-life__dot">03</div><div class="arm-life__k">In field</div><h4 class="arm-life__t">Carried under custody</h4><p class="arm-life__d">Gate passages and handheld sweeps keep the weapon located without anyone filling in a form.</p><div class="arm-life__ev"><span>Gate passage logged</span><span>Patrol check · handheld</span></div></div><div class="arm-life__st"><div class="arm-life__dot">04</div><div class="arm-life__k">Returned</div><h4 class="arm-life__t">Checked back in</h4><p class="arm-life__d">The return read closes the custody record against the same serial that was issued — not a similar one.</p><div class="arm-life__ev"><span>Rack read on return</span><span>Custody record closed</span></div></div><div class="arm-life__st"><div class="arm-life__dot">05</div><div class="arm-life__k">Inspected</div><h4 class="arm-life__t">Signed off</h4><p class="arm-life__d">Armourer inspection is recorded against the serial before the weapon re-enters the available pool.</p><div class="arm-life__ev"><span>Condition logged</span><span>Ledger entry signed</span></div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:72px">
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#7dd3fc;padding-top:14px;border-top:1px solid #7dd3fc;display:inline-block;margin-bottom:26px;">Hardware and standards</div>
+      <table class="arm-spec">
+        <colgroup><col style="width:16%"><col style="width:52%"><col style="width:32%"></colgroup>
+        <thead><tr><th>Component</th><th>What it does</th><th>Standard / notes</th></tr></thead>
+        <tbody><tr><td><b>UHF reader</b></td><td>1045 fixed reader with a concentrated-field antenna, reading up to <b>600 EPC tags per second</b>.</td><td><code>ISO 18000-63 · EPC Gen2</code></td></tr><tr><td><b>Handheld</b></td><td>Batch mode to <b>4,000 tags</b> and 500 barcodes per pass, with offline capture and later sync.</td><td><code>Wi-Fi / 4G / 5G · offline batch</code></td></tr><tr><td><b>Tag families</b></td><td><b>Metal Skin</b>, <b>CX652</b> and <b>FX772</b> — mounted on steel, where an ordinary label tag will not read.</td><td><code>On-metal mount · ATEX-rated variants</code></td></tr><tr><td><b>Read range</b></td><td><b>1.2 – 3 m</b> through metal, inside a concentrated reading area rather than a broad field.</td><td><code>Concentrated reading area</code></td></tr><tr><td><b>Smart gate</b></td><td>Narrow-beam long-range antennas at the exit, so the gate reads what passes and not what is merely nearby.</td><td><code>GPIO alarm on unauthorised exit</code></td></tr><tr><td><b>Identity</b></td><td>Federated identity with biometric capture, and an approval chain attached to each transaction type.</td><td><code>Zero standing access</code></td></tr><tr><td><b>Ledger</b></td><td>Append-only events — issue, transfer, return, inspection — each timestamped, attributed and signed.</td><td><code>Regulator-ready export</code></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="cd__sec">
+  <div class="cd__sec-inner">
 
     <div class="cd__sec-head">
-      <div class="cd__sec-num">04 / Case study</div>
+      <div class="cd__sec-num">05 / Case study</div>
       <div>
         <h2 class="cd__sec-title">Armory accountability at <em>force scale.</em></h2>
         <p class="cd__sec-deck"><strong style="color:var(--ink-100)">Client</strong> · Dubai Police &nbsp;&nbsp;<span style="color:rgba(255,255,255,0.15)">|</span>&nbsp;&nbsp; <strong style="color:var(--ink-100)">Project</strong> · Force-wide RFID-driven Weapon Management</p>
