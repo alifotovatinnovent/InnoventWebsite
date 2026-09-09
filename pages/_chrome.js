@@ -78,11 +78,20 @@
     <div class="foot__bot">
       <span>© 2025 Innovent Inc. All rights reserved.</span>
       <div class="foot__bot-right">
-        <a href="trust.html">Privacy</a><a href="trust.html">Terms</a><a href="trust.html">Security</a><a href="trust.html">SOC 2</a>
+        <a href="trust.html">Privacy</a><a href="trust.html">Terms</a><a href="trust.html">Security</a><a href="trust.html">SOC 2</a><a href="#" data-cookie-prefs>Cookie preferences</a>
       </div>
     </div>
   </div>
 </footer>`;
+
+  /* consent banner — one script, loaded once, for every sub-page */
+  if (!document.querySelector('script[data-innv-consent]')) {
+    var cs = document.createElement('script');
+    cs.src = '../consent.js?v=20260908m';
+    cs.defer = true;
+    cs.setAttribute('data-innv-consent', '');
+    document.head.appendChild(cs);
+  }
 
   const navMount = document.getElementById('site-nav');
   const footMount = document.getElementById('site-footer');
