@@ -59,12 +59,12 @@
   -webkit-mask-image: radial-gradient(80% 74% at 50% 44%, #000 28%, transparent 100%);
 }
 
-.mln__stage { position: relative; padding: 62px 0 96px; }
-.mln__frame { position: relative; width: 94%; margin: 0 auto; }
+.mln__stage { position: relative; padding: 44px 0 74px; }
+.mln__frame { position: relative; width: 96%; margin: 0 auto; }
 .mln__img { display: block; width: 100%; height: auto; position: relative; z-index: 2;
   filter: drop-shadow(0 26px 44px rgba(0,0,0,0.55)); }
 .mln__floor {
-  position: absolute; left: 8%; right: 8%; bottom: 84px; height: 46px; z-index: 1;
+  position: absolute; left: 8%; right: 8%; bottom: 66px; height: 34px; z-index: 1;
   background: radial-gradient(50% 50% at 50% 50%, rgba(125,211,252,0.16), transparent 72%);
   filter: blur(8px);
 }
@@ -86,7 +86,7 @@
 
 /* ── station markers ────────────────────────────────────────────────────── */
 .mln__st { position: absolute; z-index: 4; transform: translate(-50%,-50%);
-  width: 2.1%; aspect-ratio: 1; min-width: 11px; pointer-events: none; }
+  width: 2.6%; aspect-ratio: 1; min-width: 9px; pointer-events: none; }
 .mln__st::before {
   content: ""; position: absolute; inset: 0; border-radius: 50%;
   border: 1.5px solid rgba(125,211,252,0.28);
@@ -117,7 +117,7 @@
 .mln__st b {
   position: absolute; left: calc(100% + 9px); top: 50%; transform: translateY(-50%);
   font-family: var(--font-mono, ui-monospace); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; color: var(--mint);
+  letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: var(--mint);
   background: rgba(6,10,18,0.9); border: 1px solid rgba(167,243,208,0.28);
   padding: 3px 7px; border-radius: 2px; opacity: 0;
   animation: mln-lab var(--cycle) linear infinite;
@@ -134,30 +134,30 @@
 /* ── HUD ────────────────────────────────────────────────────────────────── */
 .mln__plate {
   position: absolute; z-index: 6; display: flex; flex-direction: column; gap: 3px;
-  padding: 8px 12px; border: 1px solid var(--hair); border-radius: 3px;
+  padding: 7px 10px; border: 1px solid var(--hair); border-radius: 3px;
   background: rgba(6,10,18,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   font-family: var(--font-mono, ui-monospace);
 }
 .mln__plate-k { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--sky); font-weight: 600; display: flex; align-items: center; gap: 7px; }
 .mln__plate-v { font-size: 9.5px; line-height: 1.4; letter-spacing: 0.04em; color: #94a3b8; }
-.mln__plate--tl { top: 14px; left: 14px; }
-.mln__plate--tr { top: 14px; right: 14px; }
+.mln__plate--tl { top: 11px; left: 11px; }
+.mln__plate--tr { display: none; }
 .mln__plate--tr .mln__plate-k { color: var(--mint); }
 .mln__live { width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
   flex: 0 0 auto; animation: mln-live 1.5s ease-in-out infinite; }
 @keyframes mln-live { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
-.mln__big { font-family: var(--font-display, sans-serif); font-size: 19px; font-weight: 600;
+.mln__big { font-family: var(--font-display, sans-serif); font-size: 16px; font-weight: 600;
   color: #f1f5f9; letter-spacing: -0.015em; line-height: 1; }
 
 /* ── station strip: material advancing through the line ─────────────────── */
 .mln__strip {
-  position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 6;
+  position: absolute; left: 11px; right: 11px; bottom: 11px; z-index: 6;
   border: 1px solid var(--hair); border-radius: 3px; background: rgba(6,10,18,0.9);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 9px 14px 11px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 8px 11px 9px;
   font-family: var(--font-mono, ui-monospace);
 }
-.mln__strip-h { display: flex; justify-content: space-between; gap: 14px; font-size: 8px;
+.mln__strip-h { display: flex; justify-content: space-between; gap: 10px; font-size: 7.5px;
   letter-spacing: 0.2em; text-transform: uppercase; color: #64748b;
   padding-bottom: 8px; border-bottom: 1px solid rgba(125,211,252,0.1); margin-bottom: 9px; }
 .mln__flow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; position: relative; }
@@ -192,7 +192,7 @@
   0%, 12%  { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
   15%,100% { background: #0a0f1a; border-color: rgba(125,211,252,0.3); }
 }
-.mln__node span { display: block; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+.mln__node span { display: block; font-size: 7px; letter-spacing: 0.05em; text-transform: uppercase;
   color: #64748b; animation: mln-nodetext var(--cycle) linear infinite; }
 @keyframes mln-nodetext { 0%,12% { color: #cbd5e1; } 15%,100% { color: #64748b; } }
 
@@ -370,13 +370,10 @@
   .mfg-gaps, .mfg-plat__foot, .mfg-cost, .mfg-field, .mfg-ent { margin-bottom: 74px; }
 }
 
-/* the line render is a 2.5:1 panorama — in the shared hero's right-hand
-   column it shrinks to a thumbnail. Stack instead: copy first, then the line
-   across the full container, which is the shape the drawing actually wants. */
-.ind .ind__hero { grid-template-columns: 1fr; gap: 46px; }
-.ind .ind__hero .ind__copy { max-width: 900px; }
+/* the line panel sits in the shared hero's right-hand column, like every
+   other industry page. That column is ~600px at desktop, so the component is
+   tuned for that width rather than for a full-bleed band. */
 .ind .ind__hero .mln { width: 100%; }
-.ind .ind__lead { max-width: 760px; }
 </style>
 </head><body class="page" data-page="industries">
 <div id="site-nav"></div>
