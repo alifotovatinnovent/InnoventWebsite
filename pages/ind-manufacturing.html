@@ -25,6 +25,359 @@
 <link rel="stylesheet" href="_page.css?v=20260908m"><link rel="stylesheet" href="_casestudy.css?v=20260908m">
 <link rel="stylesheet" href="_roi-calc.css?v=20260908m">
 <style>:root,.ind{--accent:#7dd3fc;--accent-border:rgba(125,211,252,0.45);--accent-bg:rgba(125,211,252,0.04);--accent-glow:rgba(125,211,252,0.10);}</style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   MANUFACTURING HERO — a line under live inspection
+   One 9s cycle drives everything. A sweep crosses the plant left to right, in
+   the direction material actually flows, and each station marker is delayed to
+   the instant the sweep reaches its own x position — so the reads look caused
+   by the pass rather than merely simultaneous. The sweep runs linear for that
+   reason: easing would put the light and the reads out of step.
+   Only the station currently being read shows its label, so eight markers
+   never turn into eight overlapping chips.
+   Every overlay sits inside .mln__frame — the image's own box — so the
+   percentage positions stay pinned to the render at any width.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mln {
+  --sky: #7dd3fc; --mint: #a7f3d0; --amber: #fbbf24;
+  --hair: rgba(125,211,252,0.16);
+  --cycle: 9s;
+  position: relative; width: 100%;
+  border: 1px solid var(--hair); border-radius: 4px;
+  background:
+    radial-gradient(700px 420px at 52% 40%, rgba(125,211,252,0.10), transparent 68%),
+    linear-gradient(180deg, rgba(8,13,24,0.94), rgba(6,10,18,0.99));
+  overflow: hidden;
+}
+.mln__grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(125,211,252,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125,211,252,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(80% 74% at 50% 44%, #000 28%, transparent 100%);
+  -webkit-mask-image: radial-gradient(80% 74% at 50% 44%, #000 28%, transparent 100%);
+}
+
+.mln__stage { position: relative; padding: 62px 0 96px; }
+.mln__frame { position: relative; width: 94%; margin: 0 auto; }
+.mln__img { display: block; width: 100%; height: auto; position: relative; z-index: 2;
+  filter: drop-shadow(0 26px 44px rgba(0,0,0,0.55)); }
+.mln__floor {
+  position: absolute; left: 8%; right: 8%; bottom: 84px; height: 46px; z-index: 1;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(125,211,252,0.16), transparent 72%);
+  filter: blur(8px);
+}
+
+/* ── inspection sweep ───────────────────────────────────────────────────── */
+.mln__sweep {
+  position: absolute; top: -6%; bottom: -6%; left: 0; width: 14%; z-index: 3;
+  pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(90deg, transparent, rgba(125,211,252,0.14) 52%, rgba(125,211,252,0.48) 90%, rgba(205,240,255,0.9) 100%);
+  animation: mln-sweep var(--cycle) linear infinite;
+}
+@keyframes mln-sweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  4%   { opacity: 1; }
+  66%  { transform: translateX(714%); opacity: 1; }
+  73%  { transform: translateX(780%); opacity: 0; }
+  100% { transform: translateX(780%); opacity: 0; }
+}
+
+/* ── station markers ────────────────────────────────────────────────────── */
+.mln__st { position: absolute; z-index: 4; transform: translate(-50%,-50%);
+  width: 2.1%; aspect-ratio: 1; min-width: 11px; pointer-events: none; }
+.mln__st::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1.5px solid rgba(125,211,252,0.28);
+  animation: mln-ring var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.mln__st::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 34%; height: 34%;
+  transform: translate(-50%,-50%); border-radius: 50%; background: rgba(125,211,252,0.35);
+  animation: mln-dot var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes mln-ring {
+  0%, 1%   { border-color: rgba(125,211,252,0.26); transform: scale(1); }
+  3%       { border-color: #dff3ff; transform: scale(1.9); }
+  7%       { border-color: rgba(167,243,208,0.9); transform: scale(1); }
+  86%      { border-color: rgba(167,243,208,0.6); transform: scale(1); }
+  95%,100% { border-color: rgba(125,211,252,0.26); transform: scale(1); }
+}
+@keyframes mln-dot {
+  0%, 1%   { background: rgba(125,211,252,0.35); box-shadow: none; }
+  3%       { background: #f4fcff; box-shadow: 0 0 13px 4px rgba(125,211,252,0.8); }
+  7%       { background: var(--mint); box-shadow: 0 0 6px 1px rgba(167,243,208,0.5); }
+  86%      { background: var(--mint); box-shadow: 0 0 6px 1px rgba(167,243,208,0.4); }
+  95%,100% { background: rgba(125,211,252,0.35); box-shadow: none; }
+}
+/* the label lives only for the moment its station is read */
+.mln__st b {
+  position: absolute; left: calc(100% + 9px); top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono, ui-monospace); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; color: var(--mint);
+  background: rgba(6,10,18,0.9); border: 1px solid rgba(167,243,208,0.28);
+  padding: 3px 7px; border-radius: 2px; opacity: 0;
+  animation: mln-lab var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.mln__st--l b { left: auto; right: calc(100% + 9px); }
+@keyframes mln-lab {
+  0%, 2%   { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+  5%       { opacity: 1; transform: translateY(-50%) translateX(0); }
+  13%      { opacity: 1; }
+  18%,100% { opacity: 0; }
+}
+
+/* ── HUD ────────────────────────────────────────────────────────────────── */
+.mln__plate {
+  position: absolute; z-index: 6; display: flex; flex-direction: column; gap: 3px;
+  padding: 8px 12px; border: 1px solid var(--hair); border-radius: 3px;
+  background: rgba(6,10,18,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono, ui-monospace);
+}
+.mln__plate-k { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sky); font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.mln__plate-v { font-size: 9.5px; line-height: 1.4; letter-spacing: 0.04em; color: #94a3b8; }
+.mln__plate--tl { top: 14px; left: 14px; }
+.mln__plate--tr { top: 14px; right: 14px; }
+.mln__plate--tr .mln__plate-k { color: var(--mint); }
+.mln__live { width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
+  flex: 0 0 auto; animation: mln-live 1.5s ease-in-out infinite; }
+@keyframes mln-live { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.mln__big { font-family: var(--font-display, sans-serif); font-size: 19px; font-weight: 600;
+  color: #f1f5f9; letter-spacing: -0.015em; line-height: 1; }
+
+/* ── station strip: material advancing through the line ─────────────────── */
+.mln__strip {
+  position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 6;
+  border: 1px solid var(--hair); border-radius: 3px; background: rgba(6,10,18,0.9);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 9px 14px 11px;
+  font-family: var(--font-mono, ui-monospace);
+}
+.mln__strip-h { display: flex; justify-content: space-between; gap: 14px; font-size: 8px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #64748b;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(125,211,252,0.1); margin-bottom: 9px; }
+.mln__flow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; position: relative; }
+/* the rail runs between the first and last node centres, not the strip edges,
+   so the token stops on a station instead of between two */
+.mln__rail { position: absolute; left: 6.25%; right: 6.25%; top: 4px; height: 1px;
+  background: rgba(125,211,252,0.16); }
+.mln__rail::after {
+  content: ""; position: absolute; top: -3px; left: 0; width: 7px; height: 7px; margin-left: -3px;
+  border-radius: 50%; background: #eaf8ff; box-shadow: 0 0 11px 3px rgba(125,211,252,0.85);
+  animation: mln-token var(--cycle) linear infinite;
+}
+@keyframes mln-token {
+  0%    { left: 0%;      opacity: 0; }
+  6%    { left: 0%;      opacity: 1; }
+  10.2% { left: 0%; }
+  24.7% { left: 14.29%; }
+  28.4% { left: 28.57%; }
+  33.2% { left: 42.86%; }
+  38.0% { left: 57.14%; }
+  43.0% { left: 71.43%; }
+  48.0% { left: 85.71%; }
+  53.2% { left: 100%; }
+  92%   { left: 100%;    opacity: 1; }
+  100%  { left: 100%;    opacity: 0; }
+}
+.mln__node { position: relative; text-align: center; padding-top: 0; }
+.mln__node i { display: block; width: 7px; height: 7px; margin: 0 auto 9px; border-radius: 50%;
+  background: #0a0f1a; border: 1px solid rgba(125,211,252,0.3);
+  animation: mln-node var(--cycle) linear infinite; }
+@keyframes mln-node {
+  0%, 12%  { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  15%,100% { background: #0a0f1a; border-color: rgba(125,211,252,0.3); }
+}
+.mln__node span { display: block; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #64748b; animation: mln-nodetext var(--cycle) linear infinite; }
+@keyframes mln-nodetext { 0%,12% { color: #cbd5e1; } 15%,100% { color: #64748b; } }
+
+@media (max-width: 1080px) { .mln__frame { width: 96%; } }
+@media (max-width: 860px) {
+  .mln__stage { padding: 56px 0 92px; }
+  .mln__st b { font-size: 8px; }
+  .mln__node span { font-size: 7px; letter-spacing: 0.08em; }
+}
+@media (max-width: 620px) {
+  /* at phone width the panorama is only ~140px tall, so a plate floating over
+     it covers most of the line. Sit the readout above the image instead. */
+  .mln__plate--tr { display: none; }
+  .mln__plate--tl { position: static; margin: 14px 14px 0; border-radius: 3px; }
+  .mln__stage { padding: 16px 0 84px; }
+  .mln__st b { display: none; }
+  .mln__strip-h span + span { display: none; }
+  .mln__flow { grid-template-columns: repeat(4, 1fr); gap: 12px 0; }
+  .mln__rail { display: none; }
+  .mln__node span { font-size: 7.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mln__sweep { display: none; }
+  .mln__st::before, .mln__st::after, .mln__st b, .mln__rail::after,
+  .mln__node i, .mln__node span, .mln__live { animation: none !important; }
+  .mln__st::before { border-color: rgba(167,243,208,0.8); }
+  .mln__st::after { background: var(--mint); }
+  .mln__st b { opacity: 1; }
+  .mln__node i { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  .mln__node span { color: #cbd5e1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MANUFACTURING — page sections
+   Page-local. styles-industries.css is shared with the other ind- pages and
+   is not touched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mfg-h { margin: 0 0 40px; max-width: 880px; }
+.mfg-h__k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); padding-top: 13px;
+  border-top: 1px solid var(--accent); display: inline-block; margin-bottom: 22px; }
+.mfg-h h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 600; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-100);
+  margin: 0 0 16px; text-wrap: balance; }
+.mfg-h h2 em { font-style: normal; color: var(--accent); }
+.mfg-h p { font-size: 16px; line-height: 1.6; color: var(--ink-70); margin: 0; max-width: 68ch; }
+
+/* ── the four gaps ──────────────────────────────────────────────────────── */
+.mfg-gaps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.mfg-gap { padding: 28px 24px 30px; border-right: 1px solid var(--hair); }
+.mfg-gap:last-child { border-right: 0; }
+.mfg-gap h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.mfg-gap p { font-size: 13.5px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.mfg-gap__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.2em;
+  color: var(--ink-70); display: block; margin-bottom: 14px; }
+
+/* ── the five solutions ─────────────────────────────────────────────────── */
+.mfg-sol { border-top: 1px solid var(--hair); padding: 46px 0; display: grid;
+  grid-template-columns: 62px minmax(0,1fr) minmax(0,0.92fr); gap: 0 44px; align-items: start; }
+.mfg-sol:last-of-type { border-bottom: 1px solid var(--hair); }
+.mfg-sol__n { font-family: var(--font-display); font-size: 30px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.03em; color: transparent;
+  -webkit-text-stroke: 1px rgba(125,211,252,0.5); }
+.mfg-sol__t { font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+.mfg-sol__d { font-size: 14.5px; line-height: 1.6; color: var(--ink-70); margin: 0 0 18px; }
+.mfg-sol__kv { border-top: 1px solid var(--hair); }
+.mfg-sol__r { display: grid; grid-template-columns: 108px minmax(0,1fr); gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.055); font-size: 13px; line-height: 1.5; }
+.mfg-sol__r:last-child { border-bottom: 0; }
+.mfg-sol__r dt { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); margin: 0; padding-top: 3px; }
+.mfg-sol__r dd { margin: 0; color: var(--ink-80); }
+.mfg-sol__fig { margin: 0; }
+.mfg-sol__fig img { display: block; width: 100%; height: auto; border: 1px solid var(--hair);
+  border-radius: 3px; background: rgba(255,255,255,0.02); }
+.mfg-sol__fig figcaption { font-family: var(--font-mono); font-size: 9.5px; line-height: 1.5;
+  letter-spacing: 0.06em; color: var(--ink-70); margin-top: 10px; }
+.mfg-sol__chips { display: flex; flex-wrap: wrap; gap: 0 14px; margin-top: 16px; }
+.mfg-sol__chips span { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-70); }
+.mfg-sol__chips span + span { padding-left: 14px; border-left: 1px solid var(--hair); }
+
+/* ── the platform beneath ───────────────────────────────────────────────── */
+.mfg-plat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 28px; }
+.mfg-plat__c { padding: 30px 26px 32px; border-right: 1px solid var(--hair); }
+.mfg-plat__c:last-child { border-right: 0; }
+.mfg-plat__k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.mfg-plat__c h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; line-height: 1.25; letter-spacing: -0.008em; }
+.mfg-plat__c p { font-family: var(--font-mono); font-size: 11px; line-height: 1.75;
+  color: var(--ink-70); margin: 0; }
+.mfg-plat__foot { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  color: var(--ink-70); text-align: center; padding: 14px 16px; border: 1px solid var(--hair);
+  border-top: 0; margin-bottom: 120px; }
+
+/* ── outcome figures ────────────────────────────────────────────────────── */
+.mfg-out { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-bottom: 30px; }
+.mfg-out__c { padding: 30px 24px; border-right: 1px solid var(--hair); }
+.mfg-out__c:last-child { border-right: 0; }
+.mfg-out__v { font-family: var(--font-display); font-size: 42px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.035em; color: var(--ink-100); margin-bottom: 12px; }
+.mfg-out__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.mfg-out__d { font-size: 13px; line-height: 1.5; color: var(--ink-70); margin: 0; }
+.mfg-cost { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid rgba(251,191,36,0.28); background: rgba(251,191,36,0.04);
+  margin-bottom: 120px; }
+.mfg-cost__c { padding: 22px 24px; border-right: 1px solid rgba(251,191,36,0.2); }
+.mfg-cost__c:last-child { border-right: 0; }
+.mfg-cost__v { font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  color: #fbbf24; letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+.mfg-cost__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); }
+
+/* ── field proof ────────────────────────────────────────────────────────── */
+.mfg-field { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.mfg-field__c { padding: 26px 24px 28px; border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair); }
+.mfg-field__c:nth-child(3n) { border-right: 0; }
+.mfg-field__c:nth-last-child(-n+3) { border-bottom: 0; }
+.mfg-field__c h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.mfg-field__c p { font-size: 13px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.mfg-field__k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 12px; }
+
+/* ── enterprise-ready two-column list ───────────────────────────────────── */
+.mfg-ent { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; margin-bottom: 110px; }
+.mfg-ent h4 { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 6px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--hair); }
+.mfg-ent ul { list-style: none; padding: 0; margin: 0; }
+.mfg-ent li { font-size: 13.5px; line-height: 1.55; color: var(--ink-70);
+  padding: 12px 0 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.055); position: relative; }
+.mfg-ent li:last-child { border-bottom: 0; }
+.mfg-ent li::before { content: "›"; position: absolute; left: 0; top: 12px; color: var(--accent); }
+.mfg-ent li b { color: var(--ink-100); font-weight: 600; }
+
+@media (max-width: 1080px) {
+  .mfg-gaps { grid-template-columns: 1fr 1fr; }
+  .mfg-gap:nth-child(2n) { border-right: 0; }
+  .mfg-gap:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .mfg-sol { grid-template-columns: 44px minmax(0,1fr); gap: 0 26px; }
+  .mfg-sol__fig { grid-column: 2; margin-top: 24px; }
+  .mfg-plat { grid-template-columns: 1fr; }
+  .mfg-plat__c { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .mfg-plat__c:last-child { border-bottom: 0; }
+  .mfg-out { grid-template-columns: 1fr 1fr; }
+  .mfg-out__c:nth-child(2n) { border-right: 0; }
+  .mfg-out__c:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .mfg-field { grid-template-columns: 1fr 1fr; }
+  .mfg-field__c:nth-child(3n) { border-right: 1px solid var(--hair); }
+  .mfg-field__c:nth-child(2n) { border-right: 0; }
+  .mfg-field__c:nth-last-child(-n+3) { border-bottom: 1px solid var(--hair); }
+  .mfg-field__c:last-child { border-bottom: 0; }
+  .mfg-ent { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 680px) {
+  .mfg-gaps, .mfg-out, .mfg-cost, .mfg-field { grid-template-columns: 1fr; }
+  .mfg-gap, .mfg-out__c, .mfg-cost__c, .mfg-field__c {
+    border-right: 0 !important; border-bottom: 1px solid var(--hair) !important; }
+  .mfg-gap:last-child, .mfg-out__c:last-child, .mfg-cost__c:last-child,
+  .mfg-field__c:last-child { border-bottom: 0 !important; }
+  .mfg-sol { grid-template-columns: 1fr; gap: 0; padding: 34px 0; }
+  .mfg-sol__n { margin-bottom: 12px; }
+  .mfg-sol__fig { grid-column: 1; }
+  .mfg-sol__r { grid-template-columns: 1fr; gap: 4px; }
+  .mfg-gaps, .mfg-plat__foot, .mfg-cost, .mfg-field, .mfg-ent { margin-bottom: 74px; }
+}
+
+/* the line render is a 2.5:1 panorama — in the shared hero's right-hand
+   column it shrinks to a thumbnail. Stack instead: copy first, then the line
+   across the full container, which is the shape the drawing actually wants. */
+.ind .ind__hero { grid-template-columns: 1fr; gap: 46px; }
+.ind .ind__hero .ind__copy { max-width: 900px; }
+.ind .ind__hero .mln { width: 100%; }
+.ind .ind__lead { max-width: 760px; }
+</style>
 </head><body class="page" data-page="industries">
 <div id="site-nav"></div>
 <div class="cs-hero" style="padding:80px 0 24px;"><div class="cs-hero__inner"><div class="breadcrumb">
@@ -42,144 +395,250 @@
         <div class="ind__sig"><div class="ind__sig-item"><div class="ind__sig-num">+18%</div><div class="ind__sig-lab">OEE lift</div></div><div class="ind__sig-item"><div class="ind__sig-num">−47%</div><div class="ind__sig-lab">Unplanned downtime</div></div><div class="ind__sig-item"><div class="ind__sig-num">−42%</div><div class="ind__sig-lab">Scrap rate</div></div></div>
         <div class="ind__chips"><span class="ind__chip"><span class="ind__chip-dot"></span>OEE</span><span class="ind__chip"><span class="ind__chip-dot"></span>PdM</span><span class="ind__chip"><span class="ind__chip-dot"></span>Quality</span><span class="ind__chip"><span class="ind__chip-dot"></span>WIP</span></div>
       </div>
-      <div class="ind__mo mfg-stage" style="aspect-ratio:16/10;width:100%;background:transparent;border:0;box-shadow:none;overflow:hidden;border-radius:14px;position:relative;">
-  <div style="position:absolute; inset:0; background: radial-gradient(60% 55% at 50% 55%, rgba(125,211,252,0.12) 0%, rgba(125,211,252,0) 80%); pointer-events:none;"></div>
+      <div class="mln" aria-hidden="true">
+  <div class="mln__grid"></div>
 
-  <img src="../assets/product/manufacturing-line.webp" alt="Robotic assembly line · KUKA cell" style="position:absolute; inset:6% 3% 8% 3%; width:94%; height:86%; object-fit:contain; filter: brightness(1.02) contrast(1.05) saturate(0.92) drop-shadow(0 20px 40px rgba(0,0,0,0.35));"/ loading="lazy" decoding="async">
-
-  <!-- 2 sensor pulse markers (decluttered) -->
-  <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
-    <defs>
-      <style>.mfg-mono-s { font-family: "JetBrains Mono", ui-monospace, monospace; }</style>
-      <filter id="mfg-pulse-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <g filter="url(#mfg-pulse-glow)">
-      <g transform="translate(700,330)">
-        <circle r="7" fill="#7dd3fc"/>
-        <circle r="7" fill="none" stroke="#7dd3fc" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.2s" repeatCount="indefinite"/></circle>
-        <line x1="7" y1="0" x2="60" y2="-26" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="mfg-mono-s" x="66" y="-26" font-size="15" fill="#7dd3fc" font-weight="700" letter-spacing="0.10em">ROBOT-01</text>
-        <text class="mfg-mono-s" x="66" y="-10" font-size="11" fill="#cbd5e1">cycle 12.4 s</text>
-      </g>
-      <g transform="translate(1200,360)">
-        <circle r="7" fill="#a7f3d0"/>
-        <circle r="7" fill="none" stroke="#a7f3d0" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.4s" begin="-0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.4s" begin="-0.6s" repeatCount="indefinite"/></circle>
-        <line x1="-7" y1="0" x2="-60" y2="-26" stroke="#a7f3d0" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="mfg-mono-s" x="-66" y="-26" font-size="15" fill="#a7f3d0" font-weight="700" letter-spacing="0.10em" text-anchor="end">ROBOT-03</text>
-        <text class="mfg-mono-s" x="-66" y="-10" font-size="11" fill="#cbd5e1" text-anchor="end">vision · 42 ms</text>
-      </g>
-    </g>
-  </svg>
-
-  <style>
-    .mfg-w { position:absolute; padding:9px 11px; border:1px solid rgba(125,211,252,0.40); border-radius:8px; background: rgba(8,13,24,0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events:none; }
-    .mfg-w .lbl { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #cbd5e1; }
-    .mfg-w .v { font-family: var(--font-display); font-weight: 700; line-height: 1; letter-spacing: -0.01em; }
-    .mfg-w .desc { font-family: var(--font-mono); font-size: 9.5px; color: #cbd5e1; line-height:1.35; }
-    .mfg-w .dotlive { display:inline-block; width:5px; height:5px; border-radius:50%; background:#a7f3d0; box-shadow:0 0 6px #a7f3d0; margin-right:6px; vertical-align:middle; animation: mfg-pulse 1.4s ease-in-out infinite; }
-    @keyframes mfg-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .mfg-w.tl { top:6%; left:5%; width:160px; }
-    .mfg-w.tr { top:6%; right:5%; width:170px; }
-    .mfg-w.bl { bottom:6%; left:5%; width:160px; }
-    .mfg-w.br { bottom:6%; right:5%; width:170px; }
-
-    @media (max-width: 720px) {
-      .mfg-w { padding: 7px 9px; }
-      .mfg-w.tl, .mfg-w.bl { width:136px; }
-      .mfg-w.tr, .mfg-w.br { width:144px; }
-      .mfg-w .lbl { font-size: 8px; }
-      .mfg-w .desc { font-size: 9px; }
-    }
-  </style>
-
-  <!-- Top-left: LINE STATUS -->
-  <div class="mfg-w tl">
-    <div class="lbl"><span class="dotlive"></span>LINE-04 · RUNNING</div>
-    <div class="desc" style="margin-top:5px;">welding cell · shift 2</div>
-    <div class="desc" style="color:#a7f3d0;">uptime · 4h 28m</div>
+  <div class="mln__plate mln__plate--tl">
+    <div class="mln__plate-k"><span class="mln__live"></span>Line 3 · running</div>
+    <div class="mln__big">94.2%</div>
+    <div class="mln__plate-v">OEE · shift A · 18,400 units/hr</div>
   </div>
 
-  <!-- Top-right: OEE -->
-  <div class="mfg-w tr" style="border-color: rgba(167,243,208,0.45);">
-    <div class="lbl">OEE · LIVE</div>
-    <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-      <svg viewBox="0 0 60 60" width="42" height="42" style="flex-shrink:0;">
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="rgba(125,211,252,0.20)" stroke-width="5" stroke-linecap="round"/>
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="#a7f3d0" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100"><animate attributeName="stroke-dasharray" values="0 100;87 100" dur="2.2s" fill="freeze"/></path>
-        <text x="30" y="36" text-anchor="middle" font-family="Sora, sans-serif" font-size="14" font-weight="700" fill="#a7f3d0">87%</text>
-      </svg>
-      <div class="desc" style="line-height:1.5;">
-        <div>AV <b style="color:#a7f3d0; font-family:var(--font-display);">94</b></div>
-        <div>PF <b style="color:#7dd3fc; font-family:var(--font-display);">96</b></div>
-        <div>QL <b style="color:#fcd34d; font-family:var(--font-display);">96</b></div>
-      </div>
+  <div class="mln__plate mln__plate--tr">
+    <div class="mln__plate-k">All stations nominal</div>
+    <div class="mln__plate-v">8 of 8 reporting · 0 alarms</div>
+    <div class="mln__plate-v">Batch B-2214 · in spec</div>
+  </div>
+
+  <div class="mln__stage">
+    <div class="mln__floor"></div>
+    <div class="mln__frame">
+      <img class="mln__img" src="../assets/product/mfg-line.webp?v=20260908m" width="1220" height="493"
+           alt="Process and packaging line — tank farm, filler, capper, case packer and palletiser"
+           loading="eager" decoding="async">
+      <div class="mln__sweep"></div>
+
+      <div class="mln__st mln__st--l" style="left:17.6%;top:34.5%;--d:.92s"><b>Blend</b></div>
+      <div class="mln__st" style="left:42.6%;top:54.8%;--d:2.22s"><b>Rinse</b></div>
+      <div class="mln__st mln__st--l" style="left:49.2%;top:26.4%;--d:2.56s"><b>Process</b></div>
+      <div class="mln__st" style="left:57.4%;top:34.5%;--d:2.99s"><b>Fill</b></div>
+      <div class="mln__st" style="left:65.6%;top:55.8%;--d:3.42s"><b>Inspect</b></div>
+      <div class="mln__st mln__st--l" style="left:74.2%;top:23.3%;--d:3.87s"><b>Cap</b></div>
+      <div class="mln__st mln__st--l" style="left:82.8%;top:33.5%;--d:4.32s"><b>Palletise</b></div>
+      <div class="mln__st mln__st--l" style="left:91.8%;top:44.6%;--d:4.79s"><b>Despatch</b></div>
     </div>
   </div>
 
-  <!-- Bottom-left: PdM alert -->
-  <div class="mfg-w bl" style="border-color: rgba(253,164,175,0.45);">
-    <div class="lbl">PREDICTIVE MAINT.</div>
-    <div class="v" style="font-size:12px; color:#fda4af; margin-top:5px;">▲ BEARING B-12</div>
-    <div class="desc">RUL · 42 hrs · 2.4σ</div>
-  </div>
-
-  <!-- Bottom-right: QUALITY -->
-  <div class="mfg-w br" style="border-color: rgba(125,211,252,0.40);">
-    <div class="lbl">QUALITY · VISION AI</div>
-    <div style="display:flex; align-items:baseline; gap:8px; margin-top:5px;">
-      <div class="v" style="font-size:18px; color:#a7f3d0;">99.2%</div>
-      <div class="desc">pass rate</div>
+  <div class="mln__strip">
+    <div class="mln__strip-h"><span>Material flow · batch B-2214</span><span>RFID · vision · vibration · OPC UA</span></div>
+    <div class="mln__flow">
+      <div class="mln__rail"></div>
+      <div class="mln__node"><i style="animation-delay:.92s"></i><span style="animation-delay:.92s">Blend</span></div>
+      <div class="mln__node"><i style="animation-delay:2.22s"></i><span style="animation-delay:2.22s">Rinse</span></div>
+      <div class="mln__node"><i style="animation-delay:2.56s"></i><span style="animation-delay:2.56s">Process</span></div>
+      <div class="mln__node"><i style="animation-delay:2.99s"></i><span style="animation-delay:2.99s">Fill</span></div>
+      <div class="mln__node"><i style="animation-delay:3.42s"></i><span style="animation-delay:3.42s">Inspect</span></div>
+      <div class="mln__node"><i style="animation-delay:3.87s"></i><span style="animation-delay:3.87s">Cap</span></div>
+      <div class="mln__node"><i style="animation-delay:4.32s"></i><span style="animation-delay:4.32s">Palletise</span></div>
+      <div class="mln__node"><i style="animation-delay:4.79s"></i><span style="animation-delay:4.79s">Despatch</span></div>
     </div>
-    <div class="desc">42 ms · 3 stations</div>
   </div>
-</div></div>
+</div>></div>
     
 
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:#7dd3fc">// 01 · Problem aware</div>
-      <h2 class="section-title">From fragmented systems to <em style="font-style:normal;color:#7dd3fc">one operational layer.</em></h2>
+    <div class="mfg-h">
+      <div class="mfg-h__k">01 / The imperative</div>
+      <h2>Manual processes leave value on the table at <em>every step of the operation.</em></h2>
+      <p>The gaps are not exotic. They are the ordinary cost of running a plant on periodic checks and hand-keyed data — and they compound as volume grows.</p>
     </div>
-    <div class="ind__split">
-      <div class="ind__split-side ind__split-side--before">
-        <div class="ind__split-kv">Today</div>
-        <h3>Stitched together · slow</h3>
-        <ul class="ind__split-list"><li>Reactive maintenance schedules</li><li>Manual scrap-rate reporting</li><li>Quality misses caught downstream</li><li>Disconnected MES + EAM</li><li>Slow shift-handover</li></ul>
+    <div class="mfg-gaps">
+      <div class="mfg-gap"><span class="mfg-gap__n">01</span><h4>Blind spots</h4><p>Inventory, assets and equipment health are invisible between manual checks — decisions run on stale data.</p></div>
+      <div class="mfg-gap"><span class="mfg-gap__n">02</span><h4>Manual data entry</h4><p>Hand-keyed counts and scans are slow, error-prone and don't scale — accuracy erodes as volume grows.</p></div>
+      <div class="mfg-gap"><span class="mfg-gap__n">03</span><h4>Reactive operations</h4><p>Unplanned downtime, lost pallets and stock-outs are discovered after they hurt, not before.</p></div>
+      <div class="mfg-gap"><span class="mfg-gap__n">04</span><h4>Siloed systems</h4><p>Data sits trapped in disconnected tools, with no single view to act on across the enterprise.</p></div>
+    </div>
+
+    <div class="mfg-h">
+      <div class="mfg-h__k">02 / The portfolio</div>
+      <h2>Five solutions, <em>one connected operation.</em></h2>
+      <p>Each delivers value on its own — and compounds when unified on INNFINI. Most plants start with one and add the next once the first is paying for itself.</p>
+    </div>
+
+    <div class="mfg-sol">
+      <div class="mfg-sol__n">01</div>
+      <div>
+        <h3 class="mfg-sol__t">RFID inventory &amp; supply-chain automation</h3>
+        <p class="mfg-sol__d">Inventory counted by hand is slow, periodic and error-prone. By the time a stock count is finished the data is already out of date — stalling shipments and inflating cost. Every item instead carries an RFID tag and is read automatically as it moves: no line of sight, no manual scanning. Data entry becomes a by-product of normal operations.</p>
+        <dl class="mfg-sol__kv">
+          <div class="mfg-sol__r"><dt>Reads</dt><dd>Patented long-range RFID — hundreds of items at once, no line of sight, passive-tag economics</dd></div>
+          <div class="mfg-sol__r"><dt>Location</dt><dd>True RTLS using statistical radiometric methods across multiple receivers, not simple antenna association</dd></div>
+          <div class="mfg-sol__r"><dt>Dock doors</dt><dd>Direction of travel and moving-vs-stationary discrimination; ML reduces shielding between adjacent doors</dd></div>
+          <div class="mfg-sol__r"><dt>Integration</dt><dd>Automated capture straight into ERP / SAP</dd></div>
+        </dl>
       </div>
-      <div class="ind__split-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-      <div class="ind__split-side ind__split-side--after">
-        <div class="ind__split-kv">With INNFINI</div>
-        <h3>Unified · AI-assisted · audited</h3>
-        <ul class="ind__split-list"><li>Predictive failure forecasts</li><li>Continuous scrap-rate visibility</li><li>Vision-based defect detection</li><li>MES ↔ EAM bridge</li><li>Auto shift reports</li></ul>
+      <figure class="mfg-sol__fig">
+        <img src="../assets/product/mfg-rtls-grid.webp?v=20260908m" width="809" height="365" loading="lazy" decoding="async"
+             alt="Warehouse with fixed RTLS antennas suspended from the ceiling on a grid">
+        <figcaption>Fixed antennas illuminate the floor on a 10 ft × 10 ft grid at 22 ft — a 700,000 sq ft facility shipping 2,500 semi-custom kitchens from 2 million parts a day.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mfg-sol">
+      <div class="mfg-sol__n">02</div>
+      <div>
+        <h3 class="mfg-sol__t">ForkEye — machine-vision pallet tracking</h3>
+        <p class="mfg-sol__d">Turn every forklift into a moving data-capture point. Pallets are scanned by machine vision the moment a forklift picks or drops them, in the plant or the yard, and the forklift's GPS locks a precise coordinate to each one. The map then shows every item's last scanned location, its timestamp and the forklift that moved it — with no manual data entry at all.</p>
+        <dl class="mfg-sol__kv">
+          <div class="mfg-sol__r"><dt>Hardware</dt><dd>IP66 720p anti-vibration camera plus an on-board edge processing unit, Wi-Fi or 4G</dd></div>
+          <div class="mfg-sol__r"><dt>Recognition</dt><dd>AI image processing and object recognition on standard 2D barcodes, trainable for basic checks</dd></div>
+          <div class="mfg-sol__r"><dt>Infrastructure</dt><dd>Minimum fixed infrastructure — low cost, quick to deploy, easy to expand</dd></div>
+          <div class="mfg-sol__r"><dt>Reporting</dt><dd>Live inventory map, movement playback, filters by date, material, batch, zone, grade and type</dd></div>
+        </dl>
+        <div class="mfg-sol__chips"><span>Deployed at RAK Ceramics</span><span>SAP integration</span><span>AI space optimisation</span></div>
+      </div>
+      <figure class="mfg-sol__fig">
+        <img src="../assets/product/mfg-innfini-map.webp?v=20260908m" width="725" height="406" loading="lazy" decoding="async"
+             alt="INNFINI location map report showing clustered pallet positions">
+        <figcaption>The INNFINI location map report — pallet clusters on the facility map, drillable to any single pallet's exact last position.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mfg-sol">
+      <div class="mfg-sol__n">03</div>
+      <div>
+        <h3 class="mfg-sol__t">IoT environmental monitoring</h3>
+        <p class="mfg-sol__d">In manufacturing, ambient conditions decide product quality. Temperature drift, humidity spikes, poor air quality or pressure changes can spoil a batch and breach compliance — and they often go unrecorded until an auditor or a customer complaint surfaces the problem. A mesh of low-cost wireless sensors measures conditions continuously and feeds INNFINI, turning guesswork into a defensible record of the conditions every product was made in.</p>
+        <dl class="mfg-sol__kv">
+          <div class="mfg-sol__r"><dt>Measures</dt><dd>Temperature, humidity, air quality and CO₂, pressure, and the rest of the process spectrum</dd></div>
+          <div class="mfg-sol__r"><dt>Alerts</dt><dd>The CEP rules engine fires the instant a reading breaches a limit — email, HTTP, pub/sub or web socket</dd></div>
+          <div class="mfg-sol__r"><dt>Evidence</dt><dd>Every reading logged for audit, with historical playback of what happened and when</dd></div>
+        </dl>
+      </div>
+      <figure class="mfg-sol__fig">
+        <img src="../assets/product/mfg-sensors.webp?v=20260908m" width="1018" height="526" loading="lazy" decoding="async"
+             alt="A range of wireless IoT sensor hardware supported by the platform">
+        <figcaption>Technology-agnostic by design — over 5,000 sensors from leading providers are already integrated with the platform.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mfg-sol">
+      <div class="mfg-sol__n">04</div>
+      <div>
+        <h3 class="mfg-sol__t">Condition monitoring &amp; predictive maintenance</h3>
+        <p class="mfg-sol__d">Critical and semi-critical motors are typically the only assets with condition monitoring — yet they are just 15–25% of the fleet. The rest of the balance-of-plant equipment runs to failure, because traditional monitoring has been too expensive or too ineffective to deploy at scale. Low-cost wireless beacons measuring vibration and temperature, with edge processing and cloud AI, extend predictive maintenance to the whole fleet.</p>
+        <dl class="mfg-sol__kv">
+          <div class="mfg-sol__r"><dt>Sense</dt><dd>A wireless beacon on each asset measures vibration and temperature with intelligent edge processing</dd></div>
+          <div class="mfg-sol__r"><dt>Learn</dt><dd>AI establishes each machine's own baseline, so deviation is judged against that asset, not a generic threshold</dd></div>
+          <div class="mfg-sol__r"><dt>Act</dt><dd>Immediate notification when equipment stops or exceeds temperature thresholds</dd></div>
+        </dl>
+      </div>
+      <figure class="mfg-sol__fig">
+        <img src="../assets/product/mfg-innfini-forecast.webp?v=20260908m" width="762" height="427" loading="lazy" decoding="async"
+             alt="INNFINI forecasting view with predicted weekly demand curves">
+        <figcaption>INNFINI forecasting — modelled curves against recorded outcome, so a prediction can be checked rather than trusted.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mfg-sol">
+      <div class="mfg-sol__n">05</div>
+      <div>
+        <h3 class="mfg-sol__t">Command &amp; control centre</h3>
+        <p class="mfg-sol__d">Large organisations run dozens of disconnected systems — IoT, security, building management, ERP, GIS — each with its own screen and its own alarms. In an incident, operators swivel between consoles and correlate by hand. The INNFINI control tower ingests from every source, correlates events in real time and presents one operational picture, with response playbooks automating the next step.</p>
+        <dl class="mfg-sol__kv">
+          <div class="mfg-sol__r"><dt>Layer 1</dt><dd>Data acquisition — technology-agnostic ingestion of RFID, sensors, machine vision, GPS, Bluetooth and third-party systems</dd></div>
+          <div class="mfg-sol__r"><dt>Layer 2</dt><dd>Correlation and rules — the CEP engine and the visual INNFINI Flow composer</dd></div>
+          <div class="mfg-sol__r"><dt>Layer 3</dt><dd>Operational picture — dashboards, map reports, playbooks and role-based sharing</dd></div>
+        </dl>
+        <div class="mfg-sol__chips"><span>Proven at ENEC</span><span>12+ systems in one tower</span></div>
+      </div>
+      <figure class="mfg-sol__fig">
+        <img src="../assets/product/mfg-innfini-dashboard.webp?v=20260908m" width="747" height="419" loading="lazy" decoding="async"
+             alt="INNFINI dashboard with live inventory metrics and charts">
+        <figcaption>One pane of glass — configurable dashboards assembled from any connected source.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mfg-h" style="margin-top:110px">
+      <div class="mfg-h__k">03 / The foundation</div>
+      <h2>One platform beneath every solution: <em>INNFINI.</em></h2>
+      <p>A technology-agnostic IoT platform that ingests from any device, applies real-time rules and AI, and turns item-level events into operational action.</p>
+    </div>
+    <div class="mfg-plat">
+      <div class="mfg-plat__c">
+        <div class="mfg-plat__k">Acquire</div>
+        <h4>Technology-agnostic ingestion</h4>
+        <p>RFID · Machine vision · GPS · BLE<br>IoT sensors<br>OPC UA / Modbus / CAN / Profibus</p>
+      </div>
+      <div class="mfg-plat__c">
+        <div class="mfg-plat__k">Process</div>
+        <h4>Real-time intelligence at the edge and in the cloud</h4>
+        <p>CEP rules engine · INNFINI Flow<br>Edge processing · digital twin<br>AI / ML analytics</p>
+      </div>
+      <div class="mfg-plat__c">
+        <div class="mfg-plat__k">Act</div>
+        <h4>Visibility and automated response</h4>
+        <p>Map reports · dashboards<br>Alerts &amp; playbooks · forecasting<br>Enterprise integration</p>
       </div>
     </div>
+    <div class="mfg-plat__foot">Enterprise-grade · Multi-tenant · Container-based (Docker / Kubernetes) · Microsoft Azure compliant · AES-256 &amp; ECC/TLS</div>
 
-    <div class="ind__section-head ind__section-head--center">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 02 · Solution aware</div>
-      <h2 class="section-title">Measured. <em style="font-style:normal;color:#7dd3fc">Operational.</em></h2>
+    <div class="mfg-h">
+      <div class="mfg-h__k">04 / What it returns</div>
+      <h2>Measurable impact, <em>from the shop floor up.</em></h2>
+      <p>The figures below are the ones the RFID deployments are held to. Below them is the number that usually decides the business case: what an hour of stopped line actually costs.</p>
     </div>
-    <div class="ind__kpis"><article class="ind__kpi"><div class="ind__kpi-val">87%</div><div class="ind__kpi-name">Live OEE</div><div class="ind__kpi-desc">Across 2 lines, real-time</div></article><article class="ind__kpi"><div class="ind__kpi-val">0.4%</div><div class="ind__kpi-name">Scrap rate</div><div class="ind__kpi-desc">Vision-trended down</div></article><article class="ind__kpi"><div class="ind__kpi-val"><10ms</div><div class="ind__kpi-name">Edge inference</div><div class="ind__kpi-desc">On commodity gateways</div></article><article class="ind__kpi"><div class="ind__kpi-val">4hr</div><div class="ind__kpi-name">Idea → agent</div><div class="ind__kpi-desc">Builder · no-code</div></article></div>
+    <div class="mfg-out">
+      <div class="mfg-out__c"><div class="mfg-out__v">99%+</div><div class="mfg-out__n">Inventory accuracy</div><p class="mfg-out__d">Maintained continuously rather than rediscovered at each count.</p></div>
+      <div class="mfg-out__c"><div class="mfg-out__v">0</div><div class="mfg-out__n">Manual stock counts</div><p class="mfg-out__d">The count stops being an event and becomes a live figure.</p></div>
+      <div class="mfg-out__c"><div class="mfg-out__v">100%</div><div class="mfg-out__n">Automated entry to ERP</div><p class="mfg-out__d">Capture is a by-product of the movement, not a separate task.</p></div>
+      <div class="mfg-out__c"><div class="mfg-out__v">85%</div><div class="mfg-out__n">Of equipment unmonitored</div><p class="mfg-out__d">The share of a typical fleet with no predictive monitoring at all — the gap condition monitoring closes.</p></div>
+    </div>
+    <div class="mfg-cost">
+      <div class="mfg-cost__c"><div class="mfg-cost__v">$200,000</div><div class="mfg-cost__n">Automotive · per hour of downtime</div></div>
+      <div class="mfg-cost__c"><div class="mfg-cost__v">$87,000</div><div class="mfg-cost__n">Petro-chemical · per hour</div></div>
+      <div class="mfg-cost__c"><div class="mfg-cost__v">$30,000</div><div class="mfg-cost__n">Food processing · per hour</div></div>
+    </div>
 
-    <div class="ind__section-head ind__section-head--center">
-      
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 03 · Vendor aware</div>
-      <h2 class="section-title">Why <em style="font-style:normal;color:var(--accent,#7dd3fc)">Innovent</em>.</h2>
+    <div class="mfg-h">
+      <div class="mfg-h__k">05 / Proven in the field</div>
+      <h2>Trusted on <em>mission-critical operations.</em></h2>
+      <p>Deployed where being wrong is expensive — energy, nuclear, heavy manufacturing and healthcare.</p>
     </div>
-    <div class="ind__cases" style="margin-bottom:80px;">
-      <article class="ind__case"><div class="ind__case-kv">Built for ops</div><h4>One platform · not a stitched suite</h4><p>Identity, data, AI, observability and compliance — engineered in-house and operated end-to-end by Innovent.</p><ul><li>38+ native services</li><li>One audit ledger</li><li>One operator workbench</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Human-governed AI</div><h4>AI proposes · operator approves</h4><p>Every recommendation is cited, every approval is logged, every action is reversible. Compliance &amp; audit by design — not after the fact.</p><ul><li>Cited reasoning</li><li>Tiered approvals</li><li>100% audit traceable</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Sovereign-ready</div><h4>Cloud · private · on-prem · air-gapped</h4><p>Same platform across deployment models. Customer-managed keys, sovereign data residency, FIPS-aligned crypto.</p><ul><li>Customer KMS</li><li>Air-gap supported</li><li>FIPS · ISO · NIA</li></ul></article>
+    <div class="mfg-field">
+      <div class="mfg-field__c"><span class="mfg-field__k">Energy</span><h4>Saudi Aramco</h4><p>Personnel safety, asset and tool tracking, machine vision and a control tower across offshore barges — zone-level visibility and live mustering.</p></div>
+      <div class="mfg-field__c"><span class="mfg-field__k">Nuclear</span><h4>ENEC</h4><p>Emirates Nuclear Energy Corporation — RTLS and RFID asset management, expanding to a control tower integrating 12+ systems.</p></div>
+      <div class="mfg-field__c"><span class="mfg-field__k">Manufacturing</span><h4>RAK Ceramics</h4><p>ForkEye machine-vision and GPS pallet tracking with SAP integration, smart routing and AI-driven space optimisation.</p></div>
+      <div class="mfg-field__c"><span class="mfg-field__k">Healthcare</span><h4>Sultan Qaboos Cancer Hospital</h4><p>Asset and personnel tracking with real-time map visibility — the first cancer hospital in Oman.</p></div>
+      <div class="mfg-field__c"><span class="mfg-field__k">Government</span><h4>TASMU iCCC</h4><p>INNFINI proposed as the unified application layer for a national integrated command-and-control centre, bilingual and WCAG-compliant.</p></div>
+      <div class="mfg-field__c"><span class="mfg-field__k">Manufacturing</span><h4>Custom-kitchen manufacturer</h4><p>RTLS across a 700,000 sq ft facility shipping 2,500 semi-custom kitchens from 2 million parts every working day.</p></div>
     </div>
 
-    <div class="eyebrow">// Where it runs</div>
-      <h2 class="section-title">Where it runs.</h2>
+    <div class="mfg-h">
+      <div class="mfg-h__k">06 / Enterprise-ready</div>
+      <h2>Open to integrate, <em>hardened by design.</em></h2>
+      <p>What a plant IT team asks about before anything else gets connected.</p>
     </div>
-    <div class="ind__cases"><article class="ind__case"><div class="ind__case-kv">01 · OEE</div><h4>Live OEE + WIP</h4><p>Per-line OEE, WIP throughput, dwell, idle and changeover — surfaced in real time.</p><ul><li>Per-line OEE</li><li>WIP throughput</li><li>Changeover trends</li></ul></article><article class="ind__case"><div class="ind__case-kv">02 · PdM</div><h4>Predictive maintenance</h4><p>Vibration, temperature and cycle-count fused into failure-prediction models retrained weekly.</p><ul><li>MTBF forecasting</li><li>Auto WO creation</li><li>Parts pre-order</li></ul></article><article class="ind__case"><div class="ind__case-kv">03 · Quality</div><h4>Vision-based defect detection</h4><p>Edge cameras detect surface defects, mis-labels and dimensional drift in real time.</p><ul><li>Surface defect</li><li>OCR labels</li><li>Dimensional drift</li></ul></article></div>
-
-    <div class="ind__close">
-      <div class="eyebrow" style="color:#7dd3fc">// In summary</div>
-      <h3>INNFINI helps manufacturers move from reactive shop-floor monitoring to <em>predictive, AI-assisted operational control.</em></h3>
+    <div class="mfg-ent">
+      <div>
+        <h4>Integration</h4>
+        <ul>
+          <li><b>5,000+ sensors</b> from leading providers already integrated</li>
+          <li>Industrial protocols — <b>OPC UA, Modbus, CAN bus, Profibus</b> — with no custom development</li>
+          <li>Back-office integration via a web-friendly <b>RESTful API</b></li>
+          <li>Technology-agnostic: connect Power BI, ArcGIS, notification services and any third-party system</li>
+          <li><b>INNFINI Flow</b> wires new sources together in a browser, deployed in one click</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Security &amp; scalability</h4>
+        <ul>
+          <li><b>AES-256</b> for data at rest; <b>ECC / TLS</b> for data in motion</li>
+          <li>IAM with role-based access control, token-based access and two-factor authentication</li>
+          <li>Standards-based <b>(OWASP)</b> vulnerability testing</li>
+          <li>Container-based architecture <b>(Docker / Kubernetes)</b> for portability and scale</li>
+          <li>Multi-tenant SaaS / PaaS, deployable on any cloud — fully <b>Azure compliant</b></li>
+        </ul>
+      </div>
     </div>
 
   </div>
