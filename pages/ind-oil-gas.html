@@ -24,7 +24,343 @@
 <link rel="stylesheet" href="../styles-industries.css?v=20260908m">
 <link rel="stylesheet" href="_page.css?v=20260908m"><link rel="stylesheet" href="_casestudy.css?v=20260908m">
 <link rel="stylesheet" href="_roi-calc.css?v=20260908m">
-<style>:root,.ind{--accent:#7dd3fc;--accent-border:rgba(125,211,252,0.45);--accent-bg:rgba(125,211,252,0.04);--accent-glow:rgba(125,211,252,0.10);}</style>
+<style>:root,.ind{--accent:#7dd3fc;--accent-border:rgba(125,211,252,0.45);--accent-bg:rgba(125,211,252,0.04);--accent-glow:rgba(125,211,252,0.10);}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OIL & GAS HERO — a plant under a live integrity sweep
+   Same language as the manufacturing line: one 9s cycle, a sweep crossing the
+   plant, and each asset marker delayed to the instant the sweep reaches its
+   own x position, so the reads look caused by the pass. The sweep runs linear
+   for that reason — easing would put the light and the reads out of step.
+   Only the asset being read shows its label, so eight markers never become
+   eight overlapping chips.
+   Every overlay sits inside .ogp__frame — the photograph's own box — so the
+   percentage positions stay pinned to the plant at any width.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.ogp {
+  --sky: #7dd3fc; --mint: #a7f3d0; --amber: #fbbf24;
+  --hair: rgba(125,211,252,0.16);
+  --cycle: 9s;
+  position: relative; width: 100%;
+  border: 1px solid var(--hair); border-radius: 4px;
+  background: linear-gradient(180deg, rgba(8,13,24,0.94), rgba(6,10,18,0.99));
+  overflow: hidden;
+}
+.ogp__stage { position: relative; padding: 44px 0 92px; }
+.ogp__frame { position: relative; width: 96%; margin: 0 auto; border-radius: 12px;
+  overflow: hidden; box-shadow: 0 22px 40px -18px rgba(0,0,0,0.8); }
+.ogp__img { display: block; width: 100%; height: auto; position: relative; z-index: 2; }
+/* the photograph is a bright night scene — a scrim keeps the HUD legible over
+   the lit sections without dulling the plant itself */
+.ogp__frame::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6,10,18,0.42) 0%, rgba(6,10,18,0.06) 34%,
+                              rgba(6,10,18,0.10) 70%, rgba(6,10,18,0.5) 100%);
+}
+
+/* ── integrity sweep ────────────────────────────────────────────────────── */
+.ogp__sweep {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 14%; z-index: 4;
+  pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(90deg, transparent, rgba(125,211,252,0.12) 52%, rgba(125,211,252,0.40) 90%, rgba(205,240,255,0.78) 100%);
+  animation: ogp-sweep var(--cycle) linear infinite;
+}
+@keyframes ogp-sweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  4%   { opacity: 1; }
+  66%  { transform: translateX(714%); opacity: 1; }
+  73%  { transform: translateX(780%); opacity: 0; }
+  100% { transform: translateX(780%); opacity: 0; }
+}
+
+/* ── asset markers ──────────────────────────────────────────────────────── */
+.ogp__as { position: absolute; z-index: 5; transform: translate(-50%,-50%);
+  width: 2.6%; aspect-ratio: 1; min-width: 9px; pointer-events: none; }
+.ogp__as::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1.5px solid rgba(125,211,252,0.4);
+  animation: ogp-ring var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.ogp__as::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 34%; height: 34%;
+  transform: translate(-50%,-50%); border-radius: 50%; background: rgba(125,211,252,0.5);
+  animation: ogp-dot var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes ogp-ring {
+  0%, 1%   { border-color: rgba(125,211,252,0.4); transform: scale(1); }
+  3%       { border-color: #dff3ff; transform: scale(1.9); }
+  7%       { border-color: rgba(167,243,208,0.95); transform: scale(1); }
+  86%      { border-color: rgba(167,243,208,0.65); transform: scale(1); }
+  95%,100% { border-color: rgba(125,211,252,0.4); transform: scale(1); }
+}
+@keyframes ogp-dot {
+  0%, 1%   { background: rgba(125,211,252,0.5); box-shadow: none; }
+  3%       { background: #f4fcff; box-shadow: 0 0 13px 4px rgba(125,211,252,0.85); }
+  7%       { background: var(--mint); box-shadow: 0 0 6px 1px rgba(167,243,208,0.55); }
+  86%      { background: var(--mint); box-shadow: 0 0 6px 1px rgba(167,243,208,0.45); }
+  95%,100% { background: rgba(125,211,252,0.5); box-shadow: none; }
+}
+/* the label lives only for the moment its asset is read */
+.ogp__as b {
+  position: absolute; left: calc(100% + 9px); top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono, ui-monospace); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: var(--mint);
+  background: rgba(4,8,14,0.94); border: 1px solid rgba(167,243,208,0.3);
+  padding: 3px 7px; border-radius: 2px; opacity: 0;
+  animation: ogp-lab var(--cycle) linear infinite;
+  animation-delay: var(--d, 0s);
+  /* the four columns stand close together with little vertical separation, so
+     their labels are nudged apart rather than left to overlap. margin, not
+     transform — the keyframes own the transform. */
+  margin-top: var(--ly, 0px);
+}
+.ogp__as--l b { left: auto; right: calc(100% + 9px); }
+@keyframes ogp-lab {
+  0%, 2%   { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+  5%       { opacity: 1; transform: translateY(-50%) translateX(0); }
+  13%      { opacity: 1; }
+  18%,100% { opacity: 0; }
+}
+
+/* ── HUD ────────────────────────────────────────────────────────────────── */
+.ogp__plate {
+  position: absolute; z-index: 7; display: flex; flex-direction: column; gap: 3px;
+  padding: 7px 10px; border: 1px solid var(--hair); border-radius: 3px;
+  background: rgba(4,8,14,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono, ui-monospace);
+  /* inset from the frame's own top-left so the photograph's rounded corner
+     stays visible around the plate rather than being squared off by it */
+  top: 58px; left: calc(2% + 14px);
+}
+.ogp__plate-k { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sky); font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.ogp__plate-v { font-size: 9.5px; line-height: 1.4; letter-spacing: 0.04em; color: #94a3b8; }
+.ogp__live { width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
+  flex: 0 0 auto; animation: ogp-live 1.5s ease-in-out infinite; }
+@keyframes ogp-live { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.ogp__big { font-family: var(--font-display, sans-serif); font-size: 16px; font-weight: 600;
+  color: #f1f5f9; letter-spacing: -0.015em; line-height: 1; }
+
+/* ── asset strip ────────────────────────────────────────────────────────── */
+.ogp__strip {
+  position: absolute; left: 11px; right: 11px; bottom: 11px; z-index: 7;
+  border: 1px solid var(--hair); border-radius: 3px; background: rgba(4,8,14,0.92);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 8px 11px 9px;
+  font-family: var(--font-mono, ui-monospace);
+}
+.ogp__strip-h { display: flex; justify-content: space-between; gap: 10px; font-size: 7.5px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #64748b;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(125,211,252,0.1); margin-bottom: 9px; }
+.ogp__flow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; position: relative; }
+/* the rail runs between the first and last node centres, not the strip edges,
+   so the token stops on an asset rather than between two */
+.ogp__rail { position: absolute; left: 6.25%; right: 6.25%; top: 4px; height: 1px;
+  background: rgba(125,211,252,0.16); }
+.ogp__rail::after {
+  content: ""; position: absolute; top: -3px; left: 0; width: 7px; height: 7px; margin-left: -3px;
+  border-radius: 50%; background: #eaf8ff; box-shadow: 0 0 11px 3px rgba(125,211,252,0.85);
+  animation: ogp-token var(--cycle) linear infinite;
+}
+/* the stops are the instants the markers fire */
+@keyframes ogp-token {
+  0%    { left: 0%;      opacity: 0; }
+  4%    { left: 0%;      opacity: 1; }
+  6.9%  { left: 0%; }
+  15.1% { left: 14.29%; }
+  18.9% { left: 28.57%; }
+  23.5% { left: 42.86%; }
+  29.7% { left: 57.14%; }
+  35.6% { left: 71.43%; }
+  42.9% { left: 85.71%; }
+  51.3% { left: 100%; }
+  92%   { left: 100%;    opacity: 1; }
+  100%  { left: 100%;    opacity: 0; }
+}
+.ogp__node { position: relative; text-align: center; }
+.ogp__node i { display: block; width: 7px; height: 7px; margin: 0 auto 9px; border-radius: 50%;
+  background: #050a12; border: 1px solid rgba(125,211,252,0.3);
+  animation: ogp-node var(--cycle) linear infinite; }
+@keyframes ogp-node {
+  0%, 12%  { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  15%,100% { background: #050a12; border-color: rgba(125,211,252,0.3); }
+}
+.ogp__node span { display: block; font-size: 7px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #64748b; animation: ogp-nodetext var(--cycle) linear infinite; }
+@keyframes ogp-nodetext { 0%,12% { color: #cbd5e1; } 15%,100% { color: #64748b; } }
+
+@media (max-width: 860px) { .ogp__as b { font-size: 8px; } }
+@media (max-width: 620px) {
+  /* at phone width the plate would cover most of the plant */
+  .ogp__plate { position: static; margin: 11px 11px 0; }
+  /* the flow strip wraps to two rows below 620, so the stage has to give it
+     the extra row of clearance or it eats into the photograph */
+  .ogp__stage { padding: 16px 0 126px; }
+  .ogp__as b { display: none; }
+  .ogp__strip-h span + span { display: none; }
+  .ogp__flow { grid-template-columns: repeat(4, 1fr); gap: 12px 0; }
+  .ogp__rail { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ogp__sweep { display: none; }
+  .ogp__as::before, .ogp__as::after, .ogp__as b, .ogp__rail::after,
+  .ogp__node i, .ogp__node span, .ogp__live { animation: none !important; }
+  .ogp__as::before { border-color: rgba(167,243,208,0.85); }
+  .ogp__as::after { background: var(--mint); }
+  .ogp__as b { opacity: 1; }
+  .ogp__node i { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  .ogp__node span { color: #cbd5e1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OIL & GAS — page sections
+   Page-local. styles-industries.css is shared with the other ind- pages and
+   is not touched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.ogb-h { margin: 0 0 40px; max-width: 880px; }
+.ogb-h__k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); padding-top: 13px;
+  border-top: 1px solid var(--accent); display: inline-block; margin-bottom: 22px; }
+.ogb-h h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 600; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-100);
+  margin: 0 0 16px; text-wrap: balance; }
+.ogb-h h2 em { font-style: normal; color: var(--accent); }
+.ogb-h p { font-size: 16px; line-height: 1.6; color: var(--ink-70); margin: 0; max-width: 68ch; }
+
+/* ── the four gaps ──────────────────────────────────────────────────────── */
+.ogb-gaps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.ogb-gap { padding: 28px 24px 30px; border-right: 1px solid var(--hair); }
+.ogb-gap:last-child { border-right: 0; }
+.ogb-gap h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.ogb-gap p { font-size: 13.5px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.ogb-gap__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.2em;
+  color: var(--ink-70); display: block; margin-bottom: 14px; }
+
+/* ── the five solutions ─────────────────────────────────────────────────── */
+.ogb-sol { border-top: 1px solid var(--hair); padding: 46px 0; display: grid;
+  grid-template-columns: 62px minmax(0,1fr) minmax(0,0.92fr); gap: 0 44px; align-items: start; }
+.ogb-sol:last-of-type { border-bottom: 1px solid var(--hair); }
+.ogb-sol__n { font-family: var(--font-display); font-size: 30px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.03em; color: transparent;
+  -webkit-text-stroke: 1px rgba(125,211,252,0.5); }
+.ogb-sol__t { font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+.ogb-sol__d { font-size: 14.5px; line-height: 1.6; color: var(--ink-70); margin: 0 0 18px; }
+.ogb-sol__kv { border-top: 1px solid var(--hair); }
+.ogb-sol__r { display: grid; grid-template-columns: 108px minmax(0,1fr); gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.055); font-size: 13px; line-height: 1.5; }
+.ogb-sol__r:last-child { border-bottom: 0; }
+.ogb-sol__r dt { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); margin: 0; padding-top: 3px; }
+.ogb-sol__r dd { margin: 0; color: var(--ink-80); }
+.ogb-sol__fig { margin: 0; }
+.ogb-sol__fig img { display: block; width: 100%; height: auto; border: 1px solid var(--hair);
+  border-radius: 3px; background: rgba(255,255,255,0.02); }
+.ogb-sol__fig figcaption { font-family: var(--font-mono); font-size: 9.5px; line-height: 1.5;
+  letter-spacing: 0.06em; color: var(--ink-70); margin-top: 10px; }
+.ogb-sol__chips { display: flex; flex-wrap: wrap; gap: 0 14px; margin-top: 16px; }
+.ogb-sol__chips span { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-70); }
+.ogb-sol__chips span + span { padding-left: 14px; border-left: 1px solid var(--hair); }
+
+/* ── the platform beneath ───────────────────────────────────────────────── */
+.ogb-plat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 28px; }
+.ogb-plat__c { padding: 30px 26px 32px; border-right: 1px solid var(--hair); }
+.ogb-plat__c:last-child { border-right: 0; }
+.ogb-plat__k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.ogb-plat__c h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; line-height: 1.25; letter-spacing: -0.008em; }
+.ogb-plat__c p { font-family: var(--font-mono); font-size: 11px; line-height: 1.75;
+  color: var(--ink-70); margin: 0; }
+.ogb-plat__foot { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  color: var(--ink-70); text-align: center; padding: 14px 16px; border: 1px solid var(--hair);
+  border-top: 0; margin-bottom: 120px; }
+
+/* ── outcome figures ────────────────────────────────────────────────────── */
+.ogb-out { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-bottom: 30px; }
+.ogb-out__c { padding: 30px 24px; border-right: 1px solid var(--hair); }
+.ogb-out__c:last-child { border-right: 0; }
+.ogb-out__v { font-family: var(--font-display); font-size: 42px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.035em; color: var(--ink-100); margin-bottom: 12px; }
+.ogb-out__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.ogb-out__d { font-size: 13px; line-height: 1.5; color: var(--ink-70); margin: 0; }
+.ogb-cost { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid rgba(251,191,36,0.28); background: rgba(251,191,36,0.04);
+  margin-bottom: 120px; }
+.ogb-cost__c { padding: 22px 24px; border-right: 1px solid rgba(251,191,36,0.2); }
+.ogb-cost__c:last-child { border-right: 0; }
+.ogb-cost__v { font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  color: #fbbf24; letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+.ogb-cost__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); }
+
+/* ── field proof ────────────────────────────────────────────────────────── */
+.ogb-field { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.ogb-field__c { padding: 26px 24px 28px; border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair); }
+.ogb-field__c:nth-child(3n) { border-right: 0; }
+.ogb-field__c:nth-last-child(-n+3) { border-bottom: 0; }
+.ogb-field__c h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.ogb-field__c p { font-size: 13px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.ogb-field__k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 12px; }
+
+/* ── enterprise-ready two-column list ───────────────────────────────────── */
+.ogb-ent { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; margin-bottom: 110px; }
+.ogb-ent h4 { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 6px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--hair); }
+.ogb-ent ul { list-style: none; padding: 0; margin: 0; }
+.ogb-ent li { font-size: 13.5px; line-height: 1.55; color: var(--ink-70);
+  padding: 12px 0 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.055); position: relative; }
+.ogb-ent li:last-child { border-bottom: 0; }
+.ogb-ent li::before { content: "›"; position: absolute; left: 0; top: 12px; color: var(--accent); }
+.ogb-ent li b { color: var(--ink-100); font-weight: 600; }
+
+@media (max-width: 1080px) {
+  .ogb-gaps { grid-template-columns: 1fr 1fr; }
+  .ogb-gap:nth-child(2n) { border-right: 0; }
+  .ogb-gap:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .ogb-sol { grid-template-columns: 44px minmax(0,1fr); gap: 0 26px; }
+  .ogb-sol__fig { grid-column: 2; margin-top: 24px; }
+  .ogb-plat { grid-template-columns: 1fr; }
+  .ogb-plat__c { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .ogb-plat__c:last-child { border-bottom: 0; }
+  .ogb-out { grid-template-columns: 1fr 1fr; }
+  .ogb-out__c:nth-child(2n) { border-right: 0; }
+  .ogb-out__c:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .ogb-field { grid-template-columns: 1fr 1fr; }
+  .ogb-field__c:nth-child(3n) { border-right: 1px solid var(--hair); }
+  .ogb-field__c:nth-child(2n) { border-right: 0; }
+  .ogb-field__c:nth-last-child(-n+3) { border-bottom: 1px solid var(--hair); }
+  .ogb-field__c:last-child { border-bottom: 0; }
+  .ogb-ent { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 680px) {
+  .ogb-gaps, .ogb-out, .ogb-cost, .ogb-field { grid-template-columns: 1fr; }
+  .ogb-gap, .ogb-out__c, .ogb-cost__c, .ogb-field__c {
+    border-right: 0 !important; border-bottom: 1px solid var(--hair) !important; }
+  .ogb-gap:last-child, .ogb-out__c:last-child, .ogb-cost__c:last-child,
+  .ogb-field__c:last-child { border-bottom: 0 !important; }
+  .ogb-sol { grid-template-columns: 1fr; gap: 0; padding: 34px 0; }
+  .ogb-sol__n { margin-bottom: 12px; }
+  .ogb-sol__fig { grid-column: 1; }
+  .ogb-sol__r { grid-template-columns: 1fr; gap: 4px; }
+  .ogb-gaps, .ogb-plat__foot, .ogb-cost, .ogb-field, .ogb-ent { margin-bottom: 74px; }
+}
+/* the plant panel sits in the shared hero's right-hand column, like every
+   other industry page. */
+.ind .ind__hero .ogp { width: 100%; }
+</style>
 </head><body class="page" data-page="industries">
 <div id="site-nav"></div>
 <div class="cs-hero" style="padding:80px 0 24px;"><div class="cs-hero__inner"><div class="breadcrumb">
@@ -42,174 +378,262 @@
         <div class="ind__sig"><div class="ind__sig-item"><div class="ind__sig-num">−47%</div><div class="ind__sig-lab">Unplanned downtime</div></div><div class="ind__sig-item"><div class="ind__sig-num">−54%</div><div class="ind__sig-lab">SLA breaches</div></div><div class="ind__sig-item"><div class="ind__sig-num">100%</div><div class="ind__sig-lab">Audit traceable</div></div></div>
         <div class="ind__chips"><span class="ind__chip"><span class="ind__chip-dot"></span>SCADA</span><span class="ind__chip"><span class="ind__chip-dot"></span>Pipelines</span><span class="ind__chip"><span class="ind__chip-dot"></span>Safety</span><span class="ind__chip"><span class="ind__chip-dot"></span>Compliance</span></div>
       </div>
-      <div class="ind__panel">
-        <div class="ind__panel-bar">
-          <span class="ind__panel-dot" style="background:#ff5f57"></span>
-          <span class="ind__panel-dot" style="background:#febc2e"></span>
-          <span class="ind__panel-dot" style="background:#28c840"></span>
-          <span class="ind__panel-name">pipeline ops · 3 loops · live</span>
-          <span class="ind__panel-pill">Live</span>
-        </div>
-        <div class="ind__mo og-stage" style="aspect-ratio:16/10;width:100%;background:transparent;border:0;box-shadow:none;overflow:hidden;border-radius:14px;position:relative;">
-  <div style="position:absolute; inset:0; background: radial-gradient(60% 55% at 50% 55%, rgba(125,211,252,0.12) 0%, rgba(125,211,252,0) 80%); pointer-events:none;"></div>
-
-  <img src="../assets/product/oil-gas-plant.webp" alt="Oil & gas refinery plant" style="position:absolute; inset:5% 3% 7% 3%; width:94%; height:88%; object-fit:contain; filter: brightness(1.02) contrast(1.05) saturate(0.92) drop-shadow(0 20px 40px rgba(0,0,0,0.35));"/ loading="lazy" decoding="async">
-
-  <!-- Sensor pulse markers on key plant elements -->
-  <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
-    <defs>
-      <style>.og-mono-s { font-family: "JetBrains Mono", ui-monospace, monospace; }</style>
-      <filter id="og-pulse-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <g filter="url(#og-pulse-glow)">
-      <!-- Flare stack (left tall structure with flame) -->
-      <g transform="translate(255,300)">
-        <circle r="7" fill="#fcd34d"/>
-        <circle r="7" fill="none" stroke="#fcd34d" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2s" repeatCount="indefinite"/></circle>
-        <line x1="7" y1="0" x2="60" y2="-26" stroke="#fcd34d" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="og-mono-s" x="66" y="-26" font-size="15" fill="#fcd34d" font-weight="700" letter-spacing="0.10em">FLARE · NOM</text>
-        <text class="og-mono-s" x="66" y="-10" font-size="11" fill="#cbd5e1">temp 842 °C</text>
-      </g>
-      <!-- Distillation column (center tall) -->
-      <g transform="translate(680,260)">
-        <circle r="7" fill="#7dd3fc"/>
-        <circle r="7" fill="none" stroke="#7dd3fc" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.4s" begin="-0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.4s" begin="-0.6s" repeatCount="indefinite"/></circle>
-        <line x1="7" y1="0" x2="60" y2="-26" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="og-mono-s" x="66" y="-26" font-size="15" fill="#7dd3fc" font-weight="700" letter-spacing="0.10em">COL-T4</text>
-        <text class="og-mono-s" x="66" y="-10" font-size="11" fill="#cbd5e1">342 °C · 1,240 PSI</text>
-      </g>
-      <!-- Striped stack -->
-      <g transform="translate(1180,310)">
-        <circle r="7" fill="#a7f3d0"/>
-        <circle r="7" fill="none" stroke="#a7f3d0" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.2s" begin="-1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.2s" begin="-1.2s" repeatCount="indefinite"/></circle>
-        <line x1="-7" y1="0" x2="-60" y2="-26" stroke="#a7f3d0" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="og-mono-s" x="-66" y="-26" font-size="15" fill="#a7f3d0" font-weight="700" letter-spacing="0.10em" text-anchor="end">STACK-02</text>
-        <text class="og-mono-s" x="-66" y="-10" font-size="11" fill="#cbd5e1" text-anchor="end">NOx 18 ppm</text>
-      </g>
-      <!-- Pipe manifold lower -->
-      <g transform="translate(720,720)">
-        <circle r="7" fill="#fda4af"/>
-        <circle r="7" fill="none" stroke="#fda4af" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="1.8s" begin="-0.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="1.8s" begin="-0.4s" repeatCount="indefinite"/></circle>
-        <line x1="-7" y1="0" x2="-60" y2="26" stroke="#fda4af" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="og-mono-s" x="-66" y="30" font-size="15" fill="#fda4af" font-weight="700" letter-spacing="0.10em" text-anchor="end">VALVE V-118 ▲</text>
-        <text class="og-mono-s" x="-66" y="46" font-size="11" fill="#cbd5e1" text-anchor="end">vibration 2.8σ</text>
-      </g>
-    </g>
-  </svg>
-
-  <style>
-    .og-w { position:absolute; padding:9px 11px; border:1px solid rgba(125,211,252,0.40); border-radius:8px; background: rgba(8,13,24,0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events:none; }
-    .og-w .lbl { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #cbd5e1; }
-    .og-w .v { font-family: var(--font-display); font-weight: 700; line-height: 1; letter-spacing: -0.01em; }
-    .og-w .desc { font-family: var(--font-mono); font-size: 9.5px; color: #cbd5e1; line-height:1.35; }
-    .og-w .dotlive { display:inline-block; width:5px; height:5px; border-radius:50%; background:#a7f3d0; box-shadow:0 0 6px #a7f3d0; margin-right:6px; vertical-align:middle; animation: og-pulse 1.4s ease-in-out infinite; }
-    @keyframes og-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .og-w.tl { top:6%; left:5%; width:170px; }
-    .og-w.tr { top:6%; right:5%; width:170px; }
-    .og-w.bl { bottom:6%; left:5%; width:170px; }
-    .og-w.br { bottom:6%; right:5%; width:170px; }
-
-    @media (max-width: 720px) {
-      .og-w { padding: 7px 9px; }
-      .og-w.tl, .og-w.bl, .og-w.tr, .og-w.br { width:144px; }
-      .og-w .lbl { font-size: 8px; }
-      .og-w .desc { font-size: 9px; }
-    }
-  </style>
-
-  <!-- Top-left: PLANT STATUS -->
-  <div class="og-w tl">
-    <div class="lbl"><span class="dotlive"></span>UNIT-T4 · ONLINE</div>
-    <div class="desc" style="margin-top:5px;">crude distillation · CDU-2</div>
-    <div class="desc" style="color:#a7f3d0;">uptime · 142 d · stable</div>
+      <div class="ogp" aria-hidden="true">
+  <div class="ogp__plate">
+    <div class="ogp__plate-k"><span class="ogp__live"></span>Train 2 · on line</div>
+    <div class="ogp__big">8 / 8</div>
+    <div class="ogp__plate-v">Assets reporting · 0 alarms · 0 overdue</div>
   </div>
 
-  <!-- Top-right: Worker safety -->
-  <div class="og-w tr" style="border-color: rgba(167,243,208,0.45);">
-    <div class="lbl">LONE-WORKER · SAFE</div>
-    <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-      <svg viewBox="0 0 60 60" width="42" height="42" style="flex-shrink:0;">
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="rgba(125,211,252,0.20)" stroke-width="5" stroke-linecap="round"/>
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="#a7f3d0" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100"><animate attributeName="stroke-dasharray" values="0 100;100 100" dur="2.2s" fill="freeze"/></path>
-        <text x="30" y="36" text-anchor="middle" font-family="Sora, sans-serif" font-size="14" font-weight="700" fill="#a7f3d0">100</text>
-      </svg>
-      <div class="desc" style="line-height:1.5;">
-        <div>14 / 14 <b style="color:#a7f3d0;">on-shift</b></div>
-        <div>PPE <b style="color:#7dd3fc; font-family:var(--font-display);">OK</b></div>
-        <div>H₂S <b style="color:#fcd34d; font-family:var(--font-display);">2 ppm</b></div>
-      </div>
+  <div class="ogp__stage">
+    <div class="ogp__frame">
+      <img class="ogp__img" src="../assets/product/og-plant.webp?v=20260908m" width="1400" height="758"
+           alt="Gas processing plant at dusk — separator train, process columns and pipe racks"
+           loading="eager" decoding="async">
+      <div class="ogp__sweep"></div>
+
+      <div class="ogp__as" style="left:12.0%;top:76.0%;--d:.63s"><b>Inlet</b></div>
+      <div class="ogp__as ogp__as--l" style="left:26.0%;top:63.5%;--d:1.36s"><b>Dehydration</b></div>
+      <div class="ogp__as" style="left:32.6%;top:62.5%;--d:1.70s;--ly:16px"><b>Amine unit</b></div>
+      <div class="ogp__as" style="left:40.6%;top:58.7%;--d:2.12s"><b>Stabiliser</b></div>
+      <div class="ogp__as ogp__as--l" style="left:51.3%;top:53.8%;--d:2.67s;--ly:-16px"><b>Fractionator</b></div>
+      <div class="ogp__as" style="left:61.5%;top:78.8%;--d:3.21s"><b>Compressor</b></div>
+      <div class="ogp__as ogp__as--l" style="left:74.0%;top:48.1%;--d:3.86s"><b>Separators</b></div>
+      <div class="ogp__as ogp__as--l" style="left:88.5%;top:82.7%;--d:4.61s"><b>Metering</b></div>
     </div>
   </div>
 
-  <!-- Bottom-left: Predictive Maint -->
-  <div class="og-w bl" style="border-color: rgba(253,164,175,0.45);">
-    <div class="lbl">PREDICTIVE MAINT.</div>
-    <div class="v" style="font-size:12px; color:#fda4af; margin-top:5px;">▲ VALVE V-118</div>
-    <div class="desc">RUL · 96 hrs · 2.8σ</div>
-    <div class="desc" style="color:#a7f3d0;">WO auto-created</div>
-  </div>
-
-  <!-- Bottom-right: Emissions / throughput -->
-  <div class="og-w br" style="border-color: rgba(125,211,252,0.40);">
-    <div class="lbl">THROUGHPUT · LIVE</div>
-    <div style="display:flex; align-items:baseline; gap:8px; margin-top:5px;">
-      <div class="v" style="font-size:18px; color:#7dd3fc;">82.4k</div>
-      <div class="desc">bbl / day</div>
+  <div class="ogp__strip">
+    <div class="ogp__strip-h"><span>Asset integrity sweep · train 2</span><span>Vibration · temperature · gas · SCADA</span></div>
+    <div class="ogp__flow">
+      <div class="ogp__rail"></div>
+      <div class="ogp__node"><i style="animation-delay:.63s"></i><span style="animation-delay:.63s">Inlet</span></div>
+      <div class="ogp__node"><i style="animation-delay:1.36s"></i><span style="animation-delay:1.36s">Dehyd</span></div>
+      <div class="ogp__node"><i style="animation-delay:1.70s"></i><span style="animation-delay:1.70s">Amine</span></div>
+      <div class="ogp__node"><i style="animation-delay:2.12s"></i><span style="animation-delay:2.12s">Stabil</span></div>
+      <div class="ogp__node"><i style="animation-delay:2.67s"></i><span style="animation-delay:2.67s">Fract</span></div>
+      <div class="ogp__node"><i style="animation-delay:3.21s"></i><span style="animation-delay:3.21s">Compr</span></div>
+      <div class="ogp__node"><i style="animation-delay:3.86s"></i><span style="animation-delay:3.86s">Separ</span></div>
+      <div class="ogp__node"><i style="animation-delay:4.61s"></i><span style="animation-delay:4.61s">Export</span></div>
     </div>
-    <div class="desc">NOx 18 ppm · within limit</div>
-    <div class="desc" style="color:#a7f3d0;">▼ −9% emissions w/w</div>
   </div>
 </div>
+    </div>
+
+    <div class="ogb-h">
+      <div class="ogb-h__k">01 / The imperative</div>
+      <h2>A plant is instrumented. <em>It is not necessarily visible.</em></h2>
+      <p>Upstream, midstream and downstream sites already generate enormous volumes of data — SCADA historians, DCS tags, vibration probes, gas detectors, permit systems, inspection records. What is missing is not measurement. It is one place where all of it is correlated, judged and acted on while the process is still running.</p>
+    </div>
+    <div class="ogb-gaps">
+      <div class="ogb-gap"><span class="ogb-gap__n">01</span><h4>Alarm storms</h4><p>Operators absorb hundreds of undifferentiated alarms a shift. The one that mattered looked exactly like the four hundred that didn't.</p></div>
+      <div class="ogb-gap"><span class="ogb-gap__n">02</span><h4>Run to failure</h4><p>Only the critical rotating equipment is condition-monitored. The balance of plant runs until it stops, and stops without warning.</p></div>
+      <div class="ogb-gap"><span class="ogb-gap__n">03</span><h4>People in hazardous areas</h4><p>Who is inside the fence, in which zone, for how long — answered by a paper sign-in sheet and a roll call at the muster point.</p></div>
+      <div class="ogb-gap"><span class="ogb-gap__n">04</span><h4>Evidence assembled late</h4><p>Regulator and ESG reporting is rebuilt by hand from disconnected logs, weeks after the period it describes.</p></div>
+    </div>
+
+    <div class="ogb-h">
+      <div class="ogb-h__k">02 / The portfolio</div>
+      <h2>Six things we put on a site, <em>and what each one changes.</em></h2>
+      <p>Each is deployable on its own and each feeds the same platform, so the second one costs less than the first and the sixth is mostly configuration.</p>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">01</div>
+      <div>
+        <h3 class="ogb-sol__t">SCADA fusion and alarm intelligence</h3>
+        <p class="ogb-sol__d">SCADA tells you a value crossed a limit. It does not tell you that the same compressor tripped twice this week, that the standby unit is already in maintenance, or that a crew is working inside that zone right now. INNFINI ingests the historian alongside sensors, permits, work orders and personnel location, correlates them in real time, and presents the operator with a grouped, ranked event rather than a wall of individual alarms — each one carrying its own runbook.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Ingest</dt><dd>OPC UA, Modbus, CAN bus and Profibus straight from the control layer — no custom development</dd></div>
+          <div class="ogb-sol__r"><dt>Correlate</dt><dd>The CEP rules engine evaluates every event against process state, asset history and who is on site</dd></div>
+          <div class="ogb-sol__r"><dt>Respond</dt><dd>Runbooks attach to the alarm automatically and dispatch the field crew with the procedure already loaded</dd></div>
+          <div class="ogb-sol__r"><dt>Record</dt><dd>Every recommendation cited, every approval logged, every action reversible</dd></div>
+        </dl>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/mfg-innfini-dashboard.webp?v=20260908m" alt="INNFINI operations dashboard" loading="lazy" decoding="async">
+        <figcaption>One operating picture per site — throughput, asset health and open events on a single screen.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">02</div>
+      <div>
+        <h3 class="ogb-sol__t">Condition monitoring and predictive maintenance</h3>
+        <p class="ogb-sol__d">Critical and semi-critical rotating equipment is typically the only part of the plant with condition monitoring — yet it is just 15&ndash;25% of the fleet. Pumps, blowers, fin-fan coolers, agitators and the rest of the balance of plant run to failure, because conventional monitoring has been too expensive to justify per asset. Low-cost wireless beacons measuring vibration and temperature, with edge processing and cloud AI, extend predictive maintenance across the whole fleet.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Sense</dt><dd>A wireless beacon per asset measures vibration and skin temperature with intelligent edge processing</dd></div>
+          <div class="ogb-sol__r"><dt>Learn</dt><dd>AI establishes each machine's own baseline, so deviation is judged against that asset rather than a generic threshold</dd></div>
+          <div class="ogb-sol__r"><dt>Forecast</dt><dd>Failure probability and remaining useful life, with the work order raised before the trip</dd></div>
+          <div class="ogb-sol__r"><dt>Act</dt><dd>Immediate notification when equipment stops or exceeds temperature limits</dd></div>
+        </dl>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/mfg-innfini-forecast.webp?v=20260908m" alt="INNFINI forecasting view" loading="lazy" decoding="async">
+        <figcaption>Forecasts per asset and per line, with root-cause analysis on the same screen.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">03</div>
+      <div>
+        <h3 class="ogb-sol__t">Gas detection, environmental and emissions monitoring</h3>
+        <p class="ogb-sol__d">Fixed detection covers the points someone specified years ago. It does not cover the temporary works, the turnaround scaffold or the corner of the tank farm where the wind sits. A mesh of wireless sensors extends coverage where it is needed, at a cost that makes temporary deployment reasonable, and every reading — routine or otherwise — is retained as a defensible record of the conditions the plant operated under.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Measures</dt><dd>Combustible and toxic gas, temperature, humidity, air quality and CO&#8322;, pressure and the rest of the process spectrum</dd></div>
+          <div class="ogb-sol__r"><dt>Coverage</dt><dd>5,000+ sensors from leading providers already integrated; battery-powered units place in minutes, not shutdowns</dd></div>
+          <div class="ogb-sol__r"><dt>Alerts</dt><dd>The rules engine fires the instant a reading breaches a limit — email, HTTP, pub/sub or web socket</dd></div>
+          <div class="ogb-sol__r"><dt>Evidence</dt><dd>Every reading logged for audit, with historical playback of what happened, where and when</dd></div>
+        </dl>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/mfg-sensors.webp?v=20260908m" alt="Integrated wireless sensor hardware" loading="lazy" decoding="async">
+        <figcaption>Technology-agnostic by design — the sensor is chosen for the job, not for the platform.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">04</div>
+      <div>
+        <h3 class="ogb-sol__t">Lone-worker safety and personnel accountability</h3>
+        <p class="ogb-sol__d">The question an incident commander asks first is how many people are inside the fence and where. On most sites the answer is a sign-in sheet and a radio check. Wearable tags and geo-fenced zones make it a live figure: who entered a confined space and when, who has been in a hot area past their permit window, who has stopped moving, and — at the muster point — who is still unaccounted for, by name, in seconds rather than in an hour.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Zones</dt><dd>Geo-fenced hazardous areas, confined spaces and restricted zones with entry, dwell and exit rules</dd></div>
+          <div class="ogb-sol__r"><dt>Duress</dt><dd>Panic button, man-down detection and automatic check-in escalation across radio and SMS</dd></div>
+          <div class="ogb-sol__r"><dt>Mustering</dt><dd>Live headcount by zone and by muster station, with an exception list rather than a roll call</dd></div>
+          <div class="ogb-sol__r"><dt>Permits</dt><dd>Presence checked against the permit to work — the system knows if the wrong person is in the wrong place</dd></div>
+        </dl>
+        <div class="ogb-sol__chips"><span>Deployed at Saudi Aramco</span><span>Offshore barges</span><span>Live mustering</span></div>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/geo-add-zone.webp?v=20260908m" alt="Geo-fenced zone configuration on the INNFINI map" loading="lazy" decoding="async">
+        <figcaption>Zones drawn on the map, with entry, dwell and exit rules attached to each one.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">05</div>
+      <div>
+        <h3 class="ogb-sol__t">Asset, tool and equipment tracking</h3>
+        <p class="ogb-sol__d">Calibrated instruments, lifting gear, torque tools, spool pieces and rental equipment move constantly during a turnaround and are searched for constantly afterwards. Every item carries a tag and is read automatically as it moves — no line of sight, no manual scanning. The map shows the last read, the timestamp and the zone, and certification state travels with the item, so out-of-calibration gear is flagged before it is picked up rather than after it is used.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Reads</dt><dd>Patented long-range RFID — hundreds of items at once, no line of sight, passive-tag economics</dd></div>
+          <div class="ogb-sol__r"><dt>Location</dt><dd>True RTLS using statistical radiometric methods across multiple receivers, not simple antenna association</dd></div>
+          <div class="ogb-sol__r"><dt>Gates</dt><dd>Direction of travel and moving-vs-stationary discrimination at gates and laydown yards</dd></div>
+          <div class="ogb-sol__r"><dt>Integration</dt><dd>Automated capture straight into the EAM or ERP — SAP included</dd></div>
+        </dl>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/geo-asset-detail.webp?v=20260908m" alt="Asset detail on the INNFINI location map" loading="lazy" decoding="async">
+        <figcaption>Last read, timestamp and zone for every tagged item, with its certification state attached.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-sol">
+      <div class="ogb-sol__n">06</div>
+      <div>
+        <h3 class="ogb-sol__t">Command and control tower</h3>
+        <p class="ogb-sol__d">A field, a terminal and a refinery each run a dozen disconnected systems — process control, fire and gas, CCTV, access control, fleet, EAM, GIS — each with its own console and its own alarms. During an incident, operators swivel between screens and correlate by hand. The INNFINI control tower ingests from every source, correlates in real time and presents one operational picture across sites, with response playbooks automating the next step.</p>
+        <dl class="ogb-sol__kv">
+          <div class="ogb-sol__r"><dt>Layer 1</dt><dd>Data acquisition — technology-agnostic ingestion of SCADA, sensors, RFID, machine vision, GPS, BLE and third-party systems</dd></div>
+          <div class="ogb-sol__r"><dt>Layer 2</dt><dd>Correlation and rules — the CEP engine and the visual INNFINI Flow composer</dd></div>
+          <div class="ogb-sol__r"><dt>Layer 3</dt><dd>Operational picture — dashboards, map reports, playbooks and role-based sharing across sites and contractors</dd></div>
+        </dl>
+        <div class="ogb-sol__chips"><span>Proven at ENEC</span><span>12+ systems in one tower</span></div>
+      </div>
+      <figure class="ogb-sol__fig">
+        <img src="../assets/product/mfg-innfini-map.webp?v=20260908m" alt="INNFINI map report across distributed sites" loading="lazy" decoding="async">
+        <figcaption>One map across every site, terminal and pipeline segment, clustered to the level you are looking at.</figcaption>
+      </figure>
+    </div>
+
+    <div class="ogb-h" style="margin-top:110px">
+      <div class="ogb-h__k">03 / The foundation</div>
+      <h2>One platform beneath every solution: <em>INNFINI.</em></h2>
+      <p>A technology-agnostic IoT platform that ingests from any device or control system, applies real-time rules and AI, and turns process and field events into operational action.</p>
+    </div>
+    <div class="ogb-plat">
+      <div class="ogb-plat__c">
+        <div class="ogb-plat__k">Acquire</div>
+        <h4>Technology-agnostic ingestion</h4>
+        <p>SCADA / DCS historians<br>RFID &middot; machine vision &middot; GPS &middot; BLE<br>OPC UA / Modbus / CAN / Profibus</p>
+      </div>
+      <div class="ogb-plat__c">
+        <div class="ogb-plat__k">Process</div>
+        <h4>Real-time intelligence at the edge and in the cloud</h4>
+        <p>CEP rules engine &middot; INNFINI Flow<br>Edge processing &middot; digital twin<br>AI / ML analytics</p>
+      </div>
+      <div class="ogb-plat__c">
+        <div class="ogb-plat__k">Act</div>
+        <h4>Visibility and automated response</h4>
+        <p>Map reports &middot; dashboards<br>Alerts &amp; playbooks &middot; forecasting<br>Enterprise integration</p>
       </div>
     </div>
+    <div class="ogb-plat__foot">Enterprise-grade &middot; Multi-tenant &middot; Container-based (Docker / Kubernetes) &middot; Microsoft Azure compliant &middot; AES-256 &amp; ECC/TLS &middot; Cloud, private, on-prem or air-gapped</div>
 
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:#7dd3fc">// 01 · Problem aware</div>
-      <h2 class="section-title">From fragmented systems to <em style="font-style:normal;color:#7dd3fc">one operational layer.</em></h2>
+    <div class="ogb-h">
+      <div class="ogb-h__k">04 / What it returns</div>
+      <h2>Measurable impact, <em>from the control room out.</em></h2>
+      <p>The figures above the line are what INNFINI deployments are held to. Below it is the number that usually decides the business case: what an hour of stopped process actually costs.</p>
     </div>
-    <div class="ind__split">
-      <div class="ind__split-side ind__split-side--before">
-        <div class="ind__split-kv">Today</div>
-        <h3>Stitched together · slow</h3>
-        <ul class="ind__split-list"><li>Alarm storms · operator fatigue</li><li>Disconnected SCADA + EAM</li><li>Manual lone-worker safety</li><li>Reactive maintenance</li><li>Slow regulator reporting</li></ul>
+    <div class="ogb-out">
+      <div class="ogb-out__c"><div class="ogb-out__v">&minus;47%</div><div class="ogb-out__n">Unplanned downtime</div><p class="ogb-out__d">Failure predicted and worked before the trip rather than after it.</p></div>
+      <div class="ogb-out__c"><div class="ogb-out__v">&minus;54%</div><div class="ogb-out__n">SLA breaches</div><p class="ogb-out__d">Grouped, ranked alarms with the runbook already attached.</p></div>
+      <div class="ogb-out__c"><div class="ogb-out__v">&lt;5ms</div><div class="ogb-out__n">Rule evaluation</div><p class="ogb-out__d">Per SCADA event, so correlation keeps pace with the process.</p></div>
+      <div class="ogb-out__c"><div class="ogb-out__v">100%</div><div class="ogb-out__n">Audit traceable</div><p class="ogb-out__d">Regulator-ready evidence produced continuously, not reconstructed.</p></div>
+    </div>
+    <div class="ogb-cost">
+      <div class="ogb-cost__c"><div class="ogb-cost__v">$87,000</div><div class="ogb-cost__n">Petro-chemical &middot; per hour of downtime</div></div>
+      <div class="ogb-cost__c"><div class="ogb-cost__v">15&ndash;25%</div><div class="ogb-cost__n">Of the fleet condition-monitored today</div></div>
+      <div class="ogb-cost__c"><div class="ogb-cost__v">75&ndash;85%</div><div class="ogb-cost__n">Balance of plant running to failure</div></div>
+    </div>
+
+    <div class="ogb-h">
+      <div class="ogb-h__k">05 / Proven in the field</div>
+      <h2>Trusted on <em>mission-critical operations.</em></h2>
+      <p>Deployed where being wrong is expensive — energy, nuclear, heavy industry and national infrastructure.</p>
+    </div>
+    <div class="ogb-field">
+      <div class="ogb-field__c"><span class="ogb-field__k">Oil &amp; gas</span><h4>Saudi Aramco</h4><p>Personnel safety, asset and tool tracking, machine vision and a control tower across offshore barges — zone-level visibility and live mustering.</p></div>
+      <div class="ogb-field__c"><span class="ogb-field__k">Nuclear</span><h4>ENEC</h4><p>Emirates Nuclear Energy Corporation — RTLS and RFID asset management, expanding to a control tower integrating 12+ systems.</p></div>
+      <div class="ogb-field__c"><span class="ogb-field__k">Ports &amp; terminals</span><h4>Abu Dhabi Ports</h4><p>Item-level visibility and map reporting across terminal operations, with automated capture into the back office.</p></div>
+      <div class="ogb-field__c"><span class="ogb-field__k">Government</span><h4>TASMU iCCC</h4><p>INNFINI proposed as the unified application layer for a national integrated command-and-control centre, bilingual and WCAG-compliant.</p></div>
+      <div class="ogb-field__c"><span class="ogb-field__k">Manufacturing</span><h4>RAK Ceramics</h4><p>ForkEye machine-vision and GPS pallet tracking with SAP integration, smart routing and AI-driven space optimisation.</p></div>
+      <div class="ogb-field__c"><span class="ogb-field__k">Healthcare</span><h4>Sultan Qaboos Cancer Hospital</h4><p>Asset and personnel tracking with real-time map visibility — the first cancer hospital in Oman.</p></div>
+    </div>
+
+    <div class="ogb-h">
+      <div class="ogb-h__k">06 / Enterprise-ready</div>
+      <h2>Open to integrate, <em>hardened by design.</em></h2>
+      <p>What an operations IT and OT security team asks about before anything else is connected to the control layer.</p>
+    </div>
+    <div class="ogb-ent">
+      <div>
+        <h4>Integration</h4>
+        <ul>
+          <li><b>5,000+ sensors</b> from leading providers already integrated</li>
+          <li>Industrial protocols — <b>OPC UA, Modbus, CAN bus, Profibus</b> — with no custom development</li>
+          <li>Back-office integration via a web-friendly <b>RESTful API</b>; EAM and SAP included</li>
+          <li>Technology-agnostic: connect Power BI, ArcGIS, notification services and any third-party system</li>
+          <li><b>INNFINI Flow</b> wires new sources together in a browser, deployed in one click</li>
+        </ul>
       </div>
-      <div class="ind__split-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-      <div class="ind__split-side ind__split-side--after">
-        <div class="ind__split-kv">With INNFINI</div>
-        <h3>Unified · AI-assisted · audited</h3>
-        <ul class="ind__split-list"><li>AI-grouped + prioritized alarms</li><li>SCADA ↔ EAM bridge</li><li>Geo-fenced lone-worker safety</li><li>Predictive failure forecasts</li><li>Auto-generated regulator reports</li></ul>
+      <div>
+        <h4>Security &amp; deployment</h4>
+        <ul>
+          <li><b>AES-256</b> for data at rest; <b>ECC / TLS</b> for data in motion</li>
+          <li>IAM with role-based access control, token-based access and two-factor authentication</li>
+          <li>Standards-based <b>(OWASP)</b> vulnerability testing</li>
+          <li>Container-based architecture <b>(Docker / Kubernetes)</b> for portability and scale</li>
+          <li>Cloud, private, on-prem or <b>air-gapped</b> — same platform, customer-managed keys</li>
+        </ul>
       </div>
     </div>
-
-    <div class="ind__section-head ind__section-head--center">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 02 · Solution aware</div>
-      <h2 class="section-title">Measured. <em style="font-style:normal;color:#7dd3fc">Operational.</em></h2>
-    </div>
-    <div class="ind__kpis"><article class="ind__kpi"><div class="ind__kpi-val">1,240</div><div class="ind__kpi-name">PSI tracked</div><div class="ind__kpi-desc">Per pipeline · real-time</div></article><article class="ind__kpi"><div class="ind__kpi-val"><5ms</div><div class="ind__kpi-name">Rule eval</div><div class="ind__kpi-desc">Per SCADA event</div></article><article class="ind__kpi"><div class="ind__kpi-val">5-step</div><div class="ind__kpi-name">Runbook</div><div class="ind__kpi-desc">Auto-attached on alarm</div></article><article class="ind__kpi"><div class="ind__kpi-val">100%</div><div class="ind__kpi-name">Audit traceable</div><div class="ind__kpi-desc">Regulator-ready</div></article></div>
-
-    <div class="ind__section-head ind__section-head--center">
-      
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 03 · Vendor aware</div>
-      <h2 class="section-title">Why <em style="font-style:normal;color:var(--accent,#7dd3fc)">Innovent</em>.</h2>
-    </div>
-    <div class="ind__cases" style="margin-bottom:80px;">
-      <article class="ind__case"><div class="ind__case-kv">Built for ops</div><h4>One platform · not a stitched suite</h4><p>Identity, data, AI, observability and compliance — engineered in-house and operated end-to-end by Innovent.</p><ul><li>38+ native services</li><li>One audit ledger</li><li>One operator workbench</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Human-governed AI</div><h4>AI proposes · operator approves</h4><p>Every recommendation is cited, every approval is logged, every action is reversible. Compliance &amp; audit by design — not after the fact.</p><ul><li>Cited reasoning</li><li>Tiered approvals</li><li>100% audit traceable</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Sovereign-ready</div><h4>Cloud · private · on-prem · air-gapped</h4><p>Same platform across deployment models. Customer-managed keys, sovereign data residency, FIPS-aligned crypto.</p><ul><li>Customer KMS</li><li>Air-gap supported</li><li>FIPS · ISO · NIA</li></ul></article>
-    </div>
-
-    <div class="eyebrow">// Where it runs</div>
-      <h2 class="section-title">Where it runs.</h2>
-    </div>
-    <div class="ind__cases"><article class="ind__case"><div class="ind__case-kv">01 · Pipelines</div><h4>Pipeline pressure anomalies</h4><p>SCADA + sensor fusion catches anomalies; runbook auto-attaches and dispatches field crew.</p><ul><li>Pressure / flow / temp</li><li>Valve telemetry</li><li>Auto runbook</li></ul></article><article class="ind__case"><div class="ind__case-kv">02 · Safety</div><h4>Lone-worker safety</h4><p>Geo-fenced zones, panic buttons, automatic check-in escalation across radio + SMS.</p><ul><li>Geo-fence safety</li><li>Check-in workflow</li><li>Auto escalation</li></ul></article><article class="ind__case"><div class="ind__case-kv">03 · PdM</div><h4>Predictive maintenance</h4><p>Vibration, heat and cycle-count models predict pump and compressor failure before downtime.</p><ul><li>Pump / compressor</li><li>Auto WO</li><li>Parts pre-order</li></ul></article></div>
 
     <div class="ind__close">
       <div class="eyebrow" style="color:#7dd3fc">// In summary</div>
       <h3>INNFINI helps oil &amp; gas operators turn SCADA noise into <em>guided, auditable response across pipelines, refineries and fields.</em></h3>
     </div>
-
   </div>
 </section>
 
