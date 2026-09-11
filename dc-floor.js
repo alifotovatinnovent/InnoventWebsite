@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+  var MONO = 'var(--font-mono, ui-monospace, monospace)';
 
   /* four cabinet rows, 12 cabinets each; temp in °C at the inlet */
   var ROWS = [

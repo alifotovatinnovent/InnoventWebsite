@@ -8,7 +8,7 @@
    ───────────────────────────────────────────────────────────── */
 (function () {
   'use strict';
-  var MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+  var MONO = 'var(--font-mono, ui-monospace, monospace)';
   var W = 640, H = 480;
   var PAD = 34, GUTTER = 26;           // gutter reserved for labels
 

@@ -59,7 +59,7 @@
 .sa-block      { fill: rgba(59,130,246,0.04); stroke: rgba(125,211,252,0.08); stroke-width: 0.4; }
 .sa-geofence   { fill: rgba(167,139,250,0.08); stroke: #c4b5fd; stroke-width: 1; stroke-dasharray: 4 4; }
 .sa-route      { stroke: rgba(110,231,183,0.6); stroke-width: 1.4; fill: none; stroke-dasharray: 2 3; }
-.sa-text       { font-family: ui-monospace, Menlo, monospace; font-size: 8.5px; fill: rgba(203,213,225,0.62); letter-spacing: 0.12em; text-transform: uppercase; }
+.sa-text       { font-family: var(--font-mono); font-size: 8.5px; fill: rgba(203,213,225,0.62); letter-spacing: 0.12em; text-transform: uppercase; }
 .sa-text--em   { fill: #93c5fd; }
 
 /* Main dashboard mockup */
@@ -84,9 +84,9 @@
 .sa__incident-sev--c { color: #fda4af; background: rgba(244,114,182,0.15); }
 .sa__incident-sev--h { color: #fcd34d; background: rgba(234,179,8,0.16); }
 .sa__incident-sev--m { color: #93c5fd; background: rgba(59,130,246,0.16); }
-.sa__incident-loc { font-family: ui-monospace, Menlo, monospace; font-size: 10px; color: var(--ink-70); }
+.sa__incident-loc { font-family: var(--font-mono); font-size: 10px; color: var(--ink-70); }
 .sa__incident h5 { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink-100); margin: 0 0 6px; line-height: 1.25; letter-spacing: -0.005em; }
-.sa__incident-meta { display: flex; gap: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 9.5px; color: var(--ink-70); }
+.sa__incident-meta { display: flex; gap: 10px; font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-70); }
 .sa__incident-meta b { color: var(--ink-100); font-weight: 500; }
 .sa__db-timeline { padding: 14px 18px; border-top: 1px solid var(--hair); background: rgba(255,255,255,0.015); display: flex; align-items: center; gap: 14px; }
 .sa__tl-k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--ink-70); }
@@ -97,7 +97,7 @@
 .sa__tl-tick--h { background: #fcd34d; box-shadow: 0 0 6px #fcd34d; }
 .sa__tl-tick--m { background: #93c5fd; }
 .sa__tl-head { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 2px; height: 18px; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-.sa__tl-label { font-family: ui-monospace, Menlo, monospace; font-size: 10px; color: var(--ink-70); white-space: nowrap; }
+.sa__tl-label { font-family: var(--font-mono); font-size: 10px; color: var(--ink-70); white-space: nowrap; }
 
 /* Section heads */
 .sa__section-head { margin: 0 0 48px; max-width: 880px; }

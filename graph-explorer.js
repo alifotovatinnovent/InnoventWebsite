@@ -9,7 +9,7 @@
    ───────────────────────────────────────────────────────────── */
 (function () {
   'use strict';
-  var MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+  var MONO = 'var(--font-mono, ui-monospace, monospace)';
   var NET = '#7dd3fc', OK = '#6ee7b7', AI = '#c4b5fd', WARN = '#fbbf24', CRIT = '#fb7185';
   var INK = 'rgba(230,240,251,0.92)', INK3 = 'rgba(113,133,158,0.85)';
 

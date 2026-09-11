@@ -4,7 +4,7 @@
    Type: Sora (display) + Inter (body) — modern American tech voice
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -57,8 +57,17 @@ body {
 .section--deep { background: var(--bg-deep); }
 .divider { border: 0; height: 1px; background: var(--hair); margin: 0; }
 
+/* Form controls do not inherit font-family from the page — the UA supplies its
+   own (Arial on most platforms). Without this, any button that does not set a
+   font itself renders off-system: the mobile nav toggles and the cookie-banner
+   close button did exactly that on every page. */
+button, input, select, textarea, optgroup { font-family: inherit; }
+
 /* ─── Type ───────────────────────────────────────────────── */
 h1, h2, h3, h4, .display { font-family: var(--font-display); color: var(--ink-100); margin: 0; font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; }
+/* h5/h6 take the display family only — not the h1-h4 margin/weight/leading
+   resets, which would move layout on pages that rely on the UA defaults */
+h5, h6 { font-family: var(--font-display); }
 h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 600; }
 h2 { font-size: clamp(32px, 4.2vw, 52px); font-weight: 500; }
 h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; }
@@ -698,7 +707,7 @@ p { margin: 0; }
   --bg-1: #0a1224;
 }
 /* Consistent eyebrow style on every page */
-.eyebrow { font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
 /* Buttons · Stripe-style */
 .btn {
   font-family: var(--font-display);

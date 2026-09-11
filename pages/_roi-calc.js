@@ -448,7 +448,7 @@
                   <line x1="40" y1="100" x2="580" y2="100" stroke-dasharray="2 4" stroke="rgba(255,255,255,0.12)"/>
                   <line x1="40" y1="160" x2="580" y2="160"/>
                 </g>
-                <g font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-60)" letter-spacing="0.05em">
+                <g font-family="var(--font-mono)" font-size="9" fill="var(--ink-60)" letter-spacing="0.05em">
                   <text x="34" y="44" text-anchor="end" data-out="y-top">+$30M</text>
                   <text x="34" y="104" text-anchor="end">$0</text>
                   <text x="34" y="164" text-anchor="end" data-out="y-bot">−$10M</text>
@@ -456,7 +456,7 @@
                   <text x="310" y="200" text-anchor="middle">M18</text>
                   <text x="580" y="200" text-anchor="end">M36</text>
                 </g>
-                <text data-out="break-label" x="0" y="0" font-family="JetBrains Mono, monospace" font-size="9" fill="#FBBF24" letter-spacing="0.05em" style="display:none">PAYBACK</text>
+                <text data-out="break-label" x="0" y="0" font-family="var(--font-mono)" font-size="9" fill="#FBBF24" letter-spacing="0.05em" style="display:none">PAYBACK</text>
                 <line data-out="break-line" x1="0" y1="40" x2="0" y2="160" stroke="#FBBF24" stroke-width="1" stroke-dasharray="2 3" opacity="0"/>
                 <path class="roi-i__chart-fill" data-out="curve-fill" d="" fill="url(#roi-i-fill-${key})"/>
                 <path class="roi-i__chart-line" data-out="curve-line" d="" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

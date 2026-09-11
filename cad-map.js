@@ -6,7 +6,7 @@
    ───────────────────────────────────────────────────────────── */
 (function () {
   'use strict';
-  var MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+  var MONO = 'var(--font-mono, ui-monospace, monospace)';
   var W = 900, H = 520;
   var PAD_L = 58, PAD_T = 40, PAD_R = 58, PAD_B = 50;
 

@@ -240,7 +240,7 @@
             '<animate attributeName="opacity" values="0.85;0;0.85" dur="2.6s" repeatCount="indefinite"/></circle>' +
           '<circle cx="' + mp[0] + '" cy="' + mp[1] + '" r="14" fill="' + al.color + '" opacity="0.14"/>' +
           '<circle cx="' + mp[0] + '" cy="' + mp[1] + '" r="4.6" fill="' + al.color + '" stroke="rgba(7,15,30,0.9)" stroke-width="1.1"/>' +
-          '<text x="' + mp[0] + '" y="' + (mp[1] - 12) + '" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="8" letter-spacing="0.12em" fill="' + al.color + '">' +
+          '<text x="' + mp[0] + '" y="' + (mp[1] - 12) + '" text-anchor="middle" font-family="var(--font-mono, ui-monospace, monospace)" font-size="8" letter-spacing="0.12em" fill="' + al.color + '">' +
             al.label + ' · ' + al.kind + '</text>' +
           '</g>';
       }
@@ -273,7 +273,7 @@
       '</line></g>';
 
     /* HUD */
-    var MONO = 'ui-monospace, Menlo, monospace';
+    var MONO = 'var(--font-mono, ui-monospace, monospace)';
     function hud(x, y, t, o) {
       o = o || {};
       return '<text x="' + x + '" y="' + y + '" font-family="' + MONO + '" font-size="' + (o.size || 9) +

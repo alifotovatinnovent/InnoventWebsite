@@ -169,7 +169,7 @@
   border: 1px solid var(--pin-color, #7dd3fc);
   border-radius: 8px;
   box-shadow: 0 12px 30px -10px rgba(0,0,0,0.7);
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   min-width: 140px;
 }
 .pt__bld-badge::before {
@@ -185,13 +185,13 @@
 .pt__bld-header {
   position: absolute; top: 18px; right: 22px; z-index: 5;
   padding: 8px 14px; background: rgba(8,13,24,0.88); border: 1px solid rgba(125,211,252,0.3); border-radius: 8px;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
 }
 .pt__bld-header .kv { font-size: 9.5px; letter-spacing: 0.18em; color: #93c5fd; text-transform: uppercase; }
 .pt__bld-header .sub { display: block; font-size: 9px; color: #94a3b8; margin-top: 4px; letter-spacing: 0.04em; }
 .pt__bld-footer {
   position: absolute; bottom: 18px; left: 24px; z-index: 5;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   background: rgba(8,13,24,0.78);
   border: 1px solid rgba(125,211,252,0.2);
   border-radius: 8px;

@@ -101,17 +101,17 @@
 .cco__city .alert-ring--e { animation-delay: 1.8s; }
 .cco__city .alert-ring--f { animation-delay: 2.1s; }
 @keyframes cco-ring { 0%{transform:scale(0.5);opacity:0.9;} 100%{transform:scale(4.5);opacity:0;} }
-.cco__city .alert-tag { font-family: ui-monospace, Menlo, monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; fill: #cbd5e1; }
+.cco__city .alert-tag { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; fill: #cbd5e1; }
 .cco__city .alert-tag--em { fill: var(--alert-c, #fda4af); font-weight: 600; }
 .cco__city .badge       { fill: rgba(8,13,24,0.94); stroke-width: 1; }
-.cco__city .badge-text  { font-family: ui-monospace, Menlo, monospace; font-size: 8.5px; fill: #cbd5e1; letter-spacing: 0.04em; }
-.cco__city .badge-kv    { font-family: ui-monospace, Menlo, monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; }
+.cco__city .badge-text  { font-family: var(--font-mono); font-size: 8.5px; fill: #cbd5e1; letter-spacing: 0.04em; }
+.cco__city .badge-kv    { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; }
 .cco__city .leader      { stroke: rgba(125,211,252,0.4); stroke-width: 0.8; fill: none; }
 .cco__city .stat-card   { fill: rgba(8,13,24,0.92); stroke: rgba(125,211,252,0.3); stroke-width: 0.8; }
-.cco__city .stat-k      { font-family: ui-monospace, Menlo, monospace; font-size: 7.5px; letter-spacing: 0.14em; text-transform: uppercase; fill: #94a3b8; }
+.cco__city .stat-k      { font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 0.14em; text-transform: uppercase; fill: #94a3b8; }
 .cco__city .stat-v      { font-family: var(--font-display); font-size: 16px; font-weight: 600; fill: #f1f5f9; letter-spacing: -0.01em; }
 .cco__city .stat-v--alert { fill: #fda4af; }
-.cco__city .header-pill { font-family: ui-monospace, Menlo, monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; fill: #93c5fd; }
+.cco__city .header-pill { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; fill: #93c5fd; }
 @media (prefers-reduced-motion: reduce) { .cco__city .alert-ring { animation: none !important; } }
 
 /* ── Impact-map panel · live digital twin ── */

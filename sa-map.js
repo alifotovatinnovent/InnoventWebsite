@@ -8,7 +8,7 @@
 
   var ATLAS = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-10m.json';
   var BBOX = { w: 54.88, s: 24.92, e: 55.62, n: 25.46 };
-  var MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+  var MONO = 'var(--font-mono, ui-monospace, monospace)';
 
   /* ── Operating picture (real coordinates) ── */
   var COMMAND = { lon: 55.3300, lat: 25.2600, name: 'OPS-1 · COMMAND' };
