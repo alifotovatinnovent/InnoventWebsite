@@ -24,7 +24,416 @@
 <link rel="stylesheet" href="../styles-industries.css?v=20260911a">
 <link rel="stylesheet" href="_page.css?v=20260911a"><link rel="stylesheet" href="_casestudy.css?v=20260911a">
 <link rel="stylesheet" href="_roi-calc.css?v=20260911a">
-<style>:root,.ind{--accent:#7dd3fc;--accent-border:rgba(125,211,252,0.45);--accent-bg:rgba(125,211,252,0.04);--accent-glow:rgba(125,211,252,0.10);}</style>
+<style>:root,.ind{--accent:#7dd3fc;--accent-border:rgba(125,211,252,0.45);--accent-bg:rgba(125,211,252,0.04);--accent-glow:rgba(125,211,252,0.10);}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RETAIL HERO — the item chain, one tag from factory to sale
+   The deck's central idea is that a single tagged item is readable at every
+   stage, so the hero follows one item down the chain: commissioned at the
+   factory, verified through the warehouse, counted and sold in the store,
+   with replenishment looping back the moment it goes critical.
+   Each process lights at the instant the item reaches it, so the reads look
+   caused by the item's progress rather than looping on their own.
+   Page-local. styles-industries.css is shared with thirteen other ind- pages
+   and is not touched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.rtl {
+  --sky: #7dd3fc; --mint: #a7f3d0; --warn: #fb7185; --amber: #fcd34d;
+  --hair2: rgba(125,211,252,0.16);
+  --cycle: 12s;
+  position: relative; width: 100%;
+  border: 1px solid var(--hair2); border-radius: 4px;
+  background: linear-gradient(180deg, rgba(8,13,24,0.94), rgba(6,10,18,0.99));
+  overflow: hidden;
+}
+.rtl__plate {
+  position: absolute; top: 13px; left: 13px; z-index: 7; max-width: 46%;
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 7px 10px; border: 1px solid var(--hair2); border-radius: 3px;
+  background: rgba(4,8,14,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+}
+.rtl__plate-k { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sky); font-weight: 500; display: flex; align-items: center; gap: 7px; }
+.rtl__plate-v { font-size: 9.5px; line-height: 1.4; letter-spacing: 0.04em; color: #94a3b8; }
+.rtl__live { width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
+  flex: 0 0 auto; animation: rtl-live 1.5s ease-in-out infinite; }
+@keyframes rtl-live { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.rtl__big { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: #f1f5f9; letter-spacing: -0.015em; line-height: 1; }
+
+/* ── the chain ──────────────────────────────────────────────────────────── */
+.rtl__chain { position: relative; padding: 74px 16px 16px; display: flex;
+  flex-direction: column; gap: 10px; }
+/* the spine the item travels, and the token that travels it */
+.rtl__spine { position: absolute; left: 34px; top: 96px; bottom: 92px; width: 1px;
+  background: linear-gradient(180deg, rgba(125,211,252,0.05), rgba(125,211,252,0.3) 12%,
+              rgba(125,211,252,0.3) 88%, rgba(125,211,252,0.05)); }
+.rtl__token { position: absolute; left: 34px; top: 96px; width: 9px; height: 9px;
+  margin-left: -4px; border-radius: 50%; background: #eaf8ff; opacity: 0;
+  box-shadow: 0 0 12px 3px rgba(125,211,252,0.85); z-index: 4;
+  animation: rtl-token var(--cycle) cubic-bezier(.5,0,.4,1) infinite; }
+/* the stops are the three zones; it waits at each while that zone reads it */
+@keyframes rtl-token {
+  0%    { top: 96px;  opacity: 0; }
+  3%    { top: 96px;  opacity: 1; }
+  17%   { top: 96px; }
+  22%   { top: 50%; }
+  34%   { top: 50%; }
+  42%   { top: calc(100% - 92px); }
+  62%   { top: calc(100% - 92px); opacity: 1; }
+  70%   { top: calc(100% - 92px); opacity: 0; }
+  100%  { top: calc(100% - 92px); opacity: 0; }
+}
+
+.rtl__zone { position: relative; padding: 12px 14px 13px 44px;
+  border: 1px solid var(--hair2); border-radius: 9px; background: rgba(8,13,24,0.55);
+  animation: rtl-zone var(--cycle) ease-out infinite; animation-delay: var(--d, 0s); }
+@keyframes rtl-zone {
+  0%, 2%   { border-color: var(--hair2); background: rgba(8,13,24,0.55); }
+  6%       { border-color: rgba(125,211,252,0.5); background: rgba(12,24,40,0.8); }
+  22%      { border-color: rgba(125,211,252,0.26); background: rgba(10,18,32,0.65); }
+  72%,100% { border-color: var(--hair2); background: rgba(8,13,24,0.55); }
+}
+/* the read point where the spine meets each zone */
+.rtl__zone::before {
+  content: ""; position: absolute; left: -10px; top: 22px; width: 9px; height: 9px;
+  border-radius: 50%; background: #050a12; border: 1px solid rgba(125,211,252,0.4);
+  animation: rtl-read var(--cycle) ease-out infinite; animation-delay: var(--d, 0s);
+}
+@keyframes rtl-read {
+  0%, 2%   { background: #050a12; transform: scale(1); }
+  6%       { background: #eaf8ff; transform: scale(1.7); }
+  12%      { background: var(--mint); transform: scale(1); }
+  72%      { background: var(--mint); }
+  80%,100% { background: #050a12; }
+}
+.rtl__zk { display: flex; align-items: baseline; gap: 9px; margin-bottom: 9px; }
+.rtl__zn { font-family: var(--font-display); font-size: 14.5px; font-weight: 600;
+  color: var(--ink-100); letter-spacing: -0.01em; }
+.rtl__zt { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--sky); }
+.rtl__zr { margin-left: auto; font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-60); }
+/* the processes each zone runs, lit one after another as the item is worked */
+.rtl__ps { display: flex; flex-wrap: wrap; gap: 5px; }
+.rtl__p { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.06em;
+  color: var(--ink-70); border: 1px solid rgba(125,211,252,0.12); border-radius: 2px;
+  padding: 3px 6px; background: rgba(4,8,14,0.5);
+  animation: rtl-p var(--cycle) ease-out infinite; animation-delay: var(--d, 0s); }
+@keyframes rtl-p {
+  0%, 1%   { color: var(--ink-70); border-color: rgba(125,211,252,0.12); }
+  4%       { color: #eaf8ff; border-color: rgba(167,243,208,0.6); }
+  9%       { color: var(--mint); border-color: rgba(167,243,208,0.3); }
+  70%      { color: var(--mint); border-color: rgba(167,243,208,0.22); }
+  78%,100% { color: var(--ink-70); border-color: rgba(125,211,252,0.12); }
+}
+
+/* ── what the store finds, and the replenishment it triggers ─────────────── */
+.rtl__oos { position: absolute; right: 16px; bottom: 96px; z-index: 5;
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--warn); border: 1px solid rgba(251,113,133,0.45);
+  border-radius: 2px; padding: 4px 7px; background: rgba(4,8,14,0.92); opacity: 0;
+  animation: rtl-oos var(--cycle) ease-out infinite; }
+@keyframes rtl-oos {
+  0%, 56%  { opacity: 0; transform: scale(0.96); }
+  60%      { opacity: 1; transform: scale(1); }
+  78%      { opacity: 1; }
+  84%,100% { opacity: 0; }
+}
+/* the loop back to the DC — drawn right of the chain, travelling upward */
+.rtl__loop { position: absolute; right: 22px; top: 118px; bottom: 96px; width: 26px;
+  border: 1px solid rgba(252,211,77,0.32); border-left: 0;
+  border-radius: 0 12px 12px 0; opacity: 0; z-index: 3;
+  animation: rtl-loop var(--cycle) ease-out infinite; }
+@keyframes rtl-loop {
+  0%, 60%  { opacity: 0; }
+  65%      { opacity: 1; }
+  82%      { opacity: 1; }
+  88%,100% { opacity: 0; }
+}
+.rtl__back { position: absolute; right: 22px; width: 7px; height: 7px; margin-right: -3.5px;
+  border-radius: 50%; background: var(--amber); opacity: 0; z-index: 4;
+  box-shadow: 0 0 10px 2px rgba(252,211,77,0.7);
+  animation: rtl-back var(--cycle) cubic-bezier(.4,0,.5,1) infinite; }
+@keyframes rtl-back {
+  0%, 62%  { bottom: 96px;  opacity: 0; }
+  66%      { bottom: 96px;  opacity: 1; }
+  80%      { bottom: calc(100% - 126px); opacity: 1; }
+  86%,100% { bottom: calc(100% - 126px); opacity: 0; }
+}
+.rtl__rep { position: absolute; right: 16px; top: 100px; z-index: 5;
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--amber); border: 1px solid rgba(252,211,77,0.45);
+  border-radius: 2px; padding: 4px 7px; background: rgba(4,8,14,0.92); opacity: 0;
+  animation: rtl-rep var(--cycle) ease-out infinite; }
+@keyframes rtl-rep {
+  0%, 76%  { opacity: 0; transform: scale(0.96); }
+  81%      { opacity: 1; transform: scale(1); }
+  90%      { opacity: 1; }
+  95%,100% { opacity: 0; }
+}
+
+/* ── strip ──────────────────────────────────────────────────────────────── */
+.rtl__strip {
+  position: relative; z-index: 6; margin: 4px 11px 11px;
+  border: 1px solid var(--hair2); border-radius: 3px; background: rgba(4,8,14,0.92);
+  padding: 8px 11px 9px; font-family: var(--font-mono);
+}
+.rtl__strip-h { display: flex; justify-content: space-between; gap: 10px; font-size: 7.5px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #64748b;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(125,211,252,0.1); margin-bottom: 9px; }
+.rtl__flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; position: relative; }
+.rtl__rail { position: absolute; left: 8.33%; right: 8.33%; top: 4px; height: 1px;
+  background: rgba(125,211,252,0.16); }
+.rtl__rail::after {
+  content: ""; position: absolute; top: -3px; left: 0; width: 7px; height: 7px; margin-left: -3px;
+  border-radius: 50%; background: #eaf8ff; box-shadow: 0 0 11px 3px rgba(125,211,252,0.85);
+  animation: rtl-tok var(--cycle) linear infinite;
+}
+@keyframes rtl-tok {
+  0%    { left: 0%;   opacity: 0; }
+  3%    { left: 0%;   opacity: 1; }
+  6%    { left: 0%; }
+  14%   { left: 20%; }
+  23%   { left: 40%; }
+  34%   { left: 60%; }
+  46%   { left: 80%; }
+  58%   { left: 100%; }
+  88%   { left: 100%; opacity: 1; }
+  100%  { left: 100%; opacity: 0; }
+}
+.rtl__node { position: relative; text-align: center; }
+.rtl__node i { display: block; width: 7px; height: 7px; margin: 0 auto 9px; border-radius: 50%;
+  background: #050a12; border: 1px solid rgba(125,211,252,0.3);
+  animation: rtl-node var(--cycle) linear infinite; }
+@keyframes rtl-node {
+  0%, 10%  { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  13%,100% { background: #050a12; border-color: rgba(125,211,252,0.3); }
+}
+.rtl__node span { display: block; font-size: 7px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #64748b; animation: rtl-nodetext var(--cycle) linear infinite; }
+@keyframes rtl-nodetext { 0%,10% { color: #cbd5e1; } 13%,100% { color: #64748b; } }
+
+@media (max-width: 560px) {
+  .rtl__plate { position: static; max-width: none; margin: 11px 11px 0; }
+  .rtl__chain { padding-top: 14px; }
+  .rtl__spine, .rtl__token, .rtl__loop, .rtl__back { display: none; }
+  .rtl__zone { padding-left: 14px; }
+  .rtl__zone::before { display: none; }
+  .rtl__oos, .rtl__rep { position: static; display: inline-block; margin: 8px 0 0; }
+  .rtl__strip-h span + span { display: none; }
+  .rtl__flow { grid-template-columns: repeat(3, 1fr); gap: 12px 0; }
+  .rtl__rail { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rtl__token, .rtl__back { display: none; }
+  .rtl__zone, .rtl__zone::before, .rtl__p, .rtl__oos, .rtl__loop, .rtl__rep,
+  .rtl__rail::after, .rtl__node i, .rtl__node span, .rtl__live { animation: none !important; }
+  .rtl__zone::before { background: var(--mint); }
+  .rtl__p { color: var(--mint); border-color: rgba(167,243,208,0.28); }
+  .rtl__oos, .rtl__rep, .rtl__loop { opacity: 1; }
+  .rtl__node i { background: rgba(125,211,252,0.9); border-color: rgba(125,211,252,0.9); }
+  .rtl__node span { color: #cbd5e1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RETAIL — page sections
+   Page-local. styles-industries.css is shared with thirteen other ind- pages and
+   is not touched.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.rtb-h { margin: 0 0 40px; max-width: 880px; }
+.rtb-h__k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); padding-top: 13px;
+  border-top: 1px solid var(--accent); display: inline-block; margin-bottom: 22px; }
+.rtb-h h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 600; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-100);
+  margin: 0 0 16px; text-wrap: balance; }
+.rtb-h h2 em { font-style: normal; color: var(--accent); }
+.rtb-h p { font-size: 16px; line-height: 1.6; color: var(--ink-70); margin: 0; max-width: 68ch; }
+
+/* ── the four gaps ──────────────────────────────────────────────────────── */
+.rtb-gaps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.rtb-gap { padding: 28px 24px 30px; border-right: 1px solid var(--hair); }
+.rtb-gap:last-child { border-right: 0; }
+.rtb-gap h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.rtb-gap p { font-size: 13.5px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.rtb-gap__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.2em;
+  color: var(--ink-70); display: block; margin-bottom: 14px; }
+
+/* ── the five solutions ─────────────────────────────────────────────────── */
+.rtb-sol { border-top: 1px solid var(--hair); padding: 46px 0; display: grid;
+  grid-template-columns: 62px minmax(0,1fr) minmax(0,0.92fr); gap: 0 44px; align-items: start; }
+.rtb-sol:last-of-type { border-bottom: 1px solid var(--hair); }
+.rtb-sol__n { font-family: var(--font-display); font-size: 30px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.03em; color: transparent;
+  -webkit-text-stroke: 1px rgba(125,211,252,0.5); }
+.rtb-sol__t { font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+.rtb-sol__d { font-size: 14.5px; line-height: 1.6; color: var(--ink-70); margin: 0 0 18px; }
+.rtb-sol__kv { border-top: 1px solid var(--hair); }
+.rtb-sol__r { display: grid; grid-template-columns: 108px minmax(0,1fr); gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.055); font-size: 13px; line-height: 1.5; }
+.rtb-sol__r:last-child { border-bottom: 0; }
+.rtb-sol__r dt { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); margin: 0; padding-top: 3px; }
+.rtb-sol__r dd { margin: 0; color: var(--ink-80); }
+/* the solutions carry a short aside rather than a screenshot — the product
+   screens in the deck contain live customer data and are not published here */
+.rtb-sol__aside { border: 1px solid var(--hair); border-radius: 3px; padding: 18px 18px 20px;
+  background: rgba(125,211,252,0.028); align-self: start; }
+.rtb-sol__aside-k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.rtb-sol__aside p { font-size: 13.5px; line-height: 1.6; color: var(--ink-80); margin: 0; }
+.rtb-sol__chips { display: flex; flex-wrap: wrap; gap: 0 14px; margin-top: 16px; }
+.rtb-sol__chips span { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-70); }
+.rtb-sol__chips span + span { padding-left: 14px; border-left: 1px solid var(--hair); }
+
+/* ── the platform beneath ───────────────────────────────────────────────── */
+.rtb-plat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 28px; }
+.rtb-plat__c { padding: 30px 26px 32px; border-right: 1px solid var(--hair); }
+.rtb-plat__c:last-child { border-right: 0; }
+.rtb-plat__k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.rtb-plat__c h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 12px; line-height: 1.25; letter-spacing: -0.008em; }
+.rtb-plat__c p { font-family: var(--font-mono); font-size: 11px; line-height: 1.75;
+  color: var(--ink-70); margin: 0; }
+.rtb-plat__foot { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  color: var(--ink-70); text-align: center; padding: 14px 16px; border: 1px solid var(--hair);
+  border-top: 0; margin-bottom: 120px; }
+
+/* ── outcome figures ────────────────────────────────────────────────────── */
+.rtb-out { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-bottom: 30px; }
+.rtb-out__c { padding: 30px 24px; border-right: 1px solid var(--hair); }
+.rtb-out__c:last-child { border-right: 0; }
+.rtb-out__v { font-family: var(--font-display); font-size: 42px; font-weight: 600;
+  line-height: 1; letter-spacing: -0.035em; color: var(--ink-100); margin-bottom: 12px; }
+.rtb-out__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.rtb-out__d { font-size: 13px; line-height: 1.5; color: var(--ink-70); margin: 0; }
+.rtb-cost { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid rgba(251,191,36,0.28); background: rgba(251,191,36,0.04);
+  margin-bottom: 120px; }
+.rtb-cost__c { padding: 22px 24px; border-right: 1px solid rgba(251,191,36,0.2); }
+.rtb-cost__c:last-child { border-right: 0; }
+.rtb-cost__v { font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  color: #fbbf24; letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+.rtb-cost__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-70); }
+
+/* ── field proof ────────────────────────────────────────────────────────── */
+.rtb-field { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.rtb-field__c { padding: 26px 24px 28px; border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair); }
+.rtb-field__c:nth-child(3n) { border-right: 0; }
+.rtb-field__c:nth-last-child(-n+3) { border-bottom: 0; }
+.rtb-field__c h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 10px; letter-spacing: -0.005em; }
+.rtb-field__c p { font-size: 13px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.rtb-field__k { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 12px; }
+
+/* ── enterprise-ready two-column list ───────────────────────────────────── */
+.rtb-ent { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; margin-bottom: 110px; }
+.rtb-ent h4 { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 6px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--hair); }
+.rtb-ent ul { list-style: none; padding: 0; margin: 0; }
+.rtb-ent li { font-size: 13.5px; line-height: 1.55; color: var(--ink-70);
+  padding: 12px 0 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.055); position: relative; }
+.rtb-ent li:last-child { border-bottom: 0; }
+.rtb-ent li::before { content: "›"; position: absolute; left: 0; top: 12px; color: var(--accent); }
+.rtb-ent li b { color: var(--ink-100); font-weight: 600; }
+
+@media (max-width: 1080px) {
+  .rtb-gaps { grid-template-columns: 1fr 1fr; }
+  .rtb-gap:nth-child(2n) { border-right: 0; }
+  .rtb-gap:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .rtb-sol { grid-template-columns: 44px minmax(0,1fr); gap: 0 26px; }
+  .rtb-sol__aside { grid-column: 2; margin-top: 24px; }
+  .rtb-plat { grid-template-columns: 1fr; }
+  .rtb-plat__c { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .rtb-plat__c:last-child { border-bottom: 0; }
+  .rtb-out { grid-template-columns: 1fr 1fr; }
+  .rtb-out__c:nth-child(2n) { border-right: 0; }
+  .rtb-out__c:nth-child(-n+2) { border-bottom: 1px solid var(--hair); }
+  .rtb-field { grid-template-columns: 1fr 1fr; }
+  .rtb-field__c:nth-child(3n) { border-right: 1px solid var(--hair); }
+  .rtb-field__c:nth-child(2n) { border-right: 0; }
+  .rtb-field__c:nth-last-child(-n+3) { border-bottom: 1px solid var(--hair); }
+  .rtb-field__c:last-child { border-bottom: 0; }
+  .rtb-ent { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 680px) {
+  .rtb-gaps, .rtb-out, .rtb-cost, .rtb-field { grid-template-columns: 1fr; }
+  .rtb-gap, .rtb-out__c, .rtb-cost__c, .rtb-field__c {
+    border-right: 0 !important; border-bottom: 1px solid var(--hair) !important; }
+  .rtb-gap:last-child, .rtb-out__c:last-child, .rtb-cost__c:last-child,
+  .rtb-field__c:last-child { border-bottom: 0 !important; }
+  .rtb-sol { grid-template-columns: 1fr; gap: 0; padding: 34px 0; }
+  .rtb-sol__n { margin-bottom: 12px; }
+  .rtb-sol__aside { grid-column: 1; }
+  .rtb-sol__r { grid-template-columns: 1fr; gap: 4px; }
+  .rtb-gaps, .rtb-plat__foot, .rtb-cost, .rtb-field, .rtb-ent { margin-bottom: 74px; }
+}
+
+/* ── the item chain: three stages, equal weight ─────────────────────────── */
+.rtb-chain { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); }
+.rtb-chain__c { padding: 28px 26px 30px; border-right: 1px solid var(--hair); }
+.rtb-chain__c:last-child { border-right: 0; }
+.rtb-chain__k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.rtb-chain__c h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--ink-100); margin: 0 0 14px; line-height: 1.25; letter-spacing: -0.008em; }
+.rtb-chain__c ul { list-style: none; padding: 0; margin: 0; }
+.rtb-chain__c li { font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
+  color: var(--ink-70); padding: 7px 0 7px 15px; position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.045); }
+.rtb-chain__c li:last-child { border-bottom: 0; }
+.rtb-chain__c li::before { content: "\203A"; position: absolute; left: 0; top: 7px;
+  color: var(--accent); }
+.rtb-chain__foot { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  color: var(--ink-70); text-align: center; padding: 14px 16px; border: 1px solid var(--hair);
+  border-top: 0; margin-bottom: 120px; }
+
+/* ── the three kinds of gap a count returns ─────────────────────────────── */
+.rtb-gap3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--hair); margin-bottom: 120px; }
+.rtb-gap3__c { padding: 22px 24px; border-right: 1px solid var(--hair); }
+.rtb-gap3__c:last-child { border-right: 0; }
+.rtb-gap3__v { font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  color: var(--ink-100); letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+.rtb-gap3__n { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-70); line-height: 1.5; }
+/* the one that needs someone to move today */
+.rtb-gap3__c--hot { background: rgba(251,113,133,0.05);
+  border-left: 1px solid rgba(251,113,133,0.3); }
+.rtb-gap3__c--hot .rtb-gap3__v { color: #fb7185; }
+
+@media (max-width: 1080px) {
+  .rtb-chain { grid-template-columns: 1fr; }
+  .rtb-chain__c { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .rtb-chain__c:last-child { border-bottom: 0; }
+  .rtb-gap3 { grid-template-columns: 1fr; }
+  .rtb-gap3__c { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .rtb-gap3__c:last-child { border-bottom: 0; }
+  .rtb-gap3__c--hot { border-left: 0; }
+}
+@media (max-width: 680px) {
+  .rtb-chain__foot, .rtb-gap3 { margin-bottom: 74px; }
+}
+/* the chain sits in the shared hero's right-hand column, like every other
+   industry page */
+.ind .ind__hero .rtl { width: 100%; }
+</style>
 </head><body class="page" data-page="industries">
 <div id="site-nav"></div>
 <div class="cs-hero" style="padding:80px 0 24px;"><div class="cs-hero__inner"><div class="breadcrumb">
@@ -37,169 +446,277 @@
     <div class="ind__hero">
       <div class="ind__copy">
         <div class="eyebrow">// Industries · Retail</div>
-        <h2 class="ind__title">Retail <em>item-level RFID, loss prevention, omnichannel ops.</em></h2>
-        <p class="ind__lead">INNFINI helps retailers run <strong>item-level RFID, shrink and loss-prevention, replenishment AI and omnichannel fulfillment</strong> from one operational canvas — fused with POS, ERP, WMS and store-mobile.</p>
-        <div class="ind__sig"><div class="ind__sig-item"><div class="ind__sig-num">+1–3%</div><div class="ind__sig-lab">In-stock lift</div></div><div class="ind__sig-item"><div class="ind__sig-num">−34%</div><div class="ind__sig-lab">Shrink</div></div><div class="ind__sig-item"><div class="ind__sig-num">Omni</div><div class="ind__sig-lab">Channel</div></div></div>
-        <div class="ind__chips"><span class="ind__chip"><span class="ind__chip-dot"></span>RFID</span><span class="ind__chip"><span class="ind__chip-dot"></span>Shrink</span><span class="ind__chip"><span class="ind__chip-dot"></span>OOS</span><span class="ind__chip"><span class="ind__chip-dot"></span>Omni</span></div>
+        <h2 class="ind__title">Retail <em>one readable item, from the factory to the till.</em></h2>
+        <p class="ind__lead">A tag commissioned at source stays readable through distribution, receiving, the shop floor and the till. INNFINI turns that into <strong>item-level stock counts, back-to-front replenishment, display compliance and omni-channel fulfilment</strong> — in one mobile application, on <strong>barcode, RFID or both</strong>.</p>
+        <div class="ind__sig"><div class="ind__sig-item"><div class="ind__sig-num">99.4%</div><div class="ind__sig-lab">Item-count accuracy</div></div><div class="ind__sig-item"><div class="ind__sig-num">98.5%</div><div class="ind__sig-lab">Operational accuracy</div></div><div class="ind__sig-item"><div class="ind__sig-num">Offline</div><div class="ind__sig-lab">Point of sale &amp; exit</div></div></div>
+        <div class="ind__chips"><span class="ind__chip"><span class="ind__chip-dot"></span>Barcode</span><span class="ind__chip"><span class="ind__chip-dot"></span>RFID</span><span class="ind__chip"><span class="ind__chip-dot"></span>Hybrid</span><span class="ind__chip"><span class="ind__chip-dot"></span>Omni-channel</span></div>
       </div>
-      <div class="ind__panel">
-        <div class="ind__panel-bar">
-          <span class="ind__panel-dot" style="background:#ff5f57"></span>
-          <span class="ind__panel-dot" style="background:#febc2e"></span>
-          <span class="ind__panel-dot" style="background:#28c840"></span>
-          <span class="ind__panel-name">store ops · RFID · live</span>
-          <span class="ind__panel-pill">Live</span>
-        </div>
-        <div class="ind__mo rt-stage" style="aspect-ratio:4/3;width:100%;background:transparent;border:0;box-shadow:none;overflow:hidden;border-radius:14px;position:relative;">
-  <div style="position:absolute; inset:0; background: radial-gradient(50% 60% at 50% 50%, rgba(125,211,252,0.12) 0%, rgba(125,211,252,0) 80%); pointer-events:none;"></div>
-
-  <img src="../assets/product/retail-rack.png" alt="Retail apparel · RFID-tagged item-level inventory" style="position:absolute; inset:2% 22% 2% 22%; width:56%; height:96%; object-fit:contain; filter: brightness(1.02) contrast(1.05) saturate(1.0) drop-shadow(0 25px 45px rgba(0,0,0,0.40));"/ loading="lazy" decoding="async">
-
-  <!-- Sensor pulse markers on garments -->
-  <svg viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
-    <defs>
-      <style>.rt-mono-s { font-family: var(--font-mono); }</style>
-      <filter id="rt-pulse-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <g filter="url(#rt-pulse-glow)">
-      <g transform="translate(820,360)">
-        <circle r="7" fill="#7dd3fc"/>
-        <circle r="7" fill="none" stroke="#7dd3fc" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.2s" repeatCount="indefinite"/></circle>
-        <line x1="-7" y1="0" x2="-60" y2="-26" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="rt-mono-s" x="-66" y="-26" font-size="17" fill="#7dd3fc" font-weight="700" letter-spacing="0.10em" text-anchor="end">RFID · TAG OK</text>
-        <text class="rt-mono-s" x="-66" y="-8" font-size="13" fill="#cbd5e1" text-anchor="end">EPC 5A·14·22F</text>
-      </g>
-      <g transform="translate(940,560)">
-        <circle r="7" fill="#a7f3d0"/>
-        <circle r="7" fill="none" stroke="#a7f3d0" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="2.4s" begin="-0.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="2.4s" begin="-0.5s" repeatCount="indefinite"/></circle>
-        <line x1="7" y1="0" x2="60" y2="-26" stroke="#a7f3d0" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="rt-mono-s" x="66" y="-26" font-size="17" fill="#a7f3d0" font-weight="700" letter-spacing="0.10em">SKU 7204</text>
-        <text class="rt-mono-s" x="66" y="-8" font-size="13" fill="#cbd5e1">Coat · Beige · M</text>
-      </g>
-      <g transform="translate(800,800)">
-        <circle r="7" fill="#fcd34d"/>
-        <circle r="7" fill="none" stroke="#fcd34d" stroke-width="1.8"><animate attributeName="r" values="7;24" dur="1.8s" begin="-1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="1.8s" begin="-1s" repeatCount="indefinite"/></circle>
-        <line x1="-7" y1="0" x2="-60" y2="26" stroke="#fcd34d" stroke-width="1" stroke-dasharray="3 4"/>
-        <text class="rt-mono-s" x="-66" y="30" font-size="17" fill="#fcd34d" font-weight="700" letter-spacing="0.10em" text-anchor="end">PRICE · $148</text>
-        <text class="rt-mono-s" x="-66" y="48" font-size="13" fill="#cbd5e1" text-anchor="end">SELL-THRU 72%</text>
-      </g>
-    </g>
-  </svg>
-
-  <style>
-    .rt-w { position:absolute; padding:10px 12px; border:1px solid rgba(125,211,252,0.40); border-radius:8px; background: rgba(8,13,24,0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events:none; }
-    .rt-w .lbl { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #cbd5e1; }
-    .rt-w .v { font-family: var(--font-display); font-weight: 700; line-height: 1; letter-spacing: -0.01em; }
-    .rt-w .desc { font-family: var(--font-mono); font-size: 9.5px; color: #cbd5e1; line-height:1.4; }
-    .rt-w .dotlive { display:inline-block; width:5px; height:5px; border-radius:50%; background:#a7f3d0; box-shadow:0 0 6px #a7f3d0; margin-right:6px; vertical-align:middle; animation: rt-pulse 1.4s ease-in-out infinite; }
-    @keyframes rt-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .rt-w.tl { top:6%; left:4%; width:182px; }
-    .rt-w.tr { top:6%; right:4%; width:182px; }
-    .rt-w.bl { bottom:6%; left:4%; width:182px; }
-    .rt-w.br { bottom:6%; right:4%; width:182px; }
-
-    @media (max-width: 720px) {
-      .rt-w { padding: 7px 9px; }
-      .rt-w.tl, .rt-w.bl, .rt-w.tr, .rt-w.br { width:148px; }
-      .rt-w .lbl { font-size: 8px; }
-      .rt-w .desc { font-size: 9px; }
-    }
-  </style>
-
-  <!-- Top-left: Stock count -->
-  <div class="rt-w tl">
-    <div class="lbl"><span class="dotlive"></span>STOCK · LIVE</div>
-    <div class="v" style="font-size:18px; color:#7dd3fc; margin-top:6px;">12,840 <span class="desc" style="font-weight:400;">units</span></div>
-    <div class="desc">42 SKUs · 6 categories</div>
-    <div class="desc" style="color:#a7f3d0;">RFID accuracy · 99.4%</div>
+      <div class="rtl" aria-hidden="true">
+  <div class="rtl__plate">
+    <div class="rtl__plate-k"><span class="rtl__live"></span>Cycle count · live</div>
+    <div class="rtl__big">43,221</div>
+    <div class="rtl__plate-v">Items read · 45,674 on hand</div>
   </div>
 
-  <!-- Top-right: Sell-through -->
-  <div class="rt-w tr" style="border-color: rgba(167,243,208,0.45);">
-    <div class="lbl">SELL-THROUGH</div>
-    <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-      <svg viewBox="0 0 60 60" width="44" height="44" style="flex-shrink:0;">
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="rgba(125,211,252,0.20)" stroke-width="5" stroke-linecap="round"/>
-        <path d="M 10 44 A 22 22 0 1 1 50 44" pathLength="100" fill="none" stroke="#a7f3d0" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100"><animate attributeName="stroke-dasharray" values="0 100;72 100" dur="2.2s" fill="freeze"/></path>
-        <text x="30" y="36" text-anchor="middle" font-family="var(--font-display)" font-size="13" font-weight="700" fill="#a7f3d0">72%</text>
-      </svg>
-      <div class="desc" style="line-height:1.6;">
-        <div>WK <b style="color:#a7f3d0; font-family:var(--font-display);">+8%</b></div>
-        <div>AUR <b style="color:#7dd3fc; font-family:var(--font-display);">$38</b></div>
-        <div>ASP <b style="color:#fcd34d; font-family:var(--font-display);">$42</b></div>
+  <div class="rtl__chain">
+    <div class="rtl__spine"></div>
+    <div class="rtl__token"></div>
+    <div class="rtl__loop"></div>
+    <div class="rtl__back"></div>
+
+    <div class="rtl__zone" style="--d:.4s">
+      <div class="rtl__zk">
+        <span class="rtl__zn">Factory</span>
+        <span class="rtl__zt">Source</span>
+        <span class="rtl__zr">Mass printing · encoding</span>
+      </div>
+      <div class="rtl__ps">
+        <span class="rtl__p" style="--d:.5s">Commissioning</span>
+        <span class="rtl__p" style="--d:.8s">Serialization</span>
+        <span class="rtl__p" style="--d:1.1s">Stock management</span>
+        <span class="rtl__p" style="--d:1.4s">Packing</span>
+        <span class="rtl__p" style="--d:1.7s">Shipping</span>
       </div>
     </div>
-  </div>
 
-  <!-- Bottom-left: Replenishment AI -->
-  <div class="rt-w bl" style="border-color: rgba(252,211,77,0.45);">
-    <div class="lbl">AUTO-REPLENISH</div>
-    <div class="v" style="font-size:14px; color:#fcd34d; margin-top:5px;">▲ 4 PO QUEUED</div>
-    <div class="desc">3 SKUs low · 1 OOS</div>
-    <div class="desc" style="color:#a7f3d0;">ETA in-store · 36 h</div>
-  </div>
-
-  <!-- Bottom-right: Loss prevention -->
-  <div class="rt-w br" style="border-color: rgba(125,211,252,0.40);">
-    <div class="lbl">LOSS PREVENTION</div>
-    <div style="display:flex; align-items:baseline; gap:8px; margin-top:5px;">
-      <div class="v" style="font-size:18px; color:#a7f3d0;">0.4%</div>
-      <div class="desc">shrink rate</div>
+    <div class="rtl__zone" style="--d:2.8s">
+      <div class="rtl__zk">
+        <span class="rtl__zn">Warehouse</span>
+        <span class="rtl__zt">Distribution</span>
+        <span class="rtl__zr">Portals · tunnels · handhelds</span>
+      </div>
+      <div class="rtl__ps">
+        <span class="rtl__p" style="--d:2.9s">Receiving verification</span>
+        <span class="rtl__p" style="--d:3.2s">Pick / pack</span>
+        <span class="rtl__p" style="--d:3.5s">Inventory control</span>
+        <span class="rtl__p" style="--d:3.8s">Cross-docking</span>
+        <span class="rtl__p" style="--d:4.1s">Exception handling</span>
+      </div>
     </div>
-    <div class="desc">vs 1.5% industry avg</div>
-    <div class="desc" style="color:#a7f3d0;">▼ −68% w/ item-level RFID</div>
+
+    <div class="rtl__zone" style="--d:5.2s">
+      <div class="rtl__zk">
+        <span class="rtl__zn">Store</span>
+        <span class="rtl__zt">Point of sale</span>
+        <span class="rtl__zr">Fixed readers · handhelds</span>
+      </div>
+      <div class="rtl__ps">
+        <span class="rtl__p" style="--d:5.3s">Receiving</span>
+        <span class="rtl__p" style="--d:5.6s">Cycle counts</span>
+        <span class="rtl__p" style="--d:5.9s">Display compliance</span>
+        <span class="rtl__p" style="--d:6.2s">Omni-channel fulfilment</span>
+        <span class="rtl__p" style="--d:6.5s">Sales &amp; returns</span>
+        <span class="rtl__p" style="--d:6.8s">Shrinkage</span>
+      </div>
+    </div>
+
+    <span class="rtl__oos">Critical out of stock · 88</span>
+    <span class="rtl__rep">Replenish from DC</span>
+  </div>
+
+  <div class="rtl__strip">
+    <div class="rtl__strip-h"><span>One tag · factory to sale</span><span>Barcode · RFID · hybrid</span></div>
+    <div class="rtl__flow">
+      <div class="rtl__rail"></div>
+      <div class="rtl__node"><i style="animation-delay:.4s"></i><span style="animation-delay:.4s">Encode</span></div>
+      <div class="rtl__node"><i style="animation-delay:1.7s"></i><span style="animation-delay:1.7s">Ship</span></div>
+      <div class="rtl__node"><i style="animation-delay:2.8s"></i><span style="animation-delay:2.8s">Receive</span></div>
+      <div class="rtl__node"><i style="animation-delay:4.1s"></i><span style="animation-delay:4.1s">Transfer</span></div>
+      <div class="rtl__node"><i style="animation-delay:5.5s"></i><span style="animation-delay:5.5s">Count</span></div>
+      <div class="rtl__node"><i style="animation-delay:7s"></i><span style="animation-delay:7s">Sell</span></div>
+    </div>
   </div>
 </div>
+    </div>
+
+    <div class="rtb-h">
+      <div class="rtb-h__k">01 / The imperative</div>
+      <h2>A store knows what it sold. <em>It rarely knows what it has.</em></h2>
+      <p>Stock on hand is a number in a system, reconciled by a count that happens a few times a year and is out of date the day it finishes. Everything downstream inherits that error: replenishment fires late, the website promises stock the shop floor cannot find, and the gap between the two is discovered at the till.</p>
+    </div>
+    <div class="rtb-gaps">
+      <div class="rtb-gap"><span class="rtb-gap__n">01</span><h4>No item-level truth</h4><p>Inventory is known at SKU level at best. Which items, in which store, in front or in the back, is a question nobody can answer between counts.</p></div>
+      <div class="rtb-gap"><span class="rtb-gap__n">02</span><h4>Counting costs selling</h4><p>Manual counts take associates off the floor for days, and the accuracy they buy starts decaying the moment the count closes.</p></div>
+      <div class="rtb-gap"><span class="rtb-gap__n">03</span><h4>Out of stock, in stock</h4><p>The item is in the building but not on the shelf. To the customer and to the system that is the same as not having it.</p></div>
+      <div class="rtb-gap"><span class="rtb-gap__n">04</span><h4>Disconnected stages</h4><p>Factory, warehouse and store each tag, scan and record separately, so nothing follows the item end to end.</p></div>
+    </div>
+
+    <div class="rtb-h">
+      <div class="rtb-h__k">02 / The item chain</div>
+      <h2>One tag, read at <em>every stage it passes.</em></h2>
+      <p>The platform is built around the item rather than the location. A tag is commissioned at source and stays readable through distribution, receiving, the shop floor and the till — so each stage inherits the last one's truth instead of rebuilding it.</p>
+    </div>
+    <div class="rtb-chain">
+      <div class="rtb-chain__c">
+        <div class="rtb-chain__k">Factory</div>
+        <h4>Commissioned at source</h4>
+        <ul>
+          <li>Commissioning &amp; stock management</li>
+          <li>Serialization and encoding</li>
+          <li>Mass printing</li>
+          <li>Packing and shipping</li>
+          <li>Handhelds &amp; transition RFID portals</li>
+        </ul>
+      </div>
+      <div class="rtb-chain__c">
+        <div class="rtb-chain__k">Warehouse</div>
+        <h4>Verified without opening the box</h4>
+        <ul>
+          <li>Automated shipping &amp; receiving verification</li>
+          <li>Pick and pack</li>
+          <li>Inventory control</li>
+          <li>Cross-docking</li>
+          <li>Conveyor and tunnel automation</li>
+          <li>RFID exceptions — re-printing, QC check</li>
+        </ul>
+      </div>
+      <div class="rtb-chain__c">
+        <div class="rtb-chain__k">Store</div>
+        <h4>Counted without closing</h4>
+        <ul>
+          <li>Inventory team cycle counts</li>
+          <li>Receiving</li>
+          <li>Sales &amp; returns</li>
+          <li>Omni-channel fulfilment from the store</li>
+          <li>Display compliance &amp; vitrine verification</li>
+          <li>Dressing-room clean-up</li>
+          <li>Anti-theft and shrinkage</li>
+          <li>Fixed readers behind the wall · handhelds</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rtb-chain__foot">Replenishment runs across all three &middot; replenishment threshold &middot; back-to-front replenishment &middot; critical out-of-stock replenished from the DC</div>
+
+    <div class="rtb-h">
+      <div class="rtb-h__k">03 / The portfolio</div>
+      <h2>What a store actually runs, <em>and what each one changes.</em></h2>
+      <p>Every process below is in one application with one role model, so a store associate, an inventory team and a supply-chain manager are working the same item records rather than three parallel systems.</p>
+    </div>
+
+    <div class="rtb-sol">
+      <div class="rtb-sol__n">01</div>
+      <div>
+        <h3 class="rtb-sol__t">Stock count</h3>
+        <p class="rtb-sol__d">A full-store count stops being an event that closes the shop and becomes something an associate runs down an aisle. Counting item by item rather than SKU by SKU is what makes the rest possible: once you know which items are present, you also know which are missing, which are in the back, and which are on display in the wrong place.</p>
+        <dl class="rtb-sol__kv">
+          <div class="rtb-sol__r"><dt>Count</dt><dd>Fast, accurate mobile stock counts across front of house and back store</dd></div>
+          <div class="rtb-sol__r"><dt>Find</dt><dd>Quickly find and identify individual items on the floor</dd></div>
+          <div class="rtb-sol__r"><dt>Replenish</dt><dd>Eliminate out-of-stocks with back-to-front replenishment</dd></div>
+          <div class="rtb-sol__r"><dt>Comply</dt><dd>Display and merchandise compliance, including vitrine verification</dd></div>
+          <div class="rtb-sol__r"><dt>Fulfil</dt><dd>Flag items for omni-channel fulfilment; integrate with POS and process returns</dd></div>
+        </dl>
+        <div class="rtb-sol__chips"><span>Inventory accuracy</span><span>Discrepancy</span><span>Critical out-of-stock</span><span>Replenishment</span><span>Compliance metrics</span></div>
+      </div>
+      <div class="rtb-sol__aside">
+        <div class="rtb-sol__aside-k">What it is held to</div>
+        <p>Improve inventory visibility and accuracy while reducing associate time and effort. Decrease out-of-stocks, boost on-shelf availability, increase sales.</p>
       </div>
     </div>
 
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:#7dd3fc">// 01 · Problem aware</div>
-      <h2 class="section-title">From fragmented systems to <em style="font-style:normal;color:#7dd3fc">one operational layer.</em></h2>
-    </div>
-    <div class="ind__split">
-      <div class="ind__split-side ind__split-side--before">
-        <div class="ind__split-kv">Today</div>
-        <h3>Stitched together · slow</h3>
-        <ul class="ind__split-list"><li>Stock-out blindspots</li><li>Manual cycle counts</li><li>Shrink detection delay</li><li>POS / ERP / WMS silos</li><li>Slow omnichannel orchestration</li></ul>
+    <div class="rtb-sol">
+      <div class="rtb-sol__n">02</div>
+      <div>
+        <h3 class="rtb-sol__t">INNFINI Retail Mobile</h3>
+        <p class="rtb-sol__d">One application rather than one per process. The same handheld runs the cycle count, the look-up, the packing validation, the transfer and the receiving, under a single sign-on and a single role model — and it is configured centrally, so a thousand devices do not need a thousand visits.</p>
+        <dl class="rtb-sol__kv">
+          <div class="rtb-sol__r"><dt>One app</dt><dd>Single application with full access and role management, on Android and iOS</dd></div>
+          <div class="rtb-sol__r"><dt>Managed</dt><dd>Central mobile configuration management, with MDM integration</dd></div>
+          <div class="rtb-sol__r"><dt>Processes</dt><dd>Cycle count · manage tags · look-up · packing · transfer out · receiving</dd></div>
+          <div class="rtb-sol__r"><dt>Controls</dt><dd>Packing validation, IBT locking, in-store GI built in</dd></div>
+          <div class="rtb-sol__r"><dt>Context</dt><dd>Notes and comments on packing, transfer out and receiving</dd></div>
+          <div class="rtb-sol__r"><dt>Search</dt><dd>Enhanced look-up and global search across the item record</dd></div>
+        </dl>
       </div>
-      <div class="ind__split-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-      <div class="ind__split-side ind__split-side--after">
-        <div class="ind__split-kv">With INNFINI</div>
-        <h3>Unified · AI-assisted · audited</h3>
-        <ul class="ind__split-list"><li>Item-level RFID accuracy</li><li>Continuous physical-to-system reconcile</li><li>Live shrink alerting</li><li>POS ↔ ERP ↔ WMS bridge</li><li>Unified omni workflow</li></ul>
+      <div class="rtb-sol__aside">
+        <div class="rtb-sol__aside-k">Transfer integrity</div>
+        <p>A tag assigned to an inter-branch transfer cannot be assigned to another. The IBT auto-locks once packed and cannot be changed after the fact.</p>
       </div>
     </div>
 
-    <div class="ind__section-head ind__section-head--center">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 02 · Solution aware</div>
-      <h2 class="section-title">Measured. <em style="font-style:normal;color:#7dd3fc">Operational.</em></h2>
+    <div class="rtb-sol">
+      <div class="rtb-sol__n">03</div>
+      <div>
+        <h3 class="rtb-sol__t">SMART reporting</h3>
+        <p class="rtb-sol__d">A count is only worth what you do with it. The reporting layer turns each count into the four answers a store manager needs — what matched, what is short, what is extra, and what is critically out of stock — and rolls the same figures up to a regional and enterprise view without anyone rekeying a spreadsheet.</p>
+        <dl class="rtb-sol__kv">
+          <div class="rtb-sol__r"><dt>Count</dt><dd>Item accuracy, operational accuracy, stock on hand, EPC data front and back store</dd></div>
+          <div class="rtb-sol__r"><dt>Matching</dt><dd>SKU-based report listing the items that matched</dd></div>
+          <div class="rtb-sol__r"><dt>Unders</dt><dd>Items short during the count compared to stock on hand</dd></div>
+          <div class="rtb-sol__r"><dt>Overs</dt><dd>Items extra, including items whose stock on hand was zero</dd></div>
+          <div class="rtb-sol__r"><dt>Analytics</dt><dd>SKU discrepancy and outliers — where the biggest differences actually sit</dd></div>
+          <div class="rtb-sol__r"><dt>Supply chain</dt><dd>Dedicated supply-chain reports and inventory by EPC</dd></div>
+          <div class="rtb-sol__r"><dt>Enterprise</dt><dd>Dashboards, point-of-sale summary and conversion-rate monitoring</dd></div>
+          <div class="rtb-sol__r"><dt>Export</dt><dd>Export individual reports; database access for BI tools; Microsoft Dynamics plugin</dd></div>
+        </dl>
+        <div class="rtb-sol__chips"><span>Country &amp; company configuration</span><span>Interactive reports</span></div>
+      </div>
+      <div class="rtb-sol__aside">
+        <div class="rtb-sol__aside-k">On the roadmap</div>
+        <p>Enterprise reports and accuracy trending over time are in development — shown here so the picture is complete, not because they ship today.</p>
+      </div>
     </div>
-    <div class="ind__kpis"><article class="ind__kpi"><div class="ind__kpi-val">0.4%</div><div class="ind__kpi-name">OOS rate</div><div class="ind__kpi-desc">After RFID rollout</div></article><article class="ind__kpi"><div class="ind__kpi-val">+1–3%</div><div class="ind__kpi-name">In-stock lift</div><div class="ind__kpi-desc">Measured</div></article><article class="ind__kpi"><div class="ind__kpi-val">99%+</div><div class="ind__kpi-name">Inventory accuracy</div><div class="ind__kpi-desc">Item-level RFID</div></article><article class="ind__kpi"><div class="ind__kpi-val">−34%</div><div class="ind__kpi-name">Shrink</div><div class="ind__kpi-desc">Vision + RFID fusion</div></article></div>
 
-    <div class="ind__section-head ind__section-head--center">
-      
-    <div class="ind__section-head">
-      <div class="eyebrow" style="color:var(--accent,#7dd3fc)">// 03 · Vendor aware</div>
-      <h2 class="section-title">Why <em style="font-style:normal;color:var(--accent,#7dd3fc)">Innovent</em>.</h2>
+    <div class="rtb-h">
+      <div class="rtb-h__k">04 / What a count returns</div>
+      <h2>Four numbers a store manager <em>can act on the same morning.</em></h2>
+      <p>The figures below are a real count summary from the platform: what the system thought was there, what was actually read, and the gap broken into the three kinds of gap that need different responses.</p>
     </div>
-    <div class="ind__cases" style="margin-bottom:80px;">
-      <article class="ind__case"><div class="ind__case-kv">Built for ops</div><h4>One platform · not a stitched suite</h4><p>Identity, data, AI, observability and compliance — engineered in-house and operated end-to-end by Innovent.</p><ul><li>38+ native services</li><li>One audit ledger</li><li>One operator workbench</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Human-governed AI</div><h4>AI proposes · operator approves</h4><p>Every recommendation is cited, every approval is logged, every action is reversible. Compliance &amp; audit by design — not after the fact.</p><ul><li>Cited reasoning</li><li>Tiered approvals</li><li>100% audit traceable</li></ul></article>
-      <article class="ind__case"><div class="ind__case-kv">Sovereign-ready</div><h4>Cloud · private · on-prem · air-gapped</h4><p>Same platform across deployment models. Customer-managed keys, sovereign data residency, FIPS-aligned crypto.</p><ul><li>Customer KMS</li><li>Air-gap supported</li><li>FIPS · ISO · NIA</li></ul></article>
+    <div class="rtb-out">
+      <div class="rtb-out__c"><div class="rtb-out__v">99.4%</div><div class="rtb-out__n">Item-count accuracy</div><p class="rtb-out__d">Items read against items expected.</p></div>
+      <div class="rtb-out__c"><div class="rtb-out__v">98.5%</div><div class="rtb-out__n">Operational accuracy</div><p class="rtb-out__d">How well the count itself was executed.</p></div>
+      <div class="rtb-out__c"><div class="rtb-out__v">45,674</div><div class="rtb-out__n">Stock on hand</div><p class="rtb-out__d">Against 43,221 items actually counted.</p></div>
+      <div class="rtb-out__c"><div class="rtb-out__v">32,126</div><div class="rtb-out__n">In front of house</div><p class="rtb-out__d">With 11,095 in the back store.</p></div>
+    </div>
+    <div class="rtb-gap3">
+      <div class="rtb-gap3__c"><div class="rtb-gap3__v">1,235</div><div class="rtb-gap3__n">Unders &middot; short against stock on hand</div></div>
+      <div class="rtb-gap3__c"><div class="rtb-gap3__v">142</div><div class="rtb-gap3__n">Overs &middot; extra, including zero-SOH items</div></div>
+      <div class="rtb-gap3__c rtb-gap3__c--hot"><div class="rtb-gap3__v">88</div><div class="rtb-gap3__n">Critical out of stock &middot; replenish now</div></div>
     </div>
 
-    <div class="eyebrow">// Where it runs</div>
-      <h2 class="section-title">Where it runs.</h2>
+    <div class="rtb-h">
+      <div class="rtb-h__k">05 / The platform beneath</div>
+      <h2>Built to run <em>across a whole estate.</em></h2>
+      <p>A retail chain is many sites, many operators and a lot of intermittent connectivity. The platform is shaped for that rather than for a single flagship store.</p>
     </div>
-    <div class="ind__cases"><article class="ind__case"><div class="ind__case-kv">01 · RFID</div><h4>Item-level RFID</h4><p>Per-SKU, per-shelf accuracy with continuous cycle counts and auto-replenishment.</p><ul><li>Per-SKU read</li><li>Cycle counts</li><li>Auto-replenish</li></ul></article><article class="ind__case"><div class="ind__case-kv">02 · Shrink</div><h4>Loss prevention</h4><p>Vision + RFID fusion to spot non-scan, sweetheart and bulk-fill events.</p><ul><li>Non-scan</li><li>Sweetheart</li><li>Bulk fill</li></ul></article><article class="ind__case"><div class="ind__case-kv">03 · Omni</div><h4>Omnichannel fulfillment</h4><p>BOPIS, ship-from-store, locker pickup, micro-fulfillment with one inventory truth.</p><ul><li>BOPIS</li><li>Ship from store</li><li>Lockers</li></ul></article></div>
+    <div class="rtb-plat">
+      <div class="rtb-plat__c"><div class="rtb-plat__k">Cloud</div><h4>SaaS, multi-tenant, multi-site</h4><p>One tenancy per business, every site under it, with minimal infrastructure in the stores themselves.</p></div>
+      <div class="rtb-plat__c"><div class="rtb-plat__k">Offline</div><h4>Full offline support</h4><p>Point of exit and point of sale keep working when the link does not, and reconcile when it returns.</p></div>
+      <div class="rtb-plat__c"><div class="rtb-plat__k">Operable</div><h4>Secure, and usable by third parties</h4><p>Role-based access built for stores staffed by contractors and third-party operators, not only by employees.</p></div>
+    </div>
+    <div class="rtb-plat__foot">Barcode &middot; RFID &middot; hybrid &mdash; the same platform whether a business is tagging everything, some things, or nothing yet</div>
+
+    <div class="rtb-h">
+      <div class="rtb-h__k">06 / Enterprise-ready</div>
+      <h2>Open where it has to be, <em>closed where it matters.</em></h2>
+      <p>What a retail IT team asks before the first store goes live.</p>
+    </div>
+    <div class="rtb-ent">
+      <div>
+        <h4>Integration</h4>
+        <ul>
+          <li><b>Microsoft Dynamics plugin</b> for the ERP side</li>
+          <li>Direct <b>database access</b> so BI tools read the same figures the dashboards do</li>
+          <li><b>POS integration</b> for sales, returns and conversion monitoring</li>
+          <li><b>MDM integration</b> for the handheld estate</li>
+          <li>Country and company configuration for multi-market groups</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Operations</h4>
+        <ul>
+          <li>Single application with <b>full role management</b></li>
+          <li><b>Central mobile configuration</b> — devices configured once, centrally</li>
+          <li><b>IBT locking</b> so a packed transfer cannot be quietly altered</li>
+          <li>Notes and comments retained against every process for later audit</li>
+          <li>Interactive reports with per-report export</li>
+        </ul>
+      </div>
+    </div>
 
     <div class="ind__close">
       <div class="eyebrow" style="color:#7dd3fc">// In summary</div>
-      <h3>INNFINI helps retailers turn item-level signal into <em>shelf accuracy, omnichannel speed and audit-ready loss prevention.</em></h3>
+      <h3>INNFINI gives retailers <em>one readable item record from the factory floor to the till</em> — and the reporting to act on it the same morning.</h3>
     </div>
-
   </div>
 </section>
 
