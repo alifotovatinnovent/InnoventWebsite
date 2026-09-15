@@ -16,7 +16,7 @@
   align-items: center;
   margin-bottom: 120px;
 }
-.agr__copy h2.agr__title {
+.agr__copy h2.agr__title, .agr__copy h1.agr__title{
   font-family: var(--font-display);
   font-size: clamp(36px, 4.2vw, 56px);
   line-height: 1.04;

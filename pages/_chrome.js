@@ -77,9 +77,9 @@
       </div>
     </div>
     <div class="foot__bot">
-      <span>© 2025 Innovent Inc. All rights reserved.</span>
+      <span>© 2026 Innovent, Inc. All rights reserved.</span>
       <div class="foot__bot-right">
-        <a href="trust.html">Privacy</a><a href="trust.html">Terms</a><a href="trust.html">Security</a><a href="trust.html">SOC 2</a><a href="#" data-cookie-prefs>Cookie preferences</a>
+        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="trust.html">Security</a><a href="trust.html">SOC 2</a><a href="#" data-cookie-prefs>Cookie preferences</a>
       </div>
     </div>
   </div>

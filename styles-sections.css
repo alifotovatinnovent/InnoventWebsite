@@ -10,7 +10,7 @@
 
 /* ─── Platform diagram (Innfini AI) ──────────────────────── */
 .platform { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
-.platform__copy h2 { margin-bottom: 24px; }
+.platform__copy h2, .platform__copy h1{ margin-bottom: 24px; }
 .platform__list { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 18px; }
 .platform__list li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; color: var(--ink-80); line-height: 1.5; }
 .platform__list .ico { width: 28px; height: 28px; flex-shrink: 0; border: 1px solid var(--hair-accent); background: rgba(59, 130, 246,0.08); color: var(--accent); display: flex; align-items: center; justify-content: center; border-radius: 4px; font-family: var(--font-mono); font-weight: 600; font-size: 12px; }
@@ -184,7 +184,7 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: var
 
 /* ─── Leadership / About ─────────────────────────────────── */
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.about__copy h2 { margin-bottom: 24px; }
+.about__copy h2, .about__copy h1{ margin-bottom: 24px; }
 .about__copy p { color: var(--ink-80); margin-bottom: 20px; line-height: 1.65; }
 .about__copy .lead { font-size: 19px; color: var(--ink-90); margin-bottom: 24px; }
 .about__locations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
@@ -236,7 +236,8 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: var
 .foot__col a { color: var(--ink-70); text-decoration: none; font-size: 13px; transition: color 120ms; }
 .foot__col a:hover { color: var(--accent); }
 .foot__bot { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; border-top: 1px solid var(--hair); font-size: 12px; color: var(--ink-70); flex-wrap: wrap; gap: 16px; }
-.foot__bot-right { display: flex; gap: 24px; }
+/* wraps: five links at 24px gaps overflow a 320px viewport otherwise */
+.foot__bot-right { display: flex; flex-wrap: wrap; gap: 10px 20px; }
 .foot__bot a { color: var(--ink-70); text-decoration: none; }
 .foot__bot a:hover { color: var(--ink-90); }
 

@@ -847,18 +847,7 @@ html { scroll-behavior: smooth; }
 
 /* ── GLOBAL HERO + MOTION + BUTTON NORMALIZER ── */
 /* Unified hero title sizing across all page heroes */
-.hero__title,
-.ind__title,
-.cd__hero-title,
-.ps__title,
-.sa__title,
-.ad__title,
-.smc__intro h2,
-.oc__title,
-.pt__title,
-.cco__title,
-.dp__title,
-.rh__copy h2 {
+.hero__title, .ind__title, .cd__hero-title, .ps__title, .sa__title, .ad__title, .smc__intro h2, .smc__intro h1, .oc__title, .pt__title, .cco__title, .dp__title, .rh__copy h1, .rh__copy h2{
   font-family: var(--font-display) !important;
   font-size: clamp(34px, 4vw, 56px) !important;
   font-weight: 600 !important;
@@ -866,9 +855,7 @@ html { scroll-behavior: smooth; }
   letter-spacing: -0.025em !important;
   color: var(--ink-100) !important;
 }
-.hero__title em, .ind__title em, .cd__hero-title em, .ps__title em, .sa__title em,
-.ad__title em, .smc__intro h2 em, .oc__title em, .pt__title em, .cco__title em,
-.dp__title em, .rh__copy h2 em { font-style: normal !important; color: var(--accent) !important; font-weight: 600 !important; }
+.hero__title em, .ind__title em, .cd__hero-title em, .ps__title em, .sa__title em, .ad__title em, .smc__intro h2 em, .smc__intro h1 em, .oc__title em, .pt__title em, .cco__title em, .dp__title em, .rh__copy h1 em, .rh__copy h2 em{ font-style: normal !important; color: var(--accent) !important; font-weight: 600 !important; }
 
 /* Unified hero motion graphic / image size.
    min-height, NOT aspect-ratio: a hard 4/3 silently clipped any panel whose

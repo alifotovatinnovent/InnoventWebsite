@@ -16,7 +16,7 @@
   align-items: center;
   margin-bottom: 140px;
 }
-.ci__copy h2.ci__title {
+.ci__copy h2.ci__title, .ci__copy h1.ci__title{
   font-family: var(--font-display);
   font-size: clamp(36px, 4.2vw, 56px);
   line-height: 1.04;

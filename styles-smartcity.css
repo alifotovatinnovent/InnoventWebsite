@@ -40,7 +40,7 @@
 .sc__pillar:hover { border-color: var(--hair-accent); transform: translateY(-3px); background: var(--bg-2); }
 .sc__pillar:hover .sc__pillar-icon { background: rgba(59, 130, 246,0.18); box-shadow: 0 0 0 1px rgba(59, 130, 246,0.3), 0 0 24px -4px rgba(59, 130, 246,0.4); transform: scale(1.06); }
 .sc__pillar-icon { width: 64px; height: 64px; border-radius: 8px; background: rgba(59, 130, 246,0.08); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: all 250ms; overflow: hidden; }
-.sc__motion svg { width: 100%; height: 100%; } transition: all 250ms; }
+.sc__motion svg { width: 100%; height: 100%; }
 .sc__pillar h4 { font-size: 19px; margin-bottom: 10px; }
 .sc__pillar p { font-size: 13px; line-height: 1.55; color: var(--ink-70); margin-bottom: 16px; }
 .sc__pillar-tags { display: flex; gap: 6px; flex-wrap: wrap; }

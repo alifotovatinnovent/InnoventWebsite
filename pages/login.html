@@ -270,6 +270,14 @@ body[data-page="login"] .lg__credit {
   /* 1100px / 80 KB source — no reason to ship 2000px to a 620px viewport */
   .lg__photo { background-image: url("../assets/login-bg-sm.jpg"); }
 }
+
+/* sign-in explanation — replaces an alert() that claimed a redirect it could
+   not perform */
+.lg__note { margin-top: 16px; padding: 12px 14px; border-radius: 6px;
+  border: 1px solid var(--hair); background: rgba(125,211,252,0.05);
+  font-family: var(--font-body); font-size: 13px; line-height: 1.6;
+  color: var(--ink-70); }
+.lg__note a { color: var(--accent); }
 </style>
 </head><body class="page" data-page="login">
 
@@ -330,17 +338,18 @@ body[data-page="login"] .lg__credit {
         <button class="login-tab" data-tab="partner">Partner</button>
       </div>
 
-      <form id="login-form">
-        <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" required></div>
-        <div class="field"><label>Password</label><input type="password" placeholder="••••••••" required></div>
-        <div class="field-row">
-          <label style="display:flex;gap:8px;align-items:center;font-family:var(--font-body);font-size:13px;text-transform:none;letter-spacing:0;color:var(--ink-70)"><input type="checkbox" style="margin:0">Remember me</label>
-          <a href="support.html">Forgot password?</a>
-        </div>
-        <button class="btn btn--primary" type="submit">Continue <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <!-- No password field. Portal sign-in is federated to the customer's own
+           identity provider, and this page has no backend to authenticate
+           against — so asking for a credential here would collect a real
+           password and discard it. Email only, and the button says what it
+           actually does. -->
+      <form id="login-form" novalidate>
+        <div class="field"><label for="lg-email">Work email</label><input id="lg-email" type="email" placeholder="you@company.com" autocomplete="username" required></div>
+        <button class="btn btn--primary" type="submit">Continue with SSO <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        <div class="lg__note" id="lg-note" role="status" hidden></div>
       </form>
 
-      <div class="login-divider">Or continue with SSO</div>
+      <div class="login-divider">Or use your identity provider</div>
       <div class="sso-row">
         <button class="sso-btn"><span>Okta</span></button>
         <button class="sso-btn"><span>Azure AD</span></button>
@@ -354,7 +363,7 @@ body[data-page="login"] .lg__credit {
         <div class="lg__release-l"><span>Innfini · Release v 1.1.9</span></div>
         <div class="lg__legal">
           <a href="trust.html">Security</a><span>·</span>
-          <a href="trust.html#privacy">Privacy</a><span>·</span>
+          <a href="privacy.html">Privacy</a><span>·</span>
           <a href="support.html">Need help?</a>
         </div>
       </div>
@@ -373,7 +382,26 @@ document.querySelectorAll('.login-tab').forEach(t=>t.addEventListener('click',e=
     ? 'Partner portal: deal registration, joint customers, and certification.'
     : 'Customer and partner portal for the Innfini platform.';
 }));
-document.getElementById('login-form').addEventListener('submit',e=>{e.preventDefault();alert('Demo: SSO flow would redirect to your IdP.');});
+/* There is no authentication backend here — sign-in is federated per
+   deployment. Say that plainly in the page rather than through an alert that
+   implies something happened. */
+(function () {
+  var note = document.getElementById('lg-note');
+  function explain() {
+    note.innerHTML = 'Portal access is issued per deployment and signs in through your ' +
+      'organisation\u2019s identity provider. If you do not have your tenant link yet, ' +
+      '<a href="support.html">contact support</a> or ' +
+      '<a href="request-demo.html">request an account</a>.';
+    note.hidden = false;
+  }
+  document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault(); explain();
+  });
+  document.querySelectorAll('.sso-btn').forEach(function (b) {
+    b.setAttribute('type', 'button');
+    b.addEventListener('click', explain);
+  });
+})();
 </script>
 <script src="../consent.js?v=20260911a" defer data-innv-consent></script>
 </body></html>

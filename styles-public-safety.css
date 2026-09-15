@@ -159,11 +159,11 @@
 /* ── 2 · THE SPINE ───────────────────────────────────────────────────────── */
 
 .inc__intro { max-width: 700px; margin: 0 0 72px; }
-.inc__intro h2 {
+.inc__intro h2, .inc__intro h1{
   font-family: var(--font-display); font-size: clamp(28px, 3.2vw, 42px);
   line-height: 1.08; letter-spacing: -0.028em; color: var(--ink-100); margin: 14px 0 16px;
 }
-.inc__intro h2 em { font-style: normal; color: var(--accent); }
+.inc__intro h2 em, .inc__intro h1 em{ font-style: normal; color: var(--accent); }
 .inc__intro p { font-size: 16px; line-height: 1.65; color: var(--ink-70); margin: 0; }
 
 .beat {
@@ -559,5 +559,4 @@
 
 /* Mint variant of the outcomes grid — cc-defense uses mint where public safety
    uses sky. Structure identical; only the accent moves. */
-.out--mint .out__head h2 em,
-.out--mint .out__item > span { color: #a7f3d0; }
+.out--mint .out__head h2 em, .out--mint .out__item > span{ color: #a7f3d0; }

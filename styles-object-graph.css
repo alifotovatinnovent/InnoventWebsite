@@ -16,7 +16,7 @@
   align-items: center;
   margin-bottom: 140px;
 }
-.oeg__copy h2.oeg__title {
+.oeg__copy h2.oeg__title, .oeg__copy h1.oeg__title{
   font-family: var(--font-display);
   font-size: clamp(36px, 4.2vw, 56px);
   line-height: 1.04;

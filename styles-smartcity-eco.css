@@ -6,8 +6,8 @@
 .smc .container { position: relative; z-index: 1; }
 
 .smc__intro { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-bottom:42px; align-items:center; }
-.smc__intro h2 { font-family: var(--font-display); font-size: clamp(36px, 4.2vw, 56px); line-height:1.04; letter-spacing:-0.025em; color: var(--ink-100); margin: 18px 0 18px; }
-.smc__intro h2 em { font-style: normal; color: #93c5fd; }
+.smc__intro h2, .smc__intro h1{ font-family: var(--font-display); font-size: clamp(36px, 4.2vw, 56px); line-height:1.04; letter-spacing:-0.025em; color: var(--ink-100); margin: 18px 0 18px; }
+.smc__intro h2 em, .smc__intro h1 em{ font-style: normal; color: #93c5fd; }
 .smc__intro p { font-size:17px; line-height:1.6; color: var(--ink-70); max-width:560px; }
 .smc__intro p strong { color: var(--ink-100); }
 
