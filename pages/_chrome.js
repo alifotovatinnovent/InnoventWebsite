@@ -72,6 +72,7 @@
           <li><a href="login.html">Partner Login</a></li>
           <li><a href="../index.html#contact">Talk to sales</a></li>
           <li><a href="request-demo.html">Request a demo</a></li>
+          <li><a data-innv-book hidden>Book a call</a></li>
         </ul>
       </div>
     </div>
@@ -91,6 +92,16 @@
     cs.defer = true;
     cs.setAttribute('data-innv-consent', '');
     document.head.appendChild(cs);
+  }
+
+  /* booking + chat agent — same one-script-once rule as the consent banner.
+     Inert until widgets.js is given a Calendly URL or a Chatbase ID. */
+  if (!document.querySelector('script[data-innv-widgets]')) {
+    var ws = document.createElement('script');
+    ws.src = '../widgets.js?v=20260915a';
+    ws.defer = true;
+    ws.setAttribute('data-innv-widgets', '');
+    document.head.appendChild(ws);
   }
 
   const navMount = document.getElementById('site-nav');

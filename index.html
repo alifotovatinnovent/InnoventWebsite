@@ -82,6 +82,8 @@
           <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
         </a>
         <a class="btn btn--secondary" href="#contact">Talk to our team</a>
+        <!-- stays hidden until widgets.js is given a Calendly URL -->
+        <a class="btn btn--secondary" data-innv-book hidden>Book a call</a>
       </div>
       <div class="hero__sig">
         <div class="hero__sig-item"><div class="hero__sig-num">16.2M+</div><div class="hero__sig-lab">Signals reasoned daily</div></div>
@@ -3597,16 +3599,23 @@
         <a class="btn btn--secondary" href="#contact">Talk to our team</a>
       </div>
     </div>
-    <form class="ctab__form" onsubmit="event.preventDefault(); alert('Thanks! Our team will reach out within one business day.');">
+    <!-- Netlify detects forms in the static HTML at deploy time, so the name,
+         data-netlify and the matching hidden form-name are all load-bearing:
+         drop any of them and submissions 404 instead of being captured. -->
+    <form class="ctab__form" id="ctab-form" name="contact" method="POST"
+          data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden aria-hidden="true"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <h4>Talk to our team</h4>
-      <div class="ctab__field"><label>Full name</label><input class="ctab__input" type="text" placeholder="Ada Lovelace"></div>
-      <div class="ctab__field"><label>Work email</label><input class="ctab__input" type="email" placeholder="ada@company.com" required></div>
-      <div class="ctab__field"><label>Industry</label>
-        <select class="ctab__input">
+      <div class="ctab__field"><label for="ctab-name">Full name</label><input class="ctab__input" id="ctab-name" name="name" type="text" placeholder="Ada Lovelace" autocomplete="name"></div>
+      <div class="ctab__field"><label for="ctab-email">Work email</label><input class="ctab__input" id="ctab-email" name="email" type="email" placeholder="ada@company.com" autocomplete="email" required></div>
+      <div class="ctab__field"><label for="ctab-industry">Industry</label>
+        <select class="ctab__input" id="ctab-industry" name="industry">
           <option>Manufacturing</option><option>Logistics</option><option>Retail</option><option>Healthcare</option><option>Oil &amp; Gas</option><option>Defense / Public Safety</option><option>Other</option>
         </select>
       </div>
-      <button class="btn btn--primary" style="width: 100%; justify-content: center; margin-top: 8px;" type="submit">Request demo
+      <div class="ctab__msg" id="ctab-msg" role="alert" hidden></div>
+      <button class="btn btn--primary" style="width: 100%; justify-content: center; margin-top: 8px;" type="submit" id="ctab-submit">Request demo
         <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
       </button>
     </form>
@@ -3950,6 +3959,74 @@ root.render(<InnoventTweaks />);
     onScroll();
   })();
   </script>
+<script src="widgets.js?v=20260915a" defer data-innv-widgets></script>
+<script src="forms.js?v=20260915a" defer></script>
+<script>
+/* Contact form delivery. Before this, the form called preventDefault() and
+   showed an alert() without sending anything — every homepage lead was
+   discarded. Submission now goes through InnoventForms (Netlify Forms by
+   default, or CONFIG.ENDPOINT if one is set) and a failure is surfaced with a
+   mailto fallback rather than swallowed. */
+(function () {
+  'use strict';
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
+  ready(function () {
+    var form = document.getElementById('ctab-form');
+    if (!form || !window.InnoventForms) return;
+    var btn = document.getElementById('ctab-submit');
+    var msg = document.getElementById('ctab-msg');
+
+    function say(text, kind) {
+      msg.textContent = text;
+      msg.className = 'ctab__msg is-' + kind;
+      msg.hidden = false;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = {
+        name: (document.getElementById('ctab-name').value || '').trim(),
+        email: (document.getElementById('ctab-email').value || '').trim(),
+        industry: document.getElementById('ctab-industry').value
+      };
+      if (form.querySelector('[name="bot-field"]').value) return;   /* honeypot */
+      if (!data.email || data.email.indexOf('@') < 1) {
+        say('Please enter a work email so we can reply.', 'err');
+        document.getElementById('ctab-email').focus();
+        return;
+      }
+      msg.hidden = true;
+      btn.disabled = true;
+      var label = btn.innerHTML;
+      btn.textContent = 'Sending\u2026';
+
+      window.InnoventForms.submit('contact', data).then(function (res) {
+        if (res.ok) {
+          form.innerHTML =
+            '<h4>Thank you \u2014 that reached us.</h4>' +
+            '<p class="ctab__done">We reply to every enquiry within one business day. ' +
+            'If it is urgent, call <a href="tel:+971564457947">+971 56 445 7947</a>.</p>' +
+            (window.InnoventWidgets && window.InnoventWidgets.calendlyUrl()
+              ? '<a class="btn btn--primary" style="width:100%;justify-content:center;margin-top:14px" ' +
+                'href="' + window.InnoventWidgets.calendlyUrl() + '" target="_blank" rel="noopener">Book a time now</a>'
+              : '');
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = label;
+          say('That did not send (' + res.error + '). ', 'err');
+          var a = document.createElement('a');
+          a.href = window.InnoventForms.mailtoFallback('Enquiry from innovent.io', data);
+          a.textContent = 'Email us instead';
+          msg.appendChild(a);
+        }
+      });
+    });
+  });
+})();
+</script>
 <script src="consent.js?v=20260911a" defer data-innv-consent></script>
 </body>
 </html>

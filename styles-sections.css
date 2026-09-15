@@ -213,6 +213,15 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: var
 .ctab__field label { font-size: 11px; color: var(--ink-70); font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .ctab__input { background: var(--bg-deep); border: 1px solid var(--hair); border-radius: 4px; padding: 10px 14px; color: var(--ink-100); font-family: var(--font-body); font-size: 14px; outline: none; transition: all 150ms; }
 .ctab__input:focus { border-color: var(--accent); }
+/* delivery feedback for the contact form — a failed submission has to be
+   visible, not swallowed, or the lead is lost twice over */
+.ctab__msg { font-family: var(--font-mono); font-size: 11px; line-height: 1.6;
+  letter-spacing: 0.04em; border-radius: 4px; padding: 10px 12px; margin: 4px 0 2px; }
+.ctab__msg.is-err { color: #fca5a5; border: 1px solid rgba(248,113,113,0.35);
+  background: rgba(248,113,113,0.07); }
+.ctab__msg.is-err a { color: #fca5a5; text-decoration: underline; }
+.ctab__done { font-size: 14px; line-height: 1.6; color: var(--ink-70); margin: 0; }
+.ctab__done a { color: var(--accent); }
 
 @media (max-width: 960px) { .ctab__inner { grid-template-columns: 1fr; } }
 
