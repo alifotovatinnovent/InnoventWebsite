@@ -16,9 +16,9 @@
   'use strict';
 
   var CONFIG = {
-    /* e.g. 'https://calendly.com/ali-innovent/30min' — leave '' to hide the
-       booking buttons entirely. */
-    CALENDLY: '',
+    /* Ali's Calendly profile rather than one event type, so the visitor picks
+       the meeting length. Leave '' to hide the booking buttons entirely. */
+    CALENDLY: 'https://calendly.com/alifotovat',
 
     /* The chatbot ID from Chatbase → Connect → Embed. Leave '' for no agent. */
     CHATBASE_ID: '',
