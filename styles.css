@@ -842,6 +842,11 @@ a.button-secondary:hover { background:#93c5fd !important; border-color:#93c5fd !
 
 /* Universal scroll behaviour */
 html { scroll-behavior: smooth; }
+
+
+/* Anchor targets sit under the fixed 72px nav without this, so a jump link
+   lands with the section heading hidden behind the header. */
+section[id], [id].section { scroll-margin-top: 96px; }
 ::selection { background: rgba(125,211,252,0.3); color: var(--ink-100); }
 
 
@@ -982,3 +987,15 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 /* The Innfini platform section is now a lead-in to "By the numbers" — its
    6-scene carousel was removed, so it should not hold a full section's tail. */
 #platform.section { padding-bottom: 8px; }
+
+/* ── hidden means hidden ──────────────────────────────────────────────────
+   The UA's [hidden] rule is display:none at the lowest priority, so any class
+   that sets display overrides it. .btn does, twice in this file and with
+   !important, which is how the unconfigured "Book a call" button rendered and
+   did nothing. Two !important declarations of equal specificity are settled by
+   source order and .btn comes later, so the compound selector is what actually
+   wins — the bare attribute alone is not enough. */
+[hidden] { display: none !important; }
+[hidden].btn,
+[hidden].btn--primary,
+[hidden].btn--secondary { display: none !important; }

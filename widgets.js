@@ -42,8 +42,11 @@
     if (!els.length) return;
     var url = calendlyUrl();
     for (var i = 0; i < els.length; i++) {
-      if (!url) { els[i].hidden = true; continue; }
-      els[i].hidden = false;
+      /* display is set explicitly as well as the hidden attribute: .btn sets
+         display with !important, so the attribute alone loses and the button
+         renders as a dead control. */
+      if (!url) { els[i].hidden = true; els[i].style.display = 'none'; continue; }
+      els[i].hidden = false; els[i].style.removeProperty('display');
       if (els[i].tagName === 'A') {
         els[i].setAttribute('href', url);
         els[i].setAttribute('target', '_blank');
