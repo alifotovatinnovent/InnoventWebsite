@@ -1318,92 +1318,99 @@
     <div class="section-head agr__section-head">
       <div class="eyebrow">// Architecture · How it works</div>
       <h2 class="section-title">Five layers. <em style="font-style:normal;color:var(--accent)">One continuous loop.</em></h2>
-      <p class="section-lead">Every agent on Innfini runs through the same five-layer runtime. Model-agnostic at the top. Sensor-aware at the bottom. Auditable end to end.</p>
+      <p class="section-lead">Model-agnostic at the top. Sensor-aware at the bottom. Auditable end to end.</p>
     </div>
 
-    <div class="agr__stack">
-      <div class="agr__layer" style="--lhue:167,139,250">
-        <div class="agr__layer-head">
-          <span class="agr__layer-num">L5</span>
-          <span class="agr__layer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v5m0 0c0 4-6 4-6 9m6-9c0 4 6 4 6 9"/><circle cx="12" cy="3" r="1.6"/><circle cx="6" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/></svg></span>
-          <span class="agr__layer-id">
-            <span class="agr__layer-name">Reasoning</span>
-            <span class="agr__layer-kind">Plan · decide · explain</span>
-          </span>
-        </div>
-        <div class="agr__layer-viz">
-            <span class="agr__chiplet">Claude 3.5</span>
-            <span class="agr__chiplet">GPT-4o</span>
-            <span class="agr__chiplet">Llama 3.1</span>
-            <span class="agr__chiplet">On-prem</span>
-        </div>
+    <div class="agr-arch">
+      <div class="agr-arch__stage">
+<svg class="agr-arch__svg agr-arch__svg--d" viewBox="0 0 680 478" role="img" aria-label="The five-layer agent runtime: Reasoning, Tools, Memory, Policy and Observability, joined by one continuous loop" focusable="false">
+<defs><radialGradient id="agrPulseGlow"><stop offset="0" stop-color="#bae6fd" stop-opacity=".55"/><stop offset=".5" stop-color="#7dd3fc" stop-opacity=".18"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient></defs>
+<path id="agrLoopD" class="agr-arch__loop" d="M318,18 V436 Q318,452 334,452 H624 Q640,452 640,436 V34 Q640,18 624,18 H318 Z"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.4s" repeatCount="indefinite"/></path>
+<line class="agr-arch__spine" x1="318" y1="18" x2="318" y2="434"/>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="20,86 546,86 546,93 20,93"/>
+<polygon class="agr-arch__side" points="600,28 546,86 546,93 600,35"/>
+<polygon class="agr-arch__top" points="74,28 600,28 546,86 20,86"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.018;0.03;0.123;0.158;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.018;0.03;0.123;0.158;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="318" cy="57" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.018;0.03;0.123;0.158;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.018;0.03;0.123;0.158;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="20,170 546,170 546,177 20,177"/>
+<polygon class="agr-arch__side" points="600,112 546,170 546,177 600,119"/>
+<polygon class="agr-arch__top" points="74,112 600,112 546,170 20,170"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.169;0.181;0.274;0.309;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.169;0.181;0.274;0.309;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="318" cy="141" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.169;0.181;0.274;0.309;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.169;0.181;0.274;0.309;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="20,254 546,254 546,261 20,261"/>
+<polygon class="agr-arch__side" points="600,196 546,254 546,261 600,203"/>
+<polygon class="agr-arch__top" points="74,196 600,196 546,254 20,254"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.321;0.333;0.425;0.46;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.321;0.333;0.425;0.46;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="318" cy="225" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.321;0.333;0.425;0.46;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.321;0.333;0.425;0.46;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="20,338 546,338 546,345 20,345"/>
+<polygon class="agr-arch__side" points="600,280 546,338 546,345 600,287"/>
+<polygon class="agr-arch__top" points="74,280 600,280 546,338 20,338"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.472;0.484;0.577;0.612;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.472;0.484;0.577;0.612;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="318" cy="309" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.472;0.484;0.577;0.612;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.472;0.484;0.577;0.612;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="20,422 546,422 546,429 20,429"/>
+<polygon class="agr-arch__side" points="600,364 546,422 546,429 600,371"/>
+<polygon class="agr-arch__top" points="74,364 600,364 546,422 20,422"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.624;0.636;0.728;0.763;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.624;0.636;0.728;0.763;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="318" cy="393" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.624;0.636;0.728;0.763;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.624;0.636;0.728;0.763;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__pulse" aria-hidden="true">
+<circle r="2.4" fill="#7dd3fc" fill-opacity="0.18"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.28;1" keyTimes="0;0.75;1" begin="-0.18s"><mpath href="#agrLoopD"/></animateMotion></circle>
+<circle r="2.7" fill="#7dd3fc" fill-opacity="0.3"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.28;1" keyTimes="0;0.75;1" begin="-0.12s"><mpath href="#agrLoopD"/></animateMotion></circle>
+<circle r="3.0" fill="#7dd3fc" fill-opacity="0.45"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.28;1" keyTimes="0;0.75;1" begin="-0.06s"><mpath href="#agrLoopD"/></animateMotion></circle>
+<circle r="13" fill="url(#agrPulseGlow)"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.28;1" keyTimes="0;0.75;1" begin="0s"><mpath href="#agrLoopD"/></animateMotion></circle>
+<circle r="3.4" fill="#e0f2fe"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.28;1" keyTimes="0;0.75;1" begin="0s"><mpath href="#agrLoopD"/></animateMotion></circle>
+</g>
+<g class="agr-arch__text"><text class="agr-arch__rail-t" x="616" y="466" text-anchor="end">ACTION →</text><text class="agr-arch__rail-t" transform="translate(652 235) rotate(-90)" text-anchor="middle">← FEEDBACK</text><text class="agr-arch__rail-t" x="616" y="11" text-anchor="end">NEXT CYCLE</text><text class="agr-arch__num" x="52" y="67">L5</text><text class="agr-arch__name" x="96" y="58">Reasoning</text><text class="agr-arch__kind" x="96" y="73">PLAN · DECIDE · EXPLAIN</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.023;0.043;0.159;0.184;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="466" y="53.5" text-anchor="middle"><tspan>Claude</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>GPT-4o</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Llama</tspan></text><text class="agr-arch__lab" x="466" y="68.5" text-anchor="middle"><tspan>On-prem</tspan></text></g><text class="agr-arch__num" x="52" y="151">L4</text><text class="agr-arch__name" x="96" y="142">Tools</text><text class="agr-arch__kind" x="96" y="157">CONNECTORS · APIS · ACTIONS</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.174;0.194;0.311;0.336;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="466" y="137.5" text-anchor="middle"><tspan>SAP</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Manhattan</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>SCADA</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Slack</tspan></text><text class="agr-arch__lab" x="466" y="152.5" text-anchor="middle"><tspan>+ OpenAPI</tspan></text></g><text class="agr-arch__num" x="52" y="235">L3</text><text class="agr-arch__name" x="96" y="226">Memory</text><text class="agr-arch__kind" x="96" y="241">GRAPH · VECTORS · TEMPORAL</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.326;0.346;0.462;0.487;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="466" y="221.5" text-anchor="middle"><tspan>Event graph</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Vector store</tspan></text><text class="agr-arch__lab" x="466" y="236.5" text-anchor="middle"><tspan>Temporal index</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Replay</tspan></text></g><text class="agr-arch__num" x="52" y="319">L2</text><text class="agr-arch__name" x="96" y="310">Policy</text><text class="agr-arch__kind" x="96" y="325">GUARDRAILS · RBAC · APPROVALS</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.477;0.497;0.614;0.639;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="466" y="305.5" text-anchor="middle"><tspan>RBAC</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Approvals</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Kill-switch</tspan></text><text class="agr-arch__lab" x="466" y="320.5" text-anchor="middle"><tspan>SOC 2 · GDPR</tspan></text></g><text class="agr-arch__num" x="52" y="403">L1</text><text class="agr-arch__name" x="96" y="394">Observability</text><text class="agr-arch__kind" x="96" y="409">LEDGER · COST · A/B</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.629;0.649;0.75;0.775;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="466" y="389.5" text-anchor="middle"><tspan>Decision ledger</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Token spend</tspan></text><text class="agr-arch__lab" x="466" y="404.5" text-anchor="middle"><tspan>Per-tool success</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Model A/B</tspan></text></g></g>
+</svg>
+<svg class="agr-arch__svg agr-arch__svg--m" viewBox="0 0 400 590" role="img" aria-label="The five-layer agent runtime: Reasoning, Tools, Memory, Policy and Observability, joined by one continuous loop" focusable="false">
+<defs><radialGradient id="agrPulseGlow"><stop offset="0" stop-color="#bae6fd" stop-opacity=".55"/><stop offset=".5" stop-color="#7dd3fc" stop-opacity=".18"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient></defs>
+<path id="agrLoopM" class="agr-arch__loop" d="M204,18 V550 Q204,566 220,566 H370 Q386,566 386,550 V34 Q386,18 370,18 H204 Z"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.4s" repeatCount="indefinite"/></path>
+<line class="agr-arch__spine" x1="204" y1="18" x2="204" y2="550"/>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="10,100 354,100 354,106 10,106"/>
+<polygon class="agr-arch__side" points="384,26 354,100 354,106 384,32"/>
+<polygon class="agr-arch__top" points="40,26 384,26 354,100 10,100"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.011;0.023;0.116;0.151;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.011;0.023;0.116;0.151;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="204" cy="63" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.011;0.023;0.116;0.151;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.011;0.023;0.116;0.151;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="10,208 354,208 354,214 10,214"/>
+<polygon class="agr-arch__side" points="384,134 354,208 354,214 384,140"/>
+<polygon class="agr-arch__top" points="40,134 384,134 354,208 10,208"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.164;0.176;0.268;0.303;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.164;0.176;0.268;0.303;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="204" cy="171" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.164;0.176;0.268;0.303;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.164;0.176;0.268;0.303;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="10,316 354,316 354,322 10,322"/>
+<polygon class="agr-arch__side" points="384,242 354,316 354,322 384,248"/>
+<polygon class="agr-arch__top" points="40,242 384,242 354,316 10,316"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.316;0.328;0.42;0.455;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.316;0.328;0.42;0.455;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="204" cy="279" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.316;0.328;0.42;0.455;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.316;0.328;0.42;0.455;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="10,424 354,424 354,430 10,430"/>
+<polygon class="agr-arch__side" points="384,350 354,424 354,430 384,356"/>
+<polygon class="agr-arch__top" points="40,350 384,350 354,424 10,424"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.468;0.48;0.572;0.607;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.468;0.48;0.572;0.607;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="204" cy="387" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.468;0.48;0.572;0.607;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.468;0.48;0.572;0.607;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__plate">
+<polygon class="agr-arch__front" points="10,532 354,532 354,538 10,538"/>
+<polygon class="agr-arch__side" points="384,458 354,532 354,538 384,464"/>
+<polygon class="agr-arch__top" points="40,458 384,458 354,532 10,532"><animate attributeName="fill-opacity" values="0.035;0.035;0.15;0.15;0.035;0.035" keyTimes="0;0.62;0.632;0.725;0.76;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="stroke-opacity" values="0.22;0.22;0.9;0.9;0.22;0.22" keyTimes="0;0.62;0.632;0.725;0.76;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></polygon>
+<circle class="agr-arch__port" cx="204" cy="495" r="2.6"><animate attributeName="r" values="2.6;2.6;4.2;4.2;2.6;2.6" keyTimes="0;0.62;0.632;0.725;0.76;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.35;0.35;1;1;0.35;0.35" keyTimes="0;0.62;0.632;0.725;0.76;1" dur="10s" repeatCount="indefinite" calcMode="linear"/></circle>
+</g>
+<g class="agr-arch__pulse" aria-hidden="true">
+<circle r="2.4" fill="#7dd3fc" fill-opacity="0.18"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.369;1" keyTimes="0;0.75;1" begin="-0.18s"><mpath href="#agrLoopM"/></animateMotion></circle>
+<circle r="2.7" fill="#7dd3fc" fill-opacity="0.3"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.369;1" keyTimes="0;0.75;1" begin="-0.12s"><mpath href="#agrLoopM"/></animateMotion></circle>
+<circle r="3.0" fill="#7dd3fc" fill-opacity="0.45"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.369;1" keyTimes="0;0.75;1" begin="-0.06s"><mpath href="#agrLoopM"/></animateMotion></circle>
+<circle r="13" fill="url(#agrPulseGlow)"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.369;1" keyTimes="0;0.75;1" begin="0s"><mpath href="#agrLoopM"/></animateMotion></circle>
+<circle r="3.4" fill="#e0f2fe"><animateMotion dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.369;1" keyTimes="0;0.75;1" begin="0s"><mpath href="#agrLoopM"/></animateMotion></circle>
+</g>
+<g class="agr-arch__text"><text class="agr-arch__rail-t" x="362" y="580" text-anchor="end">ACTION →</text><text class="agr-arch__rail-t" transform="translate(398 292) rotate(-90)" text-anchor="middle">← FEEDBACK</text><text class="agr-arch__rail-t" x="362" y="11" text-anchor="end">NEXT CYCLE</text><text class="agr-arch__num" x="22" y="73">L5</text><text class="agr-arch__name" x="58" y="69">Reasoning</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.016;0.036;0.154;0.179;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="284" y="59.5" text-anchor="middle"><tspan>Claude</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>GPT-4o</tspan></text><text class="agr-arch__lab" x="284" y="74.5" text-anchor="middle"><tspan>Llama</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>On-prem</tspan></text></g><text class="agr-arch__num" x="22" y="181">L4</text><text class="agr-arch__name" x="58" y="177">Tools</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.169;0.189;0.306;0.331;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="284" y="160" text-anchor="middle"><tspan>SAP</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Manhattan</tspan></text><text class="agr-arch__lab" x="284" y="175" text-anchor="middle"><tspan>SCADA</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Slack</tspan></text><text class="agr-arch__lab" x="284" y="190" text-anchor="middle"><tspan>+ OpenAPI</tspan></text></g><text class="agr-arch__num" x="22" y="289">L3</text><text class="agr-arch__name" x="58" y="285">Memory</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.321;0.341;0.458;0.483;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="284" y="260.5" text-anchor="middle"><tspan>Event graph</tspan></text><text class="agr-arch__lab" x="284" y="275.5" text-anchor="middle"><tspan>Vector store</tspan></text><text class="agr-arch__lab" x="284" y="290.5" text-anchor="middle"><tspan>Temporal index</tspan></text><text class="agr-arch__lab" x="284" y="305.5" text-anchor="middle"><tspan>Replay</tspan></text></g><text class="agr-arch__num" x="22" y="397">L2</text><text class="agr-arch__name" x="58" y="393">Policy</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.473;0.493;0.61;0.635;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="284" y="376" text-anchor="middle"><tspan>RBAC</tspan><tspan class="agr-arch__lab-sep"> · </tspan><tspan>Approvals</tspan></text><text class="agr-arch__lab" x="284" y="391" text-anchor="middle"><tspan>Kill-switch</tspan></text><text class="agr-arch__lab" x="284" y="406" text-anchor="middle"><tspan>SOC 2 · GDPR</tspan></text></g><text class="agr-arch__num" x="22" y="505">L1</text><text class="agr-arch__name" x="58" y="501">Observability</text><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.625;0.645;0.75;0.775;1" dur="10s" repeatCount="indefinite" calcMode="linear"/><text class="agr-arch__lab" x="284" y="476.5" text-anchor="middle"><tspan>Decision ledger</tspan></text><text class="agr-arch__lab" x="284" y="491.5" text-anchor="middle"><tspan>Token spend</tspan></text><text class="agr-arch__lab" x="284" y="506.5" text-anchor="middle"><tspan>Per-tool success</tspan></text><text class="agr-arch__lab" x="284" y="521.5" text-anchor="middle"><tspan>Model A/B</tspan></text></g></g>
+</svg>
       </div>
-      <div class="agr__layer" style="--lhue:130,160,250">
-        <div class="agr__layer-head">
-          <span class="agr__layer-num">L4</span>
-          <span class="agr__layer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="6" height="6" rx="1"/><rect x="15" y="9" width="6" height="6" rx="1"/><path d="M9 12h6"/></svg></span>
-          <span class="agr__layer-id">
-            <span class="agr__layer-name">Tools</span>
-            <span class="agr__layer-kind">Connectors · APIs · actions</span>
-          </span>
-        </div>
-        <div class="agr__layer-viz">
-            <span class="agr__chiplet">50+ connectors</span>
-            <span class="agr__chiplet">SAP</span>
-            <span class="agr__chiplet">Manhattan</span>
-            <span class="agr__chiplet">SCADA</span>
-            <span class="agr__chiplet">Slack</span>
-            <span class="agr__chiplet">+ OpenAPI</span>
-        </div>
-      </div>
-      <div class="agr__layer" style="--lhue:96,165,250">
-        <div class="agr__layer-head">
-          <span class="agr__layer-num">L3</span>
-          <span class="agr__layer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>
-          <span class="agr__layer-id">
-            <span class="agr__layer-name">Memory</span>
-            <span class="agr__layer-kind">Graph · vectors · temporal</span>
-          </span>
-        </div>
-        <div class="agr__layer-viz">
-            <span class="agr__chiplet">Event graph</span>
-            <span class="agr__chiplet">Vector store</span>
-            <span class="agr__chiplet">Temporal index</span>
-            <span class="agr__chiplet">Replay</span>
-        </div>
-      </div>
-      <div class="agr__layer" style="--lhue:76,190,238">
-        <div class="agr__layer-head">
-          <span class="agr__layer-num">L2</span>
-          <span class="agr__layer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <span class="agr__layer-id">
-            <span class="agr__layer-name">Policy</span>
-            <span class="agr__layer-kind">Guardrails · RBAC · approvals</span>
-          </span>
-        </div>
-        <div class="agr__layer-viz">
-            <span class="agr__chiplet">RBAC</span>
-            <span class="agr__chiplet">Approvals</span>
-            <span class="agr__chiplet">Kill-switch</span>
-            <span class="agr__chiplet">SOC2 · GDPR · HIPAA</span>
-        </div>
-      </div>
-      <div class="agr__layer" style="--lhue:56,212,230">
-        <div class="agr__layer-head">
-          <span class="agr__layer-num">L1</span>
-          <span class="agr__layer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5-5 4 3 8-8"/><path d="M17 8h4v4"/></svg></span>
-          <span class="agr__layer-id">
-            <span class="agr__layer-name">Observability</span>
-            <span class="agr__layer-kind">Ledger · cost · A/B</span>
-          </span>
-        </div>
-        <div class="agr__layer-viz">
-            <span class="agr__chiplet">Decision ledger</span>
-            <span class="agr__chiplet">Token spend</span>
-            <span class="agr__chiplet">Per-tool success</span>
-            <span class="agr__chiplet">Model A/B</span>
-        </div>
-      </div>
+<aside class="agr-arch__trace" aria-label="One decision, traced through the runtime"><div class="agr-arch__trace-head"><span class="agr-arch__trace-title">// One decision · traced</span><span class="agr-arch__trace-live"><i></i>live</span></div><ol class="agr-arch__rows"><li class="agr-arch__row" style="--i:0"><span class="agr-arch__row-l">L5</span><span class="agr-arch__row-k">Reasoning</span><span class="agr-arch__row-m">dock-07 dwell 41 min → reroute?</span></li><li class="agr-arch__row" style="--i:1"><span class="agr-arch__row-l">L4</span><span class="agr-arch__row-k">Tools</span><span class="agr-arch__row-m">Manhattan WMS · door 09 is free</span></li><li class="agr-arch__row" style="--i:2"><span class="agr-arch__row-l">L3</span><span class="agr-arch__row-k">Memory</span><span class="agr-arch__row-m">3 similar events · all rerouted</span></li><li class="agr-arch__row" style="--i:3"><span class="agr-arch__row-l">L2</span><span class="agr-arch__row-k">Policy</span><span class="agr-arch__row-m">in threshold · no approval needed</span></li><li class="agr-arch__row" style="--i:4"><span class="agr-arch__row-l">L1</span><span class="agr-arch__row-k">Ledger</span><span class="agr-arch__row-m">#48213 · 412 tokens · 1.8 s</span></li><li class="agr-arch__row" style="--i:5"><span class="agr-arch__row-l">→</span><span class="agr-arch__row-k">Action</span><span class="agr-arch__row-m">truck reassigned to door 09</span></li></ol><div class="agr-arch__trace-foot">Every step lands in the ledger. Replayable, attributable, explainable.</div></aside>
     </div>
 
       </div><!-- /panel:architecture -->
@@ -1519,6 +1526,9 @@
   var panels = Array.prototype.slice.call(root.querySelectorAll('.agr-panel'));
   var track = root.querySelector('.agr-carousel');
   if(!track) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    Array.prototype.forEach.call(root.querySelectorAll('svg.agr-arch__svg'), function(s){ if (s.pauseAnimations) s.pauseAnimations(); });
+  }
 
   var currentTx = 0;
   var activeIdx = 0;
@@ -1863,65 +1873,83 @@
 .agr__more strong { color: var(--ink-1); font-weight: 500; }
 
 /* ── PANEL 3 · Architecture ─────────────────────────────────────────────── */
-.agr__stack, .agr-panel .agr__stack {
-  position: relative; display: flex; flex-direction: column; gap: 0;
-  margin: 0; padding: 0;
-  border: 1px solid var(--rule) !important; border-radius: 3px !important;
-  background: rgba(7,12,23,0.55) !important; overflow: hidden !important; box-shadow: none !important;
+/* A drawn runtime, not a table. Five plates on one spine; a pulse walks the
+   spine top to bottom and returns up the rail — the loop. Each plate shows its
+   contents only while it holds the pulse, so the panel reads as one moving
+   diagram rather than twenty-two chips. The ledger on the right traces one
+   decision through the same five slots on the same ten-second clock. */
+.agr-arch, .agr-panel .agr-arch {
+  display: grid; grid-template-columns: 1.26fr 0.74fr; gap: 34px; align-items: center; width: 100%;
 }
-.agr__stack-spine, .agr-panel .agr__stack-spine {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-  background: var(--ac); opacity: 0.5; border-radius: 0;
+.agr-arch > * { min-width: 0; }
+.agr-arch__stage { position: relative; }
+.agr-arch__svg { display: block; width: 100%; height: auto; overflow: visible; shape-rendering: geometricPrecision; }
+.agr-arch__svg--m { display: none; }
+.agr-arch__loop { fill: none; stroke: var(--ac); stroke-opacity: 0.22; stroke-width: 1; stroke-dasharray: 3 5; }
+.agr-arch__spine { stroke: var(--ac); stroke-opacity: 0.42; stroke-width: 1.2; }
+.agr-arch__front { fill: #050b16; stroke: var(--ac); stroke-opacity: 0.16; stroke-width: 1; }
+.agr-arch__side  { fill: #07101f; stroke: var(--ac); stroke-opacity: 0.16; stroke-width: 1; }
+.agr-arch__top   { fill: var(--ac); fill-opacity: 0.035; stroke: var(--ac); stroke-opacity: 0.22; stroke-width: 1; stroke-linejoin: round; }
+.agr-arch__port  { fill: #e0f2fe; fill-opacity: 0.35; }
+.agr-arch__lab   { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; fill: #e0f2fe;
+                   paint-order: stroke; stroke: #050b16; stroke-width: 4px; stroke-linejoin: round; }
+.agr-arch__lab-sep { fill: var(--ac-dim); }
+.agr-arch__num   { font-family: var(--font-display); font-size: 27px; font-weight: 700; letter-spacing: -0.02em;
+                   fill: transparent; stroke: var(--ac); stroke-opacity: 0.38; stroke-width: 1px; }
+.agr-arch__name  { font-family: var(--font-display); font-size: 17.5px; font-weight: 600; letter-spacing: -0.014em; fill: var(--ink-1); }
+.agr-arch__kind  { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; fill: var(--ink-4); }
+.agr-arch__rail-t{ font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.2em; fill: var(--ac-dim); }
+.agr-arch__pulse { pointer-events: none; }
+
+/* the trace ledger */
+.agr-arch__trace { border-left: 1px solid var(--rule); padding-left: 26px; }
+.agr-arch__trace-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.agr-arch__trace-title { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-4); }
+.agr-arch__trace-live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ac-dim); }
+.agr-arch__trace-live i { width: 5px; height: 5px; border-radius: 50%; background: var(--ac); animation: agrLive 2s ease-in-out infinite; }
+@keyframes agrLive { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.agr-arch__rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.agr-arch__row {
+  display: grid; grid-template-columns: 20px 68px 1fr; gap: 8px; align-items: baseline;
+  padding: 9px 0; border-bottom: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 1.45;
+  opacity: 0; animation: 10s linear infinite;
 }
-.agr__layer, .agr-panel .agr__layer {
-  display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 20px;
-  padding: 14px 22px 14px 26px !important;
-  border: 0 !important; border-radius: 0 !important;
-  border-bottom: 1px solid var(--rule) !important;
-  background: none !important;
-  transition: background 220ms ease;
+.agr-arch__row-l { color: var(--ac); }
+.agr-arch__row-k { color: var(--ink-2); }
+.agr-arch__row-m { color: var(--ink-3); overflow-wrap: anywhere; }
+.agr-arch__row:last-child .agr-arch__row-k, .agr-arch__row:last-child .agr-arch__row-m { color: var(--ink-1); }
+.agr-arch__trace-foot { margin-top: 12px; font-size: 11.5px; line-height: 1.55; color: var(--ink-3); }
+@keyframes agrRow0 { 0%,6.303% { opacity:0; transform:translateY(5px); } 9.103%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:0'] { animation-name: agrRow0; }
+@keyframes agrRow1 { 0%,21.447% { opacity:0; transform:translateY(5px); } 24.247%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:1'] { animation-name: agrRow1; }
+@keyframes agrRow2 { 0%,36.591% { opacity:0; transform:translateY(5px); } 39.391%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:2'] { animation-name: agrRow2; }
+@keyframes agrRow3 { 0%,51.736% { opacity:0; transform:translateY(5px); } 54.536%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:3'] { animation-name: agrRow3; }
+@keyframes agrRow4 { 0%,66.88% { opacity:0; transform:translateY(5px); } 69.68%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:4'] { animation-name: agrRow4; }
+@keyframes agrRow5 { 0%,77.5% { opacity:0; transform:translateY(5px); } 80.3%,96% { opacity:1; transform:none; } 99.5%,100% { opacity:0; transform:none; } }
+.agr-arch__row[style*='--i:5'] { animation-name: agrRow5; }
+
+@media (max-width: 1080px) {
+  .agr-arch, .agr-panel .agr-arch { grid-template-columns: 1fr; gap: 26px; }
+  .agr-arch__trace { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 18px; }
+  .agr-arch__rows { min-height: 0; }
 }
-.agr-panel .agr__layer:last-child { border-bottom: 0 !important; }
-.agr-panel .agr__layer:hover { background: rgba(125,211,252,0.035) !important; }
-.agr__layer::before, .agr__layer::after,
-.agr-panel .agr__layer::before, .agr-panel .agr__layer::after { content: none !important; }
-.agr__layer-head, .agr-panel .agr__layer-head {
-  display: flex; align-items: center; gap: 14px; padding: 0 !important; border: 0 !important; background: none;
+@media (max-width: 620px) {
+  .agr-arch__svg--d { display: none; }
+  .agr-arch__svg--m { display: block; }
+  .agr-arch__svg--m .agr-arch__lab { font-size: 10.5px; }
+  .agr-arch__row { grid-template-columns: 22px 1fr; gap: 3px 8px; }
+  .agr-arch__row-m { grid-column: 2; }
 }
-.agr__layer-num, .agr-panel .agr__layer-num {   /* outline numeral, not a badge */
-  display: block; width: auto; height: auto; flex-shrink: 0;
-  font-family: var(--font-display); font-size: 24px; font-weight: 700; line-height: 1;
-  letter-spacing: -0.02em;
-  color: transparent; -webkit-text-stroke: 1px rgba(125,211,252,0.34);
-  background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
-  padding: 0;
+@media (prefers-reduced-motion: reduce) {
+  .agr-arch__row { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .agr-arch__trace-live i { animation: none; }
+  .agr-arch__lab { opacity: 0.7 !important; }
 }
-.agr__layer-ico, .agr-panel .agr__layer-ico { display: inline-flex; color: var(--ac-dim); flex-shrink: 0; }
-.agr__layer-ico svg, .agr-panel .agr__layer-ico svg { width: 17px; height: 17px; }
-.agr__layer-id, .agr-panel .agr__layer-id { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.agr__layer-name, .agr-panel .agr__layer-name {
-  font-family: var(--font-display); font-size: 16px; font-weight: 600;
-  color: var(--ink-1); letter-spacing: -0.014em; line-height: 1.1; width: auto;
-}
-.agr__layer-kind, .agr-panel .agr__layer-kind {
-  width: auto; margin: 0;
-  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--ink-4);
-}
-.agr__layer-viz, .agr-panel .agr__layer-viz { display: flex; flex-wrap: wrap; gap: 0 12px; align-items: center; }
-.agr__chiplet, .agr-panel .agr__chiplet {   /* was a pill with a glowing dot */
-  display: inline-flex; align-items: center; gap: 0;
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--ink-3);
-  padding: 3px 0; border: 0; border-radius: 0; background: none;
-}
-.agr__chiplet::before, .agr-panel .agr__chiplet::before { content: none; }
-.agr__chiplet + .agr__chiplet::after { content: none; }
-.agr-panel .agr__layer-viz .agr__chiplet + .agr__chiplet { padding-left: 12px; border-left: 1px solid var(--rule); }
-/* legacy full-page variants */
-.agr__layer-body { padding: 20px 24px; font-size: 12.5px; line-height: 1.6; color: var(--ink-3); }
-.agr__layer-body strong { color: var(--ink-1); font-weight: 500; }
-.agr__layer-tags { display: flex; flex-wrap: wrap; gap: 0 12px; margin-top: 12px; }
-.agr__layer-tags span { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); padding: 0; border: 0; background: none; }
 
 /* ── PANEL 4 · Agent Builder ────────────────────────────────────────────── */
 .agr__builder, .agr-panel .agr__builder { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 38px; align-items: center; width: 100%; }
@@ -1982,7 +2010,6 @@
   .agr__hero, .agr-panel .agr__hero,
   .agr__builder, .agr-panel .agr__builder { grid-template-columns: 1fr; gap: 30px; }
   .agr-panel .agr__grid, .agr-panel--cyan .agr__grid { grid-template-columns: repeat(2, 1fr); }
-  .agr-panel .agr__layer { grid-template-columns: 1fr; gap: 10px; }
 }
 @media (max-width: 860px) {
   /* panels are flex siblings in one track, so they all take the tallest one's
