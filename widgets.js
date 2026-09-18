@@ -26,7 +26,12 @@
     /* Chat is a marketing/analytics-class third party. 'analytics' matches the
        category the cookie banner already asks about; set to null to load it
        without waiting for consent (not recommended for EU/UK visitors). */
-    CHAT_CONSENT_CATEGORY: 'analytics'
+    CHAT_CONSENT_CATEGORY: 'analytics',
+
+    /* Google Tag Manager container, e.g. 'GTM-XXXXXXX'. One container is the
+       whole measurement stack: GA4, Clarity and anything after it get deployed
+       inside GTM rather than by editing 114 pages again. Leave '' for none. */
+    GTM_ID: ''
   };
 
   function calendlyUrl() {
@@ -99,11 +104,85 @@
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
-  ready(function () { wireBooking(); wireChat(); });
+  /* ── measurement ────────────────────────────────────────────────────────
+     The site measured nothing: no GA4, no tag manager, no session analytics.
+     Rather than hard-code one vendor into 114 pages, this loads GTM — after
+     Analytics consent, same rule as the chat agent — and pushes a named event
+     for every action worth counting. The team then wires GA4 and anything else
+     inside GTM without touching the site again. */
+  var gtmLoaded = false;
+  function loadGtm() {
+    if (gtmLoaded || !CONFIG.GTM_ID) return;
+    gtmLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(CONFIG.GTM_ID);
+    document.head.appendChild(s);
+  }
+
+  /* Queued whether or not GTM is live, so nothing is lost while it is being
+     set up and so a different vendor can read the same queue later. */
+  function track(name, detail) {
+    window.dataLayer = window.dataLayer || [];
+    var e = { event: name, page_path: location.pathname };
+    if (detail) for (var k in detail) if (detail.hasOwnProperty(k)) e[k] = detail[k];
+    window.dataLayer.push(e);
+  }
+
+  /* One delegated listener rather than a handler per button: new CTAs are
+     measured automatically as long as they are links or buttons. */
+  function wireTracking() {
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a, button');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var label = (a.textContent || '').trim().slice(0, 60);
+
+      if (a.hasAttribute('data-innv-book'))            return track('booking_click', { label: label });
+      if (/calendly\.com/.test(href))                  return track('booking_click', { label: label });
+      if (/request-demo/.test(href))                   return track('demo_request_click', { label: label });
+      if (/^mailto:/.test(href))                       return track('email_click', { email_to: href.slice(7, 60) });
+      if (/^tel:/.test(href))                          return track('phone_click', {});
+      if (/\/cs-/.test(href))                          return track('case_study_open', { label: label });
+      if (/trust|privacy|terms/.test(href))            return track('trust_page_click', { label: label });
+      if (/platform-architecture|cap-|plat-/.test(href)) return track('architecture_click', { label: label });
+      if (/\/pt-|product\.html/.test(href))            return track('product_tour_click', { label: label });
+      if (/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(href)) return track('file_download', { file: href.split('/').pop() });
+    }, true);
+
+    /* Form intent: first keystroke is the start, delivery is the conversion.
+       Started-but-not-submitted is the number worth watching. */
+    ['ctab-form', 'rq-form'].forEach(function (id) {
+      var f = document.getElementById(id);
+      if (!f) return;
+      var started = false;
+      f.addEventListener('input', function () {
+        if (started) return;
+        started = true;
+        track('form_start', { form_id: id });
+      });
+      f.addEventListener('submit', function () { track('form_submit', { form_id: id }); });
+    });
+  }
+
+  function wireMeasurement() {
+    if (!CONFIG.GTM_ID) { wireTracking(); return; }   /* queue events regardless */
+    var c = window.InnoventConsent;
+    if (c && typeof c.get === 'function' && c.get().analytics) loadGtm();
+    else document.addEventListener('innovent:consent', function (e) {
+      if (e && e.detail && e.detail.analytics) loadGtm();
+    });
+    wireTracking();
+  }
+
+  ready(function () { wireBooking(); wireChat(); wireMeasurement(); });
 
   window.InnoventWidgets = {
     config: CONFIG,
     calendlyUrl: calendlyUrl,
-    loadChat: loadChat
+    loadChat: loadChat,
+    track: track
   };
 })();

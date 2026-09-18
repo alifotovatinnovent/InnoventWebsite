@@ -167,7 +167,7 @@
             { t: 'Production incident (P1/P2)', d: '24/7 follow-the-sun rotation. <15min response SLA.', h: 'pages/support.html' },
             { t: 'Standard ticket', d: 'Configuration, integrations, how-to. 4h SLA.', h: 'pages/login.html' },
             { t: 'Live chat', d: 'Triage with an engineer — embedded in the platform.', h: 'pages/login.html' },
-            { t: 'Phone (production)', d: '+1 (424) 555-INFI · routes to your account engineer.', h: 'pages/support.html' },
+            { t: 'Production incidents', d: 'support@innovent.io · routes to your account engineer.', h: 'pages/support.html' },
             { t: 'Office hours', d: 'Weekly architecture and optimization sessions.', h: 'pages/support.html' },
             { t: 'Community forum', d: 'Patterns, snippets, and answers from the community.', h: 'pages/support.html' },
           ]},
