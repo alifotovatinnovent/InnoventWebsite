@@ -5,23 +5,27 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260911a">
 <link rel="manifest" href="/site.webmanifest?v=20260911a">
 <meta name="theme-color" content="#0B0D14">
-<title>Innfini Cloud — Managed SaaS · Innovent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<title>Innfini Cloud deployment guide — Regions, SLA and data residency · Innovent</title>
 <meta name="description" content="Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.">
 <link rel="canonical" href="https://innovent.io/pages/deploy-innfini-cloud.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Innovent">
-<meta property="og:title" content="Innfini Cloud — Managed SaaS · Innovent">
+<meta property="og:title" content="Innfini Cloud deployment guide — Regions, SLA and data residency · Innovent">
 <meta property="og:description" content="Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.">
 <meta property="og:url" content="https://innovent.io/pages/deploy-innfini-cloud.html">
 <meta property="og:image" content="https://innovent.io/assets/innovent/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Innfini Cloud — Managed SaaS · Innovent">
+<meta name="twitter:title" content="Innfini Cloud deployment guide — Regions, SLA and data residency · Innovent">
 <meta name="twitter:description" content="Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.">
 <meta name="twitter:image" content="https://innovent.io/assets/innovent/og-default.jpg">
-<link rel="stylesheet" href="../styles.css?v=20260911a"><link rel="stylesheet" href="../styles-sections.css?v=20260911a"><link rel="stylesheet" href="../animations.css?v=20260911a"><link rel="stylesheet" href="../megamenu.css?v=20260911a"><link rel="stylesheet" href="_page.css?v=20260911a"><link rel="stylesheet" href="_casestudy.css?v=20260911a">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://innovent.io/"},{"@type":"ListItem","position":2,"name":"Deployment","item":"https://innovent.io/pages/product.html"},{"@type":"ListItem","position":3,"name":"Innfini Cloud — Managed SaaS","item":"https://innovent.io/pages/deploy-innfini-cloud.html"}]},{"@type":"WebPage","@id":"https://innovent.io/pages/deploy-innfini-cloud.html#page","url":"https://innovent.io/pages/deploy-innfini-cloud.html","name":"Innfini Cloud — Managed SaaS","description":"Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.","isPartOf":{"@id":"https://innovent.io/#site"},"publisher":{"@id":"https://innovent.io/#org"}},{"@type":"SoftwareApplication","name":"INNFINI","applicationCategory":"BusinessApplication","operatingSystem":"Web, on-premises, edge","description":"Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.","publisher":{"@id":"https://innovent.io/#org"},"brand":{"@id":"https://innovent.io/#org"},"url":"https://innovent.io/pages/product.html"}]}</script>
+<link rel="stylesheet" href="../styles.css?v=20260919a"><link rel="stylesheet" href="../styles-sections.css?v=20260919a"><link rel="stylesheet" href="../animations.css?v=20260919a"><link rel="stylesheet" href="../megamenu.css?v=20260919a"><link rel="stylesheet" href="_page.css?v=20260919a"><link rel="stylesheet" href="_casestudy.css?v=20260919a">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://innovent.io/"},{"@type":"ListItem","position":2,"name":"Deployment","item":"https://innovent.io/pages/product.html"},{"@type":"ListItem","position":3,"name":"Innfini Cloud — Managed SaaS","item":"https://innovent.io/pages/deploy-innfini-cloud.html"}]},{"@type":"WebPage","@id":"https://innovent.io/pages/deploy-innfini-cloud.html#page","url":"https://innovent.io/pages/deploy-innfini-cloud.html","name":"Innfini Cloud — Managed SaaS","description":"Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.","isPartOf":{"@id":"https://innovent.io/#site"},"publisher":{"@id":"https://innovent.io/#org"}},{"@type":"SoftwareApplication","name":"Innfini","applicationCategory":"BusinessApplication","operatingSystem":"Web, on-premises, edge","description":"Innfini Cloud is the fastest path to production. Managed multi-tenant SaaS with regions across US-East, US-West, EU, MENA, and APAC. 99.95% SLA.","publisher":{"@id":"https://innovent.io/#org"},"brand":{"@id":"https://innovent.io/#org"},"url":"https://innovent.io/pages/product.html"}]}</script>
 </head><body class="page" data-page="platform"><div id="site-nav"></div>
+<main id="main">
 <section class="cs-hero"><div class="cs-hero__inner">
   <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="platform.html">Platform</a><span class="sep">/</span>Innfini Cloud</div>
   <div class="cs-hero__meta"><span class="cs-hero__tag">// Platform · Deployment</span><span class="cs-hero__client">Managed SaaS · Multi-region</span></div>
@@ -61,5 +65,6 @@
     <a class="cs-related__card" href="deploy-on-prem.html"><span class="cs-related__card-client">// Related</span><h4>On-Premises</h4><span class="arrow">Read →</span></a>
     <a class="cs-related__card" href="deploy-hybrid-edge.html"><span class="cs-related__card-client">// Related</span><h4>Hybrid Edge</h4><span class="arrow">Read →</span></a>
 </div></div></section>
-<div id="site-footer"></div><script src="_chrome.js?v=20260911a"></script><script src="../megamenu.js?v=20260911a"></script>
+</main>
+<div id="site-footer"></div><script src="_chrome.js?v=20260919a"></script><script src="../megamenu.js?v=20260919a"></script>
 </body></html>

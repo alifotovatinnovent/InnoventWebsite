@@ -14,7 +14,8 @@
   els.forEach(el => io.observe(el));
 
   // Number counter-up — fires once when impact section enters
-  const counters = document.querySelectorAll("[data-count]");
+  // the markup already carries the final value; the count-up is decoration, so it is skipped for reduced motion (audit M45)
+  const counters = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? [] : document.querySelectorAll("[data-count]");
   const counterIO = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;

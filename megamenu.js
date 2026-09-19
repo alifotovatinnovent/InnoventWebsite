@@ -27,6 +27,7 @@
             { t: 'Private cloud', d: 'Single-tenant in your VPC with customer-managed keys.', h: 'pages/pd-private-cloud.html' },
             { t: 'On-premises', d: 'Air-gapped Kubernetes + edge gateways.', h: 'pages/pd-on-prem.html' },
             { t: 'Hybrid edge', d: 'Per-site edge runtime, cloud control plane — operates degraded.', h: 'pages/pd-hybrid-edge.html' },
+            { t: 'Security & compliance', d: 'Certifications, controls, data residency and disclosure.', h: 'pages/trust.html' },
           ]},
         { id: 'product', label: 'Product tour', href: 'pages/product.html',
           items: [
@@ -110,20 +111,13 @@
             { t: 'Field Notes blog', d: 'Posts from our engineering and solutions teams.', h: 'pages/resources.html#blog' },
             { t: 'Case Studies', d: 'Real customer deployments at national scale.', h: 'pages/resources.html#case-studies' },
             { t: 'White Papers', d: 'Architecture, policy, security, and AI-maturity papers.', h: 'pages/resources.html#whitepapers' },
-            { t: 'Events & Webinars', d: 'Upcoming sessions, field days, and conference appearances.', h: 'pages/resources.html#events' },
           ]},
         { id: 'technical', label: 'Technical library',
           items: [
-            { t: 'Knowledge Base', d: '1,840 articles across architecture, connectors, edge, policy.', h: 'pages/resources.html#kb' },
-            { t: 'API reference', d: '412 endpoints — REST, GraphQL, streaming.', h: 'pages/resources.html#kb' },
-            { t: 'Release notes', d: '156 releases back to v1.0 — searchable and tagged.', h: 'pages/resources.html#kb' },
-            { t: 'Architecture reference', d: 'The complete 32-page Innfini Architecture white paper.', h: 'pages/wp-architecture.html' },
-          ]},
-        { id: 'community', label: 'Community',
-          items: [
-            { t: 'Developer forum', d: 'Engineers, customers, partners — searchable patterns.', h: 'pages/support.html' },
-            { t: 'Office hours', d: 'Weekly 90-min sessions with our solutions team.', h: 'pages/support.html' },
-            { t: 'Monthly digest', d: 'One email a month. New stories, papers, and invitations.', h: 'pages/resources.html' },
+            { t: 'Architecture reference', d: 'The Innfini Architecture white paper, in full.', h: 'pages/wp-architecture.html' },
+            { t: 'Platform architecture', d: 'Eight zones, what runs where, how the layers connect.', h: 'pages/platform-architecture.html' },
+            { t: 'Security & compliance', d: 'Certifications, controls and the disclosure route.', h: 'pages/trust.html' },
+            { t: 'Deployment documentation', d: 'Available to prospective customers on request.', h: 'pages/request-demo.html' },
           ]},
       ],
     },
@@ -180,9 +174,9 @@
           ]},
         { id: 'selfserve', label: 'Self-serve',
           items: [
-            { t: 'Knowledge Base', d: '1,840 articles and 412 API endpoints, indexed and searchable.', h: 'pages/resources.html#kb' },
             { t: 'Engineering blog', d: 'Deep how-and-why from our solutions teams.', h: 'pages/resources.html#blog' },
-            { t: 'Onboarding guide', d: 'Standard 8-week implementation playbook.', h: 'pages/resources.html#whitepapers' },
+            { t: 'Platform architecture', d: 'The reference an integrator reads first.', h: 'pages/platform-architecture.html' },
+            { t: 'Support', d: 'support@innovent.io — no sign-in needed for a production incident.', h: 'pages/support.html' },
           ]},
         { id: 'portal', label: 'Customer portal',
           items: [
@@ -211,7 +205,7 @@
     let panelsHtml = '';
     def.categories.forEach((cat, idx) => {
       const active = idx === 0 ? ' is-active' : '';
-      catsHtml += `<a class="mega__cat${active}" data-cat="${cat.id}" href="#">${cat.label}</a>`;
+      catsHtml += `<button type="button" class="mega__cat${active}" data-cat="${cat.id}" aria-pressed="${idx === 0}">${cat.label}</button>`;
       const itemsHtml = cat.items.map(it => `
         <a class="mega__item" href="${url(it.h)}">
           <h5>${it.t}</h5>
@@ -226,9 +220,9 @@
 
     panel.innerHTML = `
       <div class="mega__inner">
-        <aside class="mega__sidebar">
+        <aside class="mega__sidebar" aria-label="${def.title} sections">
           <div class="mega__sidebar-label">${def.title}</div>
-          <nav class="mega__cats">${catsHtml}</nav>
+          <nav class="mega__cats" aria-label="${def.title} menu">${catsHtml}</nav>
           <a class="mega__explore" href="${url(def.href)}">
             <span>Explore ${def.title}</span>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -294,7 +288,7 @@
       '<aside class="mnav__panel" role="dialog" aria-modal="true" aria-label="Menu">' +
         '<div class="mnav__head"><span>Menu</span>' +
           '<button class="mnav__close" type="button" aria-label="Close menu">&times;</button></div>' +
-        '<nav class="mnav__list">' + groups + '</nav>' +
+        '<nav class="mnav__list" aria-label="Mobile menu">' + groups + '</nav>' +
         '<div class="mnav__cta">' + ctas + '</div>' +
       '</aside>';
     document.body.appendChild(drawer);

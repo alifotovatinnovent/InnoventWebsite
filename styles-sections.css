@@ -101,8 +101,8 @@
 .ind:hover { border-color: var(--hair-accent); background: var(--bg-2); transform: translateY(-3px); }
 .ind:hover .ind__arrow { transform: translate(4px, -4px); color: var(--accent); }
 .ind__head { display: flex; justify-content: space-between; align-items: flex-start; }
-.ind__num { font-family: var(--font-mono); font-size: 11px; color: var(--ink-40); letter-spacing: 0.15em; }
-.ind__arrow { color: var(--ink-40); transition: all 200ms; }
+.ind__num { font-family: var(--font-mono); font-size: 11px; color: var(--ink-60); letter-spacing: 0.15em; }
+.ind__arrow { color: var(--ink-60); transition: all 200ms; }
 .ind h4 { font-size: 22px; margin-top: 24px; margin-bottom: 8px; }
 .ind__sub { font-size: 13px; color: var(--ink-70); margin-bottom: 16px; line-height: 1.5; }
 .ind__meta { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.05em; }
@@ -233,11 +233,13 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: var
 .foot__brand p { font-size: 13px; color: var(--ink-70); line-height: 1.6; }
 .foot__col h5 { font-family: var(--font-mono); font-size: 11px; color: var(--ink-80); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px; font-weight: 500; }
 .foot__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-.foot__col a { color: var(--ink-70); text-decoration: none; font-size: 13px; transition: color 120ms; }
+.foot__col a { color: var(--ink-70); text-decoration: none; font-size: 13px; transition: color 120ms; display: inline-block; padding: 10px 0; margin: -10px 0; }
+@media (max-width: 860px) { .foot__col ul { gap: 18px; } .foot__col a { padding: 13px 0; margin: -10px 0; } }
 .foot__col a:hover { color: var(--accent); }
 .foot__bot { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; border-top: 1px solid var(--hair); font-size: 12px; color: var(--ink-70); flex-wrap: wrap; gap: 16px; }
 /* wraps: five links at 24px gaps overflow a 320px viewport otherwise */
-.foot__bot-right { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.foot__bot-right { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+.foot__bot-right a, .foot__bot-right .foot__linkbtn { display: inline-block; padding: 12px 0; margin: -12px 0; }
 .foot__bot a { color: var(--ink-70); text-decoration: none; }
 .foot__bot a:hover { color: var(--ink-90); }
 

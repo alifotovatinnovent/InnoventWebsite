@@ -40,10 +40,8 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+# Security headers (CSP, HSTS, framing, referrer, permissions) live in the
+# _headers file at the site root so they apply to every response, not only HTML.
 
 # Serve /pages/foo for /pages/foo.html so the URLs are shareable without the
 # extension. Canonical tags still point at the .html form — change both together

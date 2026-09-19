@@ -1,0 +1,15 @@
+# Security headers for every response. Netlify applies these at the edge.
+# The CSP allows: this origin; inline styles and scripts (the site uses both
+# today — tightening to nonces is a follow-up); Google Fonts; unpkg for the
+# d3/topojson map libraries (served with SRI hashes); jsdelivr for the world
+# atlas the map fetches; Chatbase and Google Tag Manager so that switching
+# either on in widgets.js does not also need a header change. Nothing may
+# frame the site.
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.chatbase.co https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://cdn.jsdelivr.net https://www.chatbase.co https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.chatbase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests

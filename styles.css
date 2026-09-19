@@ -4,7 +4,7 @@
    Type: Sora (display) + Inter (body) — modern American tech voice
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+/* Display fonts are linked from every page head with a preconnect (audit M156) — the @import that used to sit here chained a second round-trip behind this file. */
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -217,7 +217,11 @@ p { margin: 0; }
   margin: 0 0 24px;
 }
 .hero__sub strong { color: var(--ink-100); font-weight: 500; }
-.hero__cta { display: flex; gap: 10px; margin-bottom: 32px; }
+/* the definition line under the subhead and the proof line under the CTAs (audit M94, M112) */
+.hero__def { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-70); margin: -8px 0 22px; }
+.hero__proof { font-size: 13px; line-height: 1.55; color: var(--ink-70); max-width: 540px; margin: -12px 0 26px; }
+.hero__proof::before { content: '// '; color: var(--accent); }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
 .hero__sig {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -495,6 +499,11 @@ p { margin: 0; }
 .cases__stat-cap { font-size: 14px; line-height: 1.5; color: var(--ink-70); }
 
 .cases__chips { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 24px; border-top: 1px solid var(--hair); }
+.cases__more { display: inline-block; margin-top: 18px; font-size: 13.5px; font-weight: 500; color: var(--accent); text-decoration: none; }
+.cases__more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cases__all { margin: -6px 0 26px; font-size: 13px; text-align: right; }
+.cases__all a { color: var(--ink-70); text-decoration: none; }
+.cases__all a:hover { color: var(--accent); }
 .cases__chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-70); background: var(--bg-1); border: 1px solid var(--hair); border-radius: 999px; padding: 7px 14px; }
 
 /* Right visual (photo + metric overlay) */
@@ -702,7 +711,7 @@ p { margin: 0; }
   --ink-90: #e2e8f0;
   --ink-80: #cbd5e1;
   --ink-70: #94a3b8;
-  --ink-60: #64748b;
+  --ink-60: #7C8BA1;   /* 5.7:1 on the deepest background — the old #64748b was 4.1:1 (audit M160) */
   --bg-deep: #050a18;
   --bg-1: #0a1224;
 }
@@ -999,3 +1008,32 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 [hidden].btn,
 [hidden].btn--primary,
 [hidden].btn--secondary { display: none !important; }
+
+/* ── skip link (audit M47) and the footer control that is a button, not a link ── */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--bg-2, #0b1220); color: var(--ink-100, #f1f5f9); padding: 12px 20px; z-index: 9999; border-radius: 6px; font-size: 14px; text-decoration: none; }
+.skip-link:focus { left: 12px; top: 12px; outline: 2px solid var(--accent); }
+.foot__linkbtn { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
+.foot__linkbtn:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+}
+
+/* Hero screenshot on phones (audit M167): a 1600px dashboard scaled to 340px
+   is texture, not product. Crop to its top-left quadrant — the KPI tiles and
+   the map — at twice the width, so the figures on it can be read. */
+@media (max-width: 560px) {
+  .hero__frame { position: relative; }
+  .hero__frame-img { width: 200%; max-width: none; height: auto; }
+  .hero__frame-viewport { overflow: hidden; aspect-ratio: 4 / 3; }
+}
+
+/* Sticky phone action bar (audit M168): on a page this long the CTA must travel with the reader. */
+.mcta { display: none; }
+@media (max-width: 640px) {
+  .mcta { display: flex; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(4,8,15,0.92);
+    backdrop-filter: blur(10px); border-top: 1px solid var(--hair); }
+  .mcta .btn { flex: 1; justify-content: center; }
+  body { padding-bottom: 72px; }
+}

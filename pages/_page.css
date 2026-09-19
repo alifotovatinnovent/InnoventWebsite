@@ -400,3 +400,26 @@ body.page { background: var(--bg-deep); color: var(--ink-80); font-family: var(-
    outranks the colgroup — so the widths must be released here for <col> to win. */
 .spec-table--fixed th { width: auto; }
 .spec-table--fixed th, .spec-table--fixed td { overflow-wrap: break-word; }
+
+/* ── cross-references (audit M70–M86): one ruled band before the footer ── */
+.xref { padding: 56px 0 64px; border-top: 1px solid var(--hair); }
+.xref__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--hair); border-radius: 6px; overflow: hidden; }
+.xref__card { display: flex; flex-direction: column; gap: 6px; padding: 22px 24px; text-decoration: none; border-right: 1px solid var(--hair); transition: background 160ms; }
+.xref__card:last-child { border-right: 0; }
+.xref__card:hover { background: rgba(125,211,252,0.045); }
+.xref__kind { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.xref__t { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--ink-100); letter-spacing: -0.01em; }
+.xref__l { font-size: 13px; line-height: 1.5; color: var(--ink-70); }
+.xref__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 22px; font-size: 13.5px; }
+.xref__row-t { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-70); margin-right: 6px; }
+.xref__row a { color: var(--ink-90); text-decoration: none; padding: 8px 0; }
+.xref__row a:hover { color: var(--accent); }
+@media (max-width: 860px) { .xref__grid { grid-template-columns: 1fr; } .xref__card { border-right: 0; border-bottom: 1px solid var(--hair); } .xref__card:last-child { border-bottom: 0; } }
+
+/* white-paper notify capture (audit M110/M111) */
+.wp-notify { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; margin-top: 16px; }
+.wp-notify label { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-70); }
+.wp-notify input { padding: 11px 12px; border-radius: 6px; border: 1px solid var(--hair); background: rgba(255,255,255,0.03); color: var(--ink-100); font: inherit; font-size: 14px; min-width: 0; }
+.wp-notify input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.wp-notify__done { color: var(--accent); margin-top: 12px; }
+@media (max-width: 640px) { .wp-notify { grid-template-columns: 1fr; } }

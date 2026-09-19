@@ -5,13 +5,16 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260911a">
 <link rel="manifest" href="/site.webmanifest?v=20260911a">
 <meta name="theme-color" content="#0B0D14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
 <title>Sign in · Innovent</title>
 <meta name="description" content="Sign in to the Innfini portal for live operations, deployment status, support and your organisation's licence estate.">
 <link rel="canonical" href="https://innovent.io/pages/login.html">
 <meta name="robots" content="noindex,follow">
-<link rel="stylesheet" href="../styles.css?v=20260911a">
-<link rel="stylesheet" href="../styles-sections.css?v=20260911a">
-<link rel="stylesheet" href="_page.css?v=20260911a">
+<link rel="stylesheet" href="../styles.css?v=20260919a">
+<link rel="stylesheet" href="../styles-sections.css?v=20260919a">
+<link rel="stylesheet" href="_page.css?v=20260919a">
 <style>
 /* ─────────────────────────────────────────────────────────────
    Immersive sign-in. Architectural photograph, faded back under a
@@ -57,11 +60,11 @@ body[data-page="login"] .lg__credit {
    so it is darkened and desaturated before the wash goes over it */
 .lg__photo {
   position: absolute; inset: 0;
-  /* 2000px / 279 KB, downscaled from the 4020x2930 / 1.8 MB original: a 12 MP
-     decode is the heaviest thing on a page whose only job is a login form. */
-  background: url("../assets/login-bg-lg.jpg") center 42% / cover no-repeat;
-  filter: saturate(0.72) contrast(1.04) brightness(0.86);
-  transform: scale(1.02);           /* hides the filter's edge softening */
+  /* the product itself — the Metropolitan Operations screen — behind the form (audit M129) */
+  background: url("../assets/product/innfini-metro-ops.webp") center 42% / cover no-repeat;
+  /* a product screen is busier than a photograph: darken and soften it so the form and copy stay in front */
+  filter: saturate(0.55) brightness(0.38) blur(2.5px);
+  transform: scale(1.04);           /* hides the filter's edge softening */
 }
 
 /* The fade is targeted rather than global: the building keeps most of its own
@@ -268,7 +271,7 @@ body[data-page="login"] .lg__credit {
   .lg__trust { gap: 8px 20px; font-size: 10px; }
   .lg__credit { padding: 0 20px 16px; text-align: left; }
   /* 1100px / 80 KB source — no reason to ship 2000px to a 620px viewport */
-  .lg__photo { background-image: url("../assets/login-bg-sm.jpg"); }
+  .lg__photo { background-image: url("../assets/product/innfini-metro-ops-sm.webp"); }
 }
 
 /* sign-in explanation — replaces an alert() that claimed a redirect it could
@@ -281,6 +284,7 @@ body[data-page="login"] .lg__credit {
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://innovent.io/"},{"@type":"ListItem","position":2,"name":"Sign in","item":"https://innovent.io/pages/login.html"}]},{"@type":"WebPage","@id":"https://innovent.io/pages/login.html#page","url":"https://innovent.io/pages/login.html","name":"Sign in","description":"Sign in to the Innfini portal for live operations, deployment status, support and your organisation's licence estate.","isPartOf":{"@id":"https://innovent.io/#site"},"publisher":{"@id":"https://innovent.io/#org"}}]}</script>
 </head><body class="page" data-page="login">
+<a class="skip-link" href="#main">Skip to content</a>
 
 <div class="lg">
 
@@ -330,7 +334,7 @@ body[data-page="login"] .lg__credit {
       </div>
     </div>
 
-    <div class="lg__card">
+    <main id="main"><div class="lg__card">
       <h1>Sign in</h1>
       <p class="sub">Customer and partner portal for the Innfini platform.</p>
 
@@ -368,11 +372,10 @@ body[data-page="login"] .lg__credit {
           <a href="support.html">Need help?</a>
         </div>
       </div>
-    </div>
+    </div></main>
 
   </div>
 
-  <div class="lg__credit">Photo by <a href="https://unsplash.com/@alexanderpopovkin?utm_source=innovent&amp;utm_medium=referral" target="_blank" rel="noopener">Alexander Popovkin</a> on <a href="https://unsplash.com/?utm_source=innovent&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>
 </div>
 
 <script>
@@ -404,5 +407,5 @@ document.querySelectorAll('.login-tab').forEach(t=>t.addEventListener('click',e=
   });
 })();
 </script>
-<script src="../consent.js?v=20260911a" defer data-innv-consent></script>
+<script src="../consent.js?v=20260919a" defer data-innv-consent></script>
 </body></html>

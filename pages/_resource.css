@@ -35,7 +35,7 @@
   color: #fff;
 }
 .bl-hero__author { color: var(--ink-90); font-weight: 500; }
-.bl-hero__sep { color: var(--ink-40); }
+.bl-hero__sep { color: var(--ink-60); }
 
 .bl-body { padding: 56px 0 80px; }
 .bl-body__inner { max-width: 720px; margin: 0 auto; padding: 0 32px; }

@@ -1,0 +1,22 @@
+# Addresses from the previous (Webflow) site that are still indexed.
+# Every one is a 301 to its nearest equivalent — never to the homepage.
+/retail              /pages/ind-retail        301
+/healthcare          /pages/ind-healthcare    301
+/oil                 /pages/ind-oil-gas       301
+/oil-gas             /pages/ind-oil-gas       301
+/technical-support   /pages/support           301
+/support             /pages/support           301
+/jobs                /pages/careers           301
+/careers             /pages/careers           301
+/news-room           /pages/press             301
+/news                /pages/press             301
+/press               /pages/press             301
+/about               /pages/careers           301
+/contact             /pages/request-demo      301
+/contact-us          /pages/request-demo      301
+/platform            /pages/platform          301
+/industries          /pages/industries        301
+/resources           /pages/resources         301
+/privacy             /pages/privacy           301
+/terms               /pages/terms             301
+/login               /pages/login             301
