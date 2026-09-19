@@ -21,7 +21,7 @@
 /login               /pages/login             301
 
 # --- GEO/AEO P0 301s (Ali unlock 2026-09-19) — SEO Strategy merged map ---
-# About/FAQ interim until about.html / faq.html return 200, then swap.
+# About/FAQ → live pages (swapped 2026-09-19 after about.html / faq.html 200).
 /innfini-platform    /pages/platform.html    301
 /innfini-platform/   /pages/platform.html    301
 /innfini             /pages/platform.html    301
@@ -34,12 +34,12 @@
 /industry/           /pages/industries.html  301
 /services            /pages/product.html     301
 /services/           /pages/product.html     301
-/about-us            /pages/loc-dubai.html   301
-/about-us/           /pages/loc-dubai.html   301
-/about               /pages/loc-dubai.html   301
-/about/              /pages/loc-dubai.html   301
-/faq                 /pages/resources.html   301
-/faq/                /pages/resources.html   301
+/about-us            /pages/about.html       301
+/about-us/           /pages/about.html       301
+/about               /pages/about.html       301
+/about/              /pages/about.html       301
+/faq                 /pages/faq.html         301
+/faq/                /pages/faq.html         301
 /news/the-role-of-iot-in-modern-healthcare-management  /pages/ind-healthcare.html 301
 /news/how-to-choose-the-right-rfid-solution-provider-in-dubai  /pages/resources.html 301
 # Clean SEO doors for new LPs (pages ship in same PR; 200 rewrite after files exist)
