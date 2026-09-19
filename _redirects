@@ -11,7 +11,6 @@
 /news-room           /pages/press             301
 /news                /pages/press             301
 /press               /pages/press             301
-/about               /pages/careers           301
 /contact             /pages/request-demo      301
 /contact-us          /pages/request-demo      301
 /platform            /pages/platform          301
@@ -20,3 +19,31 @@
 /privacy             /pages/privacy           301
 /terms               /pages/terms             301
 /login               /pages/login             301
+
+# --- GEO/AEO P0 301s (Ali unlock 2026-09-19) — SEO Strategy merged map ---
+# About/FAQ interim until about.html / faq.html return 200, then swap.
+/innfini-platform    /pages/platform.html    301
+/innfini-platform/   /pages/platform.html    301
+/innfini             /pages/platform.html    301
+/innfini/            /pages/platform.html    301
+/logistic            /pages/ind-logistics.html 301
+/logistic/           /pages/ind-logistics.html 301
+/logistics           /pages/ind-logistics.html 301
+/logistics/          /pages/ind-logistics.html 301
+/industry            /pages/industries.html  301
+/industry/           /pages/industries.html  301
+/services            /pages/product.html     301
+/services/           /pages/product.html     301
+/about-us            /pages/loc-dubai.html   301
+/about-us/           /pages/loc-dubai.html   301
+/about               /pages/loc-dubai.html   301
+/about/              /pages/loc-dubai.html   301
+/faq                 /pages/resources.html   301
+/faq/                /pages/resources.html   301
+/news/the-role-of-iot-in-modern-healthcare-management  /pages/ind-healthcare.html 301
+/news/how-to-choose-the-right-rfid-solution-provider-in-dubai  /pages/resources.html 301
+# Clean SEO doors for new LPs (pages ship in same PR; 200 rewrite after files exist)
+/command-control-platform    /pages/command-control-platform.html    200
+/command-control-platform/   /pages/command-control-platform.html    200
+/smart-city-command-center   /pages/smart-city-command-center.html   200
+/smart-city-command-center/  /pages/smart-city-command-center.html   200
