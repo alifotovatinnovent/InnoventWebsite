@@ -200,9 +200,9 @@ p { margin: 0; }
 .hero__copy { display: flex; flex-direction: column; max-width: 560px; transform: scale(1); transform-origin: left center; }
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(34px, 4vw, 56px);
+  font-size: clamp(32px, 3.5vw, 50px);
   font-weight: 600;
-  line-height: 1.05;
+  line-height: 1.06;
   letter-spacing: -0.025em;
   margin: 0 0 16px;
   color: var(--ink-100);
@@ -210,7 +210,7 @@ p { margin: 0; }
 .hero__title em { font-style: normal; color: var(--accent); position: relative; }
 .hero__title-plain { color: var(--ink-100); }
 .hero__sub {
-  font-size: 16.5px;
+  font-size: 15.5px;
   line-height: 1.6;
   color: var(--ink-70);
   max-width: 540px;
@@ -1039,8 +1039,6 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 }
 
 /* ── Hero screenshot: bigger, and alive ─────────────────────────────────── */
-/* On wide screens the frame runs past the content column to the right, so the
-   product is the largest thing on the first screen. */
 @media (min-width: 1200px) {
   .hero { overflow-x: clip; }
   .hero__visual { width: calc(100% + 64px); }
@@ -1048,40 +1046,20 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 @media (min-width: 1440px) {
   .hero__visual { width: calc(100% + 96px); }
 }
-.hero__frame { animation: hero-float 9s ease-in-out infinite; will-change: transform; }
-@keyframes hero-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .hero__frame-viewport { position: relative; }
-.hero__ov { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.hero__ping { position: absolute; left: var(--x); top: var(--y); width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
-  background: #7dd3fc; box-shadow: 0 0 10px 2px rgba(125,211,252,0.55); opacity: 0.9; }
-.hero__ping::before, .hero__ping::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 1.5px solid #7dd3fc; opacity: 0;
-  animation: hero-ring 3.6s cubic-bezier(.2,.6,.4,1) infinite; animation-delay: var(--d, 0s); }
-.hero__ping::after { animation-delay: calc(var(--d, 0s) + 1.2s); }
-.hero__ping--big { width: 14px; height: 14px; margin: -7px 0 0 -7px; }
-.hero__ping--violet { background: #a78bfa; box-shadow: 0 0 10px 2px rgba(167,139,250,0.55); }
-.hero__ping--violet::before, .hero__ping--violet::after { border-color: #a78bfa; }
-.hero__ping--amber { background: #fbbf24; box-shadow: 0 0 10px 2px rgba(251,191,36,0.5); }
-.hero__ping--amber::before, .hero__ping--amber::after { border-color: #fbbf24; }
-@keyframes hero-ring { 0% { transform: scale(0.6); opacity: 0.9; } 70% { opacity: 0.25; } 100% { transform: scale(4.2); opacity: 0; } }
-/* a soft pulse behind the big counter — no dot on the digits */
-.hero__glow { position: absolute; left: var(--x); top: var(--y); width: 22%; height: 16%; transform: translate(-50%, -50%); border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(167,139,250,0.28), rgba(167,139,250,0)); animation: hero-glow 3.6s ease-in-out infinite; animation-delay: var(--d, 0s); }
-@keyframes hero-glow { 0%, 100% { opacity: 0.35; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
-/* a highlight travelling across the main chart (the band between 46% and 71% of the image height) */
-.hero__sweep { position: absolute; top: 46%; height: 25%; left: 16%; width: 6%;
-  background: linear-gradient(90deg, rgba(125,211,252,0) 0%, rgba(125,211,252,0.16) 50%, rgba(125,211,252,0) 100%);
-  animation: hero-sweep 6s linear infinite; }
-@keyframes hero-sweep { 0% { left: 16%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 60%; opacity: 0; } }
-/* a scan line, top to bottom, every 11 s */
-.hero__scan { position: absolute; left: 0; right: 0; top: -2px; height: 2px;
-  background: linear-gradient(90deg, rgba(125,211,252,0) 0%, rgba(125,211,252,0.55) 30%, rgba(125,211,252,0.55) 70%, rgba(125,211,252,0) 100%);
-  box-shadow: 0 0 14px rgba(125,211,252,0.35); animation: hero-scan 11s linear infinite; }
-@keyframes hero-scan { 0% { top: -2px; opacity: 0; } 5% { opacity: 0.9; } 95% { opacity: 0.9; } 100% { top: 100%; opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .hero__frame { animation: none; }
-  .hero__ping::before, .hero__ping::after, .hero__sweep, .hero__scan, .hero__glow { animation: none; opacity: 0; }
-}
-@media (max-width: 560px) { .hero__ov { display: none; } .hero__frame { animation: none; } }
+.hero__ov { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.hero__ov .hv-cur { stroke: #ffffff; stroke-opacity: 0.32; stroke-width: 2; }
+.hero__ov .hv-dot { fill: #ffffff; stroke: #6d28d9; stroke-width: 4; }
+.hero__ov .hv-halo { fill: #8b5cf6; opacity: 0.25; }
+.hero__ov .hv-box { fill: #303030; stroke: #454545; stroke-width: 1.5; }
+.hero__ov .hv-pill { fill: #1a1a1a; }
+.hero__ov .hv-chip-d { font-family: var(--font-body); font-size: 14px; font-weight: 600; fill: #f5f5f5; }
+.hero__ov .hv-chip-v { font-family: var(--font-body); font-size: 14px; font-weight: 500; fill: #9a9a9a; }
+.hero__ov .hv-chip-v tspan { fill: #ffffff; font-weight: 700; }
+.hero__ov .hv-refresh { fill: #7dd3fc; }
+.hero__ov .hv-cell { fill: #fbbf24; }
+@media (prefers-reduced-motion: reduce) { .hero__ov { display: none; } }
+@media (max-width: 560px) { .hero__ov { display: none; } }
 
 /* Tablet widths (861–1100px): the six links plus both buttons did not fit and
    wrapped under the brand. Tighten instead of wrapping. */
