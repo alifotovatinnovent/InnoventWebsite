@@ -161,7 +161,7 @@
             { t: 'Production incident (P1/P2)', d: '24/7 follow-the-sun rotation. <15min response SLA.', h: 'pages/support.html' },
             { t: 'Standard ticket', d: 'Configuration, integrations, how-to. 4h SLA.', h: 'pages/login.html' },
             { t: 'Live chat', d: 'Triage with an engineer — embedded in the platform.', h: 'pages/login.html' },
-            { t: 'Production incidents', d: 'support@innovent.io · routes to your account engineer.', h: 'pages/support.html' },
+            { t: 'Production incidents', d: 'info@innovent.io · routes to your account engineer.', h: 'pages/support.html' },
             { t: 'Office hours', d: 'Weekly architecture and optimization sessions.', h: 'pages/support.html' },
             { t: 'Community forum', d: 'Patterns, snippets, and answers from the community.', h: 'pages/support.html' },
           ]},
@@ -176,7 +176,7 @@
           items: [
             { t: 'Engineering blog', d: 'Deep how-and-why from our solutions teams.', h: 'pages/resources.html#blog' },
             { t: 'Platform architecture', d: 'The reference an integrator reads first.', h: 'pages/platform-architecture.html' },
-            { t: 'Support', d: 'support@innovent.io — no sign-in needed for a production incident.', h: 'pages/support.html' },
+            { t: 'Support', d: 'info@innovent.io — no sign-in needed for a production incident.', h: 'pages/support.html' },
           ]},
         { id: 'portal', label: 'Customer portal',
           items: [

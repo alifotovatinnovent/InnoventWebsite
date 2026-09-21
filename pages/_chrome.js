@@ -87,7 +87,7 @@
           <li><a href="${P}request-demo.html">Request a demo</a></li>
           <li><a data-innv-book hidden>Book a call</a></li>
           <li><a href="${P}resources.html#case-studies">Customers</a></li>
-          <li><a href="mailto:support@innovent.io">support@innovent.io</a></li>
+          <li><a href="mailto:info@innovent.io">info@innovent.io</a></li>
           <li><a href="${P}login.html">Customer login</a></li>
         </ul>
       </div>

@@ -1,4 +1,4 @@
-Contact: mailto:support@innovent.io
+Contact: mailto:info@innovent.io
 Expires: 2027-09-18T00:00:00.000Z
 Preferred-Languages: en, ar
 Canonical: https://innovent.io/.well-known/security.txt

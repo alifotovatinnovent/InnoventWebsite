@@ -26,9 +26,8 @@
     /* Set this when the form service is chosen. Leave null to use Netlify Forms. */
     ENDPOINT: null,
 
-    /* Shown as the fallback if delivery fails. careers@ and press@ are the
-       addresses already published on the site; CONFIRM this one before launch. */
-    FALLBACK_EMAIL: 'hello@innovent.io',
+    /* Shown as the fallback if delivery fails — the one mailbox every enquiry goes to. */
+    FALLBACK_EMAIL: 'info@innovent.io',
 
     TIMEOUT_MS: 12000
   };
