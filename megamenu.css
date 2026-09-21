@@ -238,19 +238,19 @@
   .mega__inner { grid-template-columns: 200px 1fr; gap: 36px; padding: 28px 24px 36px; }
   .mega__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .mega, .mega-backdrop { display: none !important; }
   .nav__item > .nav__link .chev { display: none; }
 }
 
 /* ══ Mobile navigation ═════════════════════════════════════════════════════
    Everything below is inert at desktop widths: the burger and the drawer are
-   display:none until 860px, which is also where the mega menu switches off.
+   display:none until 980px, which is also where the mega menu switches off.
    No existing desktop rule is touched.                                       */
 .nav__burger,
 .mnav { display: none; }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   /* The six links in a row are what pushed every page 134px wider than the
      viewport on a phone. Hand navigation to the drawer instead. */
   .nav__links,
