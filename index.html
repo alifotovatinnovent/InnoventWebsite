@@ -27,17 +27,17 @@
 <meta name="twitter:description" content="One operating picture for operations that can't go dark. Innfini unifies people, assets, locations, processes, sensors, AI, and automation — with agents under policy.">
 <meta name="twitter:image" content="https://innovent.io/assets/innovent/og-default.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://innovent.io/#org","name":"Innovent","url":"https://innovent.io/","logo":"https://innovent.io/assets/innovent/logo-org.png","description":"Innovent builds Innfini, an operating layer for command-and-control, smart cities, ports and critical infrastructure.","address":[{"@type":"PostalAddress","addressLocality":"Los Angeles","addressRegion":"CA","addressCountry":"US"},{"@type":"PostalAddress","streetAddress":"1103, Smart Heights Business Tower, Barsha Heights (Tecom)","addressLocality":"Dubai","addressCountry":"AE"}],"contactPoint":[{"@type":"ContactPoint","contactType":"technical support","email":"info@innovent.io","availableLanguage":["en","ar"]}],"sameAs":[]},{"@type":"WebSite","@id":"https://innovent.io/#site","url":"https://innovent.io/","name":"Innovent","publisher":{"@id":"https://innovent.io/#org"},"inLanguage":"en"},{"@type":"SoftwareApplication","name":"Innfini","applicationCategory":"BusinessApplication","operatingSystem":"Cloud, on-premise, hybrid edge","publisher":{"@id":"https://innovent.io/#org"},"description":"One operating layer that fuses sensors, video and enterprise systems into a live operational picture, with agentic decision support and full audit."}]}</script>
-<link rel="stylesheet" href="styles.css?v=20260921g">
-<link rel="stylesheet" href="styles-sections.css?v=20260921g">
-<link rel="stylesheet" href="animations.css?v=20260921g">
-<link rel="stylesheet" href="styles-smartcity.css?v=20260921g">
-<link rel="stylesheet" href="styles-decision-engine.css?v=20260921g">
-<link rel="stylesheet" href="styles-object-graph.css?v=20260921g">
-<link rel="stylesheet" href="styles-sensor-fabric.css?v=20260921g">
-<link rel="stylesheet" href="styles-connectors.css?v=20260921g">
-<link rel="stylesheet" href="styles-edge-runtime.css?v=20260921g">
-<link rel="stylesheet" href="megamenu.css?v=20260921g">
-<link rel="stylesheet" href="mobile-sections.css?v=20260921g">
+<link rel="stylesheet" href="styles.css?v=20260921h">
+<link rel="stylesheet" href="styles-sections.css?v=20260921h">
+<link rel="stylesheet" href="animations.css?v=20260921h">
+<link rel="stylesheet" href="styles-smartcity.css?v=20260921h">
+<link rel="stylesheet" href="styles-decision-engine.css?v=20260921h">
+<link rel="stylesheet" href="styles-object-graph.css?v=20260921h">
+<link rel="stylesheet" href="styles-sensor-fabric.css?v=20260921h">
+<link rel="stylesheet" href="styles-connectors.css?v=20260921h">
+<link rel="stylesheet" href="styles-edge-runtime.css?v=20260921h">
+<link rel="stylesheet" href="megamenu.css?v=20260921h">
+<link rel="stylesheet" href="mobile-sections.css?v=20260921h">
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
 </head>
@@ -3558,6 +3558,13 @@
   </div>
 </section>
 
+
+    <!-- Static twin of the "Book a call" dialog (widgets.js) so Netlify registers
+         the book-call form at deploy time. Never shown. -->
+    <form name="book-call" data-netlify="true" data-netlify-honeypot="bot-field" hidden aria-hidden="true">
+      <input type="hidden" name="form-name" value="book-call"><input name="bot-field">
+      <input name="name"><input name="email"><input name="company"><input name="phone"><input name="date"><select name="slot"><option>14:00 – 16:00</option></select><textarea name="topic"></textarea><input name="submitted-at"><input name="page">
+    </form>
 <!-- ─── FOOTER ────────────────────────────────────────────── -->
 </main>
 <div class="mcta" aria-label="Contact"><a class="btn btn--primary btn--sm" href="pages/request-demo.html">Request a demo</a><a class="btn btn--secondary btn--sm" data-innv-book hidden>Book a call</a></div>
@@ -3629,9 +3636,9 @@
   </div>
 </footer>
 
-<script src="app.js?v=20260921g"></script>
-<script src="animations.js?v=20260921g"></script>
-<script src="megamenu.js?v=20260921g"></script>
+<script src="app.js?v=20260921h"></script>
+<script src="animations.js?v=20260921h"></script>
+<script src="megamenu.js?v=20260921h"></script>
 
 <!-- Tweak values + the CSS they resolve to. Plain JavaScript on purpose:
      this block previously lived inside the text/babel component, so on a host
@@ -3812,7 +3819,7 @@ function InnoventTweaks() {
 const root = ReactDOM.createRoot(document.getElementById('tweaks-mount'));
 root.render(<InnoventTweaks />);
 </script>
-  <script src="innf-graph.js?v=20260921g"></script>
+  <script src="innf-graph.js?v=20260921h"></script>
 
   <!-- ─── SECTION DOT-RAIL · scroll-spy quick-nav (right edge) ─────── -->
   <nav class="secrail" aria-label="Section navigation"></nav>
@@ -3910,8 +3917,8 @@ root.render(<InnoventTweaks />);
     onScroll();
   })();
   </script>
-<script src="widgets.js?v=20260921g" defer data-innv-widgets></script>
-<script src="forms.js?v=20260921g" defer></script>
+<script src="widgets.js?v=20260921h" defer data-innv-widgets></script>
+<script src="forms.js?v=20260921h" defer></script>
 <script>
 /* Contact form delivery. Before this, the form called preventDefault() and
    showed an alert() without sending anything — every homepage lead was
@@ -3978,6 +3985,6 @@ root.render(<InnoventTweaks />);
   });
 })();
 </script>
-<script src="consent.js?v=20260921g" defer data-innv-consent></script>
+<script src="consent.js?v=20260921h" defer data-innv-consent></script>
 </body>
 </html>

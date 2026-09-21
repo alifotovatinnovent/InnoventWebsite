@@ -104,7 +104,7 @@
   /* consent banner — one script, loaded once, for every sub-page */
   if (!document.querySelector('script[data-innv-consent]')) {
     var cs = document.createElement('script');
-    cs.src = R + 'consent.js?v=20260921b';
+    cs.src = R + 'consent.js?v=20260921h';
     cs.defer = true;
     cs.setAttribute('data-innv-consent', '');
     document.head.appendChild(cs);
@@ -114,7 +114,7 @@
      Inert until widgets.js is given a Calendly URL or a Chatbase ID. */
   if (!document.querySelector('script[data-innv-widgets]')) {
     var ws = document.createElement('script');
-    ws.src = R + 'widgets.js?v=20260921b';
+    ws.src = R + 'widgets.js?v=20260921h';
     ws.defer = true;
     ws.setAttribute('data-innv-widgets', '');
     document.head.appendChild(ws);

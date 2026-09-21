@@ -1067,3 +1067,32 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
   .nav__links .nav__item > .nav__link { padding: 0 7px; font-size: 12.5px; }
   .nav__inner .nav__right .btn.btn--secondary { display: none !important; }
 }
+
+/* ── Book a call: our own dialog, styled like the enquiry form ───────────── */
+.bk { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.bk[hidden] { display: none; }
+.bk__backdrop { position: absolute; inset: 0; background: rgba(4, 8, 15, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.bk__card { position: relative; width: 100%; max-width: 560px; max-height: calc(100vh - 40px); overflow: auto; background: var(--bg-1); border: 1px solid var(--hair-strong); border-radius: 12px; padding: 30px 30px 26px; box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(59,130,246,0.08), 0 0 80px -10px rgba(59,130,246,0.16); animation: bk-in 220ms cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes bk-in { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+.bk__x { position: absolute; top: 12px; right: 14px; width: 34px; height: 34px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-70); font-size: 24px; line-height: 1; cursor: pointer; }
+.bk__x:hover { background: rgba(255,255,255,0.06); color: var(--ink-100); }
+.bk__eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.bk__form h3 { font-size: 22px; line-height: 1.2; margin: 0 0 8px; }
+.bk__lead { font-size: 14px; line-height: 1.6; color: var(--ink-70); margin: 0 0 20px; }
+.bk__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.bk__field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; min-width: 0; }
+.bk__field label { font-size: 11px; color: var(--ink-70); font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.bk__field label span { color: var(--ink-60, #7C8BA1); text-transform: none; letter-spacing: 0; margin-left: 6px; }
+.bk__input { background: var(--bg-deep); border: 1px solid var(--hair); border-radius: 4px; padding: 10px 14px; color: var(--ink-100); font-family: var(--font-body); font-size: 14px; outline: none; transition: border-color 150ms; width: 100%; min-width: 0; }
+.bk__input:focus { border-color: var(--accent); }
+.bk__input::placeholder { color: rgba(255,255,255,0.28); }
+textarea.bk__input { resize: vertical; min-height: 74px; }
+.bk__input[type="date"] { color-scheme: dark; }
+.bk__msg { font-size: 13px; line-height: 1.5; margin: 0 0 12px; padding: 10px 12px; border-radius: 4px; }
+.bk__msg--err { background: rgba(239,68,68,0.10); border: 1px solid rgba(239,68,68,0.35); color: #fca5a5; }
+.bk__msg a { color: var(--accent); margin-left: 4px; }
+.bk__submit { width: 100%; justify-content: center; margin-top: 4px; }
+.bk__fine { font-size: 12px; color: var(--ink-60, #7C8BA1); margin: 12px 0 0; line-height: 1.5; }
+.bk__fine a { color: var(--accent); }
+html.bk-open { overflow: hidden; }
+@media (max-width: 560px) { .bk { padding: 12px; align-items: flex-end; } .bk__card { padding: 24px 20px 20px; } .bk__row { grid-template-columns: 1fr; gap: 0; } }
