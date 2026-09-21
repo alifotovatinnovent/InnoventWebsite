@@ -1057,10 +1057,13 @@ a.button-primary, a.button-secondary, .btn-primary, .btn-secondary, .tour-cta {
 
 /* Tablet widths (861–1100px): the six links plus both buttons did not fit and
    wrapped under the brand. Tighten instead of wrapping. */
-@media (min-width: 981px) and (max-width: 1100px) {
+@media (min-width: 1141px) and (max-width: 1240px) {
+  .nav__links .nav__item > .nav__link { padding: 0 9px; }
+}
+@media (min-width: 981px) and (max-width: 1140px) {
   .nav__inner { gap: 14px; padding: 0 20px; flex-wrap: nowrap; }
   .nav .nav__brand img { width: 148px; max-width: 148px; }
   .nav .nav__brand { margin-left: 0; }
-  .nav__link { padding: 8px 6px; font-size: 12.5px; }
-  .nav__right .btn--secondary { display: none; }
+  .nav__links .nav__item > .nav__link { padding: 0 7px; font-size: 12.5px; }
+  .nav__inner .nav__right .btn.btn--secondary { display: none !important; }
 }
