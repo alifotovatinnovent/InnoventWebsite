@@ -42,8 +42,10 @@
 /faq/                /pages/faq.html         301
 /news/the-role-of-iot-in-modern-healthcare-management  /pages/ind-healthcare.html 301
 /news/how-to-choose-the-right-rfid-solution-provider-in-dubai  /pages/resources.html 301
-# Clean SEO doors for new LPs (pages ship in same PR; 200 rewrite after files exist)
+# Clean SEO doors for new LPs (+ root .html aliases → /pages/*.html)
 /command-control-platform    /pages/command-control-platform.html    200
 /command-control-platform/   /pages/command-control-platform.html    200
+/command-control-platform.html    /pages/command-control-platform.html    301
 /smart-city-command-center   /pages/smart-city-command-center.html   200
 /smart-city-command-center/  /pages/smart-city-command-center.html   200
+/smart-city-command-center.html   /pages/smart-city-command-center.html   301
