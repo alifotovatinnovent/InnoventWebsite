@@ -1096,3 +1096,8 @@ textarea.bk__input { resize: vertical; min-height: 74px; }
 .bk__fine a { color: var(--accent); }
 html.bk-open { overflow: hidden; }
 @media (max-width: 560px) { .bk { padding: 12px; align-items: flex-end; } .bk__card { padding: 24px 20px 20px; } .bk__row { grid-template-columns: 1fr; gap: 0; } }
+
+/* hero dashboard: numbers tick, heatmap cells repaint (hero-live.js) */
+.hero__ov .hv-num.is-tick { animation: hv-tick 520ms ease-out; }
+@keyframes hv-tick { from { opacity: 0.4; } to { opacity: 1; } }
+.hero__ov .hv-heatcell { transition: opacity 900ms ease, fill 900ms ease; }
