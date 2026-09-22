@@ -4,7 +4,7 @@
    they can move: this ticks them up at irregular intervals, the way a real
    operations dashboard creeps through the day, and repaints heatmap cells one
    at a time. Nothing here is data — it is the picture of a system that is on.
-   Stops while the tab is hidden and does nothing under reduced motion.
+   Does nothing under reduced motion.
    ───────────────────────────────────────────────────────────── */
 (function () {
   'use strict';
@@ -31,7 +31,7 @@
     var el = document.getElementById(c.id);
     if (!el) return;
     var run = function () {
-      if (!document.hidden) {
+      {
         c.v += c.step[0] === c.step[1] ? c.step[0] : rint(c.step[0], c.step[1]);
         el.textContent = c.fmt(c.v);
         el.classList.remove('is-tick'); void el.getBBox(); el.classList.add('is-tick');
@@ -50,7 +50,7 @@
     var cells = {};
     var NS = 'http://www.w3.org/2000/svg';
     var paint = function () {
-      if (!document.hidden) {
+      {
         var col = rint(0, 30), row = rint(0, 3);
         var key = col + ':' + row;
         var r = cells[key];
