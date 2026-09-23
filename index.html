@@ -1148,6 +1148,11 @@
         <span class="agr-tab__s">No-code workflow</span>
       </button>
     </div>
+    <div class="agr-nav" aria-label="Slide controls">
+      <button class="agr-nav__btn agr-nav__btn--prev" type="button" data-agr-prev aria-label="Previous"><svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="agr-nav__dots" role="presentation"><i data-agr-dot="0" class="is-on"></i><i data-agr-dot="1"></i><i data-agr-dot="2"></i><i data-agr-dot="3"></i></div>
+      <button class="agr-nav__btn agr-nav__btn--next" type="button" data-agr-next aria-label="Next"><svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
     <div class="agr-panels agr-carousel">
       <div class="agr-panel agr-panel--blue is-active" data-panel="ai-runtime">
     <!-- ── PART 1 · Hero (text left, one agent at work right) ── -->
@@ -1259,119 +1264,45 @@
       <p class="section-lead">Eight agents, one runtime — connected to your sensors, systems and SOPs on day one.</p>
     </div>
     <div class="agr-fleet">
-<svg class="agr-viz agr-viz--d" viewBox="0 0 680 420" data-agr-anim data-agr-still="1.2" role="img" aria-label="Eight day-one agents around one runtime hub, each dispatched in turn" focusable="false">
-<path class="ln" d="M392.569,129.672 L439.244,58.351"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0;0.013;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.003;0.041;1" path="M392.569,129.672 L439.244,58.351" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.003;0.006;0.037;0.041;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M432.567,184.556 L566.233,147.815"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.125;0.138;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.128;0.166;1" path="M432.567,184.556 L566.233,147.815" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.128;0.131;0.163;0.166;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M432.567,235.444 L566.233,272.185"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.25;0.263;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.253;0.291;1" path="M432.567,235.444 L566.233,272.185" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.253;0.256;0.287;0.291;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M392.569,290.328 L439.244,361.649"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.375;0.388;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.378;0.416;1" path="M392.569,290.328 L439.244,361.649" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.378;0.381;0.412;0.416;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M287.431,290.328 L240.756,361.649"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.5;0.512;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.503;0.541;1" path="M287.431,290.328 L240.756,361.649" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.503;0.506;0.537;0.541;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M247.433,235.444 L113.767,272.185"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.625;0.637;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.628;0.666;1" path="M247.433,235.444 L113.767,272.185" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.628;0.631;0.662;0.666;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M247.433,184.556 L113.767,147.815"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.75;0.762;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.753;0.791;1" path="M247.433,184.556 L113.767,147.815" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.753;0.756;0.787;0.791;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<path class="ln" d="M287.431,129.672 L240.756,58.351"><animate attributeName="stroke-opacity" values="0.16;0.16;0.75;0.75;0.16;0.16" keyTimes="0;0.875;0.887;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></path>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.878;0.916;1" path="M287.431,129.672 L240.756,58.351" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.878;0.881;0.912;0.916;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="ring-dash" cx="340" cy="210" r="102"><animateTransform attributeName="transform" type="rotate" from="0 340 210" to="-360 340 210" dur="40s" repeatCount="indefinite"/></circle>
-<circle class="ring" cx="340" cy="210" r="92"/>
-<text class="t-micro" x="340" y="326" text-anchor="middle">Innfini · RUNTIME</text>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.006;0.019;0.103;0.116;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">01</text><text class="t-name" x="340" y="202" text-anchor="middle">Supply Chain &amp; Logistics</text><text class="t-lab" x="340" y="224" text-anchor="middle">Re-route</text><text class="t-lab" x="340" y="239" text-anchor="middle">Carrier scoring</text><text class="t-lab" x="340" y="254" text-anchor="middle">ASN / POD</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.131;0.144;0.228;0.241;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">02</text><text class="t-name" x="340" y="202" text-anchor="middle">Procurement</text><text class="t-lab" x="340" y="224" text-anchor="middle">RFQ compare</text><text class="t-lab" x="340" y="239" text-anchor="middle">Supplier risk</text><text class="t-lab" x="340" y="254" text-anchor="middle">Maverick spend</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.256;0.269;0.353;0.366;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">03</text><text class="t-name" x="340" y="202" text-anchor="middle">Emergency Response</text><text class="t-lab" x="340" y="224" text-anchor="middle">Incident detect</text><text class="t-lab" x="340" y="239" text-anchor="middle">SOP dispatch</text><text class="t-lab" x="340" y="254" text-anchor="middle">Multi-channel alerts</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.381;0.394;0.478;0.491;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">04</text><text class="t-name" x="340" y="202" text-anchor="middle">Coordinator</text><text class="t-lab" x="340" y="224" text-anchor="middle">Shift briefs</text><text class="t-lab" x="340" y="239" text-anchor="middle">Status chase</text><text class="t-lab" x="340" y="254" text-anchor="middle">Prep packs</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.506;0.519;0.603;0.616;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">05</text><text class="t-name" x="340" y="202" text-anchor="middle">Maintenance &amp; Asset Health</text><text class="t-lab" x="340" y="224" text-anchor="middle">Failure prediction</text><text class="t-lab" x="340" y="239" text-anchor="middle">WO routing</text><text class="t-lab" x="340" y="254" text-anchor="middle">Spare parts</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.631;0.644;0.728;0.741;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">06</text><text class="t-name" x="340" y="202" text-anchor="middle">Quality &amp; Compliance</text><text class="t-lab" x="340" y="224" text-anchor="middle">Defect detect</text><text class="t-lab" x="340" y="239" text-anchor="middle">NCR / CAPA</text><text class="t-lab" x="340" y="254" text-anchor="middle">Audit evidence</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.756;0.769;0.853;0.866;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">07</text><text class="t-name" x="340" y="202" text-anchor="middle">Inventory &amp; Stock Count</text><text class="t-lab" x="340" y="224" text-anchor="middle">System reconcile</text><text class="t-lab" x="340" y="239" text-anchor="middle">Variance root-cause</text><text class="t-lab" x="340" y="254" text-anchor="middle">Cycle count</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.881;0.894;0.978;0.991;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="340" y="176" text-anchor="middle">08</text><text class="t-name" x="340" y="202" text-anchor="middle">Field Operations</text><text class="t-lab" x="340" y="224" text-anchor="middle">Crew routing</text><text class="t-lab" x="340" y="239" text-anchor="middle">Skill match</text><text class="t-lab" x="340" y="254" text-anchor="middle">Photo + e-sign</text></g>
-<g class="agr-viz__node">
-<circle class="node" cx="439.244" cy="58.351" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="439.244" y="62.851" text-anchor="middle">01</text>
-<text class="t-name t-name--node" x="463.244" y="62.851" text-anchor="start"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Supply chain</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="566.233" cy="147.815" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="566.233" y="152.315" text-anchor="middle">02</text>
-<text class="t-name t-name--node" x="590.233" y="152.315" text-anchor="start"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Procurement</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="566.233" cy="272.185" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="566.233" y="276.685" text-anchor="middle">03</text>
-<text class="t-name t-name--node" x="590.233" y="276.685" text-anchor="start"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Emergency</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="439.244" cy="361.649" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="439.244" y="366.149" text-anchor="middle">04</text>
-<text class="t-name t-name--node" x="463.244" y="366.149" text-anchor="start"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Coordinator</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="240.756" cy="361.649" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="240.756" y="366.149" text-anchor="middle">05</text>
-<text class="t-name t-name--node" x="216.756" y="366.149" text-anchor="end"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Maintenance</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="113.767" cy="272.185" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="113.767" y="276.685" text-anchor="middle">06</text>
-<text class="t-name t-name--node" x="89.767" y="276.685" text-anchor="end"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Quality</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="113.767" cy="147.815" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="113.767" y="152.315" text-anchor="middle">07</text>
-<text class="t-name t-name--node" x="89.767" y="152.315" text-anchor="end"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Inventory</text>
-</g>
-<g class="agr-viz__node">
-<circle class="node" cx="240.756" cy="58.351" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="240.756" y="62.851" text-anchor="middle">08</text>
-<text class="t-name t-name--node" x="216.756" y="62.851" text-anchor="end"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Field ops</text>
-</g>
+<svg class="agr-viz agr-viz--d fa" viewBox="0 0 960 440" role="img" aria-label="Eight day-one agents around the Innfini runtime, each taking its turn to act" focusable="false">
+<defs><radialGradient id="fa-halo" r="0.5"><stop offset="0" stop-color="#7dd3fc" stop-opacity="0.22"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient><linearGradient id="fa-core" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#0f172a"/></linearGradient></defs>
+<g class="fa-link" style="--i:0;--c:#38bdf8"><path class="fa-link__base" d="M300,56 C362,56 362,220 424,220"/><path class="fa-link__flow" d="M300,56 C362,56 362,220 424,220"/><path class="fa-link__pulse" d="M300,56 C362,56 362,220 424,220"/></g>
+<g class="fa-link" style="--i:4;--c:#fb923c"><path class="fa-link__base" d="M660,56 C598,56 598,220 536,220"/><path class="fa-link__flow" d="M660,56 C598,56 598,220 536,220"/><path class="fa-link__pulse" d="M660,56 C598,56 598,220 536,220"/></g>
+<g class="fa-link" style="--i:1;--c:#f59e0b"><path class="fa-link__base" d="M300,172 C362,172 362,220 424,220"/><path class="fa-link__flow" d="M300,172 C362,172 362,220 424,220"/><path class="fa-link__pulse" d="M300,172 C362,172 362,220 424,220"/></g>
+<g class="fa-link" style="--i:5;--c:#34d399"><path class="fa-link__base" d="M660,172 C598,172 598,220 536,220"/><path class="fa-link__flow" d="M660,172 C598,172 598,220 536,220"/><path class="fa-link__pulse" d="M660,172 C598,172 598,220 536,220"/></g>
+<g class="fa-link" style="--i:2;--c:#f43f5e"><path class="fa-link__base" d="M300,288 C362,288 362,220 424,220"/><path class="fa-link__flow" d="M300,288 C362,288 362,220 424,220"/><path class="fa-link__pulse" d="M300,288 C362,288 362,220 424,220"/></g>
+<g class="fa-link" style="--i:6;--c:#22d3ee"><path class="fa-link__base" d="M660,288 C598,288 598,220 536,220"/><path class="fa-link__flow" d="M660,288 C598,288 598,220 536,220"/><path class="fa-link__pulse" d="M660,288 C598,288 598,220 536,220"/></g>
+<g class="fa-link" style="--i:3;--c:#a78bfa"><path class="fa-link__base" d="M300,404 C362,404 362,220 424,220"/><path class="fa-link__flow" d="M300,404 C362,404 362,220 424,220"/><path class="fa-link__pulse" d="M300,404 C362,404 362,220 424,220"/></g>
+<g class="fa-link" style="--i:7;--c:#60a5fa"><path class="fa-link__base" d="M660,404 C598,404 598,220 536,220"/><path class="fa-link__flow" d="M660,404 C598,404 598,220 536,220"/><path class="fa-link__pulse" d="M660,404 C598,404 598,220 536,220"/></g>
+<g class="fa-hub" transform="translate(480,220)"><circle class="fa-hub__halo" r="92" fill="url(#fa-halo)"/><circle class="fa-hub__ring fa-hub__ring--a" r="78"/><circle class="fa-hub__ring fa-hub__ring--b" r="66"/><circle class="fa-hub__core" r="54" fill="url(#fa-core)"/><circle class="fa-hub__beat" r="54"/><text class="fa-hub__t1" y="-6" text-anchor="middle">INNFINI</text><text class="fa-hub__t2" y="12" text-anchor="middle">RUNTIME</text><text class="fa-hub__t3" y="112" text-anchor="middle">policy · memory · ledger</text></g>
+<g class="fa-card" style="--i:0;--c:#38bdf8" transform="translate(8,10)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></g></g><text class="fa-card__name" x="58" y="31">Supply Chain</text><text class="fa-card__desc" x="58" y="50">Watches inbound ETAs, re-plans the docks.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:4;--c:#fb923c" transform="translate(660,10)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5a4 4 0 00-4.9 5L4 15.1V20h4.9l5.6-5.6a4 4 0 005-4.9l-2.8 2.8-2.3-.6-.6-2.3z"/></g></g><text class="fa-card__name" x="58" y="31">Maintenance</text><text class="fa-card__desc" x="58" y="50">Predicts the failure, books the fix.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:1;--c:#f59e0b" transform="translate(8,126)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.5l2 10h10l2-7H7"/><circle cx="9" cy="18.5" r="1.4"/><circle cx="16" cy="18.5" r="1.4"/></g></g><text class="fa-card__name" x="58" y="31">Procurement</text><text class="fa-card__desc" x="58" y="50">Flags the stock-out, drafts the PO.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:5;--c:#34d399" transform="translate(660,126)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 1.8 3-.4 1 2.8 2.6 1.5-1 2.8 1 2.8-2.6 1.5-1 2.8-3-.4L12 21l-2.4-1.8-3 .4-1-2.8L3 15.3l1-2.8-1-2.8 2.6-1.5 1-2.8 3 .4z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.6"/></g></g><text class="fa-card__name" x="58" y="31">Quality</text><text class="fa-card__desc" x="58" y="50">Spots the drift, holds the batch.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:2;--c:#f43f5e" transform="translate(8,242)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L21 19H3z"/><path d="M12 10v4M12 16.5v.5"/></g></g><text class="fa-card__name" x="58" y="31">Emergency Response</text><text class="fa-card__desc" x="58" y="50">Detects the incident, dispatches the SOP.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:6;--c:#22d3ee" transform="translate(660,242)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h8v8H3zM13 13h8v8h-8zM8 3h8v8H8z"/></g></g><text class="fa-card__name" x="58" y="31">Inventory</text><text class="fa-card__desc" x="58" y="50">Reconciles counts against RFID reads.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:3;--c:#a78bfa" transform="translate(8,358)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="6" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="19" cy="18" r="1.8"/><path d="M6.4 7.3l3.6 3M17.6 7.3l-3.6 3M6.4 16.7l3.6-3M17.6 16.7l-3.6-3"/></g></g><text class="fa-card__name" x="58" y="31">Coordinator</text><text class="fa-card__desc" x="58" y="50">Routes work between agents and people.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:7;--c:#60a5fa" transform="translate(660,358)"><rect class="fa-card__bg" width="292" height="92" rx="8"/><rect class="fa-card__glow" width="292" height="92" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="92" rx="1.5"/><rect class="fa-card__tile" x="14" y="30" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,36.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6-5.5 6-11a6 6 0 10-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></g></g><text class="fa-card__name" x="58" y="31">Field Ops</text><text class="fa-card__desc" x="58" y="50">Guides the crew, closes the loop.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="196" y="76" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="196" y="76" width="80" height="3" rx="1.5"/></g>
 </svg>
-<svg class="agr-viz agr-viz--m" viewBox="0 0 360 600" data-agr-anim data-agr-still="1.2" role="img" aria-label="Eight day-one agents on one runtime, each dispatched in turn" focusable="false">
-<rect class="node" x="12" y="12" width="336" height="112" rx="4"/>
-<text class="t-micro" x="28" y="34">Innfini · RUNTIME</text>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.006;0.019;0.103;0.116;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">01</text><text class="t-name" x="84" y="62">Supply Chain &amp; Logistics</text><text class="t-lab" x="84" y="82">Re-route · Carrier scoring</text><text class="t-lab" x="84" y="100">ASN / POD</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.131;0.144;0.228;0.241;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">02</text><text class="t-name" x="84" y="62">Procurement</text><text class="t-lab" x="84" y="82">RFQ compare · Supplier risk</text><text class="t-lab" x="84" y="100">Maverick spend</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.256;0.269;0.353;0.366;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">03</text><text class="t-name" x="84" y="62">Emergency Response</text><text class="t-lab" x="84" y="82">Incident detect · SOP dispatch</text><text class="t-lab" x="84" y="100">Multi-channel alerts</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.381;0.394;0.478;0.491;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">04</text><text class="t-name" x="84" y="62">Coordinator</text><text class="t-lab" x="84" y="82">Shift briefs · Status chase</text><text class="t-lab" x="84" y="100">Prep packs</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.506;0.519;0.603;0.616;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">05</text><text class="t-name" x="84" y="62">Maintenance &amp; Asset Health</text><text class="t-lab" x="84" y="82">Failure prediction · WO routing</text><text class="t-lab" x="84" y="100">Spare parts</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.631;0.644;0.728;0.741;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">06</text><text class="t-name" x="84" y="62">Quality &amp; Compliance</text><text class="t-lab" x="84" y="82">Defect detect · NCR / CAPA</text><text class="t-lab" x="84" y="100">Audit evidence</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.756;0.769;0.853;0.866;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">07</text><text class="t-name" x="84" y="62">Inventory &amp; Stock Count</text><text class="t-lab" x="84" y="82">System reconcile · Variance root-cause</text><text class="t-lab" x="84" y="100">Cycle count</text></g>
-<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.881;0.894;0.978;0.991;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><text class="t-num t-num--big" x="28" y="86">08</text><text class="t-name" x="84" y="62">Field Operations</text><text class="t-lab" x="84" y="82">Crew routing · Skill match</text><text class="t-lab" x="84" y="100">Photo + e-sign</text></g>
-<line class="ln" x1="40" y1="124" x2="40" y2="568"/>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.003;0.041;1" path="M40,124 V176" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.003;0.006;0.037;0.041;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="176" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="180.5" text-anchor="middle">01</text>
-<text class="t-name t-name--node" x="68" y="181"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.034;0.044;0.106;0.125;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Supply Chain &amp; Logistics</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.128;0.166;1" path="M40,124 V232" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.128;0.131;0.163;0.166;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="232" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="236.5" text-anchor="middle">02</text>
-<text class="t-name t-name--node" x="68" y="237"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.159;0.169;0.231;0.25;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Procurement</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.253;0.291;1" path="M40,124 V288" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.253;0.256;0.287;0.291;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="288" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="292.5" text-anchor="middle">03</text>
-<text class="t-name t-name--node" x="68" y="293"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.284;0.294;0.356;0.375;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Emergency Response</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.378;0.416;1" path="M40,124 V344" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.378;0.381;0.412;0.416;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="344" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="348.5" text-anchor="middle">04</text>
-<text class="t-name t-name--node" x="68" y="349"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.409;0.419;0.481;0.5;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Coordinator</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.503;0.541;1" path="M40,124 V400" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.503;0.506;0.537;0.541;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="400" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="404.5" text-anchor="middle">05</text>
-<text class="t-name t-name--node" x="68" y="405"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.534;0.544;0.606;0.625;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Maintenance &amp; Asset Health</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.628;0.666;1" path="M40,124 V456" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.628;0.631;0.662;0.666;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="456" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="460.5" text-anchor="middle">06</text>
-<text class="t-name t-name--node" x="68" y="461"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.659;0.669;0.731;0.75;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Quality &amp; Compliance</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.753;0.791;1" path="M40,124 V512" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.753;0.756;0.787;0.791;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="512" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="516.5" text-anchor="middle">07</text>
-<text class="t-name t-name--node" x="68" y="517"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.784;0.794;0.856;0.875;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Inventory &amp; Stock Count</text>
-<circle class="dot" r="3"><animateMotion dur="16s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.878;0.916;1" path="M40,124 V568" begin="0s"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.878;0.881;0.912;0.916;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<circle class="node" cx="40" cy="568" r="15"><animate attributeName="stroke-opacity" values="0.22;0.22;0.95;0.95;0.22;0.22" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/><animate attributeName="fill-opacity" values="0.035;0.035;0.16;0.16;0.035;0.035" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/></circle>
-<text class="t-num t-num--node" x="40" y="572.5" text-anchor="middle">08</text>
-<text class="t-name t-name--node" x="68" y="573"><animate attributeName="fill-opacity" values="0.55;0.55;1;1;0.55;0.55" keyTimes="0;0.909;0.919;0.981;1;1" dur="16s" repeatCount="indefinite" calcMode="linear"/>Field Operations</text>
+<svg class="agr-viz agr-viz--m fa" viewBox="0 0 360 740" role="img" aria-label="Eight day-one agents around the Innfini runtime, each taking its turn to act" focusable="false">
+<defs><radialGradient id="fa-halo-m" r="0.5"><stop offset="0" stop-color="#7dd3fc" stop-opacity="0.22"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient><linearGradient id="fa-core-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#0f172a"/></linearGradient></defs>
+<g class="fa-link" style="--i:0;--c:#38bdf8"><path class="fa-link__base" d="M42,152 V196"/><path class="fa-link__flow" d="M42,152 V196"/></g>
+<g class="fa-link" style="--i:1;--c:#f59e0b"><path class="fa-link__base" d="M42,152 V280"/><path class="fa-link__flow" d="M42,152 V280"/></g>
+<g class="fa-link" style="--i:2;--c:#f43f5e"><path class="fa-link__base" d="M42,152 V364"/><path class="fa-link__flow" d="M42,152 V364"/></g>
+<g class="fa-link" style="--i:3;--c:#a78bfa"><path class="fa-link__base" d="M42,152 V448"/><path class="fa-link__flow" d="M42,152 V448"/></g>
+<g class="fa-link" style="--i:4;--c:#fb923c"><path class="fa-link__base" d="M42,152 V532"/><path class="fa-link__flow" d="M42,152 V532"/></g>
+<g class="fa-link" style="--i:5;--c:#34d399"><path class="fa-link__base" d="M42,152 V616"/><path class="fa-link__flow" d="M42,152 V616"/></g>
+<g class="fa-link" style="--i:6;--c:#22d3ee"><path class="fa-link__base" d="M42,152 V700"/><path class="fa-link__flow" d="M42,152 V700"/></g>
+<g class="fa-link" style="--i:7;--c:#60a5fa"><path class="fa-link__base" d="M42,152 V784"/><path class="fa-link__flow" d="M42,152 V784"/></g>
+<g class="fa-hub" transform="translate(180,92)"><circle class="fa-hub__halo" r="84" fill="url(#fa-halo-m)"/><circle class="fa-hub__ring fa-hub__ring--a" r="78"/><circle class="fa-hub__ring fa-hub__ring--b" r="66"/><circle class="fa-hub__core" r="54" fill="url(#fa-core-m)"/><circle class="fa-hub__beat" r="54"/><text class="fa-hub__t1" y="-6" text-anchor="middle">INNFINI</text><text class="fa-hub__t2" y="12" text-anchor="middle">RUNTIME</text><text class="fa-hub__t3" y="112" text-anchor="middle">policy · memory · ledger</text></g>
+<g class="fa-card" style="--i:0;--c:#38bdf8" transform="translate(12,196)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></g></g><text class="fa-card__name" x="58" y="31">Supply Chain</text><text class="fa-card__desc" x="58" y="50">Watches inbound ETAs, re-plans the docks.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:1;--c:#f59e0b" transform="translate(12,280)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.5l2 10h10l2-7H7"/><circle cx="9" cy="18.5" r="1.4"/><circle cx="16" cy="18.5" r="1.4"/></g></g><text class="fa-card__name" x="58" y="31">Procurement</text><text class="fa-card__desc" x="58" y="50">Flags the stock-out, drafts the PO.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:2;--c:#f43f5e" transform="translate(12,364)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5L21 19H3z"/><path d="M12 10v4M12 16.5v.5"/></g></g><text class="fa-card__name" x="58" y="31">Emergency Response</text><text class="fa-card__desc" x="58" y="50">Detects the incident, dispatches the SOP.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:3;--c:#a78bfa" transform="translate(12,448)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="6" r="1.8"/><circle cx="5" cy="18" r="1.8"/><circle cx="19" cy="18" r="1.8"/><path d="M6.4 7.3l3.6 3M17.6 7.3l-3.6 3M6.4 16.7l3.6-3M17.6 16.7l-3.6-3"/></g></g><text class="fa-card__name" x="58" y="31">Coordinator</text><text class="fa-card__desc" x="58" y="50">Routes work between agents and people.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:4;--c:#fb923c" transform="translate(12,532)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5a4 4 0 00-4.9 5L4 15.1V20h4.9l5.6-5.6a4 4 0 005-4.9l-2.8 2.8-2.3-.6-.6-2.3z"/></g></g><text class="fa-card__name" x="58" y="31">Maintenance</text><text class="fa-card__desc" x="58" y="50">Predicts the failure, books the fix.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:5;--c:#34d399" transform="translate(12,616)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 1.8 3-.4 1 2.8 2.6 1.5-1 2.8 1 2.8-2.6 1.5-1 2.8-3-.4L12 21l-2.4-1.8-3 .4-1-2.8L3 15.3l1-2.8-1-2.8 2.6-1.5 1-2.8 3 .4z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.6"/></g></g><text class="fa-card__name" x="58" y="31">Quality</text><text class="fa-card__desc" x="58" y="50">Spots the drift, holds the batch.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:6;--c:#22d3ee" transform="translate(12,700)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h8v8H3zM13 13h8v8h-8zM8 3h8v8H8z"/></g></g><text class="fa-card__name" x="58" y="31">Inventory</text><text class="fa-card__desc" x="58" y="50">Reconciles counts against RFID reads.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
+<g class="fa-card" style="--i:7;--c:#60a5fa" transform="translate(12,784)"><rect class="fa-card__bg" width="336" height="72" rx="8"/><rect class="fa-card__glow" width="336" height="72" rx="8"/><rect class="fa-card__bar" x="0" y="0" width="3" height="72" rx="1.5"/><rect class="fa-card__tile" x="14" y="20" width="32" height="32" rx="7"/><g class="fa-card__ico"><g transform="translate(20.0,26.0) scale(0.833)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6-5.5 6-11a6 6 0 10-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></g></g><text class="fa-card__name" x="58" y="31">Field Ops</text><text class="fa-card__desc" x="58" y="50">Guides the crew, closes the loop.</text><g class="fa-card__st" transform="translate(58,60)"><circle class="fa-card__dot" cx="4" cy="6" r="3"/><text class="fa-card__status fa-s0" x="13" y="10">watching</text><text class="fa-card__status fa-s1" x="13" y="10">acting</text><text class="fa-card__status fa-s2" x="13" y="10">decision logged</text></g><rect class="fa-card__prog-bg" x="240" y="56" width="80" height="3" rx="1.5"/><rect class="fa-card__prog" x="240" y="56" width="80" height="3" rx="1.5"/></g>
 </svg>
     </div>
     <p class="agr__more">… and a growing library of specialists — Warehouse Putaway · Yard &amp; Dock · Customer Ops · Energy · Workforce &amp; Safety · Pricing &amp; Margin — each on the same runtime, the same audit trail, the same builder.</p>
@@ -1597,6 +1528,7 @@
     activeIdx = Math.max(0, Math.min(panels.length - 1, i));
     tabs.forEach(function(t, k){ t.classList.toggle('is-active', k === activeIdx); });
     panels.forEach(function(p, k){ p.classList.toggle('is-active', k === activeIdx); });
+    root.querySelectorAll('[data-agr-dot]').forEach(function(d, k){ d.classList.toggle('is-on', k === activeIdx); });
   }
 
   // Measure ONCE, drift-proof: with the transition suppressed and the track at
@@ -1625,7 +1557,19 @@
     currentTx = TX[i] || 0;
     track.style.transform = 'translateX(' + currentTx + 'px)';
   }
-  function goTo(i){ setActive(i); center(activeIdx); }
+  var N = panels.length;
+  function goTo(i, wrap){
+    if (wrap && (i < 0 || i >= N)) {
+      // wrap-around: fade the track, jump, fade back — no long slide across every panel
+      var target = (i + N) % N;
+      track.classList.add('is-wrapping');
+      setTimeout(function(){ setActive(target); center(activeIdx); }, 140);
+      setTimeout(function(){ track.classList.remove('is-wrapping'); }, 300);
+      return;
+    }
+    setActive(i); center(activeIdx);
+  }
+  root.querySelectorAll('[data-agr-dot]').forEach(function(d){ d.addEventListener('click', function(){ goTo(+d.getAttribute('data-agr-dot')); }); });
 
   tabs.forEach(function(t, i){ t.addEventListener('click', function(){ goTo(i); }); });
 
@@ -1666,9 +1610,32 @@
   // keyboard
   root.setAttribute('tabindex', '-1');
   root.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight'){ goTo(activeIdx + 1); e.preventDefault(); }
-    else if(e.key === 'ArrowLeft'){ goTo(activeIdx - 1); e.preventDefault(); }
+    if(e.key === 'ArrowRight'){ goTo(activeIdx + 1, true); e.preventDefault(); }
+    else if(e.key === 'ArrowLeft'){ goTo(activeIdx - 1, true); e.preventDefault(); }
   });
+
+  // arrows
+  var prevBtn = root.querySelector('[data-agr-prev]'), nextBtn = root.querySelector('[data-agr-next]');
+  if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(activeIdx - 1, true); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(activeIdx + 1, true); });
+
+  // auto-advance: every 10s while the section is on screen and the visitor is not on it
+  var AUTO_MS = 10000, autoTimer = null, paused = false, onScreen = false;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function schedule(){
+    clearTimeout(autoTimer);
+    if (reduce || paused || !onScreen) return;
+    autoTimer = setTimeout(function(){ goTo(activeIdx + 1, true); schedule(); }, AUTO_MS);
+  }
+  root.addEventListener('pointerenter', function(){ paused = true; clearTimeout(autoTimer); });
+  root.addEventListener('pointerleave', function(){ paused = false; schedule(); });
+  root.addEventListener('pointerdown', function(){ clearTimeout(autoTimer); });
+  root.addEventListener('pointerup', function(){ schedule(); });
+  root.addEventListener('keydown', function(){ clearTimeout(autoTimer); schedule(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ onScreen = e.isIntersecting; schedule(); }); }, { threshold: 0.35 }).observe(track);
+  } else { onScreen = true; schedule(); }
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) clearTimeout(autoTimer); else schedule(); });
 
   // measure once layout/fonts are ready, and again on resize (debounced)
   requestAnimationFrame(measure);
@@ -1715,10 +1682,9 @@
 /* ── Tab strip ──────────────────────────────────────────────────────────── */
 .agr-tabs {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-  margin: 0 0 46px;
+  margin: 0 0 18px;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  counter-reset: agrtab;
 }
 .agr-tab {
   appearance: none; cursor: pointer; text-align: left;
@@ -1730,18 +1696,23 @@
   transition: background 180ms ease, color 180ms ease;
 }
 .agr-tab + .agr-tab { box-shadow: inset 1px 0 0 var(--rule); }
-.agr-tab::before {                       /* index, in place of the old icon tile */
-  counter-increment: agrtab;
-  content: counter(agrtab, decimal-leading-zero);
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
-  color: var(--ink-4); transition: color 180ms ease;
-}
+.agr-tab::before { content: none; }      /* no numerals — the coloured icon carries the tab */
 .agr-tab::after {                        /* active indicator */
   content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px;
   background: var(--ac); transform: scaleX(0); transform-origin: left;
   transition: transform 260ms cubic-bezier(.22,1,.36,1);
 }
-.agr-tab__ico { display: none; }
+.agr-tab__ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px; margin-bottom: 4px;
+  color: var(--tab-ac); background: color-mix(in srgb, var(--tab-ac) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tab-ac) 40%, transparent);
+  transition: background 180ms ease, box-shadow 180ms ease;
+}
+.agr-tab__ico svg { width: 18px; height: 18px; }
+.agr-tab.is-active .agr-tab__ico { background: color-mix(in srgb, var(--tab-ac) 24%, transparent); box-shadow: 0 0 22px -6px var(--tab-ac); }
+.agr-tab.is-active::after { background: var(--tab-ac); }
+.agr-tab.is-active .agr-tab__s { color: var(--tab-ac); }
 .agr-tab__t {
   font-family: var(--font-display); font-size: 16.5px; font-weight: 600;
   letter-spacing: -0.012em; color: var(--ink-2); line-height: 1.2;
@@ -1755,11 +1726,30 @@
 .agr-tab:hover .agr-tab__t { color: var(--ink-1); }
 .agr-tab.is-active { background: rgba(125,211,252,0.035); }
 .agr-tab.is-active::after { transform: scaleX(1); }
-.agr-tab.is-active::before { color: var(--ac); }
 .agr-tab.is-active .agr-tab__t { color: #fff; }
 .agr-tab.is-active .agr-tab__s { color: var(--ac-dim); }
 /* the four hue modifiers are kept as no-ops so the markup needs no edit */
-.agr-tab--blue, .agr-tab--cyan, .agr-tab--violet, .agr-tab--green { --tab-ac: var(--ac); }
+.agr-tab--blue { --tab-ac: #60a5fa; } .agr-tab--cyan { --tab-ac: #22d3ee; } .agr-tab--violet { --tab-ac: #a78bfa; } .agr-tab--green { --tab-ac: #34d399; }
+
+/* ── Slide controls: arrows + dots, wrap-around ─────────────────────────── */
+.agr-nav { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin: 0 0 16px; }
+.agr-nav__btn {
+  appearance: none; cursor: pointer; width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--rule-2); color: var(--ink-2);
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.agr-nav__btn:hover { background: rgba(125,211,252,0.10); border-color: var(--ac); color: #fff; }
+.agr-nav__btn:active { transform: scale(0.94); }
+.agr-nav__btn:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
+.agr-nav__dots { display: flex; gap: 8px; }
+.agr-nav__dots i { display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.14); cursor: pointer; transition: background 160ms ease, transform 160ms ease; }
+.agr-nav__dots i.is-on { background: var(--ac); transform: scale(1.25); }
+.agr-carousel { transition: transform .55s cubic-bezier(.22,1,.36,1), opacity 180ms ease; }
+.agr-carousel.is-wrapping { transition: opacity 140ms ease; opacity: 0; }
+/* no numerals anywhere in the slider */
+.agr__step-n, .agr__builder-stat, .agr__sig-num { display: none !important; }
+.agr__steps--sync li { grid-template-columns: 1fr; }
 
 /* ── Carousel ───────────────────────────────────────────────────────────── */
 .agr-carousel {
@@ -1826,11 +1816,6 @@
 .agr__chip-dot { display: none; }
 
 /* ── PANEL 2 · Day-one agents ───────────────────────────────────────────── */
-.agr__more, .agr-panel .agr__more {
-  font-size: 11.5px; color: var(--ink-3); line-height: 1.6;
-  border-top: 1px solid var(--rule); padding-top: 14px; margin: 0; max-width: 880px;
-}
-.agr__more strong { color: var(--ink-1); font-weight: 500; }
 
 /* ── Drawn panels · shared SVG language ─────────────────────────────────── */
 .agr-viz { display: block; width: 100%; height: auto; overflow: visible; shape-rendering: geometricPrecision; }
@@ -1876,9 +1861,6 @@
 @keyframes agrStage3 { 0%,67% { color: var(--ink-4); } 69%,89% { color: #fff; } 91%,100% { color: var(--ink-4); } }
 .agr__chips--stages .agr__chip[style*='--i:3'] { animation-name: agrStage3; }
 
-/* panel 2 */
-.agr-fleet { width: 100%; max-width: 720px; margin: 0 auto; }
-.agr-panel .agr__more { margin-top: 18px; }
 
 /* panel 4 · steps light with the build */
 .agr__builder-ui--viz, .agr-panel .agr__builder-ui--viz { background: none; border: 0; box-shadow: none; padding: 0; }
@@ -1910,6 +1892,58 @@
 @media (prefers-reduced-motion: reduce) {
   .agr__chips--stages .agr__chip, .agr__steps--sync .agr__step-n, .agr__steps--sync li h5 { animation: none !important; }
 }
+/* ── PANEL 2 · Day-one agents — the fleet (CSS-animated, no SMIL) ─────────── */
+.agr__more, .agr-panel .agr__more {
+  font-family: var(--font-body); font-size: 12.5px; line-height: 1.65; color: var(--ink-3);
+  max-width: 900px; margin: 18px auto 0; text-align: center;
+}
+.agr__more strong { color: var(--ink-1); font-weight: 500; }
+.agr-fleet { width: 100%; max-width: 980px; margin: 0 auto; }
+.fa { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--font-body); }
+.fa .fa-card__bg { fill: rgba(255,255,255,0.025); stroke: rgba(255,255,255,0.08); }
+.fa .fa-card__glow { fill: var(--c); fill-opacity: 0; stroke: var(--c); stroke-opacity: 0; stroke-width: 1.2;
+  animation: fa-card-active 16s linear infinite; animation-delay: calc(var(--i) * 2s - 16s); }
+.fa .fa-card__bar { fill: var(--c); fill-opacity: 0.85; }
+.fa .fa-card__tile { fill: var(--c); fill-opacity: 0.14; stroke: var(--c); stroke-opacity: 0.35; }
+.fa .fa-card__ico { color: var(--c); }
+.fa .fa-card__name { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; fill: #f1f5f9; letter-spacing: -0.01em; }
+.fa .fa-card__desc { font-family: var(--font-body); font-size: 11.5px; fill: #a3b1c2; }
+.fa .fa-card__dot { fill: var(--c); animation: fa-dot 16s linear infinite; animation-delay: calc(var(--i) * 2s - 16s); }
+.fa .fa-card__status { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; fill: #6c7c93; opacity: 0;
+  animation-duration: 16s; animation-timing-function: linear; animation-iteration-count: infinite; animation-delay: calc(var(--i) * 2s - 16s); }
+.fa .fa-s0 { animation-name: fa-s0; }
+.fa .fa-s1 { animation-name: fa-s1; fill: var(--c); }
+.fa .fa-s2 { animation-name: fa-s2; fill: #cbd5e1; }
+.fa .fa-card__prog-bg { fill: rgba(255,255,255,0.07); }
+.fa .fa-card__prog { fill: var(--c); transform-box: fill-box; transform-origin: left center; transform: scaleX(0);
+  animation: fa-prog 16s linear infinite; animation-delay: calc(var(--i) * 2s - 16s); }
+.fa .fa-link__base { fill: none; stroke: rgba(255,255,255,0.09); stroke-width: 1.2; }
+.fa .fa-link__flow { fill: none; stroke: var(--c); stroke-opacity: 0.55; stroke-width: 1.4; stroke-dasharray: 3 9; stroke-linecap: round;
+  animation: fa-flow 1.4s linear infinite; }
+.fa .fa-link__pulse { fill: none; stroke: var(--c); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 26 400;
+  animation: fa-pulse 16s linear infinite; animation-delay: calc(var(--i) * 2s - 16s); opacity: 0; }
+.fa .fa-hub__ring { fill: none; stroke: #7dd3fc; stroke-opacity: 0.35; transform-box: fill-box; transform-origin: center; }
+.fa .fa-hub__ring--a { stroke-dasharray: 2 6; animation: fa-spin 40s linear infinite; }
+.fa .fa-hub__ring--b { stroke-dasharray: 40 18; stroke-opacity: 0.22; animation: fa-spin 26s linear infinite reverse; }
+.fa .fa-hub__core { stroke: #7dd3fc; stroke-opacity: 0.6; stroke-width: 1.4; }
+.fa .fa-hub__beat { fill: none; stroke: #7dd3fc; stroke-width: 1.5; transform-box: fill-box; transform-origin: center; opacity: 0;
+  animation: fa-beat 2s ease-out infinite; }
+.fa .fa-hub__t1 { font-family: var(--font-display); font-size: 15px; font-weight: 700; fill: #fff; letter-spacing: 0.14em; }
+.fa .fa-hub__t2 { font-family: var(--font-mono); font-size: 9.5px; fill: #7dd3fc; letter-spacing: 0.26em; }
+.fa .fa-hub__t3 { font-family: var(--font-mono); font-size: 8.5px; fill: #6c7c93; letter-spacing: 0.06em; }
+@keyframes fa-card-active { 0%,3% { fill-opacity: 0; stroke-opacity: 0; } 5%,11% { fill-opacity: 0.09; stroke-opacity: 0.9; } 14%,100% { fill-opacity: 0; stroke-opacity: 0; } }
+@keyframes fa-dot { 0%,4% { opacity: 0.45; } 5%,11% { opacity: 1; } 12%,100% { opacity: 0.45; } }
+@keyframes fa-s0 { 0%,4% { opacity: 1; } 5%,16% { opacity: 0; } 17%,100% { opacity: 1; } }
+@keyframes fa-s1 { 0%,4% { opacity: 0; } 5%,11% { opacity: 1; } 12%,100% { opacity: 0; } }
+@keyframes fa-s2 { 0%,11% { opacity: 0; } 12%,16% { opacity: 1; } 17%,100% { opacity: 0; } }
+@keyframes fa-prog { 0%,4% { transform: scaleX(0); } 11% { transform: scaleX(1); } 16% { transform: scaleX(1); opacity: 1; } 17%,100% { transform: scaleX(0); } }
+@keyframes fa-flow { to { stroke-dashoffset: -12; } }
+@keyframes fa-pulse { 0%,4% { stroke-dashoffset: 0; opacity: 0; } 5% { opacity: 1; } 11% { stroke-dashoffset: -420; opacity: 1; } 12%,100% { opacity: 0; } }
+@keyframes fa-spin { to { transform: rotate(360deg); } }
+@keyframes fa-beat { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.7); opacity: 0; } }
+.fa.agr-viz--m { display: none; }
+@media (max-width: 760px) { .fa.agr-viz--d { display: none; } .fa.agr-viz--m { display: block; } }
+@media (prefers-reduced-motion: reduce) { .fa * { animation: none !important; } .fa .fa-card__prog { transform: scaleX(0.6); } .fa .fa-s0 { opacity: 1; } }
 
 /* ── PANEL 3 · Architecture ─────────────────────────────────────────────── */
 /* A drawn runtime, not a table. Five plates on one spine; a pulse walks the
