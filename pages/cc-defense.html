@@ -246,7 +246,9 @@
 }
 /* the render sits in the shared hero's right-hand column, like every other
    command-and-control page */
-.ps .ps__hero .dfx { width: 100%; }
+.ps .ps__hero .dfx { width: 100%; max-width: 600px; margin: 0 auto; }
+.ps .ps__hero .dfx .dfx__stage { padding: 24px 0 84px; }
+@media (max-width: 1100px) { .ps .ps__hero .dfx { max-width: 560px; } }
 .ps .ps__motion { padding: 0; }
 
 
