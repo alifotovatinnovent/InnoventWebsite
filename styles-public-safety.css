@@ -560,3 +560,32 @@
 /* Mint variant of the outcomes grid — cc-defense uses mint where public safety
    uses sky. Structure identical; only the accent moves. */
 .out--mint .out__head h2 em, .out--mint .out__item > span{ color: #a7f3d0; }
+
+/* ── Public Safety hero: the dispatcher photo, dissolved into the page ───────
+   Full-bleed photo instead of the cutout; no box, no border. The photo layer
+   is feathered into the background on every side; the pill, the clock and the
+   incident card sit above it, unmasked and crisp. */
+.ps__plate--photo {
+  border: 0; background: none; box-shadow: none; border-radius: 0; overflow: visible;
+  aspect-ratio: 4 / 3;
+}
+.ps__plate--photo::before, .ps__plate--photo::after { display: none; }
+.ps__plate-photo {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  /* rectangular feather: every edge fades over ~15% of the box, corners included */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+                      linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+                      linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
+.ps__plate-photo img {
+  position: absolute; inset: 0; right: auto; bottom: auto;
+  width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 40%;
+  filter: saturate(1.05) contrast(1.02);
+}
+/* floor scrim inside the masked layer so it fades with the photo */
+.ps__plate-photo::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 50%;
+  background: linear-gradient(180deg, transparent, rgba(5,10,24,0.78));
+}
