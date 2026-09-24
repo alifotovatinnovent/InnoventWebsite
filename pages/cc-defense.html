@@ -246,9 +246,14 @@
 }
 /* the render sits in the shared hero's right-hand column, like every other
    command-and-control page */
-.ps .ps__hero .dfx { width: 100%; max-width: 600px; margin: 0 auto; }
-.ps .ps__hero .dfx .dfx__stage { padding: 24px 0 84px; }
-@media (max-width: 1100px) { .ps .ps__hero .dfx { max-width: 560px; } }
+/* in the hero: just the render — no box, no plate, no strip — at a modest size */
+.ps .ps__hero .dfx { width: 100%; max-width: 480px; margin: 0 auto; border: 0; background: none; border-radius: 0; overflow: visible; }
+.ps .ps__hero .dfx .dfx__plate, .ps .ps__hero .dfx .dfx__strip { display: none; }
+.ps .ps__hero .dfx .dfx__stage { padding: 0; }
+.ps .ps__hero .dfx .dfx__frame { width: 100%; border-radius: 14px; box-shadow: 0 30px 60px -28px rgba(0,0,0,0.85); }
+.ps .ps__hero .dfx .dfx__frame::after { background: none; }
+.ps .ps__hero .ps__motion { display: flex; align-items: center; justify-content: center; min-height: 0; }
+@media (max-width: 1100px) { .ps .ps__hero .dfx { max-width: 440px; } }
 .ps .ps__motion { padding: 0; }
 
 
