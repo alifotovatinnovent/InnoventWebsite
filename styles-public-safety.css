@@ -812,11 +812,11 @@
 .out--viz .out__item--v:not(:nth-child(3n+1)) { padding-left: 34px; }
 .out--viz .out__item--v::before { left: 0; }
 @media (max-width: 1080px) {
-  .out--viz .out__item--v { padding-left: 0; }
+  .out--viz .out__item--v:nth-child(2n+1) { padding-left: 0; }
   .out--viz .out__item--v:nth-child(2n) { padding-left: 34px; }
 }
 @media (max-width: 700px) {
-  .out--viz .out__item--v, .out--viz .out__item--v:nth-child(2n) { padding-left: 0; }
+  .out--viz .out__item--v:nth-child(n) { padding-left: 0; }
 }
 @media (max-width: 700px) { .out--viz .out__item--v { padding-top: 26px; } }
 @media (prefers-reduced-motion: reduce) {
