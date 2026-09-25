@@ -808,6 +808,16 @@
 .og-view .og-eye { transform-origin: 7px 5.5px; animation: ogEye 4s ease-in-out infinite; }
 @keyframes ogBar { 0%,100%{transform:scaleY(.6)} 50%{transform:scaleY(1)} }
 @keyframes ogEye { 0%,40%,100%{transform:scaleY(1)} 45%{transform:scaleY(.15)} 50%{transform:scaleY(1)} }
+/* breathing room from the column rules: text never sits against a divider */
+.out--viz .out__item--v:not(:nth-child(3n+1)) { padding-left: 34px; }
+.out--viz .out__item--v::before { left: 0; }
+@media (max-width: 1080px) {
+  .out--viz .out__item--v { padding-left: 0; }
+  .out--viz .out__item--v:nth-child(2n) { padding-left: 34px; }
+}
+@media (max-width: 700px) {
+  .out--viz .out__item--v, .out--viz .out__item--v:nth-child(2n) { padding-left: 0; }
+}
 @media (max-width: 700px) { .out--viz .out__item--v { padding-top: 26px; } }
 @media (prefers-reduced-motion: reduce) {
   .out--viz .out__item--v { opacity: 1; transform: none; transition: none; }
