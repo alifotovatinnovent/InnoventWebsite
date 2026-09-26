@@ -114,7 +114,7 @@
      Inert until widgets.js is given a Calendly URL or a Chatbase ID. */
   if (!document.querySelector('script[data-innv-widgets]')) {
     var ws = document.createElement('script');
-    ws.src = R + 'widgets.js?v=20260927b';
+    ws.src = R + 'widgets.js?v=20260927c';
     ws.defer = true;
     ws.setAttribute('data-innv-widgets', '');
     document.head.appendChild(ws);

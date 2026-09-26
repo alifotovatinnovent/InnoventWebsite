@@ -154,8 +154,8 @@
     if (!quiet && !S.open) launch.classList.add('nv-launch--new');
     scrollEnd(); return m;
   }
-  function setChips(list, quiet) { S.chips = list || []; if (S.err && S.mode === 'guided' && S.chips.length && S.chips.indexOf('Try again') < 0) S.chips = S.chips.concat(['Try again']); if (!quiet) save(); chips.innerHTML = S.chips.map(function (c) { return '<button class="nv-chip" type="button">' + esc(c) + '</button>'; }).join(''); }
-  function scrollEnd(now) { if (!log) return; if (now) log.scrollTop = log.scrollHeight; else requestAnimationFrame(function () { log.scrollTop = log.scrollHeight; }); }
+  function setChips(list, quiet) { S.chips = list || []; if (S.err && S.mode === 'guided' && S.chips.length && S.chips.indexOf('Try again') < 0) S.chips = S.chips.concat(['Try again']); if (!quiet) save(); chips.innerHTML = S.chips.map(function (c) { return '<button class="nv-chip" type="button">' + esc(c) + '</button>'; }).join(''); scrollEnd(); }
+  function scrollEnd(now) { if (!log) return; var f = function () { log.scrollTop = log.scrollHeight; }; f(); if (!now) { requestAnimationFrame(f); setTimeout(f, 80); setTimeout(f, 320); } }
   function grow() { text.style.height = 'auto'; text.style.height = Math.min(108, text.scrollHeight) + 'px'; }
   var typingEl = null;
   function busy(on) {
