@@ -10,9 +10,33 @@
    widget falls back to its on-site guided mode, so the site keeps working.
 
    Optional env: NOVA_MODEL (default claude-sonnet-5), NOVA_MAX_TOKENS (600).
+
+   Spend caps — enforced here, on top of whatever limit is set in the
+   Anthropic console. Counters live in Netlify Blobs (store "nova"):
+     NOVA_DAILY_LIMIT    model calls per UTC day        (default 300)
+     NOVA_MONTHLY_LIMIT  model calls per calendar month (default 4000)
+     NOVA_IP_HOURLY      model calls per visitor per hour (default 40)
+   When a cap is hit the function answers 429 and the widget answers from the
+   site knowledge pack instead, so visitors never see an error.
+   GET /api/nova?usage=1 returns today's and this month's counts.
    ───────────────────────────────────────────────────────────── */
 
+import { getStore } from '@netlify/blobs';
+
 export const config = { path: '/api/nova' };
+
+const DAILY = parseInt(process.env.NOVA_DAILY_LIMIT || '300', 10) || 300;
+const MONTHLY = parseInt(process.env.NOVA_MONTHLY_LIMIT || '4000', 10) || 4000;
+const IP_HOURLY = parseInt(process.env.NOVA_IP_HOURLY || '40', 10) || 40;
+
+function store() { try { return getStore({ name: 'nova', consistency: 'strong' }); } catch (e) { console.error('nova blobs unavailable', e && e.message); return null; } }
+async function readCount(s, k) { if (!s) return 0; try { const v = await s.get(k, { type: 'json' }); return (v && v.n) || 0; } catch { return 0; } }
+async function bump(s, k) { if (!s) return; try { const n = (await readCount(s, k)) + 1; await s.setJSON(k, { n, t: Date.now() }); } catch (e) { console.error('nova count', k, e && e.message); } }
+async function sha(s) { const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(d)].slice(0, 8).map(b => b.toString(16).padStart(2, '0')).join(''); }
+function periodKeys(ip) {
+  const d = new Date(); const day = d.toISOString().slice(0, 10); const month = day.slice(0, 7); const hour = d.toISOString().slice(0, 13);
+  return { day: 'day:' + day, month: 'month:' + month, hour: 'ip:' + ip + ':' + hour };
+}
 
 const MODEL = process.env.NOVA_MODEL || 'claude-sonnet-5';
 const MAX_TOKENS = Math.min(parseInt(process.env.NOVA_MAX_TOKENS || '600', 10) || 600, 1200);
@@ -96,17 +120,29 @@ const TOOLS = [
 const json = (status, body, extra) => new Response(JSON.stringify(body), {
   status, headers: Object.assign({ 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }, extra || {}) });
 
-export default async (req) => {
+export default async (req, context) => {
   if (req.method === 'OPTIONS') return new Response(null, { status: 204 });
+  const url = new URL(req.url);
+  if (req.method === 'GET' && url.searchParams.has('usage')) {
+    const s = store(); const k = periodKeys('-');
+    return json(200, { today: await readCount(s, k.day), daily_limit: DAILY, month: await readCount(s, k.month), monthly_limit: MONTHLY, configured: !!process.env.ANTHROPIC_API_KEY, model: MODEL });
+  }
   if (req.method !== 'POST') return json(405, { error: 'method' });
 
-  const url = new URL(req.url);
   const origin = req.headers.get('origin') || '';
   const host = origin ? new URL(origin).hostname : url.hostname;
   if (!ALLOWED_HOSTS.test(host)) return json(403, { error: 'origin' });
 
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return json(503, { error: 'not_configured' });
+
+  // spend caps: site-wide per day and per month, plus a per-visitor hourly brake
+  const blobs = store();
+  const ipHash = await sha((context && context.ip) || req.headers.get('x-nf-client-connection-ip') || req.headers.get('x-forwarded-for') || 'anon');
+  const K = periodKeys(ipHash);
+  const [nDay, nMonth, nHour] = await Promise.all([readCount(blobs, K.day), readCount(blobs, K.month), readCount(blobs, K.hour)]);
+  if (nDay >= DAILY || nMonth >= MONTHLY) return json(429, { error: 'budget', scope: nMonth >= MONTHLY ? 'month' : 'day' });
+  if (nHour >= IP_HOURLY) return json(429, { error: 'rate' });
 
   let body;
   try { body = await req.json(); } catch { return json(400, { error: 'json' }); }
@@ -157,6 +193,7 @@ export default async (req) => {
     return json(502, { error: 'upstream', status: up.status });
   }
   const data = await up.json();
+  await Promise.all([bump(blobs, K.day), bump(blobs, K.month), bump(blobs, K.hour)]);
   let reply = ''; const actions = [];
   for (const b of data.content || []) {
     if (b.type === 'text') reply += b.text;

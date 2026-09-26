@@ -181,11 +181,12 @@
     fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl && ctrl.signal })
       .then(function (r) {
         if (r.status === 503 || r.status === 404) { return { fallback: true }; }
+        if (r.status === 429) { return { fallback: true, budget: true }; }
         return r.json().then(function (j) { j.__status = r.status; return j; }, function () { return { error: 'bad_json', __status: r.status }; });
       })
       .then(function (j) {
         clearTimeout(tm); inflight = false; busy(false);
-        if (j.fallback) { setMode('guided'); return guided(lastUser()); }
+        if (j.fallback) { setMode('guided'); if (j.budget && !S.noted) { S.noted = true; push('a', 'Live answers are paused for now, so I\'ll answer straight from the site.', [], true); } return guided(lastUser()); }
         if (!j.reply) { S.err = true; setMode('guided'); return guided(lastUser()); }
         S.err = false; handle(j);
       })

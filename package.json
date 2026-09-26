@@ -1,0 +1,8 @@
+{
+  "name": "innovent-website",
+  "private": true,
+  "description": "innovent.io — static site plus the Nova assistant function",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.1"
+  }
+}
