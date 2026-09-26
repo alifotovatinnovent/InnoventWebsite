@@ -286,6 +286,7 @@
   };
   function guided(q) {
     var k = (q || '').toLowerCase().trim(); var p = PATHS[k];
+    if (/^open /.test(k)) { var cards = log.querySelectorAll('[data-nv-go]'); var c = null; for (var i = cards.length - 1; i >= 0; i--) { var a = JSON.parse(cards[i].getAttribute('data-nv-go')); if (a.title.toLowerCase().indexOf(k.slice(5).trim()) === 0) { c = a; break; } } if (c) { push('a', 'Taking you to ' + c.title + '.', []); return navigate(c, false); } }
     if (k === 'find my industry') {
       return kb(function (j) {
         var inds = j ? j.pages.filter(function (x) { return x.family === 'Industry'; }) : [];
@@ -302,21 +303,45 @@
       var hits = search(j, k, 3);
       if (!hits.length) { push('a', 'I couldn\'t find that on the site. Try a sector or a capability — ports, public safety, asset tracking, computer vision — or ask the team directly.'); return setChips(['Find my industry', 'Command & Control', 'Talk to the team']); }
       var acts = hits.map(function (x) { return { type: 'navigate', slug: x.slug, path: x.path, title: x.title, why: x.description.slice(0, 90) }; });
-      push('a', hits.length > 1 ? 'Here is what the site has on that — tap one and I\'ll take you there.' : 'This page covers that — taking you there.', acts);
-      setChips(['Find my industry', 'Talk to the team']);
-      if (hits.length === 1) setTimeout(function () { navigate(acts[0], false); }, 1400);
+      var ans = extract(hits[0], k);
+      var msg = ans ? 'From the ' + hits[0].title + ' page:\n\n' + ans + (hits.length > 1 ? '\n\nRelated pages are below — tap one and I\'ll take you there.' : '') : (hits.length > 1 ? 'Here is what the site has on that — tap one and I\'ll take you there.' : 'This page covers that — taking you there.');
+      push('a', msg, acts);
+      setChips(['Open ' + hits[0].title.split(/\s[—–·|]\s/)[0].slice(0, 26), 'Find my industry', 'Talk to the team']);
+      if (hits.length === 1 && !ans) setTimeout(function () { navigate(acts[0], false); }, 1400);
     });
   }
-  function search(j, q, n) {
-    var STOP = { the: 1, and: 1, for: 1, with: 1, what: 1, how: 1, about: 1, your: 1, you: 1, can: 1, does: 1, our: 1, are: 1, have: 1, need: 1, want: 1, tell: 1 };
+  /* pull the two or three sentences on the best page that answer the question */
+  function extract(page, q) {
+    var words = terms(q).filter(function (w) { return w.length > 2; });
+    if (!words.length) return '';
+    var title = (page.title || '').toLowerCase(); var seen = {};
+    var sents = (page.text || '').split(/(?<=[.!?])\s+(?=[A-Z])/).map(function (t) { return t.replace(/^\d{1,2}\s*·\s*/, '').trim(); }).filter(function (t) {
+      var l = t.toLowerCase(), key = l.slice(0, 60);
+      if (t.length < 40 || t.length > 260 || !/[a-z]{3}/.test(t) || seen[key]) return false;
+      if ((t.match(/·/g) || []).length > 1 || l.indexOf(title) >= 0 || /^(home|innovent|innfini)\s*[·—]/.test(l)) return false;
+      seen[key] = 1; return true; });
+    var scored = sents.map(function (t, i) { var l = t.toLowerCase(), sc = 0; words.forEach(function (w) { if (l.indexOf(w) >= 0) sc += 1; }); return [sc, i, t]; }).filter(function (x) { return x[0] > 0; });
+    if (!scored.length) return '';
+    scored.sort(function (a, b) { return b[0] - a[0] || a[1] - b[1]; });
+    var pick = scored.slice(0, 3).sort(function (a, b) { return a[1] - b[1]; }).map(function (x) { return x[2]; });
+    return pick.join(' ');
+  }
+  var STOP = { the: 1, and: 1, for: 1, with: 1, what: 1, how: 1, about: 1, your: 1, you: 1, can: 1, does: 1, our: 1, are: 1, have: 1, need: 1, want: 1, tell: 1, which: 1, that: 1, this: 1, there: 1, they: 1, from: 1, into: 1, will: 1, would: 1, could: 1, should: 1, support: 1, work: 1 };
+  var SYN = { certification: ['compliance', 'soc', 'iso', 'trust'], certified: ['compliance', 'trust'], security: ['trust', 'compliance'], price: ['pricing', 'plan'], cost: ['pricing'], pricing: ['plan'], camera: ['vision', 'cctv'], video: ['vision', 'cctv'], hospital: ['healthcare'], clinic: ['healthcare'], factory: ['manufacturing'], plant: ['manufacturing', 'energy'], airport: ['ports', 'logistics'], warehouse: ['logistics', 'asset'], police: ['public safety', 'dispatch'], fire: ['civil defense', 'public safety'], integrate: ['connector', 'integration'], integration: ['connector'], api: ['connector', 'integration'], cloud: ['deployment'], premise: ['on-prem', 'deployment'], onprem: ['on-prem'], edge: ['hybrid edge'], demo: ['request demo'], job: ['careers'], hiring: ['careers'], office: ['location'] };
+  function terms(q) {
     var words = q.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(function (w) { return w.length > 2 && !STOP[w]; }).map(function (w) { return w.length > 4 ? w.replace(/(ies|es|s)$/, function (m) { return m === 'ies' ? 'y' : ''; }) : w; });
+    words.slice().forEach(function (w) { (SYN[w] || []).forEach(function (x) { if (words.indexOf(x) < 0) words.push(x); }); });
+    return words;
+  }
+  function search(j, q, n) {
+    var words = terms(q);
     if (!words.length) return [];
     return j.pages.map(function (p) {
       var t = (p.title + ' ' + p.family).toLowerCase(), d = (p.description + ' ' + (p.headings || []).join(' ')).toLowerCase(), b = (p.text || '').toLowerCase(); var s = 0;
       words.forEach(function (w) { if (t.indexOf(w) >= 0) s += 6; if (d.indexOf(w) >= 0) s += 3; if (b.indexOf(w) >= 0) s += 1; });
       if (p.family === 'Open role' || p.family === 'Office') s *= 0.5;
       return [s, p];
-    }).filter(function (x) { return x[0] >= 4; }).sort(function (a, b) { return b[0] - a[0]; }).slice(0, n).map(function (x) { return x[1]; });
+    }).filter(function (x) { return x[0] >= 3; }).sort(function (a, b) { return b[0] - a[0]; }).slice(0, n).map(function (x) { return x[1]; });
   }
 
   function track(ev, params) { try { var W = window.InnoventWidgets; if (W && W.track) W.track(ev, params || {}); } catch (e) {} }

@@ -313,7 +313,7 @@
     if (document.querySelector('script[data-innv-nova]')) return;
     var IN_PAGES = /\/pages\/[^/]*$/.test(location.pathname);
     var s = document.createElement('script');
-    s.src = (IN_PAGES ? '../' : '/') + 'nova.js?v=20260927d';
+    s.src = (IN_PAGES ? '../' : '/') + 'nova.js?v=20260927e';
     s.defer = true; s.setAttribute('data-innv-nova', '');
     document.head.appendChild(s);
   }
