@@ -4,10 +4,14 @@
    POST /api/nova  { messages: [{role, content}], page: {slug, title}, lead: {...} }
    →  { reply, actions: [{type: 'navigate'|'handoff'|'suggest', ...}] }
 
-   The model key is read from the ANTHROPIC_API_KEY environment variable that
-   the site owner sets in Netlify (Site configuration → Environment variables).
-   It never reaches the browser. With no key the function answers 503 and the
-   widget falls back to its on-site guided mode, so the site keeps working.
+   Model access comes from Netlify's AI Gateway: with AI features enabled on the
+   team, Netlify injects ANTHROPIC_API_KEY and ANTHROPIC_BASE_URL into every
+   function, bills usage to the team's Netlify credits, and its usage limit is
+   set in Team settings → AI enablement. No key is ever created or pasted by
+   hand. (A key set explicitly in Netlify's environment variables would take
+   precedence and go straight to api.anthropic.com.) Nothing reaches the
+   browser. With no key the function answers 503 and the widget falls back to
+   its on-site guided mode, so the site keeps working.
 
    Optional env: NOVA_MODEL (default claude-sonnet-5), NOVA_MAX_TOKENS (600).
 
@@ -125,7 +129,7 @@ export default async (req, context) => {
   const url = new URL(req.url);
   if (req.method === 'GET' && url.searchParams.has('usage')) {
     const s = store(); const k = periodKeys('-');
-    return json(200, { today: await readCount(s, k.day), daily_limit: DAILY, month: await readCount(s, k.month), monthly_limit: MONTHLY, configured: !!process.env.ANTHROPIC_API_KEY, model: MODEL });
+    return json(200, { today: await readCount(s, k.day), daily_limit: DAILY, month: await readCount(s, k.month), monthly_limit: MONTHLY, configured: !!process.env.ANTHROPIC_API_KEY, via: process.env.ANTHROPIC_BASE_URL ? 'netlify-ai-gateway' : 'direct', model: MODEL });
   }
   if (req.method !== 'POST') return json(405, { error: 'method' });
 
@@ -180,7 +184,7 @@ export default async (req, context) => {
   const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 25000);
   let up;
   try {
-    up = await fetch('https://api.anthropic.com/v1/messages', {
+    up = await fetch((process.env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com').replace(/\/$/, '') + '/v1/messages', {
       method: 'POST', signal: ctrl.signal,
       headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
       body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system, messages: turns, tools: TOOLS, tool_choice: { type: 'auto' } })
