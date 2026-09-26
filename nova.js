@@ -72,7 +72,7 @@
         '<button class="nv-send" id="nv-send" type="submit" aria-label="Send">' + ICO.send + '</button></form>' +
       '<div class="nv-foot">Nova is an AI assistant and can make mistakes. Conversations are processed to answer you and are not stored after you leave.</div>' +
     '</section>';
-  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = ROOT + 'nova.css?v=20260927a';
+  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = ROOT + 'nova.css?v=20260927b';
   document.head.appendChild(css);
   var $ = function (id) { return root.querySelector('#' + id); };
   var log, chips, text, sendBtn, launch, panel, sub;
@@ -154,7 +154,7 @@
     if (!quiet && !S.open) launch.classList.add('nv-launch--new');
     scrollEnd(); return m;
   }
-  function setChips(list, quiet) { S.chips = list || []; if (!quiet) save(); chips.innerHTML = S.chips.map(function (c) { return '<button class="nv-chip" type="button">' + esc(c) + '</button>'; }).join(''); }
+  function setChips(list, quiet) { S.chips = list || []; if (S.err && S.mode === 'guided' && S.chips.length && S.chips.indexOf('Try again') < 0) S.chips = S.chips.concat(['Try again']); if (!quiet) save(); chips.innerHTML = S.chips.map(function (c) { return '<button class="nv-chip" type="button">' + esc(c) + '</button>'; }).join(''); }
   function scrollEnd(now) { if (!log) return; if (now) log.scrollTop = log.scrollHeight; else requestAnimationFrame(function () { log.scrollTop = log.scrollHeight; }); }
   function grow() { text.style.height = 'auto'; text.style.height = Math.min(108, text.scrollHeight) + 'px'; }
   var typingEl = null;
@@ -187,8 +187,8 @@
       .then(function (j) {
         clearTimeout(tm); inflight = false; busy(false);
         if (j.fallback) { setMode('guided'); return guided(lastUser()); }
-        if (!j.reply) { push('a', 'I couldn\'t reach my knowledge just now. Try again in a moment — or I can connect you with the team.'); setChips(['Try again', 'Talk to the team']); return; }
-        handle(j);
+        if (!j.reply) { S.err = true; setMode('guided'); return guided(lastUser()); }
+        S.err = false; handle(j);
       })
       .catch(function () { clearTimeout(tm); inflight = false; busy(false); setMode('guided'); guided(lastUser()); });
   }
