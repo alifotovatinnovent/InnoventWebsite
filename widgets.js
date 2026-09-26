@@ -20,6 +20,12 @@
        Kept for the enquiry form's optional "book a time" button; '' hides it. */
     CALENDLY: '',
 
+    /* Microsoft Bookings page for "Book a call". When set, the booking dialog
+       embeds it (live availability from the team's Outlook calendars, Teams
+       invite on confirmation); the classic request form stays one click away
+       and is the automatic fallback if the embed cannot load. '' = form only. */
+    BOOKINGS_URL: 'https://bookings.cloud.microsoft/book/Innovent@innovent.io/?ismsaljsauthenabled',
+
     /* The chatbot ID from Chatbase → Connect → Embed. Leave '' for no agent. */
     CHATBASE_ID: '',
 
@@ -49,6 +55,13 @@
       '<div class="bk__backdrop" data-bk-close></div>' +
       '<div class="bk__card">' +
         '<button class="bk__x" type="button" aria-label="Close" data-bk-close>&times;</button>' +
+        '<div class="bk__live" id="bk-live" hidden>' +
+          '<div class="bk__eyebrow">Book a call</div>' +
+          '<h3 id="bk-live-title">Pick a time that suits you</h3>' +
+          '<p class="bk__lead">Live availability from our calendar, shown in your time zone. Choose a slot and a calendar invite with a Teams link is on its way.</p>' +
+          '<div class="bk__frame bk__frame--loading" id="bk-frame"><iframe id="bk-iframe" title="Book a call with Innovent" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe></div>' +
+          '<p class="bk__fine">Prefer to send your details and let us propose a time? <a href="#book-a-call-form" data-bk-form>Use the short form</a>.</p>' +
+        '</div>' +
         '<form class="bk__form" id="bk-form" name="book-call" method="POST" novalidate>' +
           '<input type="hidden" name="form-name" value="book-call">' +
           '<p hidden aria-hidden="true"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>' +
@@ -76,7 +89,8 @@
           '<button class="btn btn--primary bk__submit" type="submit" id="bk-submit">Request this slot' +
             '<svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>' +
           '</button>' +
-          '<p class="bk__fine">No account, no scheduler pop-up. Your details go to our team only.</p>' +
+          '<p class="bk__fine">No account, no scheduler pop-up. Your details go to our team only.' +
+            '<span class="bk__back" hidden> <a href="#book-a-call" data-bk-live>Back to live availability</a></span></p>' +
         '</form>' +
       '</div>' +
     '</div>';
@@ -96,6 +110,11 @@
     bookEl = host.firstChild;
     document.body.appendChild(bookEl);
 
+    bookEl.addEventListener('click', function (ev) {
+      var a = ev.target.closest('[data-bk-form],[data-bk-live]'); if (!a) return;
+      ev.preventDefault(); showLive(bookEl, a.hasAttribute('data-bk-live'));
+      if (a.hasAttribute('data-bk-form')) { var f = bookEl.querySelector('#bk-name'); if (f) f.focus(); }
+    });
     var form = bookEl.querySelector('#bk-form');
     var msg = bookEl.querySelector('#bk-msg');
     var date = bookEl.querySelector('#bk-date');
@@ -167,13 +186,32 @@
     return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
   }
 
-  function openBooking(opener) {
+  var liveTimer = null;
+  function showLive(el, on) {
+    var live = el.querySelector('#bk-live'), form = el.querySelector('#bk-form'), back = el.querySelector('.bk__back');
+    if (!live) return;
+    live.hidden = !on; form.hidden = on; el.querySelector('.bk__card').classList.toggle('bk__card--live', on);
+    if (back) back.hidden = on || !CONFIG.BOOKINGS_URL;
+    if (on) {
+      var fr = el.querySelector('#bk-iframe'), box = el.querySelector('#bk-frame');
+      if (fr && !fr.getAttribute('src')) {
+        box.classList.add('bk__frame--loading');
+        fr.addEventListener('load', function () { box.classList.remove('bk__frame--loading'); clearTimeout(liveTimer); });
+        fr.setAttribute('src', CONFIG.BOOKINGS_URL);
+        /* if the embed has not loaded in 12 s (blocked frame, offline), fall back to the form */
+        liveTimer = setTimeout(function () { if (box.classList.contains('bk__frame--loading')) showLive(el, false); }, 12000);
+      }
+    }
+  }
+  function openBooking(opener, preferForm) {
     var el = mountBooking();
     bookOpener = opener || document.activeElement;
     el.hidden = false;
     document.documentElement.classList.add('bk-open');
-    var first = el.querySelector('#bk-name');
-    if (first) setTimeout(function () { first.focus(); }, 30);
+    var live = !!CONFIG.BOOKINGS_URL && !preferForm;
+    showLive(el, live);
+    if (!live) { var first = el.querySelector('#bk-name'); if (first) setTimeout(function () { first.focus(); }, 30); }
+    else { var x = el.querySelector('.bk__x'); if (x) setTimeout(function () { x.focus(); }, 30); }
   }
 
   function closeBooking() {
@@ -313,7 +351,7 @@
     if (document.querySelector('script[data-innv-nova]')) return;
     var IN_PAGES = /\/pages\/[^/]*$/.test(location.pathname);
     var s = document.createElement('script');
-    s.src = (IN_PAGES ? '../' : '/') + 'nova.js?v=20260927f';
+    s.src = (IN_PAGES ? '../' : '/') + 'nova.js?v=20260927g';
     s.defer = true; s.setAttribute('data-innv-nova', '');
     document.head.appendChild(s);
   }

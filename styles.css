@@ -1101,3 +1101,14 @@ html.bk-open { overflow: hidden; }
 .hero__ov .hv-num.is-tick { animation: hv-tick 520ms ease-out; }
 @keyframes hv-tick { from { opacity: 0.4; } to { opacity: 1; } }
 .hero__ov .hv-heatcell { transition: opacity 900ms ease, fill 900ms ease; }
+
+/* Book a call — live Microsoft Bookings embed inside the same dialog */
+.bk__card--live { max-width: 1000px; padding: 24px 26px 18px; }
+.bk__card--live h3 { font-size: 22px; line-height: 1.2; margin: 0 0 8px; }
+.bk__card--live .bk__lead { margin-bottom: 14px; }
+.bk__frame { position: relative; height: min(700px, calc(100vh - 250px)); min-height: 460px; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid var(--hair-strong); }
+.bk__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.bk__frame--loading::before { content: ""; position: absolute; inset: 0; background: #0b1220 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44' fill='none' stroke='%237dd3fc' stroke-width='3'%3E%3Ccircle cx='22' cy='22' r='18' stroke-opacity='.18'/%3E%3Cpath d='M40 22a18 18 0 0 0-18-18'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 22 22' to='360 22 22' dur='.9s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E") center no-repeat; z-index: 1; }
+.bk__frame--loading::after { content: "Loading live availability…"; position: absolute; left: 0; right: 0; top: calc(50% + 38px); text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-70); z-index: 1; }
+.bk__card--live .bk__fine { margin-top: 12px; }
+@media (max-width: 700px) { .bk__card--live { padding: 20px 14px 14px; max-height: calc(100vh - 24px); } .bk__frame { height: calc(100vh - 230px); min-height: 380px; } }

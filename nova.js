@@ -142,7 +142,7 @@
     if (a.type === 'handoff') {
       var h = document.createElement('a'); h.className = 'nv-card'; h.href = '#'; h.setAttribute('data-nv-handoff', JSON.stringify(a));
       h.innerHTML = '<span class="nv-card__k">Hand-off</span><span class="nv-card__t">' + (a.form === 'book-call' ? 'Book a call with the team' : 'Request a demo') + '</span>' +
-        '<span class="nv-card__w">' + (a.form === 'book-call' ? 'Thirty minutes, confirmed by email within one business day.' : 'A walkthrough on your systems and sites.') + '</span><span class="nv-card__go">Open →</span>';
+        '<span class="nv-card__w">' + (a.form === 'book-call' ? 'Pick a free slot from our live calendar — a Teams invite follows straight away.' : 'A walkthrough on your systems and sites.') + '</span><span class="nv-card__go">Open →</span>';
       return h;
     }
     return null;
@@ -282,7 +282,7 @@
     'explore the innfini platform': { slug: 'platform', reply: 'Innfini is the operational-intelligence layer: it fuses people, assets, locations, processes, sensors, AI and automation into one live picture, with actions taken under policy and logged.' },
     'command & control': { slug: 'command-control', reply: 'Command & Control covers public safety, ports, critical infrastructure, defense, venues and situational awareness — one operating picture across agencies and systems.' },
     'smart cities': { slug: 'smart-city', reply: 'Smart Cities brings mobility, public safety, environment, energy and civic operations onto one canvas.' },
-    'talk to the team': { handoff: 'book-call', reply: 'Let\'s set that up — this opens our booking form and the team confirms a slot by email within one business day.' },
+    'talk to the team': { handoff: 'book-call', reply: 'Let\'s set that up — pick a free slot from our live calendar and a Teams invite comes straight to your inbox.' },
     'request a demo': { handoff: 'request-demo', reply: 'Here is the demo request form — tell us about your sites and systems and we tailor the walkthrough.' }
   };
   function guided(q) {
