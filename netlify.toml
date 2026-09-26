@@ -4,6 +4,13 @@
   publish = "."
   command = ""
 
+# Nova, the on-site assistant, is one serverless function (netlify/functions/
+# nova.mjs, served at /api/nova). It needs ANTHROPIC_API_KEY in the site's
+# environment variables; without it the widget runs in guided mode.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Filenames here are not content-hashed — there is no build step — so nothing
 # can be cached as immutable: a fix to a .js or .css file would sit unseen in
 # returning visitors' browsers until the cache expired. CSS and JS revalidate
@@ -25,6 +32,11 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/nova-kb.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
 
 [[headers]]
   for = "/*.css"

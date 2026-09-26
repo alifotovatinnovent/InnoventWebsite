@@ -1,0 +1,116 @@
+/* ─────────────────────────────────────────────────────────────
+   Nova · Innovent's on-site assistant — widget styles
+   Launcher (bottom right) + chat panel. Sits under the booking dialog (1200)
+   and the consent banner (9000). Mobile: full-height sheet.
+   ───────────────────────────────────────────────────────────── */
+.nv { --nv-bg: #080d18; --nv-bg2: #0c1424; --nv-ink: #f1f5f9; --nv-ink2: #9fb0c8; --nv-ink3: #6b7a92;
+      --nv-hair: rgba(255,255,255,0.08); --nv-acc: #7dd3fc; --nv-acc2: #8b5cf6; --nv-user: #16233a;
+      font-family: var(--font-body, "Inter", system-ui, sans-serif); color: var(--nv-ink); }
+.nv *, .nv *::before, .nv *::after { box-sizing: border-box; }
+.nv button { font: inherit; color: inherit; }
+
+/* ── the ring (Ali's loader) ── */
+.nv-ring { display: block; overflow: visible; }
+.nv-ring .spin, .nv-ring .sweep, .nv-ring .breathe { transform-box: view-box; transform-origin: 512px 512px; }
+.nv-ring .spin { animation: nvSpin 9s linear infinite; }
+.nv-ring .sweep { animation: nvSpin 5s linear infinite reverse; }
+.nv-ring .breathe { animation: nvBreathe 4.8s ease-in-out infinite; }
+.nv-ring .glow { animation: nvGlow 4.8s ease-in-out infinite; }
+.nv-ring .glow2 { opacity: .8; }
+.nv--busy .nv-ring .spin { animation-duration: 1.6s; }
+.nv--busy .nv-ring .sweep { animation-duration: 1.1s; }
+.nv--busy .nv-ring .breathe { animation-duration: 1.4s; }
+@keyframes nvSpin { to { transform: rotate(360deg); } }
+@keyframes nvBreathe { 0%,100% { transform: scale(.96); } 50% { transform: scale(1.04); } }
+@keyframes nvGlow { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* ── launcher ── */
+.nv-launch { position: fixed; right: 20px; bottom: 20px; z-index: 1100; display: flex; align-items: center; gap: 10px; }
+.nv-launch__btn { width: 58px; height: 58px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.10);
+  background: radial-gradient(circle at 50% 40%, #121c30, #070b14 70%); cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 0 rgba(125,211,252,0.0); transition: transform .18s ease, box-shadow .3s ease; padding: 0; }
+.nv-launch__btn:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 14px 34px rgba(0,0,0,0.5), 0 0 24px 2px rgba(125,211,252,0.18); }
+.nv-launch__btn:focus-visible { outline: 2px solid var(--nv-acc); outline-offset: 3px; }
+.nv-launch__btn .nv-ring { width: 66px; height: 66px; }
+.nv-launch__tip { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--nv-ink); background: rgba(8,13,24,0.92); border: 1px solid var(--nv-hair); border-radius: 999px; padding: 9px 14px;
+  opacity: 0; transform: translateX(6px); transition: opacity .35s ease, transform .35s ease; pointer-events: none; backdrop-filter: blur(6px); }
+.nv-launch--tip .nv-launch__tip { opacity: 1; transform: none; }
+.nv--open .nv-launch { display: none; }
+.nv-launch__dot { position: absolute; right: -2px; top: -2px; width: 12px; height: 12px; border-radius: 50%; background: var(--nv-acc);
+  box-shadow: 0 0 0 3px #070b14; display: none; }
+.nv-launch--new .nv-launch__dot { display: block; }
+
+/* ── panel ── */
+.nv-panel { position: fixed; right: 20px; bottom: 20px; z-index: 1100; width: 392px; max-width: calc(100vw - 32px); height: 640px; max-height: calc(100vh - 40px);
+  display: none; flex-direction: column; border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, var(--nv-bg2), var(--nv-bg));
+  border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(125,211,252,0.05) inset; }
+.nv--open .nv-panel { display: flex; animation: nvIn .28s cubic-bezier(.2,.8,.2,1); }
+@keyframes nvIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+.nv-head { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; border-bottom: 1px solid var(--nv-hair); background: rgba(255,255,255,0.02); }
+.nv-head .nv-ring { width: 40px; height: 40px; flex: 0 0 auto; }
+.nv-head__t { flex: 1; min-width: 0; line-height: 1.2; }
+.nv-head__name { font-family: var(--font-display, "Sora", sans-serif); font-weight: 600; font-size: 15px; letter-spacing: -.01em; }
+.nv-head__sub { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--nv-ink3); margin-top: 3px; }
+.nv-head__sub b { color: #34d399; font-weight: 600; }
+.nv-head__sub.is-guided b { color: #fcd34d; }
+.nv-ib { width: 34px; height: 34px; border-radius: 8px; border: 1px solid transparent; background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--nv-ink2); }
+.nv-ib:hover { background: rgba(255,255,255,0.06); color: var(--nv-ink); border-color: var(--nv-hair); }
+.nv-ib svg { width: 16px; height: 16px; }
+
+.nv-log { flex: 1; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; overscroll-behavior: contain; }
+.nv-log::-webkit-scrollbar { width: 6px; } .nv-log::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 3px; }
+.nv-m { max-width: 86%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word; }
+.nv-m--a { align-self: flex-start; background: rgba(255,255,255,0.045); border: 1px solid var(--nv-hair); border-bottom-left-radius: 5px; color: var(--nv-ink); }
+.nv-m--u { align-self: flex-end; background: var(--nv-user); border: 1px solid rgba(125,211,252,0.14); border-bottom-right-radius: 5px; color: var(--nv-ink); }
+.nv-m a { color: var(--nv-acc); text-decoration: underline; text-underline-offset: 2px; }
+.nv-m b { font-weight: 600; }
+.nv-typing { align-self: flex-start; display: inline-flex; gap: 5px; padding: 12px 14px; }
+.nv-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--nv-acc); opacity: .35; animation: nvDot 1.2s ease-in-out infinite; }
+.nv-typing i:nth-child(2) { animation-delay: .15s; } .nv-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes nvDot { 0%,100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+.nv-card { align-self: flex-start; width: 86%; border-radius: 12px; border: 1px solid rgba(125,211,252,0.22); background: linear-gradient(135deg, rgba(125,211,252,0.10), rgba(139,92,246,0.08));
+  padding: 11px 12px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; text-decoration: none; color: inherit; }
+.nv-card__k { grid-column: 1 / -1; font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--nv-acc); }
+.nv-card__t { font-family: var(--font-display, sans-serif); font-weight: 600; font-size: 14px; line-height: 1.25; }
+.nv-card__w { grid-column: 1; font-size: 12.5px; color: var(--nv-ink2); }
+.nv-card__go { grid-row: 2 / span 2; grid-column: 2; align-self: center; font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--nv-ink); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 7px 11px; background: rgba(255,255,255,0.04); cursor: pointer; white-space: nowrap; }
+.nv-card__go:hover { border-color: var(--nv-acc); color: var(--nv-acc); }
+.nv-card--going .nv-card__go { border-color: var(--nv-acc); color: var(--nv-acc); }
+.nv-card__bar { grid-column: 1 / -1; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; display: none; }
+.nv-card--going .nv-card__bar { display: block; }
+.nv-card__bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--nv-acc), var(--nv-acc2)); animation: nvBar 1.4s linear forwards; }
+@keyframes nvBar { to { width: 100%; } }
+
+.nv-chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 4px 14px 10px; }
+.nv-chip { font-size: 12.5px; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(125,211,252,0.28); background: rgba(125,211,252,0.06); color: var(--nv-ink); cursor: pointer; transition: background .15s, border-color .15s; }
+.nv-chip:hover { background: rgba(125,211,252,0.14); border-color: var(--nv-acc); }
+
+.nv-in { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px 8px; border-top: 1px solid var(--nv-hair); background: rgba(0,0,0,0.18); }
+.nv-in textarea { flex: 1; resize: none; min-height: 40px; max-height: 108px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--nv-hair); background: rgba(255,255,255,0.04); color: var(--nv-ink); font: inherit; font-size: 14px; line-height: 1.4; outline: none; }
+.nv-in textarea:focus { border-color: rgba(125,211,252,0.5); box-shadow: 0 0 0 3px rgba(125,211,252,0.12); }
+.nv-in textarea::placeholder { color: var(--nv-ink3); }
+.nv-send { width: 40px; height: 40px; border-radius: 10px; border: 0; background: linear-gradient(135deg, #56c4ff, #8b3dff); color: #fff; cursor: pointer; display: grid; place-items: center; flex: 0 0 auto; transition: filter .15s, transform .15s; }
+.nv-send:hover { filter: brightness(1.08); } .nv-send:disabled { opacity: .45; cursor: default; }
+.nv-send svg { width: 17px; height: 17px; }
+.nv-foot { font-size: 10.5px; color: var(--nv-ink3); text-align: center; padding: 0 12px 9px; }
+.nv-foot a { color: inherit; text-decoration: underline; }
+
+/* ── on-page highlight after Nova navigates ── */
+.nv-hl { position: relative; animation: nvHl 2.6s ease-out forwards; border-radius: 10px; }
+@keyframes nvHl { 0% { box-shadow: 0 0 0 0 rgba(125,211,252,0), inset 0 0 0 0 rgba(125,211,252,0); }
+  12% { box-shadow: 0 0 0 6px rgba(125,211,252,0.28), 0 0 60px 8px rgba(125,211,252,0.12); }
+  100% { box-shadow: 0 0 0 0 rgba(125,211,252,0), 0 0 0 0 rgba(125,211,252,0); } }
+
+@media (max-width: 640px) {
+  .nv-launch { right: 14px; bottom: 82px; }
+  .nv-launch__tip { display: none; }
+  .nv-panel { right: 0; bottom: 0; width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; border: 0; }
+  .nv-m { max-width: 90%; } .nv-card { width: 92%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nv-ring .spin, .nv-ring .sweep, .nv-ring .breathe, .nv-ring .glow { animation: none; }
+  .nv--open .nv-panel { animation: none; } .nv-typing i { animation: none; opacity: .7; }
+  .nv-hl { animation-duration: 1.2s; }
+}

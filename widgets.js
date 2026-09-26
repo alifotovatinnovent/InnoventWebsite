@@ -306,12 +306,25 @@
     wireTracking();
   }
 
-  ready(function () { wireBooking(); wireChat(); wireMeasurement(); });
+  /* ── Nova, the site's own assistant ─────────────────────────────────────
+     First-party (our Netlify Function, sessionStorage only, no cookies), so it
+     does not wait for consent. One script, loaded once, on every page. */
+  function loadNova() {
+    if (document.querySelector('script[data-innv-nova]')) return;
+    var IN_PAGES = /\/pages\/[^/]*$/.test(location.pathname);
+    var s = document.createElement('script');
+    s.src = (IN_PAGES ? '../' : '/') + 'nova.js?v=20260927a';
+    s.defer = true; s.setAttribute('data-innv-nova', '');
+    document.head.appendChild(s);
+  }
+
+  ready(function () { wireBooking(); wireChat(); wireMeasurement(); loadNova(); });
 
   window.InnoventWidgets = {
     config: CONFIG,
     calendlyUrl: calendlyUrl,
     loadChat: loadChat,
+    openBooking: openBooking,
     track: track
   };
 })();
