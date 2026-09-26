@@ -30,18 +30,17 @@
   var RING_DEFS = '<svg width="0" height="0" style="position:absolute;width:0;height:0" aria-hidden="true" focusable="false"><defs>' +
     '<linearGradient id="nvg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1024" y2="0"><stop offset="0" stop-color="#56c4ff"/><stop offset="0.33" stop-color="#5b6bff"/><stop offset="0.66" stop-color="#8b3dff"/><stop offset="1" stop-color="#c455ff"/></linearGradient>' +
     '<radialGradient id="nvhl"><stop offset="0" stop-color="#fff" stop-opacity="0.8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
-    '<clipPath id="nvbox"><rect width="1024" height="1024"/></clipPath>' +
-    '<clipPath id="nvshape" clip-path="url(#nvbox)"><path clip-rule="evenodd" d="M0 512a512 512 0 1 0 1024 0a512 512 0 1 0-1024 0ZM120 451a452 452 0 1 0 904 0a452 452 0 1 0-904 0Z"/></clipPath>' +
+    '<clipPath id="nvshape"><path clip-rule="evenodd" d="M0 512a512 512 0 1 0 1024 0a512 512 0 1 0-1024 0ZM120 451a452 452 0 1 0 904 0a452 452 0 1 0-904 0Z"/></clipPath>' +
     '<filter id="nvblur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="70"/></filter>' +
     '<filter id="nvblur2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16"/></filter>' +
     '</defs></svg>';
   /* each ring instance carries its own spinning fill so the animation runs in every copy */
   var RING = '<svg class="nv-ring" viewBox="-200 -200 1424 1424" aria-hidden="true" focusable="false">' +
-    '<g class="breathe">' +
+    '<g class="breathe"><rect x="-288" y="-288" width="1600" height="1600" fill="none"/>' +
       '<g class="glow" filter="url(#nvblur)"><g clip-path="url(#nvshape)"><rect class="spin" x="-288" y="-288" width="1600" height="1600" fill="url(#nvg)"/></g></g>' +
       '<g class="glow2" filter="url(#nvblur2)"><g clip-path="url(#nvshape)"><rect class="spin" x="-288" y="-288" width="1600" height="1600" fill="url(#nvg)"/></g></g>' +
       '<g clip-path="url(#nvshape)"><rect class="spin" x="-288" y="-288" width="1600" height="1600" fill="url(#nvg)"/></g>' +
-      '<g clip-path="url(#nvshape)" style="mix-blend-mode:screen"><g class="sweep"><circle cx="512" cy="40" r="300" fill="url(#nvhl)" opacity="0.75"/></g></g>' +
+      '<g clip-path="url(#nvshape)" style="mix-blend-mode:screen"><g class="sweep"><rect x="-288" y="-288" width="1600" height="1600" fill="none"/><circle cx="512" cy="40" r="300" fill="url(#nvhl)" opacity="0.75"/></g></g>' +
     '</g></svg>';
   var ICO = {
     x: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>',
@@ -62,7 +61,7 @@
   root.innerHTML = RING_DEFS +
     '<div class="nv-launch" id="nv-launch"><span class="nv-launch__tip">Ask Nova</span>' +
       '<button class="nv-launch__btn" type="button" aria-label="Ask Nova, Innovent\'s assistant" aria-haspopup="dialog" aria-expanded="false">' + RING + '<span class="nv-launch__dot"></span></button></div>' +
-    '<section class="nv-panel" id="nv-panel" role="dialog" aria-label="Nova, Innovent\'s assistant" aria-modal="false">' +
+    '<section class="nv-panel" id="nv-panel" role="dialog" aria-label="Nova, Innovent\'s assistant" aria-modal="false"><div class="nv-panel__in">' +
       '<div class="nv-head">' + RING + '<div class="nv-head__t"><div class="nv-head__name">Nova</div><div class="nv-head__sub" id="nv-sub"><b>●</b> Innovent guide</div></div>' +
         '<button class="nv-ib" type="button" id="nv-reset" title="Start over" aria-label="Start over">' + ICO.reset + '</button>' +
         '<button class="nv-ib" type="button" id="nv-close" title="Close" aria-label="Close Nova">' + ICO.x + '</button></div>' +
@@ -71,8 +70,8 @@
       '<form class="nv-in" id="nv-form"><textarea id="nv-text" rows="1" placeholder="Ask Nova anything…" aria-label="Message Nova" maxlength="1500"></textarea>' +
         '<button class="nv-send" id="nv-send" type="submit" aria-label="Send">' + ICO.send + '</button></form>' +
       '<div class="nv-foot">Nova is an AI assistant and can make mistakes. Conversations are processed to answer you and are not stored after you leave.</div>' +
-    '</section>';
-  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = ROOT + 'nova.css?v=20260927b';
+    '</div></section>';
+  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = ROOT + 'nova.css?v=20260927c';
   document.head.appendChild(css);
   var $ = function (id) { return root.querySelector('#' + id); };
   var log, chips, text, sendBtn, launch, panel, sub;
