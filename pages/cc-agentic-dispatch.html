@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="../animations.css?v=20260922a">
 <link rel="stylesheet" href="../megamenu.css?v=20260922a">
 <link rel="stylesheet" href="../mockup-system.css?v=20260922a">
-<link rel="stylesheet" href="../styles-agentic-dispatch.css?v=20260922a">
+<link rel="stylesheet" href="../styles-agentic-dispatch.css?v=20260928a">
 <link rel="stylesheet" href="_page.css?v=20260922a">
 <link rel="stylesheet" href="_casestudy.css?v=20260922a">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://innovent.io/"},{"@type":"ListItem","position":2,"name":"Command & Control","item":"https://innovent.io/pages/command-control.html"},{"@type":"ListItem","position":3,"name":"Agentic Dispatch — Command & Control","item":"https://innovent.io/pages/cc-agentic-dispatch.html"}]},{"@type":"WebPage","@id":"https://innovent.io/pages/cc-agentic-dispatch.html#page","url":"https://innovent.io/pages/cc-agentic-dispatch.html","name":"Agentic Dispatch — Command & Control","description":"When an incident is detected, Innfini analyzes the situation, assesses impact, recommends the right SOP.","isPartOf":{"@id":"https://innovent.io/#site"},"publisher":{"@id":"https://innovent.io/#org"}}]}</script>
@@ -69,214 +69,163 @@
         </div>
       </div>
 
-      <!-- Motion panel: mini incident + AI recommendation -->
-      <div class="ad__motion" aria-hidden="true">
-        <div class="mk">
-          <div class="mk__bar">
-            <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
-            <span class="mk__name">agentic-dispatch · live · awaiting approval</span>
-            <span class="mk__pill" data-sev="high">Awaiting</span>
-          </div>
-
-          <div class="mk__split">
-            <div class="mk__stack">
-              <div class="mk__sec"><h6>Incident</h6><span class="mk__sec-r">T+00:41</span></div>
-              <div>
-                <div class="mk__kpi-k" style="margin-bottom:5px">INC-2025-0007</div>
-                <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--mk-ink);line-height:1.2">Fire alarm triggered in Zone 4</div>
-              </div>
-              <div class="mk__chips">
-                <span class="mk__sev" data-sev="high">High</span>
-                <span class="mk__tag">Retail mall · Zone 4</span>
-                <span class="mk__tag">~340 occupants</span>
-              </div>
-              <div class="mk__facts">
-                <div class="mk__fact"><span>Detected</span><b>14:36:08</b></div>
-                <div class="mk__fact"><span>Nearest team</span><b>Engine-12 · 3m</b></div>
-                <div class="mk__fact"><span>Procedure</span><b>SOP EVAC-2</b></div>
-                <div class="mk__fact"><span>Escalation</span><b>Tier 2 · Fire</b></div>
-              </div>
-              <div>
-                <div class="mk__sec"><h6>Signals fused</h6><span class="mk__sec-r">3 of 4 agree</span></div>
-                <div class="mk__chips">
-                  <span class="mk__chip" data-sev="ok">Smoke detector<i style="font-style:normal;opacity:0.75">SD-412</i></span>
-                  <span class="mk__chip" data-sev="ok">Camera vision<i style="font-style:normal;opacity:0.75">CAM-77</i></span>
-                  <span class="mk__chip" data-sev="ok">Heat rise<i style="font-style:normal;opacity:0.75">+18 °C/min</i></span>
-                  <span class="mk__chip">Manual pull<i style="font-style:normal;opacity:0.75">none</i></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="mk__stack">
-              <div class="mk__sec"><h6>AI recommendation</h6><span class="mk__sec-r">Innfini Agent</span></div>
-              <p style="margin:0;font-size:12.5px;line-height:1.5;color:var(--mk-ink-2)"><strong style="color:var(--mk-ink);font-weight:600">Dispatch Engine-12.</strong> Notify facility supervisor SUP-04 and trigger evacuation SOP-EVAC-2 across Zone 4 PA and digital signage.</p>
-              <div class="mk__facts">
-                <div class="mk__fact"><span>Signals agree</span><b>Within 6 s</b></div>
-                <div class="mk__fact"><span>Occupancy</span><b>340 &gt; 250</b></div>
-                <div class="mk__fact"><span>Next unit</span><b>11 min out</b></div>
-                <div class="mk__fact"><span>Actions</span><b>4 queued</b></div>
-              </div>
-              <div class="mk__meter">
-                <span class="mk__meter-k">Confidence</span>
-                <span class="mk__meter-t"><span class="mk__meter-f" style="width:94%"></span></span>
-                <span class="mk__meter-v">0.94</span>
-              </div>
-              <div class="mk__btns">
-                <span class="mk__btn mk__btn--primary">Approve dispatch</span>
-                <span class="mk__btn">Escalate</span>
-                <span class="mk__btn">Open SOP</span>
-                <span class="mk__btn">View cams</span>
-              </div>
-              <div class="mk__kpi-s">Auto-executes in 00:19 unless held</div>
-            </div>
-          </div>
-
-          <div class="mk__foot">
-            <span>Detected 14:36:08 · correlated 3 signals · risk scored · plan built</span>
-            <span class="mk__foot-r" style="color:var(--mk-ai)">Awaiting operator</span>
-          </div>
-        </div>
+      <div class="ad__motion ad__motion--img" aria-hidden="true">
+        <div class="ci-img ci-img--hero" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 841"><img src="../assets/product/cc-ad-hero.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="841">
+          <span class="ov ov-ring" style="left:54.16%;top:20.16%;width:2.77%;--c:#fb923c;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:54.16%;top:20.16%;width:2.77%;--c:#fb923c;animation-delay:1.3s"></span>
+            <span class="ov ov-ring" style="left:56.99%;top:45.36%;width:2.41%;--c:#34d399;animation-delay:0.6s"></span>
+            <span class="ov ov-dot" style="left:85.48%;top:24.74%;--c:#34d399;animation-delay:0s"></span>
+            <span class="ov ov-pkt" style="--c:#34d399;animation:p-hero-4 9s linear infinite;animation-delay:0s"></span>
+            <span class="ov ov-glow" style="left:83.98%;top:65.98%;width:14.57%;height:5.96%;animation:g-hero-5 9s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:83.98%;top:51.66%;width:14.57%;height:11.46%;animation:g-hero-6 9s ease-in-out infinite"></span>
+            <span class="ov ov-scan" style="left:2.95%;top:83.73%;width:25.0%;height:13.18%;--T:9s;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:30.06%;top:83.73%;width:26.21%;height:13.18%;--T:9s;animation-delay:1.5s"></span>
+            <span class="ov ov-scan" style="left:58.37%;top:83.73%;width:28.02%;height:13.18%;--T:9s;animation-delay:3s"></span>
+        </div></div>
       </div>
     </div>
 
-    <!-- ── FULL CONSOLE · split layout (map left, recommendation right) ── -->
+    <!-- ── The screens ── -->
     <div class="ad__section-head">
-      <div class="eyebrow">// The incident response console</div>
-      <h2 class="section-title">Map left. <em style="font-style:normal;color:#c4b5fd">AI recommendation right.</em></h2>
-      <p class="section-lead">The operator opens the incident, sees the live map context on the left, and an end-to-end recommendation panel on the right — reasoning, confidence, suggested responders, SOP checklist and action buttons.</p>
+      <div class="eyebrow">// The screens</div>
+      <h2 class="section-title">Six views. <em style="font-style:normal;color:#c4b5fd">One governed loop.</em></h2>
+      <p class="section-lead">Each Innfini screen below is an illustrative scenario — a riverside city, a university mall, a port campus — showing the same agentic loop from the first signal to the closed record.</p>
     </div>
-
-    <div class="ad__dashboard">
-      <div class="mk__bar">
-        <span class="mk__dot mk__dot--r"></span><span class="mk__dot mk__dot--y"></span><span class="mk__dot mk__dot--g"></span>
-        <span class="mk__name">incident-response · INC-2025-0007 · zone-4 fire alarm</span>
-        <span class="mk__pill" data-sev="ai">AI · awaiting approval</span>
-      </div>
-      <div class="ad__db-grid">
-        <!-- Left: live incident map + operational context -->
-        <div class="ad__db-left">
-        <div class="mk__canvas"><svg data-incident-map role="img" aria-label="Incident response map: Zone 4 geofence, fire origin, smoke sensor, camera coverage, responding unit route and egress routes"></svg></div>
-
-          <div class="mk__stack">
-            <div class="mk__sec"><h6>Camera feeds · Zone 4</h6><span class="mk__sec-r">3 live</span></div>
-            <div class="mk__rows">
-              <div class="mk__row" data-sev="critical"><span class="mk__led"></span><span><b>CAM-4-12</b> <span class="mk__row-s">· haze detected · vision 0.91</span></span><span class="mk__tag">Confirming</span></div>
-              <div class="mk__row" data-sev="high"><span class="mk__led"></span><span><b>CAM-4-08</b> <span class="mk__row-s">· crowd egress · Gate 3</span></span><span class="mk__tag">Watch</span></div>
-              <div class="mk__row" data-sev="ok"><span class="mk__led"></span><span><b>CAM-4-15</b> <span class="mk__row-s">· corridor clear</span></span><span class="mk__tag">Clear</span></div>
-            </div>
-
-            <div class="mk__sec" style="margin-top:6px"><h6>Unit status</h6><span class="mk__sec-r">4 tracked</span></div>
-            <div class="mk__rows">
-              <div class="mk__row" data-sev="ok"><span class="mk__led"></span><span><b>Engine-12</b> <span class="mk__row-s">· en route · 3 min</span></span><span class="mk__tag">Assigned</span></div>
-              <div class="mk__row" data-sev="ok"><span class="mk__led"></span><span><b>Patrol-22</b> <span class="mk__row-s">· standby · 2 min</span></span><span class="mk__tag">Available</span></div>
-              <div class="mk__row" data-sev="high"><span class="mk__led"></span><span><b>Medic-04</b> <span class="mk__row-s">· on call · 6 min</span></span><span class="mk__tag">Held</span></div>
-              <div class="mk__row" data-sev="ai"><span class="mk__led"></span><span><b>SUP-04</b> <span class="mk__row-s">· on site · Level 2</span></span><span class="mk__tag">Notified</span></div>
-            </div>
-
-            <div class="mk__sec" style="margin-top:6px"><h6>Incident timeline</h6><span class="mk__sec-r">T+00:41</span></div>
-            <ol class="mk__list">
-              <li><span class="mk__list-t">14:36:01</span><span class="mk__list-e">Smoke sensor SMK-4-08 triggered</span></li>
-              <li><span class="mk__list-t">14:36:04</span><span class="mk__list-e">Camera CAM-4-12 confirmed haze · 0.91</span></li>
-              <li><span class="mk__list-t">14:36:08</span><span class="mk__list-e">Incident opened · severity High</span></li>
-              <li><span class="mk__list-t">14:36:19</span><span class="mk__list-e">SOP EVAC-2 matched · 7 steps</span></li>
-              <li data-sev="ai"><span class="mk__list-t">14:36:42</span><span class="mk__list-e">Awaiting operator approval</span></li>
-            </ol>
-          </div>
-        </div>
-
-        <!-- Right: AI dispatch recommendation panel -->
-        <div class="ad__db-rec">
-          <!-- Incident header -->
-          <article class="ad__incident-card">
-            <div class="ad__inc-meta">
-              <span class="ad__inc-id">INC-2025-0007</span>
-              <span class="ad__inc-sev">High</span>
-            </div>
-            <h4 class="ad__inc-title">Fire alarm triggered in Zone 4</h4>
-            <div class="ad__inc-loc">Khalifa Mall · Level 2 · Retail wing · 14:36</div>
-          </article>
-
-          <!-- Recommendation -->
-          <article class="ad__rec-card">
-            <div class="ad__rec-kv">AI · recommended action</div>
-            <p class="ad__rec-text">
-              <strong>Dispatch Engine-12 to Zone 4.</strong> Notify facility supervisor SUP-04. Activate evacuation SOP-EVAC-2 on PA, digital signage and mobile alert. Hold escalation pending operator approval.
-            </p>
-            <div class="ad__rec-conf">
-              <span class="ad__rec-conf-lbl">Confidence</span>
-              <span class="ad__rec-conf-track"><span class="ad__rec-conf-fill" style="width:94%"></span></span>
-              <span class="ad__rec-conf-val">0.94 · HIGH</span>
-            </div>
-          </article>
-
-          <!-- Reasoning -->
-          <div class="ad__db-sec">
-            <h6>Reasoning · cited</h6>
-          </div>
-          <ul class="ad__reason-list">
-            <li><span>Smoke sensor <b>SMK-4-08</b> triggered at 14:36:01 · Zone 4 retail floor.</span></li>
-            <li><span>Camera <b>CAM-4-12</b> confirms crowd movement &amp; haze · vision score 0.91.</span></li>
-            <li><span>Zone 4 high-occupancy · estimated <b>340 people</b> on floor.</span></li>
-            <li><span>Nearest available response unit <b>Engine-12 · 3 min ETA</b>.</span></li>
-            <li><span>Applies SOP <b>EVAC-2</b> · Emergency Evacuation Level 2.</span></li>
-            <li><span>Similar past incident <b>INC-2024-0418</b> · same SOP successful in 4 min.</span></li>
-          </ul>
-
-          <!-- SOP checklist -->
-          <div class="ad__sop">
-            <div class="ad__sop-h">
-              <strong>SOP-EVAC-2 · Emergency Evacuation Level 2</strong>
-              <span class="ad__sop-tag">7 steps</span>
-            </div>
-            <ul>
-              <li class="is-done">Verify alarm against camera feed</li>
-              <li>Activate PA + digital-signage evacuation script</li>
-              <li>Dispatch Engine-12 to Gate-3 entry</li>
-              <li>Notify facility supervisor SUP-04</li>
-              <li>Trigger evacuation routes · floors 1–3</li>
-              <li>Notify operator-on-call · escalate if not contained in 5m</li>
-              <li>Hold approval if &gt; $5k facility action</li>
-            </ul>
-          </div>
-
-          <!-- Suggested responders -->
-          <div class="ad__db-sec"><h6>Suggested responders</h6></div>
-          <div class="ad__responders">
-            <article class="ad__resp">
-              <div class="ad__resp-name">Engine-12</div>
-              <div class="ad__resp-sub">Fire response · 4 crew · BA</div>
-              <div class="ad__resp-meta"><span>ETA 3 min</span><span>Available</span></div>
-            </article>
-            <article class="ad__resp">
-              <div class="ad__resp-name">Patrol-22</div>
-              <div class="ad__resp-sub">Site security · 2 officers</div>
-              <div class="ad__resp-meta"><span>ETA 2 min</span><span>Available</span></div>
-            </article>
-            <article class="ad__resp">
-              <div class="ad__resp-name">Medic-04</div>
-              <div class="ad__resp-sub">Medical · paramedic + EMT</div>
-              <div class="ad__resp-meta"><span>ETA 6 min</span><span>On call</span></div>
-            </article>
-            <article class="ad__resp">
-              <div class="ad__resp-name">SUP-04</div>
-              <div class="ad__resp-sub">Facility supervisor</div>
-              <div class="ad__resp-meta"><span>On site</span><span>Available</span></div>
-            </article>
-          </div>
-
-          <!-- Action buttons -->
-          <div class="ad__actions">
-            <span class="ad__btn ad__btn--primary">Approve dispatch</span>
-            <span class="ad__btn ad__btn--warn">Escalate</span>
-            <span class="ad__btn ad__btn--ghost">Open SOP</span>
-            <span class="ad__btn ad__btn--ghost">View cameras</span>
-            <span class="ad__btn ad__btn--gov">Request approval · SUP-04</span>
-          </div>
+    <div class="ad-rows">
+      <div class="ad-row">
+        <div class="ad-row__vis"><div class="ci-img ci-img--console" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-console.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-ring" style="left:17.46%;top:24.04%;width:2.67%;--c:#fb923c;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:17.46%;top:24.04%;width:2.67%;--c:#fb923c;animation-delay:1.3s"></span>
+            <span class="ov ov-area" style="left:17.17%;top:24.04%;width:8.7%;height:12.13%;--c:#fb923c"></span>
+            <span class="ov ov-pkt" style="--c:#7dd3fc;animation:p-console-3 8s linear infinite;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:48.2%;top:58.77%;width:2.09%;--c:#7dd3fc;animation-delay:0.5s"></span>
+            <span class="ov ov-glow" style="left:72.04%;top:37.27%;width:24.02%;height:15.43%;animation:g-console-5 8s ease-in-out infinite"></span>
+            <span class="ov ov-dot" style="left:83.53%;top:62.51%;--c:#34d399;animation-delay:0s"></span>
+            <span class="ov ov-dot" style="left:83.53%;top:67.59%;--c:#34d399;animation-delay:0.4s"></span>
+            <span class="ov ov-glow" style="left:71.98%;top:72.55%;width:14.33%;height:5.51%;animation:g-console-8 8s ease-in-out infinite"></span>
+            <span class="ov ov-scan" style="left:2.96%;top:74.75%;width:22.33%;height:19.3%;--T:8s;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:25.87%;top:74.75%;width:22.33%;height:19.3%;--T:8s;animation-delay:1.4s"></span>
+            <span class="ov ov-scan" style="left:48.78%;top:74.75%;width:21.17%;height:19.3%;--T:8s;animation-delay:2.8s"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">01 · The incident console</div>
+          <h3>Map left. Recommendation right. <em>Nothing moves until a human says so.</em></h3>
+          <p>The operator opens INC-0007 — a high-severity fire alarm in Zone 4 of a riverside mall — and sees the live map on the left and the end-to-end recommendation on the right: dispatch Engine-12 via the proposed route to Gate 3. The evidence the recommendation rests on is listed and clickable, the available responders are ranked by ETA, and the status line says exactly where things stand: awaiting operator approval, no dispatch issued.</p>
+          <ul><li>Recommended action with the proposed route drawn on the map</li><li>Cited evidence · SMK-4-08 smoke detected, CAM-4-12 haze confirmed, EVAC-2 procedure matched</li><li>Responders with live availability and ETA · Engine-12 3 min, Patrol-22 2 min</li><li>Approve dispatch or Escalate — actions execute only after recorded approval</li></ul>
         </div>
       </div>
+      <div class="ad-row ad-row--flip">
+        <div class="ad-row__vis"><div class="ci-img ci-img--context" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-context.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-ring" style="left:41.24%;top:20.73%;width:2.55%;--c:#f87171;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:41.24%;top:20.73%;width:2.55%;--c:#f87171;animation-delay:1.3s"></span>
+            <span class="ov ov-dot" style="left:23.26%;top:43.88%;--c:#7dd3fc;animation-delay:0s"></span>
+            <span class="ov ov-dot" style="left:33.7%;top:56.01%;--c:#7dd3fc;animation-delay:0.5s"></span>
+            <span class="ov ov-dot" style="left:60.09%;top:29.0%;--c:#34d399;animation-delay:0.3s"></span>
+            <span class="ov ov-dot" style="left:67.34%;top:38.92%;--c:#34d399;animation-delay:0.8s"></span>
+            <span class="ov ov-row" style="left:78.65%;width:17.99%;height:5.73%;animation:h-context-6 12s steps(1,end) infinite"></span>
+            <span class="ov ov-scan" style="left:3.42%;top:79.71%;width:16.07%;height:12.68%;--T:9s;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:34.74%;top:79.71%;width:16.65%;height:12.68%;--T:9s;animation-delay:1.5s"></span>
+            <span class="ov ov-scan" style="left:65.49%;top:79.71%;width:16.06%;height:12.68%;--T:9s;animation-delay:3s"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">02 · Operational context</div>
+          <h3>Ten signals behind <em>one recommendation.</em></h3>
+          <p>A recommendation is only as good as what it was allowed to see. For a fire alarm at the main entrance of Riverside Commons, Innfini assembles the full operational context before it proposes anything: the priority, who should be assigned, how it escalates, which SOP applies, what resources are nearby, who has to approve, what to communicate, the likely impact, the SLA at risk, and how similar incidents ended.</p>
+          <ul><li>Sensor evidence, available responders and previous outcomes surfaced alongside the map</li><li>Units A1 and B3 shown with distance, exits and first-aid points marked</li><li>Every one of the ten signals opens to its source</li><li>The same context drives the confidence value the operator sees</li></ul>
+        </div>
+      </div>
+      <div class="ad-row">
+        <div class="ad-row__vis"><div class="ci-img ci-img--loop" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-loop.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-ring" style="left:31.38%;top:40.02%;width:2.55%;--c:#f87171;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:31.38%;top:40.02%;width:2.55%;--c:#f87171;animation-delay:1.3s"></span>
+            <span class="ov ov-area" style="left:31.38%;top:40.02%;width:9.28%;height:12.13%;--c:#f87171"></span>
+            <span class="ov ov-pkt" style="--c:#7dd3fc;animation:p-loop-3 6s linear infinite;animation-delay:0s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:12.79%;--c:#22d3ee;animation-delay:0s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:17.75%;--c:#22d3ee;animation-delay:0.15s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:22.71%;--c:#22d3ee;animation-delay:0.3s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:27.67%;--c:#22d3ee;animation-delay:0.45s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:32.64%;--c:#22d3ee;animation-delay:0.6s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:37.49%;--c:#22d3ee;animation-delay:0.75s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:42.45%;--c:#22d3ee;animation-delay:0.9s"></span>
+            <span class="ov ov-dot" style="left:96.4%;top:47.41%;--c:#22d3ee;animation-delay:1.05s"></span>
+            <span class="ov ov-glow" style="left:3.02%;top:75.08%;width:16.64%;height:18.97%;animation:g-loop-12 10s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:22.16%;top:75.08%;width:16.76%;height:18.97%;animation:g-loop-13 10s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:41.3%;top:75.08%;width:16.88%;height:18.97%;animation:g-loop-14 10s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:60.44%;top:75.08%;width:16.88%;height:18.97%;animation:g-loop-15 10s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:79.58%;top:75.08%;width:17.06%;height:18.97%;animation:g-loop-16 10s ease-in-out infinite"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">03 · The loop, end to end</div>
+          <h3>Detect, recommend, approve, act, <em>learn.</em></h3>
+          <p>A crowd disturbance at University Mall shows the whole loop on one screen. Signals from three cameras are correlated into one incident; the agent proposes a Community Response unit with a 3-minute route and cites its evidence; the operator approves at the console; the approved dispatch rolls; and when the incident is resolved the outcome is reviewed, the citations are archived and the model is updated for next time.</p>
+          <ul><li>Live layers — roads, transit, parking, cameras, crowd analytics, EV charging, incidents, weather</li><li>Recommendation with citations · Cam 12, 14, 27</li><li>Operator decision recorded before any action</li><li>Outcome review closes the loop and improves the next recommendation</li></ul>
+        </div>
+      </div>
+      <div class="ad-row ad-row--flip">
+        <div class="ad-row__vis"><div class="ci-img ci-img--policies" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-policies.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-ring" style="left:37.76%;top:27.34%;width:2.32%;--c:#fcd34d;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:37.76%;top:27.34%;width:2.32%;--c:#fcd34d;animation-delay:1.3s"></span>
+            <span class="ov ov-glow" style="left:67.92%;top:20.18%;width:28.72%;height:12.68%;animation:g-policies-2 12s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:67.92%;top:35.06%;width:28.72%;height:12.68%;animation:g-policies-3 12s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:67.92%;top:49.94%;width:28.72%;height:12.68%;animation:g-policies-4 12s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:67.92%;top:64.83%;width:28.72%;height:12.68%;animation:g-policies-5 12s ease-in-out infinite"></span>
+            <span class="ov ov-dot" style="left:86.77%;top:23.15%;--c:#34d399;animation-delay:0s"></span>
+            <span class="ov ov-dot" style="left:86.31%;top:38.04%;--c:#fcd34d;animation-delay:0.4s"></span>
+            <span class="ov ov-dot" style="left:86.31%;top:53.03%;--c:#7dd3fc;animation-delay:0.8s"></span>
+            <span class="ov ov-dot" style="left:86.31%;top:67.81%;--c:#f87171;animation-delay:1.2s"></span>
+            <span class="ov ov-glow" style="left:73.72%;top:83.57%;width:6.96%;height:6.62%;animation:g-policies-10 12s ease-in-out infinite"></span>
+            <span class="ov ov-scan" style="left:2.96%;top:43.33%;width:15.95%;height:20.4%;--T:12s;animation-delay:1s"></span>
+            <span class="ov ov-scan" style="left:58.64%;top:43.33%;width:7.83%;height:20.4%;--T:12s;animation-delay:5s"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">04 · Action policies</div>
+          <h3>Right action, right people, <em>safer outcomes.</em></h3>
+          <p>Not every action deserves the same gate. Policies decide, per action type, how much autonomy the agent has: AUTO for pre-approved routine tasks such as sensor resets and status updates; ATTENDED for anything that needs an operator to approve, such as a maintenance dispatch or a variable message sign; SUPERVISED where an operator and a supervisor must both sign, such as lane closures or multi-agency coordination; and BLOCKED for actions that are human-only, such as emergency-services dispatch and system changes.</p>
+          <ul><li>Four policy levels, configurable per SOP, per role, per severity</li><li>A road hazard on Riverside Drive sits at ATTENDED — approve, modify or escalate</li><li>Every decision recorded with identity and time</li><li>Blocked actions never automate: the AI advises, people execute</li></ul>
+        </div>
+      </div>
+      <div class="ad-row">
+        <div class="ad-row__vis"><div class="ci-img ci-img--history" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-history.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-pkt" style="--c:#34d399;animation:p-history-0 9s linear infinite;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:52.84%;top:37.27%;width:2.09%;--c:#34d399;animation-delay:0.5s"></span>
+            <span class="ov ov-dot" style="left:21.81%;top:54.91%;--c:#f87171;animation-delay:0s"></span>
+            <span class="ov ov-glow" style="left:79.52%;top:13.01%;width:17.12%;height:5.51%;animation:g-history-3 9s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:79.52%;top:21.61%;width:17.12%;height:5.51%;animation:g-history-4 9s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:79.52%;top:30.1%;width:17.12%;height:5.51%;animation:g-history-5 9s ease-in-out infinite"></span>
+            <span class="ov ov-glow" style="left:79.52%;top:38.59%;width:17.12%;height:5.51%;animation:g-history-6 9s ease-in-out infinite"></span>
+            <span class="ov ov-dot" style="left:81.26%;top:51.6%;--c:#34d399;animation-delay:0.2s"></span>
+            <span class="ov ov-scan" style="left:3.42%;top:78.06%;width:13.46%;height:13.23%;--T:9s;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:34.57%;top:78.06%;width:13.63%;height:13.23%;--T:9s;animation-delay:1.5s"></span>
+            <span class="ov ov-scan" style="left:65.6%;top:78.06%;width:16.53%;height:13.23%;--T:9s;animation-delay:3s"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">05 · After approval</div>
+          <h3>The decision history <em>writes itself.</em></h3>
+          <p>Once the operator approves, the record keeps going. Alarm detected at 18:36, plan proposed at 18:37, operator approved at 18:38, Engine-12 dispatched at 18:39 — with the sensor source, the approval and the crew dispatch each linked to their evidence. The response is in progress, the next step is field confirmation, and the after-action report is already most of the way written.</p>
+          <ul><li>Timeline of every step with its timestamp</li><li>Sensor source linked · mall exterior camera</li><li>Approval recorded at the operator console</li><li>Crew dispatched and tracked en route to Gate 3</li></ul>
+        </div>
+      </div>
+      <div class="ad-row ad-row--flip">
+        <div class="ad-row__vis"><div class="ci-img ci-img--port" aria-hidden="true"><div class="ci-img__box" style="--ar:1600 / 842"><img src="../assets/product/cc-ad-port.webp?v=20260928a" alt="" loading="lazy" decoding="async" width="1600" height="842">
+          <span class="ov ov-ring" style="left:61.66%;top:40.02%;width:2.67%;--c:#f87171;animation-delay:0s"></span>
+            <span class="ov ov-ring" style="left:61.66%;top:40.02%;width:2.67%;--c:#f87171;animation-delay:1.3s"></span>
+            <span class="ov ov-area" style="left:47.91%;top:41.68%;width:22.04%;height:22.05%;--c:#22d3ee"></span>
+            <span class="ov ov-pkt" style="--c:#f87171;animation:p-port-3 9s linear infinite;animation-delay:0s"></span>
+            <span class="ov ov-glow" style="left:79.23%;top:46.64%;width:16.83%;height:6.06%;animation:g-port-4 9s ease-in-out infinite"></span>
+            <span class="ov ov-dot" style="left:86.77%;top:65.93%;--c:#f87171;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:3.42%;top:81.37%;width:15.49%;height:13.23%;--T:9s;animation-delay:0s"></span>
+            <span class="ov ov-scan" style="left:34.57%;top:81.37%;width:15.08%;height:13.23%;--T:9s;animation-delay:1.5s"></span>
+            <span class="ov ov-scan" style="left:65.02%;top:81.37%;width:15.66%;height:13.23%;--T:9s;animation-delay:3s"></span>
+        </div></div></div>
+        <div class="ad-row__copy">
+          <div class="ad-row__kicker">06 · The same loop on a port</div>
+          <h3>Not only a city product — <em>a terminal, a warehouse, a campus.</em></h3>
+          <p>The agentic loop is the same wherever Innfini runs. On a port logistics campus a fire alarm in Building 7, Zone 4 is confirmed from the alarm and the detector, Response-12 is suggested from the fire-vehicle staging area with a 3-minute ETA and procedure EVAC-2, and the decision waits for the operator. Evidence reviewed, plan proposed, approval pending — on a port map instead of a city map.</p>
+          <ul><li>Building-level zones on the terminal with the alarm pinpointed</li><li>Suggested unit, availability, ETA and procedure in one card</li><li>Three-step status · evidence reviewed, plan proposed, approval pending</li><li>Site overview keeps the wider terminal in view</li></ul>
+        </div>
+      </div>
     </div>
 
-    
     <!-- Real production screenshot -->
     <div class="ad__shot" style="border:1px solid var(--hair); border-radius:14px; overflow:hidden; margin: 0 0 96px;">
       <div style="display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.02);">
