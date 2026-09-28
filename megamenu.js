@@ -46,7 +46,7 @@
           items: [
             { t: 'Situational awareness', d: 'Every sensor, camera, and system on one geo-temporal canvas.', h: 'pages/cc-situational-awareness.html' },
             { t: 'Agentic dispatch', d: 'AI proposes, operators approve — every decision auditable.', h: 'pages/cc-agentic-dispatch.html' },
-            { t: 'Audited & sovereign', d: 'CJIS, FedRAMP-Mod, NIST 800-53 controls. Air-gap deployable.', h: 'pages/command-control.html#capabilities' },
+            { t: 'Audited & sovereign', d: 'Tamper-evident ledger, CJIS-ready, NIST 800-53 mapped. Air-gap deployable.', h: 'pages/cc-audited-sovereign.html' },
           ]},
         { id: 'environments', label: 'Use environments',
           items: [
