@@ -541,13 +541,33 @@
   function ucProgressClear() { ucItems.forEach(function (el) { qa('.uc__bar i', el).forEach(function (seg) { seg.className = ''; }); }); }
   var tiles = {}, cur = 0, U = USE[0];
   var CTL = { jump: function (id) { jumpTo(id); } };
+  /* the room: left wing · centre · right wing, consoles on the desk below */
+  var WING_OF = { feed: 'l', cams: 'l', notifs: 'l', sop: 'l', ledger: 'l', kpi: 'l', map: 'c', ai: 'r', actions: 'r', comms: 'r', tasks: 'r', units: 'r', img2: 'r', img0: 'd', img1: 'd' };
+  var ORDER = ['feed', 'cams', 'notifs', 'sop', 'ledger', 'kpi', 'map', 'ai', 'actions', 'comms', 'tasks', 'units', 'img2', 'img0', 'img1'];
+  var ICO = {
+    sense: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11l4 3v4l-4 3H3z"/><circle cx="9" cy="12" r="2.2"/><path d="M18 10.5 21 9v6l-3-1.5"/></svg>',
+    act: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg>',
+    respond: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15V9h11v6"/><path d="M13 11h4l3 3v1h-7"/><circle cx="6.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/><path d="M6 11.5h3M7.5 10v3"/></svg>',
+    resolve: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 6v6c0 5-3.6 8-8 9-4.4-1-8-4-8-9V6z"/><path d="m8.5 12 2.4 2.4L15.6 9.8"/></svg>'
+  };
+  grid.innerHTML = '<div class="wing wing--l"><div class="wing__hd"><i></i>Situational awareness</div><div class="wing__grid"></div></div>' +
+    '<div class="wing wing--c"><div class="wing__hd"><i></i>Live operating picture<span class="wing__inc"></span></div><div class="wing__grid"></div></div>' +
+    '<div class="wing wing--r"><div class="wing__hd"><i></i>Response &amp; execution</div><div class="wing__grid"></div></div>' +
+    '<div class="wing wing--d"><div class="wing__grid"><div class="flow">' + [['sense', 'Sense'], ['act', 'Act'], ['respond', 'Respond'], ['resolve', 'Resolve']].map(function (f, i) { return (i ? '<span class="flow__link"><i></i></span>' : '') + '<div class="flow__n" data-f="' + f[0] + '"><span class="flow__ico">' + ICO[f[0]] + '</span><span class="flow__l">' + f[1] + '</span><span class="flow__s"></span></div>'; }).join('') + '</div></div></div>';
+  var WINGS = { l: q('.wing--l .wing__grid', grid), c: q('.wing--c .wing__grid', grid), r: q('.wing--r .wing__grid', grid), d: q('.wing--d .wing__grid', grid) }, flowEl = q('.flow', grid);
+  SLOTS.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
   SLOTS.forEach(function (s) {
     var tile = h('div', 'scr scr--' + s.id + (s.w ? ' scr--big' : ''));
     tile.style.setProperty('--iw', s.w || 320); tile.style.setProperty('--ih', s.hh || 200);
     tile.setAttribute('role', 'button'); tile.setAttribute('tabindex', '0'); tile.dataset.id = s.id;
     tile.appendChild(h('div', 'scr__in')); tile.appendChild(h('span', 'scr__tag', ''));
-    grid.appendChild(tile); tiles[s.id] = tile;
+    var wg = WINGS[WING_OF[s.id] || 'r'];
+    if (s.id === 'img0') wg.insertBefore(tile, flowEl); else wg.appendChild(tile);
+    tiles[s.id] = tile;
   });
+  var FLOW_OF = { detect: 'sense', verify: 'sense', assess: 'act', recommend: 'respond', approve: 'respond', dispatch: 'respond', debrief: 'resolve' };
+  function flowSubs() { var sub = { sense: U.sig[0][0] + ' + ' + U.sig[1][0], act: U.acts.filter(function (a) { return a[0] === 'assess'; }).length + ' actions · ' + U.tasks.length + ' tasks', respond: U.unit + ' · ' + U.agencies.length + ' agencies', resolve: U.resolved }; qa('.flow__n', flowEl).forEach(function (n) { q('.flow__s', n).textContent = sub[n.getAttribute('data-f')]; }); var wi = q('.wing__inc', grid); if (wi) wi.textContent = U.inc.id + ' · ' + U.inc.title; }
+  function flowSet(stId) { var keys = ['sense', 'act', 'respond', 'resolve'], k = stId ? keys.indexOf(FLOW_OF[stId]) : -1; qa('.flow__n', flowEl).forEach(function (n, i) { n.className = 'flow__n' + (i < k ? ' is-done' : i === k ? ' is-now' : ''); }); qa('.flow__link', flowEl).forEach(function (l, i) { l.className = 'flow__link' + (i < k ? ' is-on' : ''); }); }
   function buildAll() { SLOTS.forEach(function (s) { buildOne(s); }); }
   function buildOne(s) { var tile = tiles[s.id], inner = h('div', 'scr__in'); tile.replaceChild(inner, q('.scr__in', tile)); s.api = s.build(inner, U, CTL, s.ix); s.api.reset(); var meta = slotMeta(s); q('.scr__tag', tile).textContent = meta.t; tile.setAttribute('aria-label', meta.t + ' — zoom'); }
   function slotMeta(s) { if (s.ix != null) { var im = U.images[s.ix]; return { t: im[1], k: U.t, page: U.page, pt: U.pt, d: 'An Innfini ' + U.pt + ' screen — ' + im[1].toLowerCase() + ' (' + im[2].toLowerCase() + ').', how: 'Click to toggle zoom, then move the pointer to pan.' }; } return s; }
@@ -557,6 +577,7 @@
     var room = q('.wall__chassis', WALL), grid_ = grid; if (!room) return;
     var mq = window.innerWidth;
     if (mq <= 720) { room.style.maxWidth = ''; fit(); return; }
+    if (mq > 1180) { room.style.maxWidth = Math.round(Math.min(1800, mq - 48)) + 'px'; fit(); return; }
     var cols = mq <= 1180 ? 4 : 6, rows = mq <= 1180 ? 5 : 3, gap = 10, pad = 12;
     var others = 0; qa('.wall__bar, .wall__cap, .wall__ticker', room).forEach(function (e) { others += e.offsetHeight; });
     var availH = Math.max(320, (window.innerHeight - (WALL.getBoundingClientRect().top + window.scrollY > 0 ? 0 : 0)) - others - pad * 2 - q('.wall__uc', ROOM).offsetHeight - 120);
@@ -574,10 +595,10 @@
     WALL.setAttribute('data-stage', st.id);
     qa('.wall__step', stepper).forEach(function (e, j) { e.className = 'wall__step' + (j < i ? ' is-done' : j === i ? ' is-now' : ''); });
     SLOTS.forEach(function (s) { tiles[s.id].classList.toggle('is-focus', st.f.indexOf(s.id) >= 0); var fn = s.api.on[st.id]; if (fn) fn(); });
-    q('.wall__now', WALL).textContent = st.t; ucProgress(i);
+    q('.wall__now', WALL).textContent = st.t; ucProgress(i); flowSet(st.id);
     var cap = q('.wall__cap span', WALL); if (cap) { cap.classList.remove('is-in'); cap.textContent = U.cap[i]; void cap.offsetWidth; cap.classList.add('is-in'); }
   }
-  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; ucProgressClear(); }
+  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; ucProgressClear(); flowSet(null); flowSubs(); }
   function next() {
     if (!running) return;
     var i = idx + 1;
