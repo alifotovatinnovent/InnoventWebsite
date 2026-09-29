@@ -393,9 +393,27 @@
 
   /* ───────────── build ───────────── */
   var ROOM = WALL.closest('.cc-room') || document.body;
-  var grid = q('.wall__grid', WALL), stepper = q('.wall__steps', WALL), clock = q('.wall__clock', WALL), ucTabs = q('.wall__uc-tabs', ROOM);
+  var grid = q('.wall__grid', WALL), stepper = q('.wall__steps', WALL), clock = q('.wall__clock', WALL), track = q('.wall__uc-track', ROOM), dots = q('.wall__uc-dots', ROOM);
   stepper.innerHTML = STAGES.map(function (s, i) { return '<span class="wall__step" data-st="' + s.id + '"><i>' + (i + 1) + '</i>' + s.t + '</span>'; }).join('');
-  ucTabs.innerHTML = USE.map(function (u, i) { return '<button type="button" class="wall__uc-tab" data-i="' + i + '"><span class="wall__uc-n">0' + (i + 1) + '</span>' + esc(u.t) + '</button>'; }).join('');
+  var SUB = { city: 'Every sensor, camera and responder on one canvas', ps: 'CAD integration, RMS bridging, multi-agency dispatch', def: 'Coalition workflows and ISR fusion', ci: 'SCADA fusion and supervised runbooks', po: 'Terminals, yards, gates and berths', ve: 'Crowd flow, security and medical response' };
+  track.innerHTML = USE.map(function (u, i) { return '<button type="button" class="uc" data-i="' + i + '" tabindex="-1"><span class="uc__n">' + (i < 9 ? '0' : '') + (i + 1) + '</span><span class="uc__t">' + esc(u.t) + '</span><span class="uc__s">' + esc(SUB[u.id] || '') + '</span><span class="uc__bar">' + STAGES.map(function () { return '<i></i>'; }).join('') + '</span></button>'; }).join('');
+  dots.innerHTML = USE.map(function (u, i) { return '<button type="button" class="uc-dot" role="tab" data-i="' + i + '" aria-label="' + esc(u.t) + '"></button>'; }).join('');
+  var ucItems = qa('.uc', track), ucDots = qa('.uc-dot', dots), ucPrevD = [];
+  function place() {
+    var n = USE.length;
+    ucItems.forEach(function (el, j) {
+      var d = ((j - cur) % n + n) % n; if (d > n / 2) d -= n; if (d === n / 2) d = (ucPrevD[j] != null && ucPrevD[j] < 0) ? -d : d;
+      var jump = ucPrevD[j] != null && Math.abs(d - ucPrevD[j]) > 1;
+      if (jump) el.classList.add('is-jump');
+      el.style.setProperty('--d', d); el.setAttribute('data-d', Math.abs(d) > 2 ? 'x' : String(Math.abs(d)));
+      el.classList.toggle('is-on', d === 0); el.setAttribute('aria-current', d === 0 ? 'true' : 'false'); el.tabIndex = d === 0 ? 0 : -1;
+      if (jump) { void el.offsetWidth; el.classList.remove('is-jump'); }
+      ucPrevD[j] = d;
+    });
+    ucDots.forEach(function (b, j) { b.classList.toggle('is-on', j === cur); b.setAttribute('aria-selected', j === cur ? 'true' : 'false'); });
+  }
+  function ucProgress(i) { var act = ucItems[cur]; if (!act) return; qa('.uc__bar i', act).forEach(function (seg, k) { seg.className = k < i ? 'is-done' : k === i ? 'is-now' : ''; }); }
+  function ucProgressClear() { ucItems.forEach(function (el) { qa('.uc__bar i', el).forEach(function (seg) { seg.className = ''; }); }); }
   var tiles = {}, cur = 0, U = USE[0];
   var CTL = { jump: function (id) { jumpTo(id); } };
   SLOTS.forEach(function (s) {
@@ -431,10 +449,10 @@
     WALL.setAttribute('data-stage', st.id);
     qa('.wall__step', stepper).forEach(function (e, j) { e.className = 'wall__step' + (j < i ? ' is-done' : j === i ? ' is-now' : ''); });
     SLOTS.forEach(function (s) { tiles[s.id].classList.toggle('is-focus', st.f.indexOf(s.id) >= 0); var fn = s.api.on[st.id]; if (fn) fn(); });
-    q('.wall__now', WALL).textContent = st.t;
+    q('.wall__now', WALL).textContent = st.t; ucProgress(i);
     var cap = q('.wall__cap span', WALL); if (cap) { cap.classList.remove('is-in'); cap.textContent = U.cap[i]; void cap.offsetWidth; cap.classList.add('is-in'); }
   }
-  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; }
+  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; ucProgressClear(); }
   function next() {
     if (!running) return;
     var i = idx + 1;
@@ -455,20 +473,21 @@
     var n = USE.length; i = ((i % n) + n) % n; if (i === cur && !auto) return;
     flipping = true; stop(); closeZoom();
     var dir = i === (cur + 1) % n ? 1 : i === (cur - 1 + n) % n ? -1 : 1; cur = i; U = USE[cur];
-    qa('.wall__uc-tab', ucTabs).forEach(function (t, j) { t.classList.toggle('is-on', j === cur); t.setAttribute('aria-pressed', j === cur ? 'true' : 'false'); });
-    var act = q('.wall__uc-tab.is-on', ucTabs); if (act) { var left = act.getBoundingClientRect().left - ucTabs.getBoundingClientRect().left + ucTabs.scrollLeft - (ucTabs.clientWidth - act.offsetWidth) / 2; try { ucTabs.scrollTo({ left: left, behavior: RM ? 'auto' : 'smooth' }); } catch (e) { ucTabs.scrollLeft = left; } }
-    q('.wall__uc-name', ROOM).textContent = U.t; q('.wall__uc-count', ROOM).textContent = '0' + (cur + 1) + ' / 0' + n;
+    ucProgressClear(); place();
     WALL.setAttribute('data-uc', U.id); WALL.style.setProperty('--dir', dir);
     var order = SLOTS.slice(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.add('is-flip'); }, RM ? 0 : k * 35); });
     setTimeout(function () { resetAll(); buildAll(); fit(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.remove('is-flip'); }, RM ? 0 : k * 35); }); idx = -1; setTimeout(function () { flipping = false; resetAll(); sync(); }, RM ? 50 : 700); }, RM ? 30 : 380);
   }
-  ucTabs.addEventListener('click', function (e) { var t = e.target.closest('.wall__uc-tab'); if (t) go(+t.getAttribute('data-i')); });
+  track.addEventListener('click', function (e) { var t = e.target.closest('.uc'); if (t) go(+t.getAttribute('data-i')); });
+  dots.addEventListener('click', function (e) { var t = e.target.closest('.uc-dot'); if (t) go(+t.getAttribute('data-i')); });
+  track.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); } else if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); } });
+  (function swipeTrack() { var x0 = null; track.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true }); track.addEventListener('touchend', function (e) { if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); }, { passive: true }); })();
   qa('[data-uc-prev]', ROOM).forEach(function (b) { b.addEventListener('click', function () { go(cur - 1); }); });
   qa('[data-uc-next]', ROOM).forEach(function (b) { b.addEventListener('click', function () { go(cur + 1); }); });
   WALL.addEventListener('keydown', function (e) { if (zoom) return; if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); } else if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); } });
   (function swipe() { var x0 = null, y0 = null; grid.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true }); grid.addEventListener('touchend', function (e) { if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1)); }, { passive: true }); })();
   stepper.addEventListener('click', function (e) { var st = e.target.closest('.wall__step'); if (!st) return; var i = qa('.wall__step', stepper).indexOf(st); manualUntil = Date.now() + 90000; stop(); resetAll(); for (var k = 0; k <= i; k++) setStage(k); running = true; timer = setTimeout(next, 9000); });
-  go(0, true);
+  place(); go(0, true);
 
   /* ───────────── zoom (live screen, interactive) ───────────── */
   var zoom = null, zoomSlot = null;
