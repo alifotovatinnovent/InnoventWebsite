@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
 <title>Command &amp; Control — Overview · Innovent</title>
-<meta name="description" content="Innfini Command &amp; Control replaces the 6-monitor swivel-chair with one operational canvas — situational awareness, AI-assisted dispatch.">
+<meta name="description" content="Innfini Command & Control as a control room: one video wall, six use cases — public safety & 911, defense & intelligence, critical infrastructure, ports & logistics, stadium & venue ops, city operations. Every screen is live and interactive.">
 <link rel="canonical" href="https://innovent.io/pages/command-control.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
@@ -29,8 +29,7 @@
 <link rel="stylesheet" href="../animations.css?v=20260922a">
 <link rel="stylesheet" href="../megamenu.css?v=20260922a">
 <link rel="stylesheet" href="../styles-command-control.css?v=20260922a">
-<script>document.documentElement.classList.add("cc-js")</script>
-<link rel="stylesheet" href="../cc-wall.css?v=20260929a">
+<link rel="stylesheet" href="../cc-wall.css?v=20260929b">
 <link rel="stylesheet" href="_page.css?v=20260922a">
 <link rel="stylesheet" href="_casestudy.css?v=20260922a">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://innovent.io/"},{"@type":"ListItem","position":2,"name":"Command & Control","item":"https://innovent.io/pages/command-control.html"},{"@type":"ListItem","position":3,"name":"Command & Control — Overview","item":"https://innovent.io/pages/command-control.html"}]},{"@type":"WebPage","@id":"https://innovent.io/pages/command-control.html#page","url":"https://innovent.io/pages/command-control.html","name":"Command & Control — Overview","description":"Innfini Command & Control replaces the 6-monitor swivel-chair with one operational canvas — situational awareness, AI-assisted dispatch.","isPartOf":{"@id":"https://innovent.io/#site"},"publisher":{"@id":"https://innovent.io/#org"}}]}</script>
@@ -39,7 +38,7 @@
 <div id="site-nav"></div>
 <main id="main">
 
-<div class="cs-hero" style="padding:80px 0 24px;">
+<div class="cs-hero" style="padding:26px 0 6px;">
   <div class="cs-hero__inner"><div class="breadcrumb">
     <a href="../index.html">Home</a><span class="sep">/</span>
     <a href="command-control.html">Command &amp; Control</a><span class="sep">/</span>
@@ -51,14 +50,21 @@
   <div class="cco__bg"></div>
   <div class="container">
 
-    <!-- ── HERO · the control room ── -->
+    <!-- ── HERO · the control room (the whole page) ── -->
     <div class="cc-room">
-      <div class="cc-room__head">
-        <div class="eyebrow">// Command &amp; Control · The control room</div>
-        <h1 class="cco__title">Mission-ready. <em style="font-style:normal;color:var(--accent)">Mission-proven.</em></h1>
-        <p class="cco__lead">Innfini Command &amp; Control replaces the 6-monitor swivel-chair with one operational canvas — <strong>situational awareness, AI-assisted dispatch, operational workflows and sovereign-grade auditability</strong> in a single mission-ready platform. Watch one incident run across the wall below.</p>
+      <div class="wall__uc" aria-label="Choose a use case">
+        <div class="wall__uc-head">
+          <div class="eyebrow">// Command &amp; Control</div>
+          <h1 class="wall__uc-h1">The control room, <em>one use case at a time.</em></h1>
+        </div>
+        <div class="wall__uc-slider">
+          <button type="button" class="wall__uc-arrow" data-uc-prev aria-label="Previous use case">‹</button>
+          <div class="wall__uc-tabs" role="tablist"></div>
+          <button type="button" class="wall__uc-arrow" data-uc-next aria-label="Next use case">›</button>
+        </div>
+        <div class="wall__uc-meta"><span class="wall__uc-name">City operations</span><span class="wall__uc-count">01 / 06</span></div>
       </div>
-      <div class="wall" id="ccwall" data-assets="../assets/product/" aria-label="Innfini control-room wall — illustrative scenario">
+      <div class="wall" id="ccwall" data-assets="../assets/product/" tabindex="0" aria-label="Innfini control-room wall — illustrative scenarios">
         <div class="wall__room">
           <div class="wall__chassis">
             <div class="wall__bar">
@@ -68,278 +74,12 @@
             </div>
             <div class="wall__grid"></div>
             <div class="wall__cap"><span class="is-in">Standing by — one incident, seven steps, every decision on the record.</span></div>
-            <div class="wall__ticker"><span><b>INC-0007</b> · Fire alarm · Riverside Mall · Zone 4 &nbsp;—&nbsp; 2 signals correlated in <em>12 s</em> &nbsp;—&nbsp; SOP EVAC-2 attached &nbsp;—&nbsp; Recommendation cited · confidence 0.92 &nbsp;—&nbsp; Approved by a named dispatcher &nbsp;—&nbsp; Engine-12 en route · Gate 3 &nbsp;—&nbsp; 5 agencies notified in <em>9 s</em> &nbsp;—&nbsp; Audit chain verified · 0 gaps &nbsp;—&nbsp; Illustrative scenario &nbsp;—&nbsp; <b>INC-0007</b> · Fire alarm · Riverside Mall · Zone 4 &nbsp;—&nbsp; 2 signals correlated in <em>12 s</em> &nbsp;—&nbsp; SOP EVAC-2 attached &nbsp;—&nbsp; Recommendation cited · confidence 0.92 &nbsp;—&nbsp; Approved by a named dispatcher &nbsp;—&nbsp; Engine-12 en route · Gate 3 &nbsp;—&nbsp; 5 agencies notified in <em>9 s</em> &nbsp;—&nbsp; Audit chain verified · 0 gaps &nbsp;—&nbsp; Illustrative scenario &nbsp;—&nbsp; </span></div>
+            <div class="wall__ticker"><span>Situational awareness &nbsp;—&nbsp; Agentic dispatch · <em>AI proposes, operators approve</em> &nbsp;—&nbsp; Operational workflows · SOPs tracked step by step &nbsp;—&nbsp; Audited &amp; sovereign · <em>append-only ledger</em> &nbsp;—&nbsp; Public safety &amp; 911 · Defense &amp; intelligence · Critical infrastructure · Ports &amp; logistics · Stadium &amp; venue ops · City operations &nbsp;—&nbsp; Click any screen to zoom in and interact &nbsp;—&nbsp; Every scenario is illustrative &nbsp;—&nbsp; Situational awareness &nbsp;—&nbsp; Agentic dispatch · <em>AI proposes, operators approve</em> &nbsp;—&nbsp; Operational workflows · SOPs tracked step by step &nbsp;—&nbsp; Audited &amp; sovereign · <em>append-only ledger</em> &nbsp;—&nbsp; Public safety &amp; 911 · Defense &amp; intelligence · Critical infrastructure · Ports &amp; logistics · Stadium &amp; venue ops · City operations &nbsp;—&nbsp; Click any screen to zoom in and interact &nbsp;—&nbsp; Every scenario is illustrative &nbsp;—&nbsp; </span></div>
           </div>
         </div>
         <div class="wall__floor"></div>
-        <p class="wall__hint"><b>Click any screen</b> to zoom in and open that capability · Scenario is illustrative</p>
+        <p class="wall__hint"><b>Click any screen</b> to enlarge and interact · <b>‹ ›</b> or swipe to change use case · Scenarios are illustrative</p>
       </div>
-      <div class="cco__sig">
-        <div class="cco__sig-item"><div class="cco__sig-num">1</div><div class="cco__sig-lab">Canvas</div></div>
-        <div class="cco__sig-item"><div class="cco__sig-num">AI</div><div class="cco__sig-lab">Assisted · human approved</div></div>
-        <div class="cco__sig-item"><div class="cco__sig-num">100%</div><div class="cco__sig-lab">Auditable</div></div>
-        <div class="cco__sig-item"><div class="cco__sig-num">4</div><div class="cco__sig-lab">Deployment models · incl. air-gap</div></div>
-      </div>
-    </div>
-
-    <!-- ── SIX IMPACT TILES ── -->
-    <section class="cc-scr cc-scr--impact">
-      <div class="cc-scr__bar"><span>Screen 02</span><b>Six impact areas</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head cco__section-head--center">
-      <div class="eyebrow">// Six impact areas</div>
-      <h2 class="section-title">What changes <em style="font-style:normal;color:var(--accent)">day one.</em></h2>
-    </div>
-    <div class="cco__tiles">
-  <article class="cco__tile">
-    <div class="cco__tile-num">01</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3 L 21 8 L 12 13 L 3 8 Z"/><path d="M3 12 L 12 17 L 21 12"/><path d="M3 16 L 12 21 L 21 16"/></svg></div>
-    <h4>Unified View</h4>
-    <p>Every sensor, camera, workflow, incident, asset and system on one geo-temporal canvas.</p>
-  </article>
-  <article class="cco__tile">
-    <div class="cco__tile-num">02</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M13 3 L 5 13 L 11 13 L 9 21 L 17 11 L 12 11 Z"/></svg></div>
-    <h4>Faster Dispatch</h4>
-    <p>AI recommends the next-best action with cited reasoning, confidence and SOP — operator approves in one click.</p>
-  </article>
-  <article class="cco__tile">
-    <div class="cco__tile-num">03</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 C 6 4, 4 6, 4 9 C 4 10, 4.5 11, 5 11.5 C 4.5 12.5, 4.5 14, 5.5 15 C 6.5 16, 8 16, 9 15.5 L 9 5 C 9 4.5, 9 4, 9 4 Z"/><path d="M15 4 C 18 4, 20 6, 20 9 C 20 10, 19.5 11, 19 11.5 C 19.5 12.5, 19.5 14, 18.5 15 C 17.5 16, 16 16, 15 15.5 L 15 5 C 15 4.5, 15 4, 15 4 Z"/><line x1="9" y1="10" x2="15" y2="10"/></svg></div>
-    <h4>Lower Cognitive Load</h4>
-    <p>No more 6-monitor swivel. One workspace fuses every system into a single operator pane.</p>
-  </article>
-  <article class="cco__tile">
-    <div class="cco__tile-num">04</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L 20 6 L 20 13 C 20 17, 16 20, 12 21 C 8 20, 4 17, 4 13 L 4 6 Z"/><path d="M9 12 L 11 14 L 15 10"/></svg></div>
-    <h4>Better Governance</h4>
-    <p>Every action approved, every approval logged with identity, time and reasoning — audit-grade by default.</p>
-  </article>
-  <article class="cco__tile">
-    <div class="cco__tile-num">05</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 C 4 17, 3 15, 3 13 C 3 11, 4.5 10, 6 10 C 6.5 8, 8 7, 10 7 C 12.5 7, 14 9, 14 11 C 16 11, 17 12.5, 17 14 C 17 16, 15.5 17, 14 17 Z"/><line x1="9" y1="14" x2="14" y2="14"/></svg></div>
-    <h4>Sovereign Deployment</h4>
-    <p>Cloud, private cloud, on-premises or air-gapped — same platform, same SOPs, same compliance posture.</p>
-  </article>
-  <article class="cco__tile">
-    <div class="cco__tile-num">06</div>
-    <div class="cco__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div>
-    <h4>Operational Confidence</h4>
-    <p>Teams act with the full operating picture in front of them — never with a partial view.</p>
-  </article></div>
-      </div>
-    </section>
-
-    <!-- ── ORGANIZATIONAL OUTCOMES · 10-item rail ── -->
-    <section class="cc-scr cc-scr--outcomes">
-      <div class="cc-scr__bar"><span>Screen 03</span><b>Organizational outcomes</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Organizational outcomes</div>
-      <h2 class="section-title">Ten outcomes. <em style="font-style:normal;color:var(--accent)">All measurable.</em></h2>
-      <p class="section-lead">From front-line operators to executive command, Innfini Command &amp; Control delivers outcomes that show up on the dashboard you already report against.</p>
-    </div>
-    <div class="cco__outcomes">
-  <div class="cco__out">
-    <span class="cco__out-num">01</span>
-    <p>Reduce <b>incident response time</b> across every operational team</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">02</span>
-    <p>Improve <b>situational awareness</b> across people, places and assets</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">03</span>
-    <p>Reduce <b>operator cognitive load</b> by replacing multiple consoles with one</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">04</span>
-    <p>Consolidate <b>multiple systems</b> into one operational canvas</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">05</span>
-    <p>Improve <b>SOP compliance</b> with embedded, trackable playbooks</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">06</span>
-    <p>Coordinate <b>teams faster</b> with role-aware dispatch and comms</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">07</span>
-    <p>Maintain a <b>complete audit trail</b> across every decision and action</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">08</span>
-    <p>Support <b>sovereign and controlled deployment models</b> end-to-end</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">09</span>
-    <p>Improve <b>executive visibility</b> across the operation in real time</p>
-  </div>
-  <div class="cco__out">
-    <span class="cco__out-num">10</span>
-    <p>Move from <b>reactive monitoring</b> to AI-assisted, governed response</p>
-  </div></div>
-      </div>
-    </section>
-
-    <!-- ── 01 · OPERATOR ROLES ── -->
-    <section class="cc-scr cc-scr--roles" id="roles">
-      <div class="cc-scr__bar"><span>Screen 04</span><b>Operator roles · RBAC</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Operator roles</div>
-      <h2 class="section-title">Who sits at the desk, <em style="font-style:normal;color:var(--accent)">and what they can do.</em></h2>
-      <p class="section-lead">One canvas, four role profiles. Every role sees the same truth but holds different authority — permissions are enforced by policy, not convention.</p>
-    </div>
-    <table class="spec-table spec-table--fixed cco__table">
-      <colgroup><col style="width:16%"><col style="width:22%"><col style="width:36%"><col style="width:26%"></colgroup>
-      <tr><th>Role</th><th>Owns</th><th>Can act on</th><th>Cannot</th></tr>
-      <tr><td><b>Call taker</b></td><td>Intake, triage, caller contact</td><td>Open and classify incidents, attach evidence, set initial severity</td><td>Dispatch units or override AI severity</td></tr>
-      <tr><td><b>Dispatcher</b></td><td>Unit assignment and status</td><td>Approve or reject AI recommendations, assign and recall units, run SOPs</td><td>Change policy thresholds or close an audited incident</td></tr>
-      <tr><td><b>Shift supervisor</b></td><td>Operational tempo, escalation</td><td>Escalate tiers, reassign across beats, authorise mutual aid</td><td>Alter the audit trail or export restricted evidence</td></tr>
-      <tr><td><b>Commander</b></td><td>Whole-of-operation posture</td><td>Declare major incident, set auto-execution thresholds, brief agencies</td><td>Act as a single point of failure — all actions are co-signed</td></tr>
-    </table>
-      </div>
-    </section>
-
-    <!-- ── 02 · INCIDENT LIFECYCLE ── -->
-    <section class="cc-scr cc-scr--lifecycle" id="lifecycle">
-      <div class="cc-scr__bar"><span>Screen 05</span><b>Incident lifecycle</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Incident lifecycle</div>
-      <h2 class="section-title">Detect to debrief, <em style="font-style:normal;color:var(--accent)">one continuous record.</em></h2>
-      <p class="section-lead">An incident is a single object from first signal to after-action report. Nothing is retyped into a second system, so nothing is lost between stages.</p>
-    </div>
-    <div class="cco__tiles cco__tiles--six">
-      <article class="cco__tile"><div class="cco__tile-num">01</div><h4>Detect</h4><p>Sensors, calls, cameras and connected systems raise signals. Correlation groups them into one candidate incident.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">02</div><h4>Verify</h4><p>Independent signals must agree before severity is set. Camera vision, telemetry and caller account are cross-checked.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">03</div><h4>Assess</h4><p>Risk is scored from occupancy, asset criticality, weather and history. The matching SOP is attached automatically.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">04</div><h4>Act</h4><p>AI drafts a response plan with cited reasoning. A named operator approves, and every downstream action fires at once.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">05</div><h4>Coordinate</h4><p>Field teams, partner agencies and public messaging run off the same live picture until the incident is stable.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">06</div><h4>Debrief</h4><p>The full timeline — signals, decisions, approvals, timings — is exportable as an after-action record without reconstruction.</p></article>
-    </div>
-      </div>
-    </section>
-
-    <!-- ── 03 · AGENCY COORDINATION ── -->
-    <section class="cc-scr cc-scr--agencies" id="agencies">
-      <div class="cc-scr__bar"><span>Screen 06</span><b>Agency coordination</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Agency coordination</div>
-      <h2 class="section-title">Multi-agency without <em style="font-style:normal;color:var(--accent)">multi-truth.</em></h2>
-      <p class="section-lead">Agencies keep their own systems, their own chains of command and their own data boundaries. What they share is a common operating picture and a shared incident clock.</p>
-    </div>
-    <table class="spec-table spec-table--fixed cco__table">
-      <colgroup><col style="width:17%"><col style="width:53%"><col style="width:30%"></colgroup>
-      <tr><th>Model</th><th>How it works</th><th>Use when</th></tr>
-      <tr><td><b>Federated view</b></td><td>Each agency publishes a filtered feed; no agency writes into another's records. Sharing is per-incident and time-boxed.</td><td>Standing arrangements between peer agencies</td></tr>
-      <tr><td><b>Unified command</b></td><td>A single incident commander is appointed across agencies. Authority is delegated explicitly and logged.</td><td>Major incidents with one dominant hazard</td></tr>
-      <tr><td><b>Mutual aid</b></td><td>Resources are lent with a defined scope and expiry. Requesting and granting are both recorded actions.</td><td>Capacity shortfall or specialist capability</td></tr>
-      <tr><td><b>Observer</b></td><td>Read-only situational access for oversight bodies and ministries, with no operational authority.</td><td>Regulatory or political oversight</td></tr>
-    </table>
-      </div>
-    </section>
-
-    <!-- ── 04 · INTEGRATION ── -->
-    <section class="cc-scr cc-scr--integration" id="integration">
-      <div class="cc-scr__bar"><span>Screen 07</span><b>Integration bus</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Integration</div>
-      <h2 class="section-title">It bridges what you <em style="font-style:normal;color:var(--accent)">already operate.</em></h2>
-      <p class="section-lead">Command &amp; Control is a layer, not a replacement programme. Existing CAD, VMS, SCADA and radio estates stay in place and keep their vendor support.</p>
-    </div>
-    <table class="spec-table spec-table--fixed cco__table">
-      <colgroup><col style="width:20%"><col style="width:60%"><col style="width:20%"></colgroup>
-      <tr><th>Domain</th><th>Systems and standards</th><th>Direction</th></tr>
-      <tr><td>Dispatch</td><td>Legacy CAD and RMS, NENA i3 / NG911 call handling, CAD-to-CAD exchange</td><td>Bi-directional</td></tr>
-      <tr><td>Video</td><td>ONVIF Profile S/T cameras, major VMS platforms, edge analytics streams</td><td>Ingest + control</td></tr>
-      <tr><td>Sensors &amp; SCADA</td><td>MQTT, OPC-UA, Modbus, LoRaWAN, BACnet building systems</td><td>Ingest</td></tr>
-      <tr><td>Communications</td><td>P25 and TETRA radio gateways, MCPTT, SMS and mass-notification providers</td><td>Bi-directional</td></tr>
-      <tr><td>Geospatial</td><td>Esri ArcGIS, OGC WMS/WFS, WGS-84 and local grids, HD basemaps</td><td>Ingest + publish</td></tr>
-      <tr><td>Enterprise</td><td>SAML and OIDC identity, SIEM forwarding, ITSM ticketing, data-warehouse export</td><td>Bi-directional</td></tr>
-    </table>
-      </div>
-    </section>
-
-    <!-- ── 05 · DEPLOYMENT ── -->
-    <section class="cc-scr cc-scr--deployment" id="deployment">
-      <div class="cc-scr__bar"><span>Screen 08</span><b>Deployment models</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Deployment models</div>
-      <h2 class="section-title">Deployed where your <em style="font-style:normal;color:var(--accent)">mandate requires.</em></h2>
-      <p class="section-lead">Sovereignty is a deployment decision, not a marketing claim. The same platform runs in four topologies with the same feature set.</p>
-    </div>
-    <div class="cco__tiles cco__tiles--four">
-      <article class="cco__tile"><div class="cco__tile-num">01</div><h4>On-premise</h4><p>Fully inside your data centre with no external dependency. Air-gapped operation supported, updates delivered on physical media.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">02</div><h4>Sovereign cloud</h4><p>In-country region under local jurisdiction, operated by your cloud provider with data residency guarantees in contract.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">03</div><h4>Hybrid</h4><p>Sensitive records and evidence stay on-premise; elastic analytics and modelling burst to cloud under policy.</p></article>
-      <article class="cco__tile"><div class="cco__tile-num">04</div><h4>Tactical edge</h4><p>Transportable node for mobile command posts. Operates disconnected, then reconciles when the link returns.</p></article>
-    </div>
-      </div>
-    </section>
-
-    <!-- ── 06 · BENCHMARKS ── -->
-    <section class="cc-scr cc-scr--benchmarks" id="benchmarks">
-      <div class="cc-scr__bar"><span>Screen 09</span><b>Response-time benchmarks</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Response-time benchmarks</div>
-      <h2 class="section-title">Measured against <em style="font-style:normal;color:var(--accent)">the stopwatch.</em></h2>
-      <p class="section-lead">Indicative figures from deployments where a documented baseline existed before go-live. Your numbers will differ — we measure them with you during the pilot rather than promising them up front.</p>
-    </div>
-    <table class="spec-table spec-table--fixed cco__table">
-      <colgroup><col style="width:40%"><col style="width:20%"><col style="width:22%"><col style="width:18%"></colgroup>
-      <tr><th>Stage</th><th>Before</th><th>With Innfini</th><th>Change</th></tr>
-      <tr><td>Signal to confirmed incident</td><td>3m 20s</td><td>12s</td><td><b style="color:#6ee7b7">−94%</b></td></tr>
-      <tr><td>Incident to first recommendation</td><td>Manual, unmeasured</td><td>38s</td><td><b style="color:#6ee7b7">New capability</b></td></tr>
-      <tr><td>Recommendation to dispatch</td><td>2m 10s</td><td>41s</td><td><b style="color:#6ee7b7">−68%</b></td></tr>
-      <tr><td>Cross-agency notification</td><td>6m 40s</td><td>9s</td><td><b style="color:#6ee7b7">−97%</b></td></tr>
-      <tr><td>After-action report ready</td><td>3–5 days</td><td>Same shift</td><td><b style="color:#6ee7b7">−90%</b></td></tr>
-      <tr><td>Operator span of control</td><td>1 operator : 1 domain</td><td>1 operator : 2.4 domains</td><td><b style="color:#6ee7b7">2.4×</b></td></tr>
-    </table>
-      </div>
-    </section>
-
-    <!-- ── 07 · COMPLIANCE ── -->
-    <section class="cc-scr cc-scr--compliance" id="compliance">
-      <div class="cc-scr__bar"><span>Screen 10</span><b>Compliance &amp; audit</b><span class="cc-scr__live">Live</span></div>
-      <div class="cc-scr__body">
-
-    <div class="cco__section-head">
-      <div class="eyebrow">// Compliance &amp; audit</div>
-      <h2 class="section-title">If it happened, <em style="font-style:normal;color:var(--accent)">it is on the record.</em></h2>
-      <p class="section-lead">Command decisions are reviewed by inquiries, regulators and courts. The platform is built so that review needs no reconstruction.</p>
-    </div>
-    <table class="spec-table cco__table">
-      <tr><th>Control</th><th>Implementation</th></tr>
-      <tr><td>Immutable audit log</td><td>Append-only, cryptographically chained. Every signal, recommendation, approval, rejection and dispatch is written with actor, timestamp and originating evidence.</td></tr>
-      <tr><td>Explainable AI</td><td>Each recommendation cites the sensors, thresholds, SOP and precedent it derives from, with a confidence value. Nothing acts on an unexplained score.</td></tr>
-      <tr><td>Human accountability</td><td>Auto-execution is opt-in per action type, scoped and time-boxed. Where it is enabled, the authorising policy and approver remain named.</td></tr>
-      <tr><td>Role-based access</td><td>Least-privilege by default, enforced server-side. Break-glass access is possible, alarms immediately and is reviewed.</td></tr>
-      <tr><td>Evidence handling</td><td>Chain of custody on media and telemetry, with hash verification and retention schedules configurable per jurisdiction.</td></tr>
-      <tr><td>Data protection</td><td>Encryption in transit and at rest, key custody held by the customer, and per-jurisdiction residency and retention rules.</td></tr>
-      <tr><td>Assurance</td><td>Designed to support ISO 27001 and SOC 2 programmes, with penetration testing and independent review per release.</td></tr>
-    </table>
-      </div>
-    </section>
-
-    <!-- ── CLOSING ── -->
-    <div class="cco__close">
-      <div class="eyebrow">// In summary</div>
-      <h3>Innfini Command &amp; Control brings together situational awareness, AI-assisted dispatch, operational workflows and sovereign-grade auditability into one <em>mission-ready</em> platform.</h3>
     </div>
 
   </div>
@@ -350,15 +90,6 @@
   <div class="cs-cta__buttons">
     <a class="btn btn--primary" href="request-demo.html">Request demo</a>
     <a class="btn btn--secondary" href="cc-situational-awareness.html">Situational Awareness →</a>
-  </div>
-</div></section>
-
-<section class="cs-related"><div class="cs-related__inner">
-  <h3>// Explore Command &amp; Control</h3>
-  <div class="cs-related__grid">
-    <a class="cs-related__card" href="cc-situational-awareness.html"><span class="cs-related__card-client">// C2</span><h4>Situational Awareness</h4><span class="arrow">View →</span></a>
-    <a class="cs-related__card" href="cc-agentic-dispatch.html"><span class="cs-related__card-client">// C2</span><h4>Agentic Dispatch</h4><span class="arrow">View →</span></a>
-    <a class="cs-related__card" href="cc-public-safety.html"><span class="cs-related__card-client">// C2</span><h4>Public Safety &amp; 911</h4><span class="arrow">View →</span></a>
   </div>
 </div></section>
 
@@ -374,5 +105,5 @@
 <script src="_chrome.js?v=20260922a"></script>
 <script src="../megamenu.js?v=20260928a"></script>
 <script src="../digital-twin.js?v=20260922a"></script>
-<script src="../cc-wall.js?v=20260929a" defer></script>
+<script src="../cc-wall.js?v=20260929b" defer></script>
 </body></html>

@@ -1,138 +1,300 @@
-/* Innfini Command & Control · control-room wall + screen chassis
-   Illustrative scenario only — a riverside mall, Zone 4. No live data. */
+/* Innfini Command & Control · the control room
+   One video wall, six use cases. Every scenario is illustrative — no live data. */
 (function () {
   'use strict';
   var WALL = document.getElementById('ccwall');
+  if (!WALL) return;
   var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ASSETS = (WALL && WALL.getAttribute('data-assets')) || '../assets/product/';
+  var ASSETS = WALL.getAttribute('data-assets') || '../assets/product/';
 
   /* ───────────── helpers ───────────── */
   function h(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function q(sel, root) { return (root || document).querySelector(sel); }
   function qa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   var HEX = '0123456789abcdef';
-  function hash(seed) { var s = seed * 2654435761 >>> 0, o = ''; for (var i = 0; i < 12; i++) { s = (s * 1103515245 + 12345) >>> 0; o += HEX[(s >>> 16) & 15]; } return o.slice(0, 4) + '…' + o.slice(8, 12); }
-  var T0 = 18 * 3600 + 36 * 60 + 4; // 18:36:04 scenario clock
+  function hash(seed) { var s = (seed * 2654435761) >>> 0, o = ''; for (var i = 0; i < 16; i++) { s = (s * 1103515245 + 12345) >>> 0; o += HEX[(s >>> 16) & 15]; } return o; }
+  function shortHash(seed) { var x = hash(seed); return x.slice(0, 4) + '…' + x.slice(12); }
+  var T0 = 18 * 3600 + 36 * 60 + 4;
   function ts(sec) { var t = T0 + sec, hh = Math.floor(t / 3600) % 24, mm = Math.floor(t / 60) % 60, ss = t % 60; return (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss; }
   function mmss(sec) { var m = Math.floor(sec / 60), s = sec % 60; return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; }
-  // scripted elapsed seconds per stage (matches the benchmark table further down the page)
   var EL = { detect: 0, verify: 12, assess: 24, recommend: 50, approve: 62, dispatch: 91, debrief: 104 };
+  var STAGE_IDS = ['detect', 'verify', 'assess', 'recommend', 'approve', 'dispatch', 'debrief'];
+  function inZoom(el) { return !!el.closest('.wall-zoom'); }
+
+  /* ───────────── use cases ───────────── */
+  var USE = [
+    { id: 'city', t: 'City operations', short: 'City ops', page: 'cc-smart-city-ops.html', pt: 'Smart City Operations',
+      inc: { id: 'INC-0007', title: 'Fire alarm', where: 'Riverside Mall · Zone 4', sev: 'HIGH' },
+      baseline: [['18:33:40', 'TRAFFIC', 'Flow nominal · Corniche Rd'], ['18:34:12', 'ACCESS', 'Gate 3 · 1,204 badge events today'], ['18:35:02', 'WEATHER', '31°C · wind 9 kt NW'], ['18:35:48', 'CAM', 'CAM-4-11 · healthy · 25 fps']],
+      sig: [['SMK-4-08', 'Smoke detected · Zone 4 · Level 2'], ['CAM-4-12', 'Haze confirmed · 0.91']], risk: 'Occupancy 1,860 · asset critical · HIGH',
+      cams: { ids: ['CAM-4-11', 'CAM-4-12', 'CAM-4-15', 'CAM-G3'], imgs: ['cc-sa-hero.webp', 'cc-ad-hero.webp', 'cc-ve-hero.webp', 'cc-po-hero.webp'], hit: 'HAZE 0.91' },
+      unit: 'ENGINE-12', units: [['ENGINE-12', 'Fire', 'AVAILABLE', '3 min'], ['PATROL-22', 'Police', 'AVAILABLE', '2 min'], ['AMB-A1', 'EMS', 'ON CALL', '5 min'], ['ENGINE-7', 'Fire', 'BUSY', '—'], ['MALL-SEC', 'Site', 'ON SITE', '0 min']],
+      rec: 'Dispatch Engine-12 via Al Salam St to Gate 3. Notify mall ops; begin EVAC-2 on Level 2. Nearest engine, 3 min, route clear.', ev: ['SMK-4-08', 'CAM-4-12', 'EVAC-2', '3 precedents'], conf: 92, approver: 'A. RAHMAN · DISPATCHER',
+      sop: { name: 'EVAC-2', desc: 'Fire alarm · retail · occupied', steps: ['Confirm two independent signals', 'Notify mall operations desk', 'Dispatch nearest available engine', 'Evacuate Zone 4 · Level 2', 'Field confirmation · close'] },
+      agencies: ['Civil Defence', 'Police', 'EMS', 'Municipality', 'Mall operations'], pre: 4, resolved: 'CONTAINED · 18:41',
+      map: { kind: 'city', title: 'Live map · Zone 4 · Riverside', inc: [425, 189], site: { x: 380, y: 150, w: 96, h: 78, l: 'RIVERSIDE MALL', s: 'ZONE 4 · L2' }, streets: ['AL SALAM ST', 'CORNICHE RD'], zones: ['Z1', 'Z2', 'Z3', 'Z5'],
+        units: [{ id: 'ENGINE-12', x: 110, y: 346, c: 'e' }, { id: 'PATROL-22', x: 560, y: 90, c: 'p' }, { id: 'AMB-A1', x: 200, y: 80, c: 'a' }], route: 'M110 346 L110 264 L300 264 L300 236 L378 236', target: { x: 378, y: 236, l: 'GATE 3' },
+        st: ['SIGNAL · ZONE 4', '2 SIGNALS · INC-0007', 'SEVERITY HIGH · EVAC-2', 'ROUTE PROPOSED · 3 MIN', 'APPROVED · DISPATCHING', 'ENGINE-12 EN ROUTE', 'CONTAINED · 18:41'] },
+      images: [['cc-sa-cop.webp', 'Common operating picture', 'ALL AGENCIES · LIVE', 'r', '69%', '26%'], ['cc-sa-playback.webp', 'Event playback', 'DETECTED · ASSIGNED · RESOLVED', 'run'], ['cc-ad-policies.webp', 'Action policies', 'AUTO · ATTENDED · SUPERVISED · BLOCKED', 'hl', '64%', '29%', '31%', '15%'], ['cc-ad-history.webp', 'Decision history', 'EVERY STEP · TIMESTAMPED', 'hl', '67%', '14%', '30%', '60%'], ['cc-sa-response.webp', 'Coordinated response', 'INCIDENT I-01', 'r', '47%', '48%'], ['cc-ad-loop.webp', 'The loop end to end', 'DETECT → LEARN', 'r', '38%', '44%']],
+      cap: ['A smoke detector fires in Zone 4. The nearest cameras are pulled forward automatically.', 'Camera vision confirms haze. Two independent signals agree — INC-0007 is opened 12 s after the first signal.', 'Risk is scored from occupancy, asset criticality and precedent. SOP EVAC-2 is attached; mall operations are alerted.', 'The agent drafts the response with cited evidence and a confidence value. The route is drawn before anyone moves.', 'A named dispatcher approves. The approval is written to the ledger with identity, time and reasoning.', 'Engine-12 rolls. Five agencies are notified in 9 s and the Gate 3 camera tracks the unit in.', 'Contained. The audit chain verifies itself and the after-action record is ready the same shift.'] },
+
+    { id: 'ps', t: 'Public safety & 911', short: '911', page: 'cc-public-safety.html', pt: 'Public Safety & 911',
+      inc: { id: 'INC-2025-0841', title: 'Road collision · injuries', where: '5th & Main · high-speed segment', sev: 'HIGH' },
+      baseline: [['18:33:10', 'CAD', '14 active calls · 3 pending'], ['18:34:05', 'TRAFFIC', 'Main St · 41 km/h avg · nominal'], ['18:34:50', 'UNITS', '12 of 14 units available'], ['18:35:30', 'RMS', 'Case 2025-CR-0429 linked · closed']],
+      sig: [['911 CALL', 'Two-vehicle collision · injuries · 5th & Main'], ['CAM-5M-02', 'Lane blockage · injured occupants · 0.94']], risk: 'Two lanes blocked · 2 injured · peak flow · HIGH',
+      cams: { ids: ['CAM-5M-02', 'CAM-5M-04', 'CAM-MAIN-1', 'CAM-ED'], imgs: ['cc-live-ops.webp', 'cc-sa-hero.webp', 'cc-911-dispatch.webp', 'cc-sa-cop.webp'], hit: 'COLLISION 0.94' },
+      unit: 'AMB M-04', units: [['AMB M-04', 'EMS', 'AVAILABLE', '4 min'], ['TRAFFIC T-11', 'Police', 'AVAILABLE', '3 min'], ['PATROL P-07', 'Police', 'ON CALL', '6 min'], ['ENGINE E-3', 'Fire', 'AVAILABLE', '5 min'], ['TOW T-2', 'Contract', 'STANDBY', '12 min']],
+      rec: 'Dispatch Ambulance M-04 and Traffic Response T-11. Initiate lane-diversion SOP-TR-04 on 5th & Main; pre-alert Mercy ED for two casualties.', ev: ['911 CALL', 'CAM-5M-02', 'SOP-TR-04', '5 precedents'], conf: 92, approver: 'J. WALSH · DISPATCHER',
+      sop: { name: 'SOP-TR-04', desc: 'Road collision · injuries · lane diversion', steps: ['Confirm caller account with camera', 'Dispatch EMS and traffic unit', 'Divert lanes · signal plan 4', 'Pre-alert receiving hospital', 'Scene clear · reopen lanes'] },
+      agencies: ['EMS', 'Police', 'Traffic control', 'Fire', 'Mercy Hospital ED'], pre: 2, resolved: 'LANES REOPENED · 19:12',
+      map: { kind: 'city', title: 'Live map · 5th & Main', inc: [380, 234], site: { x: 335, y: 190, w: 90, h: 88, l: '5TH & MAIN', s: 'COLLISION' }, streets: ['5TH AVE', 'MAIN ST'], zones: ['BEAT 1', 'BEAT 2', 'BEAT 3', 'BEAT 5'], nosite: true,
+        units: [{ id: 'AMB M-04', x: 575, y: 340, c: 'a' }, { id: 'TRAFFIC T-11', x: 120, y: 90, c: 'p' }, { id: 'ENGINE E-3', x: 110, y: 346, c: 'e' }], route: 'M575 340 L575 292 L445 292 L445 234 L398 234', target: { x: 398, y: 234, l: 'SCENE' },
+        st: ['911 CALL · 5TH & MAIN', '2 SIGNALS · INC-2025-0841', 'SEVERITY HIGH · SOP-TR-04', 'ROUTE PROPOSED · 4 MIN', 'APPROVED · DISPATCHING', 'AMB M-04 EN ROUTE', 'LANES REOPENED · 19:12'] },
+      images: [['cc-911-dispatch.webp', '911 call-taking', 'NENA I3 · NG911', 'r', '48%', '42%'], ['cc-cad-rms.webp', 'CAD ↔ RMS bridge', 'CASE LINKING', 'hl', '52%', '30%', '40%', '38%'], ['cc-ai-dispatch.webp', 'AI dispatch', 'INC-2025-0841 · 0.92', 'hl', '4%', '52%', '92%', '22%'], ['cc-multi-agency.webp', 'Multi-agency coordination', 'POLICE · FIRE · EMS · MUNICIPAL', 'r', '30%', '58%'], ['cc-live-ops.webp', 'Live operations', 'INCIDENTS · UNITS', 'r', '43%', '32%'], ['cc-after-action.webp', 'After-action report', 'SAME SHIFT', 'run']],
+      cap: ['A 911 call reports a two-vehicle collision with injuries at 5th & Main. The call is opened as an incident while the caller is still on the line.', 'CAM-5M-02 confirms lane blockage and injured occupants. Two independent signals agree — INC-2025-0841 is verified.', 'Severity is set from injuries, lane blockage and peak flow. SOP-TR-04 is attached; traffic control is alerted.', 'The agent proposes EMS plus a traffic unit, a lane diversion and a hospital pre-alert — with the evidence cited.', 'The dispatcher approves. Identity, time and reasoning go to the ledger before any unit moves.', 'Ambulance M-04 rolls; five agencies are notified in 9 s. The CAD and RMS stay in sync automatically.', 'Lanes reopened. The after-action report is assembled from the record — nothing retyped.'] },
+
+    { id: 'def', t: 'Defense & intelligence', short: 'Defense', page: 'cc-defense.html', pt: 'Defense & Intelligence',
+      inc: { id: 'TRK-2291', title: 'Unidentified surface track', where: 'Sector 3 · exclusion zone', sev: 'HIGH' },
+      baseline: [['18:32:50', 'AIS', '212 tracks · all correlated'], ['18:33:40', 'RADAR', 'Coastal net · 4 sites nominal'], ['18:34:30', 'ISR', 'UAV ISR-2 on station · 6 h endurance'], ['18:35:20', 'COALITION', 'Coalition cell · 3 partners online']],
+      sig: [['RADAR-N2', 'New track · 14 kt · no AIS · Sector 3'], ['EO/IR-1', 'Vessel class confirmed · 0.88']], risk: 'Zone breach in 11 min · critical asset · HIGH',
+      cams: { ids: ['EO/IR-1', 'ISR-2 FMV', 'COAST-N2', 'PORT-S'], imgs: ['cc-dfx-mission.webp', 'cc-po-hero.webp', 'cc-dfx-coalition.webp', 'cc-sa-hero.webp'], hit: 'VESSEL 0.88' },
+      unit: 'PATROL P-31', units: [['PATROL P-31', 'Naval', 'AVAILABLE', '9 min'], ['UAV ISR-2', 'ISR', 'ON STATION', '2 min'], ['HELO H-1', 'Air', 'READY', '14 min'], ['COAST CS-4', 'Station', 'TRACKING', '—'], ['LIAISON', 'Coalition', 'ONLINE', '—']],
+      rec: 'Task UAV ISR-2 to shadow TRK-2291 and vector Patrol P-31 to the intercept line. Hail on channel 16; brief the coalition cell.', ev: ['RADAR-N2', 'EO/IR-1', 'SOP-MAR-7', 'ROE 4.2'], conf: 88, approver: 'CDR M. AL-KAABI · WATCH OFFICER',
+      sop: { name: 'SOP-MAR-7', desc: 'Unidentified track · exclusion zone', steps: ['Correlate radar and EO/IR', 'Task ISR shadow', 'Vector patrol to intercept line', 'Hail and identify · channel 16', 'Log outcome · release track'] },
+      agencies: ['Naval ops', 'Coast guard', 'Coalition cell', 'Port authority', 'Air control'], pre: 2, resolved: 'IDENTIFIED · RELEASED · 18:58',
+      map: { kind: 'coast', title: 'Mission picture · Sector 3', inc: [455, 118], site: null,
+        units: [{ id: 'PATROL P-31', x: 250, y: 330, c: 'p' }, { id: 'UAV ISR-2', x: 560, y: 290, c: 'a' }, { id: 'COAST CS-4', x: 120, y: 120, c: 'e' }], route: 'M250 330 L330 250 L400 170 L432 138', target: { x: 432, y: 138, l: 'INTERCEPT' },
+        st: ['NEW TRACK · SECTOR 3', '2 SENSORS · TRK-2291', 'BREACH IN 11 MIN · SOP-MAR-7', 'INTERCEPT PROPOSED · 9 MIN', 'APPROVED · TASKING', 'PATROL P-31 EN ROUTE', 'IDENTIFIED · RELEASED'] },
+      images: [['cc-dfx-mission.webp', 'Mission picture', 'ISR FUSION · SECTORS', 'r', '52%', '38%'], ['cc-dfx-coalition.webp', 'Coalition workflows', 'JADC2-ALIGNED', 'hl', '8%', '22%', '84%', '30%'], ['cc-dfx-custody.webp', 'Chain of custody', 'COMMS KIT CK-204', 'hl', '35%', '18%', '60%', '62%'], ['cc-ad-policies.webp', 'Action policies', 'ROE · HUMAN-ONLY GATES', 'hl', '64%', '29%', '31%', '15%'], ['cc-sa-playback.webp', 'Track playback', 'DETECTED · TASKED · RELEASED', 'run'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY TASKING SIGNED', 'run']],
+      cap: ['Coastal radar N2 reports a new surface track with no AIS in Sector 3, 14 knots, heading for the exclusion zone.', 'EO/IR confirms the vessel class. Two sensors agree — TRK-2291 is verified and the breach clock starts.', 'Time to breach, asset criticality and rules of engagement set the severity. SOP-MAR-7 is attached; the coalition cell is alerted.', 'The agent proposes an ISR shadow, a patrol intercept and a channel-16 hail — with every source and the ROE reference cited.', 'The watch officer approves. Identity, time and ROE clause are written to the ledger before any tasking goes out.', 'Patrol P-31 is under way; five agencies and the coalition cell are briefed in 9 s from one screen.', 'Identified and released. The track, tasking and decision trail are archived under chain of custody.'] },
+
+    { id: 'ci', t: 'Critical infrastructure', short: 'Infrastructure', page: 'cc-critical-infra.html', pt: 'Critical Infrastructure',
+      inc: { id: 'INC-CI-0312', title: 'Pressure anomaly', where: 'Pipeline segment S-14 · Pump station 3', sev: 'HIGH' },
+      baseline: [['18:33:00', 'SCADA', 'PS-3 · 4 pumps · 72% load'], ['18:33:55', 'TELEMETRY', 'S-14 · 6.8 bar · nominal'], ['18:34:40', 'ACCESS', 'PS-3 perimeter · secure'], ['18:35:25', 'CAM', 'CAM-PS3-02 · healthy']],
+      sig: [['PT-14-07', 'Pressure drop 8% in 40 s · S-14'], ['FLOW-14', 'Flow imbalance confirmed · 0.90']], risk: 'Supply to ~12,400 customers · asset critical · HIGH',
+      cams: { ids: ['CAM-PS3-02', 'CAM-V14B', 'DRONE D-4', 'CAM-S14-N'], imgs: ['cc-ci-hero.webp', 'cc-ci-field.webp', 'cc-ci-scada.webp', 'cc-po-hero.webp'], hit: 'ANOMALY 0.90' },
+      unit: 'FIELD F-2', units: [['FIELD F-2', 'Field', 'AVAILABLE', '11 min'], ['VALVE V-1', 'Valve team', 'AVAILABLE', '8 min'], ['DRONE D-4', 'UAS', 'READY', '3 min'], ['CONTROL CR', 'Control', 'ON DUTY', '—'], ['CONTRACT C-9', 'Contractor', 'ON CALL', '40 min']],
+      rec: 'Close valves V-14B and V-14C to isolate segment S-14, hold Pump station 3 at 60%, dispatch Field crew F-2 and launch Drone D-4 for a visual.', ev: ['PT-14-07', 'FLOW-14', 'RUNBOOK PL-3', '2 precedents'], conf: 90, approver: 'S. MOHAMMED · SHIFT SUPERVISOR',
+      sop: { name: 'RUNBOOK PL-3', desc: 'Pressure anomaly · isolate & inspect', steps: ['Confirm with second sensor', 'Isolate segment · close valves', 'Hold pump station at 60%', 'Dispatch field crew · drone visual', 'Inspect · restore · close'] },
+      agencies: ['Operations control', 'Field ops', 'Environment agency', 'Civil Defence', 'Customer comms'], pre: 0, resolved: 'ISOLATED · RESTORED · 19:20',
+      map: { kind: 'plant', title: 'Asset map · Pump station 3 · S-14', inc: [395, 205], site: { x: 330, y: 150, w: 130, h: 110, l: 'PUMP STATION 3', s: 'SEGMENT S-14' },
+        units: [{ id: 'FIELD F-2', x: 100, y: 340, c: 'e' }, { id: 'VALVE V-1', x: 560, y: 320, c: 'p' }, { id: 'DRONE D-4', x: 560, y: 80, c: 'a' }], route: 'M100 340 L100 290 L240 290 L240 235 L326 235', target: { x: 326, y: 235, l: 'V-14B' },
+        st: ['PRESSURE DROP · S-14', '2 SENSORS · INC-CI-0312', '12,400 CUSTOMERS · PL-3', 'ISOLATION PROPOSED', 'APPROVED · ISOLATING', 'FIELD F-2 EN ROUTE', 'ISOLATED · RESTORED'] },
+      images: [['cc-ci-scada.webp', 'SCADA + sensor fusion', 'OPC-UA · MODBUS · MQTT', 'run'], ['cc-ci-runbook.webp', 'Runbook automation', 'PL-3 · 5 STEPS', 'hl', '6%', '22%', '48%', '66%'], ['cc-ci-field.webp', 'Field coordination', 'CREWS · DRONES', 'r', '36%', '52%'], ['cc-ci-impact.webp', 'Risk & impact', '~12,400 CUSTOMERS', 'r', '30%', '52%'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY VALVE COMMAND SIGNED', 'run'], ['cc-ci-hero.webp', 'Site digital twin', 'PERIMETER · ASSETS', 'r', '52%', '40%']],
+      cap: ['Pressure transmitter PT-14-07 reports an 8 % drop on segment S-14 in 40 seconds.', 'Flow telemetry confirms the imbalance. Two independent sensors agree — INC-CI-0312 is opened.', 'Impact is scored — about 12,400 customers on the segment. Runbook PL-3 is attached; operations control is alerted.', 'The agent proposes isolating S-14, holding the pump station at 60 % and sending a crew plus a drone — every sensor cited.', 'The shift supervisor approves. Valve commands are human-approved actions; the approval is written to the ledger first.', 'Field crew F-2 rolls, valves close under supervision, and the environment agency is notified in the same 9 s.', 'Isolated, inspected, restored. The full runbook trail is ready for the regulator without reconstruction.'] },
+
+    { id: 'po', t: 'Ports & logistics', short: 'Ports', page: 'cc-ports.html', pt: 'Ports & Logistics',
+      inc: { id: 'INC-PO-0442', title: 'Fire alarm', where: 'Building 7 · Zone 4 · logistics campus', sev: 'HIGH' },
+      baseline: [['18:33:20', 'GATE', 'Gate 3 · 62 trucks/hr · nominal'], ['18:34:00', 'YARD', 'Berth 3 · 4 cranes working'], ['18:34:45', 'DWELL', 'Avg dwell 54 h · −6% wk'], ['18:35:30', 'CAM', 'CAM-B7-01 · healthy']],
+      sig: [['FA-B7-04', 'Fire alarm · Building 7 · Zone 4'], ['SD-B7-12', 'Smoke detector confirms · 0.93']], risk: 'Hazmat store adjacent · berth 3 ops · HIGH',
+      cams: { ids: ['CAM-B7-01', 'CAM-B7-04', 'CAM-QUAY-3', 'CAM-GATE-3'], imgs: ['cc-ad-port.webp', 'cc-po-yard.webp', 'cc-po-hero.webp', 'cc-po-exception.webp'], hit: 'SMOKE 0.93' },
+      unit: 'RESPONSE-12', units: [['RESPONSE-12', 'Port fire', 'AVAILABLE', '3 min'], ['PATROL PP-3', 'Port police', 'AVAILABLE', '2 min'], ['MEDIC M-1', 'EMS', 'ON CALL', '6 min'], ['YARD Y-2', 'Ops', 'ON SHIFT', '1 min'], ['GATE OPS', 'Gate', 'ON SHIFT', '—']],
+      rec: 'Dispatch Response-12 from the staging area to Building 7 via Quay Rd. Hold Gate 3 inbound; begin EVAC-2 on Zone 4; pause crane 3.', ev: ['FA-B7-04', 'SD-B7-12', 'EVAC-2', '4 precedents'], conf: 93, approver: 'R. HASSAN · TERMINAL DUTY MANAGER',
+      sop: { name: 'EVAC-2', desc: 'Fire alarm · warehouse · hazmat adjacent', steps: ['Confirm alarm with detector', 'Hold gate inbound · pause crane 3', 'Dispatch port fire unit', 'Evacuate Building 7 · Zone 4', 'Field confirmation · resume ops'] },
+      agencies: ['Port fire', 'Civil Defence', 'Customs', 'Terminal ops', 'Shipping line'], pre: 3, resolved: 'CONTAINED · OPS RESUMED · 18:52',
+      map: { kind: 'port', title: 'Terminal map · Building 7 · Zone 4', inc: [468, 248], site: { x: 420, y: 215, w: 110, h: 66, l: 'BUILDING 7', s: 'ZONE 4' },
+        units: [{ id: 'RESPONSE-12', x: 96, y: 330, c: 'e' }, { id: 'PATROL PP-3', x: 590, y: 340, c: 'p' }, { id: 'MEDIC M-1', x: 150, y: 120, c: 'a' }], route: 'M96 330 L96 300 L390 300 L390 262 L414 262', target: { x: 414, y: 262, l: 'B7 · DOOR 2' },
+        st: ['ALARM · BUILDING 7', '2 SIGNALS · INC-PO-0442', 'HAZMAT ADJACENT · EVAC-2', 'ROUTE PROPOSED · 3 MIN', 'APPROVED · DISPATCHING', 'RESPONSE-12 EN ROUTE', 'CONTAINED · OPS RESUMED'] },
+      images: [['cc-po-yard.webp', 'Yard & gate operations', 'GATE 3 · TRK-7184', 'r', '75%', '44%'], ['cc-po-dwell.webp', 'Dwell & flow', 'BERTH · YARD · GATE', 'hl', '42%', '38%', '30%', '16%'], ['cc-po-exception.webp', 'Exception resolution', 'GATE 3 · LANE 2', 'r', '35%', '48%'], ['cc-po-trace.webp', 'Cargo traceability', 'CT-02 · CHAIN OF EVENTS', 'run'], ['cc-po-integration.webp', 'Connected port systems', 'TOS · GATE · CUSTOMS · CRANES', 'r', '50%', '50%'], ['cc-po-hero.webp', 'Terminal digital twin', 'BERTHS · YARD · GATES', 'r', '48%', '42%']],
+      cap: ['A fire alarm fires in Building 7, Zone 4 of the logistics campus — next to the hazmat store.', 'The smoke detector confirms. Two independent signals agree — INC-PO-0442 is opened.', 'Hazmat adjacency and berth 3 operations set the severity. EVAC-2 is attached; terminal ops are alerted.', 'The agent proposes Response-12 from staging via Quay Rd, a gate hold and a crane pause — with the evidence cited.', 'The terminal duty manager approves. The approval is written to the ledger before the unit moves.', 'Response-12 rolls; port fire, civil defence, customs and the shipping line are notified in 9 s.', 'Contained and operations resumed. Gate hold, crane pause and every decision are on the record.'] },
+
+    { id: 've', t: 'Stadium & venue ops', short: 'Venues', page: 'cc-venues.html', pt: 'Stadium & Venue Ops',
+      inc: { id: 'INC-VE-0118', title: 'Crowd density', where: 'Gate C concourse · 92% of threshold', sev: 'HIGH' },
+      baseline: [['18:33:15', 'INGRESS', '31,040 in · 27,200 to come'], ['18:34:05', 'TRANSIT', 'Metro headway 3 min · nominal'], ['18:34:50', 'GATES', 'Gate A–D · 48 lanes open'], ['18:35:35', 'CAM', 'CAM-C-07 · healthy']],
+      sig: [['DENS-C2', 'Density 4.1 p/m² · rising · Gate C'], ['CAM-C-07', 'Crowd compression confirmed · 0.90']], risk: 'Kick-off in 18 min · 58,240 inbound · HIGH',
+      cams: { ids: ['CAM-C-07', 'CAM-C-02', 'CAM-D-01', 'CAM-BOWL-3'], imgs: ['cc-ve-security.webp', 'cc-ve-video.webp', 'cc-ve-hero.webp', 'cc-ve-review.webp'], hit: 'DENSITY 0.90' },
+      unit: 'STEWARDS S-4', units: [['STEWARDS S-4', 'Venue', 'AVAILABLE', '2 min'], ['MEDICAL M-2', 'EMS', 'AVAILABLE', '3 min'], ['POLICE PL-1', 'Police', 'ON SITE', '1 min'], ['GATE D TEAM', 'Venue', 'ON SHIFT', '—'], ['TRANSPORT', 'Authority', 'ONLINE', '—']],
+      rec: 'Open Gate D lanes 5–8 and redirect Section 3/4 flow via the south concourse. Stand up Medical M-2 at Gate C; message the queue.', ev: ['DENS-C2', 'CAM-C-07', 'SOP-CR-2', '6 precedents'], conf: 91, approver: 'L. AHMED · VENUE COMMANDER',
+      sop: { name: 'SOP-CR-2', desc: 'Crowd density · redirect flow', steps: ['Confirm density with camera', 'Open additional lanes', 'Redirect flow · message the queue', 'Stand up medical at the gate', 'Density below threshold · close'] },
+      agencies: ['Venue ops', 'Police', 'Medical', 'Transport authority', 'Club operations'], pre: 0, resolved: 'BELOW THRESHOLD · 18:49',
+      map: { kind: 'venue', title: 'Venue map · Gate C concourse', inc: [512, 205], site: null,
+        units: [{ id: 'STEWARDS S-4', x: 150, y: 330, c: 'e' }, { id: 'MEDICAL M-2', x: 170, y: 120, c: 'a' }, { id: 'POLICE PL-1', x: 560, y: 340, c: 'p' }], route: 'M150 330 Q 325 405 505 330 L 505 240', target: { x: 505, y: 240, l: 'GATE C' },
+        st: ['DENSITY RISING · GATE C', '2 SIGNALS · INC-VE-0118', 'KICK-OFF 18 MIN · SOP-CR-2', 'REDIRECT PROPOSED', 'APPROVED · REDIRECTING', 'STEWARDS S-4 EN ROUTE', 'BELOW THRESHOLD'] },
+      images: [['cc-ve-crowd.webp', 'Crowd flow', 'DENSITY · EGRESS', 'r', '46%', '45%'], ['cc-ve-security.webp', 'Security triage', 'GATE 21 · LANE 2', 'r', '40%', '40%'], ['cc-ve-medical.webp', 'Medical response', 'SECTION 3/4', 'r', '40%', '48%'], ['cc-ve-video.webp', 'Video intelligence', 'EVENT CLIP · TIMELINE', 'run'], ['cc-ve-asset.webp', 'Asset accountability', 'RADIOS · MEDKITS · BARRIERS', 'hl', '62%', '22%', '34%', '58%'], ['cc-ve-command.webp', 'Venue command', 'MATCHDAY OVERVIEW', 'r', '35%', '42%']],
+      cap: ['Density sensors on the Gate C concourse report 4.1 people per square metre and rising, 18 minutes before kick-off.', 'CAM-C-07 confirms crowd compression. Two independent signals agree — INC-VE-0118 is opened.', 'Inbound crowd, time to kick-off and precedent set the severity. SOP-CR-2 is attached; venue ops are alerted.', 'The agent proposes extra Gate D lanes, a redirect via the south concourse and medical at Gate C — evidence cited.', 'The venue commander approves. The approval is written to the ledger before a lane opens.', 'Stewards S-4 move; police, medical, transport and the club are notified in 9 s. The queue gets the message.', 'Density back below threshold. The whole sequence is on the record for the event review.'] }
+  ];
 
   /* ───────────── screen builders (inner box 320×200; map 650×410) ───────────── */
   var HD = function (label, right) { return '<div class="w-hd"><span class="w-hd__l"><i></i>' + label + '</span><span class="w-hd__r">' + (right || '') + '</span></div>'; };
 
-  function buildFeed(el) {
-    el.innerHTML = HD('Signal feed', 'ZONE 4 · 6 SOURCES') + '<div class="w-feed"></div>';
+  function buildFeed(el, U) {
+    el.innerHTML = HD('Signal feed', esc(U.inc.where.split('·')[0]).toUpperCase() + ' · 6 SOURCES') + '<div class="w-feed__f"><span class="is-on" data-f="all">ALL</span><span data-f="alert">ALERTS</span><span data-f="ok">SYSTEM</span></div><div class="w-feed"></div>';
     var list = q('.w-feed', el);
-    function row(t, tag, txt, cls) { var r = h('div', 'w-feed__row' + (cls ? ' ' + cls : ''), '<span class="w-feed__t">' + t + '</span><span class="w-feed__tag">' + tag + '</span><span class="w-feed__x">' + txt + '</span>'); list.insertBefore(r, list.firstChild); while (list.children.length > 7) list.removeChild(list.lastChild); }
-    function reset() {
-      list.innerHTML = '';
-      row('18:33:40', 'TRAFFIC', 'Flow nominal · Corniche Rd');
-      row('18:34:12', 'ACCESS', 'Gate 3 · 1,204 badge events today');
-      row('18:35:02', 'WEATHER', '31°C · wind 9 kt NW');
-      row('18:35:48', 'CAM', 'CAM-4-11 · healthy · 25 fps');
-    }
+    function row(t, tag, txt, cls) { var r = h('div', 'w-feed__row' + (cls ? ' ' + cls : ''), '<span class="w-feed__t">' + t + '</span><span class="w-feed__tag">' + esc(tag) + '</span><span class="w-feed__x">' + esc(txt) + '</span>'); list.insertBefore(r, list.firstChild); while (list.children.length > 9) list.removeChild(list.lastChild); }
+    function reset() { list.innerHTML = ''; U.baseline.forEach(function (b) { row(b[0], b[1], b[2]); }); }
+    el.addEventListener('click', function (e) { var f = e.target.closest('.w-feed__f span'); if (!f || !inZoom(el)) return; qa('.w-feed__f span', el).forEach(function (x) { x.classList.toggle('is-on', x === f); }); el.setAttribute('data-filter', f.getAttribute('data-f')); e.stopPropagation(); });
     return { reset: reset, on: {
-      detect: function () { row(ts(0), 'SMK-4-08', 'Smoke detected · Zone 4 · Level 2', 'is-alert'); },
-      verify: function () { row(ts(7), 'CAM-4-12', 'Haze confirmed · 0.91', 'is-alert'); setTimeout(function () { row(ts(12), 'CORRELATE', '2 signals agree → INC-0007 opened', 'is-ok'); }, 1400); },
-      assess: function () { row(ts(24), 'RISK', 'Occupancy 1,860 · asset critical · HIGH', 'is-warn'); },
-      dispatch: function () { row(ts(91), 'DISPATCH', 'Engine-12 en route · Gate 3', 'is-ok'); },
-      debrief: function () { row(ts(104), 'INC-0007', 'Contained · after-action ready', 'is-ok'); }
+      detect: function () { row(ts(0), U.sig[0][0], U.sig[0][1], 'is-alert'); },
+      verify: function () { row(ts(7), U.sig[1][0], U.sig[1][1], 'is-alert'); setTimeout(function () { row(ts(12), 'CORRELATE', '2 signals agree → ' + U.inc.id + ' opened', 'is-ok'); }, 1400); },
+      assess: function () { row(ts(24), 'RISK', U.risk, 'is-warn'); },
+      dispatch: function () { row(ts(91), 'DISPATCH', U.unit + ' en route', 'is-ok'); },
+      debrief: function () { row(ts(104), U.inc.id, U.resolved.split('·')[0].trim() + ' · after-action ready', 'is-ok'); }
     } };
   }
 
-  function buildCams(el) {
-    var ids = ['CAM-4-11', 'CAM-4-12', 'CAM-4-15', 'CAM-G3'];
-    el.innerHTML = HD('Camera wall', 'VMS · 4 OF 212') + '<div class="w-cams">' + ids.map(function (id, i) {
-      return '<div class="w-cam w-cam--' + (i + 1) + '" style="background-image:url(' + ASSETS + ['cc-sa-hero.webp', 'cc-ad-hero.webp', 'cc-ve-hero.webp', 'cc-po-hero.webp'][i] + ')"><i class="w-cam__scan"></i><span class="w-cam__id">' + id + '</span><span class="w-cam__rec">REC</span><div class="w-cam__box"><span></span></div></div>';
+  function buildCams(el, U) {
+    el.innerHTML = HD('Camera wall', 'VMS · 4 OF 212') + '<div class="w-cams">' + U.cams.ids.map(function (id, i) {
+      return '<div class="w-cam w-cam--' + (i + 1) + '" style="background-image:url(' + ASSETS + U.cams.imgs[i] + ')"><i class="w-cam__scan"></i><span class="w-cam__id">' + esc(id) + '</span><span class="w-cam__rec">REC</span><div class="w-cam__box"><span></span></div></div>';
     }).join('') + '</div>';
     var cams = qa('.w-cam', el);
     function reset() { cams.forEach(function (c) { c.className = c.className.replace(/ is-\w+/g, ''); }); q('.w-cam--2 .w-cam__box span', el).textContent = ''; q('.w-cam--4 .w-cam__box span', el).textContent = ''; }
+    el.addEventListener('click', function (e) { var c = e.target.closest('.w-cam'); if (!c || !inZoom(el)) return; var big = c.classList.contains('is-big'); cams.forEach(function (x) { x.classList.remove('is-big'); }); if (!big) c.classList.add('is-big'); e.stopPropagation(); });
     return { reset: reset, on: {
       detect: function () { cams[1].classList.add('is-watch'); },
-      verify: function () { cams[1].classList.add('is-hit'); q('.w-cam--2 .w-cam__box span', el).textContent = 'HAZE 0.91'; },
-      dispatch: function () { setTimeout(function () { cams[3].classList.add('is-track'); q('.w-cam--4 .w-cam__box span', el).textContent = 'ENGINE-12'; }, 2600); },
+      verify: function () { cams[1].classList.add('is-hit'); q('.w-cam--2 .w-cam__box span', el).textContent = U.cams.hit; },
+      dispatch: function () { setTimeout(function () { cams[3].classList.add('is-track'); q('.w-cam--4 .w-cam__box span', el).textContent = U.unit; }, 2600); },
       debrief: function () { cams[1].classList.remove('is-hit'); cams[1].classList.add('is-clear'); }
     } };
   }
 
-  function buildMap(el) {
-    var W = 650, Hh = 410; el.classList.add('scr__in--svg');
-    var streets = '';
-    for (var x = 55; x < W; x += 65) streets += '<line x1="' + x + '" y1="30" x2="' + x + '" y2="' + Hh + '" class="m-st' + (x === 315 ? ' m-st--av' : '') + '"/>';
-    for (var y = 60; y < Hh; y += 58) streets += '<line x1="0" y1="' + y + '" x2="' + W + '" y2="' + y + '" class="m-st' + (y === 234 ? ' m-st--av' : '') + '"/>';
-    var blocks = '', seed = 7;
-    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-    for (var bx = 55; bx < W - 65; bx += 65) for (var by = 60; by < Hh - 58; by += 58) {
-      if (bx > 360 && by > 250) continue; if (bx >= 380 - 65 && bx < 380 + 96 && by >= 150 - 58 && by < 150 + 78 && bx + 65 > 380 && by + 58 > 150) continue;
+  /* map base layers */
+  var MAPW = 650, MAPH = 410;
+  function seeded(n) { var s = n; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
+  function baseCity(M) {
+    var rnd = seeded(7), o = '';
+    for (var x = 55; x < MAPW; x += 65) o += '<line x1="' + x + '" y1="30" x2="' + x + '" y2="' + MAPH + '" class="m-st' + (x === 315 ? ' m-st--av' : '') + '"/>';
+    for (var y = 60; y < MAPH; y += 58) o += '<line x1="0" y1="' + y + '" x2="' + MAPW + '" y2="' + y + '" class="m-st' + (y === 234 ? ' m-st--av' : '') + '"/>';
+    var S = M.site;
+    for (var bx = 55; bx < MAPW - 65; bx += 65) for (var by = 60; by < MAPH - 58; by += 58) {
+      if (bx > 360 && by > 250) continue;
+      if (S && bx + 65 > S.x && bx < S.x + S.w && by + 58 > S.y && by < S.y + S.h) continue;
       var r = rnd();
-      if (r < 0.12) { blocks += '<rect x="' + (bx + 6) + '" y="' + (by + 6) + '" width="53" height="46" rx="3" class="m-park"/>'; continue; }
-      blocks += '<rect x="' + (bx + 6) + '" y="' + (by + 6) + '" width="53" height="46" rx="2" class="m-bl"/>';
+      if (r < 0.12) { o += '<rect x="' + (bx + 6) + '" y="' + (by + 6) + '" width="53" height="46" rx="3" class="m-park"/>'; continue; }
+      o += '<rect x="' + (bx + 6) + '" y="' + (by + 6) + '" width="53" height="46" rx="2" class="m-bl"/>';
       var n = 2 + Math.floor(rnd() * 4);
-      for (var k = 0; k < n; k++) { var w = 10 + rnd() * 18, hh = 8 + rnd() * 16, x = bx + 9 + rnd() * (47 - w), y = by + 9 + rnd() * (40 - hh); blocks += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hh.toFixed(1) + '" class="m-bd' + (rnd() < 0.25 ? ' m-bd--lit' : '') + '"/>'; }
+      for (var k = 0; k < n; k++) { var w = 10 + rnd() * 18, hh = 8 + rnd() * 16, xx = bx + 9 + rnd() * (47 - w), yy = by + 9 + rnd() * (40 - hh); o += '<rect x="' + xx.toFixed(1) + '" y="' + yy.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hh.toFixed(1) + '" class="m-bd' + (rnd() < 0.25 ? ' m-bd--lit' : '') + '"/>'; }
     }
-    for (var d = 0; d < 26; d++) blocks += '<circle cx="' + (rnd() * W).toFixed(0) + '" cy="' + (60 + rnd() * (Hh - 80)).toFixed(0) + '" r="1.2" class="m-dot"/>';
-    var route = 'M110 346 L110 264 L300 264 L300 236 L378 236';
-    el.innerHTML = HD('Live map · Zone 4 · Riverside', '<span class="w-lay">LAYERS <b>8</b></span> <span class="w-ping">INC-0007</span>') +
-      '<svg class="w-map" viewBox="0 0 ' + W + ' ' + Hh + '" xmlns="http://www.w3.org/2000/svg">' +
+    for (var d = 0; d < 26; d++) o += '<circle cx="' + (rnd() * MAPW).toFixed(0) + '" cy="' + (60 + rnd() * (MAPH - 80)).toFixed(0) + '" r="1.2" class="m-dot"/>';
+    o += '<path d="M380 410 C 430 340, 520 320, 650 300 L650 410 Z" class="m-river"/>';
+    o += lbl(323, 205, M.streets[0], 'm-lab--st', -90) + lbl(8, 230, M.streets[1], 'm-lab--st') + lbl(70, 50, M.zones[0], 'm-lab--dim') + lbl(330, 50, M.zones[1], 'm-lab--dim') + lbl(70, 290, M.zones[2], 'm-lab--dim') + lbl(600, 50, M.zones[3], 'm-lab--dim');
+    return o;
+  }
+  function basePort(M) {
+    var rnd = seeded(11), o = '';
+    o += '<rect x="0" y="0" width="' + MAPW + '" height="70" class="m-sea"/><line x1="0" y1="70" x2="' + MAPW + '" y2="70" class="m-quay"/>';
+    o += lbl(20, 22, 'BERTH 1', 'm-lab--sea') + lbl(240, 22, 'BERTH 2', 'm-lab--sea') + lbl(470, 22, 'BERTH 3', 'm-lab--sea');
+    // vessels
+    o += '<rect x="30" y="34" width="150" height="26" rx="6" class="m-vessel"/><rect x="470" y="34" width="150" height="26" rx="6" class="m-vessel"/>';
+    // cranes
+    [90, 140, 520, 570].forEach(function (cx) { o += '<rect x="' + (cx - 3) + '" y="62" width="6" height="26" class="m-crane"/><line x1="' + cx + '" y1="64" x2="' + (cx + (cx < 300 ? -22 : 22)) + '" y2="46" class="m-crane"/>'; });
+    // container rows
+    for (var row = 0; row < 5; row++) { var y = 100 + row * 36; for (var c = 0; c < 8; c++) { var x = 30 + c * 48; if (x > 400 && y > 200 && y < 290) continue; var cls = ['m-ctr', 'm-ctr m-ctr--b', 'm-ctr m-ctr--c', 'm-ctr m-ctr--d'][Math.floor(rnd() * 4)]; o += '<rect x="' + x + '" y="' + y + '" width="40" height="14" class="' + cls + '"/><rect x="' + x + '" y="' + (y + 16) + '" width="40" height="8" class="' + cls + '" opacity=".6"/>'; } }
+    // roads
+    o += '<line x1="0" y1="300" x2="' + MAPW + '" y2="300" class="m-st m-st--av"/><line x1="390" y1="90" x2="390" y2="' + MAPH + '" class="m-st m-st--av"/>' + lbl(10, 296, 'QUAY RD', 'm-lab--st') + lbl(398, 120, 'YARD RD', 'm-lab--st', -90);
+    // gate & staging
+    o += '<rect x="560" y="360" width="70" height="30" rx="3" class="m-bl"/>' + lbl(566, 379, 'GATE 3', 'm-lab--dim') + '<rect x="40" y="345" width="110" height="40" rx="3" class="m-park"/>' + lbl(48, 369, 'FIRE STAGING', 'm-lab--dim');
+    // hazmat store
+    o += '<rect x="545" y="215" width="70" height="66" rx="3" class="m-haz"/>' + lbl(552, 252, 'HAZMAT', 'm-lab--warn');
+    return o;
+  }
+  function baseVenue(M) {
+    var o = '';
+    o += '<ellipse cx="325" cy="205" rx="250" ry="165" class="m-conc"/><ellipse cx="325" cy="205" rx="200" ry="125" class="m-bowl"/><ellipse cx="325" cy="205" rx="130" ry="80" class="m-bowl2"/><rect x="255" y="160" width="140" height="90" rx="6" class="m-pitch"/>';
+    o += '<path d="M325 40 L325 370" class="m-st"/><path d="M75 205 L575 205" class="m-st"/>';
+    [[325, 40, 'GATE A'], [325, 372, 'GATE B'], [575, 205, 'GATE C'], [75, 205, 'GATE D']].forEach(function (g, i) { o += '<rect x="' + (g[0] - 12) + '" y="' + (g[1] - 6) + '" width="24" height="12" rx="2" class="m-gate2' + (i === 2 ? ' m-gate2--hot' : '') + '"/>' + lbl(g[0] + (i === 3 ? -62 : i === 2 ? 16 : -20), g[1] + (i === 0 ? -12 : i === 1 ? 22 : 4), g[2], 'm-lab--dim'); });
+    // sections
+    [['S1', 240, 110], ['S2', 410, 110], ['S3/4', 470, 208], ['S5', 410, 300], ['S6', 240, 300], ['S7/8', 170, 208]].forEach(function (s) { o += lbl(s[1], s[2], s[0], 'm-lab--dim'); });
+    // car parks
+    o += '<rect x="20" y="20" width="110" height="60" rx="3" class="m-bl"/>' + lbl(28, 52, 'CAR PARK N', 'm-lab--dim') + '<rect x="520" y="330" width="110" height="60" rx="3" class="m-bl"/>' + lbl(528, 362, 'TRANSIT HUB', 'm-lab--dim') + '<rect x="20" y="330" width="120" height="60" rx="3" class="m-park"/>' + lbl(28, 362, 'MEDICAL BASE', 'm-lab--dim');
+    // density heat on Gate C
+    o += '<ellipse cx="512" cy="205" rx="50" ry="62" class="m-heat"/>';
+    return o;
+  }
+  function basePlant(M) {
+    var rnd = seeded(5), o = '';
+    o += '<rect x="20" y="40" width="610" height="350" rx="6" class="m-fence"/>' + lbl(28, 34, 'PERIMETER · SECURE', 'm-lab--dim');
+    // pipelines
+    o += '<path d="M40 235 L330 235" class="m-pipe"/><path d="M460 235 L620 235" class="m-pipe"/><path d="M395 260 L395 380" class="m-pipe"/><path d="M40 120 L230 120 L230 235" class="m-pipe m-pipe--thin"/>';
+    o += lbl(60, 228, 'SEGMENT S-13', 'm-lab--st') + lbl(470, 228, 'SEGMENT S-14', 'm-lab--st') + lbl(402, 330, 'S-15', 'm-lab--st');
+    // valves
+    [[326, 235, 'V-14B'], [464, 235, 'V-14C'], [395, 265, 'V-15A']].forEach(function (v) { o += '<rect x="' + (v[0] - 6) + '" y="' + (v[1] - 6) + '" width="12" height="12" rx="2" class="m-valve" transform="rotate(45 ' + v[0] + ' ' + v[1] + ')"/>' + lbl(v[0] - 16, v[1] + 20, v[2], 'm-lab--dim'); });
+    // tanks & transformers
+    [[100, 90], [150, 90], [200, 90]].forEach(function (t) { o += '<circle cx="' + t[0] + '" cy="' + t[1] + '" r="18" class="m-tank"/>'; }); o += lbl(84, 128, 'TANK FARM', 'm-lab--dim');
+    [[520, 90], [570, 90]].forEach(function (t) { o += '<rect x="' + (t[0] - 16) + '" y="' + (t[1] - 14) + '" width="32" height="28" rx="2" class="m-tank"/>'; }); o += lbl(508, 128, 'SUBSTATION', 'm-lab--dim');
+    for (var d = 0; d < 14; d++) o += '<circle cx="' + (40 + rnd() * 570).toFixed(0) + '" cy="' + (50 + rnd() * 330).toFixed(0) + '" r="1.4" class="m-dot"/>';
+    // sensors on S-14
+    o += '<circle cx="360" cy="235" r="4" class="m-sensor"/><circle cx="430" cy="235" r="4" class="m-sensor"/>' + lbl(348, 222, 'PT-14-07', 'm-lab--dim') + lbl(420, 222, 'FLOW-14', 'm-lab--dim');
+    return o;
+  }
+  function baseCoast(M) {
+    var rnd = seeded(3), o = '';
+    o += '<rect width="' + MAPW + '" height="' + MAPH + '" class="m-sea"/><path d="M0 410 L0 250 C 80 230, 120 300, 220 280 C 300 265, 330 330, 420 330 C 520 330, 560 400, 650 380 L650 410 Z" class="m-land"/>';
+    // range rings
+    [80, 160, 240].forEach(function (r) { o += '<circle cx="120" cy="120" r="' + r + '" class="m-ring"/>'; }); o += lbl(96, 100, 'COAST N2', 'm-lab--dim');
+    // exclusion zone
+    o += '<path d="M520 60 A140 140 0 0 1 560 300 L400 210 Z" class="m-excl"/>' + lbl(500, 140, 'EXCLUSION ZONE', 'm-lab--warn') + lbl(60, 40, 'SECTOR 2', 'm-lab--dim') + lbl(330, 40, 'SECTOR 3', 'm-lab--dim') + lbl(540, 380, 'NAVAL BASE', 'm-lab--dim');
+    // AIS tracks
+    for (var i = 0; i < 9; i++) { var x = 40 + rnd() * 560, y = 30 + rnd() * 200; o += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + ' l 6 3 l -6 3 z" class="m-ais"/>'; }
+    // unidentified track history
+    o += '<path d="M640 40 L560 82 L455 118" class="m-trk"/>';
+    o += '<rect x="510" y="335" width="90" height="40" rx="3" class="m-bl"/>';
+    return o;
+  }
+  function lbl(x, y, t, cls, rot) { return '<g transform="translate(' + x + ' ' + y + ')' + (rot ? ' rotate(' + rot + ')' : '') + '"><text class="m-lab ' + (cls || '') + '">' + esc(t) + '</text></g>'; }
+  var BASES = { city: baseCity, port: basePort, venue: baseVenue, plant: basePlant, coast: baseCoast };
+
+  function buildMap(el, U) {
+    var M = U.map; el.classList.add('scr__in--svg');
+    var base = BASES[M.kind](M), S = M.site;
+    var site = S ? '<rect x="' + S.x + '" y="' + S.y + '" width="' + S.w + '" height="' + S.h + '" rx="3" class="m-mall"/>' + lbl(S.x + S.w / 2, S.y + S.h - 6, S.l, 'm-lab--c') + lbl(S.x + S.w / 2, S.y + 12, S.s, 'm-lab--dim m-lab--c') : '';
+    var units = M.units.map(function (u, i) { return '<g class="m-unit m-unit--' + u.c + (i === 0 ? ' m-unit--first' : '') + '" data-unit="' + i + '"><g transform="translate(' + u.x + ' ' + u.y + ')"><circle r="12" class="m-unit__hit"/><circle r="' + (i === 0 ? 7 : 6) + '"/><text y="-12" text-anchor="middle">' + esc(u.id) + '</text></g></g>'; }).join('');
+    el.innerHTML = HD(esc(M.title), '<span class="w-lay">LAYERS <b>8</b></span> <span class="w-ping">' + esc(U.inc.id) + '</span>') +
+      '<svg class="w-map" viewBox="0 0 ' + MAPW + ' ' + MAPH + '" xmlns="http://www.w3.org/2000/svg">' +
       '<defs><radialGradient id="mGlow" r="0.5"><stop offset="0" stop-color="#7dd3fc" stop-opacity=".25"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient></defs>' +
-      '<rect width="' + W + '" height="' + Hh + '" fill="#06101f"/>' +
-      '<path d="M380 410 C 430 340, 520 320, 650 300 L650 410 Z" class="m-river"/>' +
-      streets + blocks +
-      '<rect x="380" y="150" width="96" height="78" rx="3" class="m-mall"/><g transform="translate(428 223)"><text class="m-lab" text-anchor="middle">RIVERSIDE MALL</text></g><g transform="translate(428 161)"><text class="m-lab m-lab--dim" text-anchor="middle">ZONE 4 · L2</text></g>' +
-      '<g transform="translate(323 205) rotate(-90)"><text class="m-lab m-lab--st">AL SALAM ST</text></g><g transform="translate(8 230)"><text class="m-lab m-lab--st">CORNICHE RD</text></g>' +
-      '<g transform="translate(70 50)"><text class="m-lab m-lab--dim">Z1</text></g><g transform="translate(330 50)"><text class="m-lab m-lab--dim">Z2</text></g><g transform="translate(70 290)"><text class="m-lab m-lab--dim">Z3</text></g><g transform="translate(600 50)"><text class="m-lab m-lab--dim">Z5</text></g>' +
+      '<rect width="' + MAPW + '" height="' + MAPH + '" fill="#06101f"/>' +
+      '<g class="m-l m-l--base">' + base + '</g>' +
+      '<g class="m-l m-l--zones">' + site + '</g>' +
       '<g class="m-sweep"><path d="M325 205 L325 -20 A225 225 0 0 1 480 40 Z" fill="url(#mGlow)"/></g>' +
-      '<path d="' + route + '" class="m-route"/>' +
-      '<g class="m-inc" transform="translate(425 189)"><circle r="26" class="m-inc__r1"/><circle r="14" class="m-inc__r2"/><circle r="5" class="m-inc__c"/><text x="32" y="3" class="m-lab m-lab--inc">SMK-4-08</text></g>' +
-      '<g class="m-unit m-unit--p" transform="translate(560 90)"><circle r="6"/><text y="-11" text-anchor="middle">PATROL-22</text></g>' +
-      '<g class="m-unit m-unit--a" transform="translate(200 80)"><circle r="6"/><text y="-11" text-anchor="middle">AMB-A1</text></g>' +
-      '<g class="m-unit m-unit--e"><g transform="translate(110 346)"><circle r="7"/><text y="-12" text-anchor="middle">ENGINE-12</text></g></g>' +
-      '<g class="m-mover" opacity="0"><circle r="7" class="m-mover__c"/><circle r="14" class="m-mover__h"/><animateMotion id="mMove" dur="6.2s" begin="indefinite" fill="freeze" path="' + route + '"/></g>' +
-      '<g class="m-gate" transform="translate(378 236)"><rect x="-4" y="-4" width="8" height="8" rx="1"/><g transform="translate(10 4)"><text>GATE 3</text></g></g>' +
-      '</svg><div class="w-map__st"><span class="w-map__k">STATUS</span><span class="w-map__v">MONITORING</span></div>';
-    var svg = q('svg', el), st = q('.w-map__v', el), mover = q('.m-mover', el), motion = q('#mMove', el), unitE = q('.m-unit--e', el);
-    function set(cls, v) { svg.className.baseVal = 'w-map ' + cls; st.textContent = v; }
-    function reset() { set('', 'MONITORING'); mover.setAttribute('opacity', '0'); unitE.style.opacity = 1; try { motion.endElement(); } catch (e) {} }
-    return { reset: reset, on: {
-      detect: function () { set('is-detect', 'SIGNAL · ZONE 4'); },
-      verify: function () { set('is-verify', '2 SIGNALS · INC-0007'); },
-      assess: function () { set('is-assess', 'SEVERITY HIGH · EVAC-2'); },
-      recommend: function () { set('is-recommend', 'ROUTE PROPOSED · 3 MIN'); },
-      approve: function () { set('is-approve', 'APPROVED · DISPATCHING'); },
-      dispatch: function () { set('is-dispatch', 'ENGINE-12 EN ROUTE'); mover.setAttribute('opacity', '1'); unitE.style.opacity = 0.25; try { motion.beginElement(); } catch (e) {} },
-      debrief: function () { set('is-debrief', 'CONTAINED · 18:41'); }
-    } };
+      '<g class="m-l m-l--route"><path d="' + M.route + '" class="m-route"/></g>' +
+      '<g class="m-inc" data-inc="1" transform="translate(' + M.inc[0] + ' ' + M.inc[1] + ')"><circle r="26" class="m-inc__r1"/><circle r="14" class="m-inc__r2"/><circle r="5" class="m-inc__c"/><text x="32" y="3" class="m-lab m-lab--inc">' + esc(U.sig[0][0]) + '</text></g>' +
+      '<g class="m-l m-l--units">' + units + '</g>' +
+      '<g class="m-mover" opacity="0"><circle r="7" class="m-mover__c"/><circle r="14" class="m-mover__h"/><animateMotion class="m-motion" dur="6.2s" begin="indefinite" fill="freeze" path="' + M.route + '"/></g>' +
+      '<g class="m-gate" transform="translate(' + M.target.x + ' ' + M.target.y + ')"><rect x="-4" y="-4" width="8" height="8" rx="1"/><g transform="translate(10 4)"><text>' + esc(M.target.l) + '</text></g></g>' +
+      '</svg><div class="w-map__st"><span class="w-map__k">STATUS</span><span class="w-map__v">MONITORING</span></div>' +
+      '<div class="w-map__tools"><span class="is-on" data-l="units">Units</span><span class="is-on" data-l="zones">Zones</span><span class="is-on" data-l="route">Route</span><span class="is-on" data-l="base">Basemap</span></div><div class="w-map__card"></div>';
+    var svg = q('svg', el), st = q('.w-map__v', el), mover = q('.m-mover', el), motion = q('.m-motion', el), unitE = q('.m-unit--first', el), card = q('.w-map__card', el), stageIx = -1;
+    function set(i, cls) { stageIx = i; svg.className.baseVal = 'w-map ' + cls; st.textContent = M.st[i]; }
+    function reset() { stageIx = -1; svg.className.baseVal = 'w-map'; st.textContent = 'MONITORING'; mover.setAttribute('opacity', '0'); unitE.style.opacity = 1; card.className = 'w-map__card'; try { motion.endElement(); } catch (e) {} }
+    el.addEventListener('click', function (e) {
+      if (!inZoom(el)) return;
+      var t = e.target.closest('.w-map__tools span'); if (t) { t.classList.toggle('is-on'); var g = q('.m-l--' + t.getAttribute('data-l'), el); if (g) g.style.display = t.classList.contains('is-on') ? '' : 'none'; e.stopPropagation(); return; }
+      var u = e.target.closest('.m-unit'); if (u) { var d = M.units[+u.getAttribute('data-unit')], row = U.units[+u.getAttribute('data-unit')] || U.units[0]; card.innerHTML = '<b>' + esc(d.id) + '</b><span>' + esc(row[1]) + ' · ' + esc(row[2]) + ' · ETA ' + esc(row[3]) + '</span><em>Click Approve on the agent screen to dispatch</em>'; card.className = 'w-map__card is-in'; e.stopPropagation(); return; }
+      var inc = e.target.closest('.m-inc'); if (inc) { card.innerHTML = '<b>' + esc(U.inc.id) + ' · ' + esc(U.inc.title) + '</b><span>' + esc(U.inc.where) + '</span><em>' + esc(U.sig[0][0]) + ' · ' + esc(U.sig[0][1]) + (stageIx >= 1 ? ' — ' + esc(U.sig[1][0]) + ' confirmed' : '') + '</em>'; card.className = 'w-map__card is-in'; e.stopPropagation(); return; }
+      if (card.classList.contains('is-in')) { card.className = 'w-map__card'; e.stopPropagation(); }
+    });
+    var on = {};
+    ['is-detect', 'is-verify', 'is-assess', 'is-recommend', 'is-approve', 'is-dispatch', 'is-debrief'].forEach(function (cls, i) { on[STAGE_IDS[i]] = function () { set(i, cls); if (i === 5) { mover.setAttribute('opacity', '1'); unitE.style.opacity = 0.25; try { motion.beginElement(); } catch (e) {} } }; });
+    return { reset: reset, on: on };
   }
 
-  function buildAI(el) {
+  function buildAI(el, U, ctl) {
     el.innerHTML = HD('Agent · recommendation', 'MODEL v2.4') +
-      '<div class="w-ai"><div class="w-ai__inc"><b>INC-0007</b> Fire alarm · Riverside Mall · Zone 4 <span class="w-sev">HIGH</span></div>' +
+      '<div class="w-ai"><div class="w-ai__inc"><b>' + esc(U.inc.id) + '</b> ' + esc(U.inc.title) + ' · ' + esc(U.inc.where) + ' <span class="w-sev">' + esc(U.inc.sev) + '</span></div>' +
       '<div class="w-ai__txt"><span class="w-ai__type"></span><i class="w-ai__cur"></i></div>' +
-      '<div class="w-ai__ev"><span>SMK-4-08</span><span>CAM-4-12</span><span>EVAC-2</span><span>3 precedents</span></div>' +
+      '<div class="w-ai__ev">' + U.ev.map(function (e) { return '<span>' + esc(e) + '</span>'; }).join('') + '</div>' +
       '<div class="w-ai__conf"><span class="w-ai__ck">CONFIDENCE</span><i class="w-ai__bar"><b></b></i><span class="w-ai__cv">—</span></div>' +
-      '<div class="w-ai__btns"><span class="w-btn w-btn--ok">Approve dispatch</span><span class="w-btn">Escalate</span></div>' +
-      '<div class="w-ai__stamp">APPROVED · A. RAHMAN · DISPATCHER · ' + ts(EL.approve) + '</div></div>';
-    var box = q('.w-ai', el), typeEl = q('.w-ai__type', el), bar = q('.w-ai__bar b', el), cv = q('.w-ai__cv', el);
-    var TXT = 'Dispatch Engine-12 via Al Salam St to Gate 3. Notify mall ops; begin EVAC-2 on Level 2. Nearest engine, 3 min, route clear.';
-    var timer = null;
-    function type(i) { typeEl.textContent = TXT.slice(0, i); if (i < TXT.length) timer = setTimeout(function () { type(i + 1); }, RM ? 0 : 22); }
-    function reset() { clearTimeout(timer); box.className = 'w-ai'; typeEl.textContent = ''; bar.style.width = '0%'; cv.textContent = '—'; }
+      '<div class="w-ai__btns"><span class="w-btn w-btn--ok" data-act="approve">Approve dispatch</span><span class="w-btn" data-act="escalate">Escalate</span></div>' +
+      '<div class="w-ai__stamp">APPROVED · ' + esc(U.approver) + ' · ' + ts(EL.approve) + '</div><div class="w-ai__esc">ESCALATED TO SHIFT SUPERVISOR · ' + ts(EL.approve - 8) + ' · awaiting co-sign</div></div>';
+    var box = q('.w-ai', el), typeEl = q('.w-ai__type', el), bar = q('.w-ai__bar b', el), cv = q('.w-ai__cv', el), timer = null, iv = null;
+    function type(i) { typeEl.textContent = U.rec.slice(0, i); if (i < U.rec.length) timer = setTimeout(function () { type(i + 1); }, RM ? 0 : 22); }
+    function reset() { clearTimeout(timer); clearInterval(iv); box.className = 'w-ai'; typeEl.textContent = ''; bar.style.width = '0%'; cv.textContent = '—'; }
+    el.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b || !inZoom(el)) return; e.stopPropagation(); if (!box.classList.contains('is-draft')) { ctl.jump('recommend'); return; } if (b.getAttribute('data-act') === 'approve') { if (!box.classList.contains('is-approved')) ctl.jump('approve'); } else { box.classList.add('is-esc'); } });
     return { reset: reset, on: {
       detect: function () { box.className = 'w-ai is-listen'; typeEl.textContent = ''; },
       assess: function () { box.className = 'w-ai is-think'; },
-      recommend: function () { box.className = 'w-ai is-draft'; type(0); var n = 0, iv = setInterval(function () { n += 4; if (n >= 92) { n = 92; clearInterval(iv); } bar.style.width = n + '%'; cv.textContent = '0.' + n; }, RM ? 0 : 60); },
-      approve: function () { box.className = 'w-ai is-draft is-approved'; },
+      recommend: function () { box.className = 'w-ai is-draft'; clearTimeout(timer); type(0); var n = 0; clearInterval(iv); iv = setInterval(function () { n += 4; if (n >= U.conf) { n = U.conf; clearInterval(iv); } bar.style.width = n + '%'; cv.textContent = '0.' + n; }, RM ? 0 : 60); },
+      approve: function () { clearTimeout(timer); typeEl.textContent = U.rec; clearInterval(iv); bar.style.width = U.conf + '%'; cv.textContent = '0.' + U.conf; box.className = 'w-ai is-draft is-approved'; },
       debrief: function () { box.className = 'w-ai is-draft is-approved is-closed'; }
     } };
   }
 
-  function buildSOP(el) {
-    var steps = ['Confirm two independent signals', 'Notify mall operations desk', 'Dispatch nearest available engine', 'Evacuate Zone 4 · Level 2', 'Field confirmation · close'];
-    el.innerHTML = HD('SOP match', '214 PROCEDURES') + '<div class="w-sop"><div class="w-sop__search"><i></i>Searching procedures…</div><div class="w-sop__hit"><b>EVAC-2</b> Fire alarm · retail · occupied</div><ol class="w-sop__steps">' + steps.map(function (s) { return '<li><i></i>' + s + '</li>'; }).join('') + '</ol></div>';
+  function buildSOP(el, U) {
+    el.innerHTML = HD('SOP match', '214 PROCEDURES') + '<div class="w-sop"><div class="w-sop__search"><i></i>Searching procedures…</div><div class="w-sop__hit"><b>' + esc(U.sop.name) + '</b> ' + esc(U.sop.desc) + '</div><ol class="w-sop__steps">' + U.sop.steps.map(function (s) { return '<li><i></i>' + esc(s) + '</li>'; }).join('') + '</ol></div>';
     var box = q('.w-sop', el), li = qa('li', el);
     function tick(i) { if (li[i]) li[i].classList.add('is-done'); }
     function reset() { box.className = 'w-sop'; li.forEach(function (l) { l.className = ''; }); }
+    el.addEventListener('click', function (e) { var l = e.target.closest('li'); if (!l || !inZoom(el)) return; l.classList.toggle('is-done'); e.stopPropagation(); });
     return { reset: reset, on: {
       detect: function () { box.className = 'w-sop is-search'; },
       assess: function () { box.className = 'w-sop is-match'; setTimeout(function () { tick(0); }, 900); },
@@ -141,26 +303,27 @@
     } };
   }
 
-  function buildLedger(el) {
-    el.innerHTML = HD('Audit ledger', 'APPEND-ONLY · SHA-256') + '<div class="w-led"><div class="w-led__list"></div><div class="w-led__ft"><span class="w-led__n">0417 entries</span><span class="w-led__ok">CHAIN VERIFIED · 0 GAPS</span></div></div>';
-    var list = q('.w-led__list', el), box = q('.w-led', el), n = 417;
-    function add(kind, who, sec) { n++; var r = h('div', 'w-led__row', '<span class="w-led__i">#' + n + '</span><span class="w-led__h">' + hash(n) + '</span><span class="w-led__k">' + kind + '</span><span class="w-led__w">' + who + '</span><span class="w-led__t">' + ts(sec) + '</span>'); list.appendChild(r); while (list.children.length > 6) list.removeChild(list.firstChild); q('.w-led__n', el).textContent = n + ' entries'; }
-    function reset() { list.innerHTML = ''; n = 417; box.className = 'w-led'; add('HEARTBEAT', 'system', -140); add('SIGNAL', 'CAM-4-11', -70); }
+  function buildLedger(el, U) {
+    el.innerHTML = HD('Audit ledger', 'APPEND-ONLY · SHA-256') + '<div class="w-led"><div class="w-led__list"></div><div class="w-led__detail"></div><div class="w-led__ft"><span class="w-led__n">0417 entries</span><span class="w-led__verify" data-act="verify">VERIFY CHAIN</span><span class="w-led__ok">CHAIN VERIFIED · 0 GAPS</span></div></div>';
+    var list = q('.w-led__list', el), box = q('.w-led', el), detail = q('.w-led__detail', el), n = 417, prev = hash(416);
+    function add(kind, who, sec) { n++; var hx = hash(n); var r = h('div', 'w-led__row', '<span class="w-led__i">#' + n + '</span><span class="w-led__h">' + hx.slice(0, 4) + '…' + hx.slice(12) + '</span><span class="w-led__k">' + esc(kind) + '</span><span class="w-led__w">' + esc(who) + '</span><span class="w-led__t">' + ts(sec) + '</span>'); r.setAttribute('data-h', hx); r.setAttribute('data-p', prev); prev = hx; list.appendChild(r); while (list.children.length > 6) list.removeChild(list.firstChild); q('.w-led__n', el).textContent = n + ' entries'; }
+    function reset() { list.innerHTML = ''; n = 417; prev = hash(416); box.className = 'w-led'; detail.className = 'w-led__detail'; add('HEARTBEAT', 'system', -140); add('SIGNAL', U.baseline[3][1] + ' · ' + U.baseline[3][2].split('·')[0].trim(), -70); }
+    el.addEventListener('click', function (e) { if (!inZoom(el)) return; var v = e.target.closest('[data-act="verify"]'); if (v) { box.classList.add('is-verifying'); setTimeout(function () { box.classList.remove('is-verifying'); box.classList.add('is-verified'); }, 1400); e.stopPropagation(); return; } var r = e.target.closest('.w-led__row'); if (r) { qa('.w-led__row', el).forEach(function (x) { x.classList.toggle('is-sel', x === r); }); detail.innerHTML = '<span>ENTRY ' + esc(q('.w-led__i', r).textContent) + ' · ' + esc(q('.w-led__k', r).textContent) + '</span><b>hash</b> ' + r.getAttribute('data-h') + '<br><b>prev</b> ' + r.getAttribute('data-p') + '<br><b>actor</b> ' + esc(q('.w-led__w', r).textContent) + ' · <b>at</b> ' + esc(q('.w-led__t', r).textContent) + ' · signed · immutable'; detail.className = 'w-led__detail is-in'; e.stopPropagation(); return; } if (detail.classList.contains('is-in')) { detail.className = 'w-led__detail'; qa('.w-led__row', el).forEach(function (x) { x.classList.remove('is-sel'); }); e.stopPropagation(); } });
     return { reset: reset, on: {
-      detect: function () { add('SIGNAL', 'SMK-4-08', 0); },
-      verify: function () { add('SIGNAL', 'CAM-4-12', 7); setTimeout(function () { add('INCIDENT', 'correlator', 12); }, 1400); },
-      recommend: function () { add('RECOMMEND', 'agent v2.4 · 0.92', EL.recommend); },
-      approve: function () { add('APPROVAL', 'a.rahman · dispatcher', EL.approve); box.classList.add('is-write'); },
-      dispatch: function () { add('DISPATCH', 'ENGINE-12', EL.dispatch); },
+      detect: function () { add('SIGNAL', U.sig[0][0], 0); },
+      verify: function () { add('SIGNAL', U.sig[1][0], 7); setTimeout(function () { add('INCIDENT', 'correlator', 12); }, 1400); },
+      recommend: function () { add('RECOMMEND', 'agent v2.4 · 0.' + U.conf, EL.recommend); },
+      approve: function () { add('APPROVAL', U.approver.toLowerCase(), EL.approve); box.classList.add('is-write'); },
+      dispatch: function () { add('DISPATCH', U.unit, EL.dispatch); },
       debrief: function () { add('RESOLVE', 'field · confirmed', EL.debrief); box.className = 'w-led is-verified'; }
     } };
   }
 
-  function buildUnits(el) {
-    var U = [['ENGINE-12', 'Fire', 'AVAILABLE', '3 min'], ['PATROL-22', 'Police', 'AVAILABLE', '2 min'], ['AMB-A1', 'EMS', 'ON CALL', '5 min'], ['ENGINE-7', 'Fire', 'BUSY', '—'], ['MALL-SEC', 'Site', 'ON SITE', '0 min']];
-    el.innerHTML = HD('Responders', 'ROLE-AWARE DISPATCH') + '<div class="w-un">' + U.map(function (u, i) { return '<div class="w-un__row w-un__row--' + i + '"><span class="w-un__id">' + u[0] + '</span><span class="w-un__ty">' + u[1] + '</span><span class="w-un__st">' + u[2] + '</span><span class="w-un__eta">' + u[3] + '</span></div>'; }).join('') + '</div>';
+  function buildUnits(el, U, ctl) {
+    el.innerHTML = HD('Responders', 'ROLE-AWARE DISPATCH') + '<div class="w-un">' + U.units.map(function (u, i) { return '<div class="w-un__row w-un__row--' + i + '" data-i="' + i + '"><span class="w-un__id">' + esc(u[0]) + '</span><span class="w-un__ty">' + esc(u[1]) + '</span><span class="w-un__st">' + esc(u[2]) + '</span><span class="w-un__eta">' + esc(u[3]) + '</span></div>'; }).join('') + '<div class="w-un__act"><span class="w-btn w-btn--ok" data-act="assign">Assign &amp; dispatch selected</span></div></div>';
     var r0 = q('.w-un__row--0', el), st = q('.w-un__st', r0), eta = q('.w-un__eta', r0), iv = null, secs = 178;
-    function reset() { clearInterval(iv); r0.className = 'w-un__row w-un__row--0'; st.textContent = 'AVAILABLE'; eta.textContent = '3 min'; secs = 178; }
+    function reset() { clearInterval(iv); r0.className = 'w-un__row w-un__row--0'; st.textContent = U.units[0][2]; eta.textContent = U.units[0][3]; secs = 178; qa('.w-un__row', el).forEach(function (x) { x.classList.remove('is-sel'); }); }
+    el.addEventListener('click', function (e) { if (!inZoom(el)) return; var b = e.target.closest('[data-act="assign"]'); if (b) { ctl.jump('dispatch'); e.stopPropagation(); return; } var r = e.target.closest('.w-un__row'); if (r) { qa('.w-un__row', el).forEach(function (x) { x.classList.toggle('is-sel', x === r); }); e.stopPropagation(); } });
     return { reset: reset, on: {
       recommend: function () { r0.className = 'w-un__row w-un__row--0 is-pick'; st.textContent = 'PROPOSED'; },
       approve: function () { st.textContent = 'ASSIGNED'; },
@@ -169,14 +332,15 @@
     } };
   }
 
-  function buildAgencies(el) {
-    var A = ['Civil Defence', 'Police', 'EMS', 'Municipality', 'Mall operations'];
-    el.innerHTML = HD('Agency comms', 'MCPTT · SMS · CAD-TO-CAD') + '<div class="w-ag">' + A.map(function (a) { return '<div class="w-ag__row"><i></i><span class="w-ag__n">' + a + '</span><span class="w-ag__s">STANDBY</span></div>'; }).join('') + '<div class="w-ag__ft"><span>CROSS-AGENCY NOTIFY</span><b>—</b></div></div>';
+  function buildAgencies(el, U, ctl) {
+    el.innerHTML = HD('Agency comms', 'MCPTT · SMS · CAD-TO-CAD') + '<div class="w-ag">' + U.agencies.map(function (a) { return '<div class="w-ag__row"><i></i><span class="w-ag__n">' + esc(a) + '</span><span class="w-ag__s">STANDBY</span></div>'; }).join('') + '<div class="w-ag__ft"><span>CROSS-AGENCY NOTIFY</span><span class="w-btn w-btn--sm" data-act="notify">Notify all</span><b>—</b></div></div>';
     var rows = qa('.w-ag__row', el), ft = q('.w-ag__ft b', el), tm = [];
     function reset() { tm.forEach(clearTimeout); tm = []; rows.forEach(function (r) { r.className = 'w-ag__row'; q('.w-ag__s', r).textContent = 'STANDBY'; }); ft.textContent = '—'; }
+    function notify() { rows.forEach(function (r, i) { tm.push(setTimeout(function () { r.className = 'w-ag__row is-sent'; q('.w-ag__s', r).textContent = 'NOTIFIED ' + ts(EL.dispatch + 2 + i * 2).slice(3); }, 500 + i * 550)); }); tm.push(setTimeout(function () { ft.textContent = '9 s'; }, 3400)); }
+    el.addEventListener('click', function (e) { var b = e.target.closest('[data-act="notify"]'); if (!b || !inZoom(el)) return; e.stopPropagation(); if (rows[0].classList.contains('is-sent')) return; notify(); });
     return { reset: reset, on: {
-      assess: function () { rows[4].className = 'w-ag__row is-pre'; q('.w-ag__s', rows[4]).textContent = 'ALERTED'; },
-      dispatch: function () { rows.forEach(function (r, i) { tm.push(setTimeout(function () { r.className = 'w-ag__row is-sent'; q('.w-ag__s', r).textContent = 'NOTIFIED ' + ts(EL.dispatch + 2 + i * 2).slice(3); }, 500 + i * 550)); }); tm.push(setTimeout(function () { ft.textContent = '9 s'; }, 3400)); },
+      assess: function () { var r = rows[U.pre]; r.className = 'w-ag__row is-pre'; q('.w-ag__s', r).textContent = 'ALERTED'; },
+      dispatch: function () { if (!rows[0].classList.contains('is-sent')) notify(); },
       debrief: function () { rows.forEach(function (r) { r.classList.add('is-ack'); }); }
     } };
   }
@@ -192,124 +356,149 @@
     return { reset: reset, on: on };
   }
 
-  function buildImage(file, label, sub, ov) {
-    return function (el) {
-      el.innerHTML = HD(label, sub) + '<div class="w-img"><img src="' + ASSETS + file + '" alt="" loading="lazy" decoding="async"><i class="w-img__scan"></i>' + (ov || '') + '</div>';
-      return { reset: function () {}, on: {} };
-    };
+  function buildImage(el, U, ctl, ix) {
+    var im = U.images[ix], ov = '';
+    if (im[3] === 'r') ov = '<b class="w-ov w-ov--r" style="left:' + im[4] + ';top:' + im[5] + '"></b>';
+    else if (im[3] === 'run') ov = '<b class="w-ov w-ov--run" style="left:8%;right:8%;bottom:14%"></b>';
+    else if (im[3] === 'hl') ov = '<b class="w-ov w-ov--hl" style="left:' + im[4] + ';top:' + im[5] + ';width:' + im[6] + ';height:' + im[7] + '"></b>';
+    el.innerHTML = HD(esc(im[1]), esc(im[2])) + '<div class="w-img"><img src="' + ASSETS + im[0] + '" alt="" loading="lazy" decoding="async"><i class="w-img__scan"></i>' + ov + '<span class="w-img__hint">Move to pan · click to toggle zoom</span></div>';
+    var box = q('.w-img', el), img = q('img', box);
+    box.addEventListener('mousemove', function (e) { if (!inZoom(el) || !box.classList.contains('is-zoom')) return; var r = box.getBoundingClientRect(); img.style.transformOrigin = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '% ' + ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%'; });
+    el.addEventListener('click', function (e) { if (!inZoom(el)) return; box.classList.toggle('is-zoom'); e.stopPropagation(); });
+    return { reset: function () { box.classList.remove('is-zoom'); }, on: {} };
   }
 
-  /* ───────────── screen catalogue ───────────── */
-  var SCREENS = [
-    { id: 'feed', t: 'Signal feed', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildFeed, d: 'Every sensor, camera, access-control event and weather feed arrives on one timeline. Correlation groups independent signals into a single candidate incident instead of six separate alarms.' },
-    { id: 'cams', t: 'Camera wall', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildCams, d: 'ONVIF cameras and VMS streams with edge analytics. When a detector fires, the nearest cameras are pulled forward automatically and vision confirms or rejects the signal.' },
-    { id: 'map', t: 'Live map', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildMap, w: 650, hh: 410, d: 'The geo-temporal canvas. Incidents, responders, routes, zones and layers on one map — the proposed route is drawn before anyone moves, and the unit is tracked once dispatch is approved.' },
-    { id: 'ai', t: 'Agent recommendation', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildAI, d: 'The agent drafts the next-best action with the evidence it rests on, the matching SOP and a confidence value. Nothing executes until a named operator approves — and the approval is written to the ledger.' },
-    { id: 'sop', t: 'SOP match', k: 'Operational workflows', page: 'command-control.html#lifecycle', pt: 'Incident lifecycle', build: buildSOP, d: 'The matching standard operating procedure is attached automatically and tracked step by step, so SOP compliance is measured rather than assumed.' },
-    { id: 'ledger', t: 'Audit ledger', k: 'Audited & sovereign', page: 'cc-audited-sovereign.html', pt: 'Audited & Sovereign', build: buildLedger, d: 'Append-only, cryptographically chained. Every signal, recommendation, approval and dispatch is written with actor, timestamp and originating evidence — and the chain verifies itself.' },
-    { id: 'units', t: 'Responders', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildUnits, d: 'Role-aware dispatch. Units are ranked by availability and ETA; the chosen unit moves from proposed to assigned to en route, with the ETA counting down on the same screen.' },
-    { id: 'agencies', t: 'Agency comms', k: 'Multi-agency', page: 'command-control.html#agencies', pt: 'Agency coordination', build: buildAgencies, d: 'Partner agencies keep their own systems. What they share is a common operating picture, a shared incident clock and one notification that reaches all of them in seconds.' },
-    { id: 'kpi', t: 'Response clock', k: 'Benchmarks', page: 'command-control.html#benchmarks', pt: 'Response-time benchmarks', build: buildKPI, d: 'Each stage is timed against the stopwatch. The figures shown are the indicative benchmarks from the table further down this page.' },
-    { id: 'cop', t: 'Common operating picture', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildImage('cc-sa-cop.webp', 'Common operating picture', 'ALL AGENCIES · LIVE', '<b class="w-ov w-ov--r" style="left:69%;top:26%"></b>'), d: 'The same live picture for every role and every agency — active incidents, responders and layers on one canvas.' },
-    { id: 'playback', t: 'Event playback', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildImage('cc-sa-playback.webp', 'Event playback', 'DETECTED · ASSIGNED · RESOLVED', '<b class="w-ov w-ov--run" style="left:8%;right:8%;bottom:14%"></b>'), d: 'Scrub back through any incident — what was known, when, and who decided what — without reconstructing it from five systems.' },
-    { id: 'policies', t: 'Action policies', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildImage('cc-ad-policies.webp', 'Action policies', 'AUTO · ATTENDED · SUPERVISED · BLOCKED', '<b class="w-ov w-ov--hl" style="left:64%;top:29%;width:31%;height:15%"></b>'), d: 'Per action type, how much autonomy the agent has: pre-approved routine tasks run automatically; anything consequential waits for one or two named humans; some actions never automate.' },
-    { id: 'port', t: 'Port · yard & gate', k: 'Ports & logistics', page: 'cc-ports.html', pt: 'Ports & Logistics', build: buildImage('cc-po-yard.webp', 'Port · yard & gate', 'TERMINAL OPS', '<b class="w-ov w-ov--r" style="left:47%;top:41%"></b>'), d: 'The same loop on a container terminal — gate events, yard moves, dwell and exceptions on one canvas.' },
-    { id: 'venue', t: 'Venue · crowd flow', k: 'Stadium & venue ops', page: 'cc-venues.html', pt: 'Stadium & Venue Ops', build: buildImage('cc-ve-crowd.webp', 'Venue · crowd flow', 'DENSITY · EGRESS', '<b class="w-ov w-ov--r" style="left:46%;top:45%"></b>'), d: 'Crowd density, egress and security posture for stadiums and venues, run from the same command platform.' },
-    { id: 'scada', t: 'SCADA · sensor fusion', k: 'Critical infrastructure', page: 'cc-critical-infra.html', pt: 'Critical Infrastructure', build: buildImage('cc-ci-scada.webp', 'SCADA · sensor fusion', 'OPC-UA · MODBUS · MQTT', '<b class="w-ov w-ov--run" style="left:6%;right:38%;bottom:22%"></b>'), d: 'Energy, water and pipelines — SCADA telemetry fused with cameras and access control, with runbooks instead of guesswork.' }
+  /* ───────────── screen slots ───────────── */
+  var SLOTS = [
+    { id: 'feed', t: 'Signal feed', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildFeed, d: 'Every sensor, camera, access-control event and system feed arrives on one timeline. Correlation groups independent signals into a single candidate incident instead of six separate alarms.', how: 'Filter the feed with the chips at the top.' },
+    { id: 'cams', t: 'Camera wall', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildCams, d: 'ONVIF cameras and VMS streams with edge analytics. When a detector fires, the nearest cameras are pulled forward automatically and vision confirms or rejects the signal.', how: 'Click a camera to bring it forward.' },
+    { id: 'map', t: 'Live map', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildMap, w: 650, hh: 410, d: 'The geo-temporal canvas. Incidents, responders, routes, zones and layers on one map — the proposed route is drawn before anyone moves, and the unit is tracked once dispatch is approved.', how: 'Toggle layers at the top right. Click a unit or the incident for details.' },
+    { id: 'ai', t: 'Agent recommendation', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildAI, d: 'The agent drafts the next-best action with the evidence it rests on, the matching SOP and a confidence value. Nothing executes until a named operator approves — and the approval is written to the ledger.', how: 'Press Approve to dispatch, or Escalate to hand the decision up.' },
+    { id: 'sop', t: 'SOP match', k: 'Operational workflows', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildSOP, d: 'The matching standard operating procedure is attached automatically and tracked step by step, so SOP compliance is measured rather than assumed.', how: 'Click a step to mark it done.' },
+    { id: 'ledger', t: 'Audit ledger', k: 'Audited & sovereign', page: 'cc-audited-sovereign.html', pt: 'Audited & Sovereign', build: buildLedger, d: 'Append-only, cryptographically chained. Every signal, recommendation, approval and dispatch is written with actor, timestamp and originating evidence — and the chain verifies itself.', how: 'Click an entry to inspect its hash and predecessor. Press Verify chain.' },
+    { id: 'units', t: 'Responders', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildUnits, d: 'Role-aware dispatch. Units are ranked by availability and ETA; the chosen unit moves from proposed to assigned to en route, with the ETA counting down on the same screen.', how: 'Select a unit, then Assign & dispatch.' },
+    { id: 'agencies', t: 'Agency comms', k: 'Multi-agency', page: 'cc-public-safety.html', pt: 'Public Safety & 911', build: buildAgencies, d: 'Partner agencies keep their own systems. What they share is a common operating picture, a shared incident clock and one notification that reaches all of them in seconds.', how: 'Press Notify all.' },
+    { id: 'kpi', t: 'Response clock', k: 'Benchmarks', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildKPI, d: 'Each stage is timed against the stopwatch — the indicative benchmarks measured with customers during pilots.', how: '' },
+    { id: 'img0', t: '', k: '', build: buildImage, ix: 0 }, { id: 'img1', t: '', k: '', build: buildImage, ix: 1 }, { id: 'img2', t: '', k: '', build: buildImage, ix: 2 }, { id: 'img3', t: '', k: '', build: buildImage, ix: 3 }, { id: 'img4', t: '', k: '', build: buildImage, ix: 4 }, { id: 'img5', t: '', k: '', build: buildImage, ix: 5 }
   ];
   var STAGES = [
-    { id: 'detect', t: 'Detect', d: 5200, f: ['feed', 'cams', 'map'], c: 'A smoke detector fires in Zone 4. The nearest cameras are pulled forward automatically.' },
-    { id: 'verify', t: 'Verify', d: 5200, f: ['cams', 'feed', 'map'], c: 'Camera vision confirms haze. Two independent signals agree — INC-0007 is opened 12 s after the first signal.' },
-    { id: 'assess', t: 'Assess', d: 5000, f: ['sop', 'kpi', 'cop', 'agencies'], c: 'Risk is scored from occupancy, asset criticality and precedent. SOP EVAC-2 is attached; mall operations are alerted.' },
-    { id: 'recommend', t: 'Recommend', d: 6800, f: ['ai', 'map', 'policies', 'units'], c: 'The agent drafts the response with cited evidence and a confidence value. The route is drawn before anyone moves.' },
-    { id: 'approve', t: 'Approve', d: 4600, f: ['ai', 'ledger'], c: 'A named dispatcher approves. The approval is written to the ledger with identity, time and reasoning.' },
-    { id: 'dispatch', t: 'Dispatch', d: 8400, f: ['units', 'map', 'agencies', 'cams'], c: 'Engine-12 rolls. Five agencies are notified in 9 s and the Gate 3 camera tracks the unit in.' },
-    { id: 'debrief', t: 'Debrief', d: 7000, f: ['ledger', 'kpi', 'playback'], c: 'Contained. The audit chain verifies itself and the after-action record is ready the same shift.' }
+    { id: 'detect', t: 'Detect', d: 5200, f: ['feed', 'cams', 'map'] },
+    { id: 'verify', t: 'Verify', d: 5200, f: ['cams', 'feed', 'map'] },
+    { id: 'assess', t: 'Assess', d: 5000, f: ['sop', 'kpi', 'img0', 'agencies'] },
+    { id: 'recommend', t: 'Recommend', d: 6800, f: ['ai', 'map', 'img2', 'units'] },
+    { id: 'approve', t: 'Approve', d: 4600, f: ['ai', 'ledger'] },
+    { id: 'dispatch', t: 'Dispatch', d: 8400, f: ['units', 'map', 'agencies', 'cams'] },
+    { id: 'debrief', t: 'Debrief', d: 7000, f: ['ledger', 'kpi', 'img1', 'img5'] }
   ];
 
-  /* ───────────── build the wall ───────────── */
-  var API = {};
-  if (WALL) {
-    var grid = q('.wall__grid', WALL), stepper = q('.wall__steps', WALL), clock = q('.wall__clock', WALL);
-    stepper.innerHTML = STAGES.map(function (s, i) { return '<span class="wall__step" data-st="' + s.id + '"><i>' + (i + 1) + '</i>' + s.t + '</span>'; }).join('');
-    var tiles = {};
-    SCREENS.forEach(function (s) {
-      var tile = h('div', 'scr scr--' + s.id + (s.w ? ' scr--big' : ''));
-      tile.style.setProperty('--iw', s.w || 320); tile.style.setProperty('--ih', s.hh || 200);
-      tile.setAttribute('role', 'button'); tile.setAttribute('tabindex', '0'); tile.setAttribute('aria-label', s.t + ' — zoom');
-      tile.dataset.id = s.id;
-      var inner = h('div', 'scr__in');
-      tile.appendChild(inner);
-      tile.appendChild(h('span', 'scr__tag', s.t));
-      grid.appendChild(tile);
-      s.api = s.build(inner); s.api.reset();
-      tiles[s.id] = tile;
-    });
-    // scale inner boxes to tile width
-    function fit() { SCREENS.forEach(function (s) { var t = tiles[s.id]; t.style.setProperty('--s', (t.clientWidth / (s.w || 320)).toFixed(4)); }); }
-    fit(); window.addEventListener('resize', fit); if (window.ResizeObserver) new ResizeObserver(fit).observe(grid);
-
-    // real clock
-    (function tick() { var d = new Date(); clock.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()].map(function (n) { return (n < 10 ? '0' : '') + n; }).join(':'); setTimeout(tick, 1000); })();
-
-    // scenario engine
-    var idx = -1, timer = null, running = false, visible = false;
-    function setStage(i) {
-      idx = i; var st = STAGES[i];
-      WALL.setAttribute('data-stage', st.id);
-      qa('.wall__step', stepper).forEach(function (e, j) { e.className = 'wall__step' + (j < i ? ' is-done' : j === i ? ' is-now' : ''); });
-      SCREENS.forEach(function (s) { tiles[s.id].classList.toggle('is-focus', st.f.indexOf(s.id) >= 0); var fn = s.api.on[st.id]; if (fn) fn(); });
-      q('.wall__now', WALL).textContent = st.t;
-      var cap = q('.wall__cap span', WALL); if (cap) { cap.classList.remove('is-in'); cap.textContent = st.c; void cap.offsetWidth; cap.classList.add('is-in'); }
-    }
-    function resetAll() { SCREENS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = 'Standing by — one incident, seven steps, every decision on the record.'; cap.classList.add('is-in'); } }
-    // click a step: jump there, hold, then resume
-    stepper.addEventListener('click', function (e) { var st = e.target.closest('.wall__step'); if (!st) return; var i = qa('.wall__step', stepper).indexOf(st); stop(); resetAll(); for (var k = 0; k <= i; k++) setStage(k); timer = setTimeout(function () { running = true; next(); }, 9000); });
-    function next() {
-      if (!running) return;
-      var i = idx + 1;
-      if (i >= STAGES.length) { WALL.classList.add('is-reset'); timer = setTimeout(function () { resetAll(); WALL.classList.remove('is-reset'); idx = -1; timer = setTimeout(next, 600); }, 900); return; }
-      setStage(i); timer = setTimeout(next, RM ? 2500 : STAGES[i].d);
-    }
-    function start() { if (running) return; running = true; if (idx < 0) resetAll(); timer = setTimeout(next, 900); }
-    function stop() { running = false; clearTimeout(timer); }
-    function sync() { if (visible && !document.hidden) start(); else stop(); }
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; sync(); }, { threshold: 0.15 }).observe(WALL); else { visible = true; sync(); }
-    document.addEventListener('visibilitychange', sync);
-
-    // zoom
-    var zoom = null;
-    function openZoom(id) {
-      var s = SCREENS.filter(function (x) { return x.id === id; })[0]; if (!s) return;
-      closeZoom();
-      zoom = h('div', 'wall-zoom', '<div class="wall-zoom__bd"></div><div class="wall-zoom__card" role="dialog" aria-modal="true" aria-label="' + s.t + '"><div class="wall-zoom__hd"><span class="wall-zoom__k">' + s.k + '</span><button class="wall-zoom__x" type="button" aria-label="Close">×</button></div><div class="wall-zoom__scr" style="--iw:' + (s.w || 320) + ';--ih:' + (s.hh || 200) + '"></div><h3 class="wall-zoom__t">' + s.t + '</h3><p class="wall-zoom__d">' + s.d + '</p><div class="wall-zoom__btns"><a class="btn btn--primary" href="' + s.page + '">Open ' + s.pt + ' →</a><button class="btn btn--secondary wall-zoom__close" type="button">Back to the wall</button></div></div></div>');
-      var holder = q('.wall-zoom__scr', zoom), clone = q('.scr__in', tiles[id]).cloneNode(true); holder.appendChild(clone);
-      document.body.appendChild(zoom); document.body.classList.add('wall-zoom-open');
-      function fitZ() { holder.style.setProperty('--s', (holder.clientWidth / (s.w || 320)).toFixed(4)); }
-      fitZ(); zoom._fit = fitZ; window.addEventListener('resize', fitZ);
-      qa('.wall-zoom__x,.wall-zoom__close,.wall-zoom__bd', zoom).forEach(function (b) { b.addEventListener('click', closeZoom); });
-      requestAnimationFrame(function () { zoom.classList.add('is-in'); q('.wall-zoom__x', zoom).focus(); });
-    }
-    function closeZoom() { if (!zoom) return; window.removeEventListener('resize', zoom._fit); var z = zoom; zoom = null; z.classList.remove('is-in'); document.body.classList.remove('wall-zoom-open'); setTimeout(function () { if (z.parentNode) z.parentNode.removeChild(z); }, 260); }
-    grid.addEventListener('click', function (e) { var t = e.target.closest('.scr'); if (t) openZoom(t.dataset.id); });
-    grid.addEventListener('keydown', function (e) { var t = e.target.closest('.scr'); if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openZoom(t.dataset.id); } });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
-    API.openZoom = openZoom; API.setStage = setStage; API.stages = STAGES; API.stop = stop; API.start = start; API.reset = resetAll;
+  /* ───────────── build ───────────── */
+  var ROOM = WALL.closest('.cc-room') || document.body;
+  var grid = q('.wall__grid', WALL), stepper = q('.wall__steps', WALL), clock = q('.wall__clock', WALL), ucTabs = q('.wall__uc-tabs', ROOM);
+  stepper.innerHTML = STAGES.map(function (s, i) { return '<span class="wall__step" data-st="' + s.id + '"><i>' + (i + 1) + '</i>' + s.t + '</span>'; }).join('');
+  ucTabs.innerHTML = USE.map(function (u, i) { return '<button type="button" class="wall__uc-tab" data-i="' + i + '"><span class="wall__uc-n">0' + (i + 1) + '</span>' + esc(u.t) + '</button>'; }).join('');
+  var tiles = {}, cur = 0, U = USE[0];
+  var CTL = { jump: function (id) { jumpTo(id); } };
+  SLOTS.forEach(function (s) {
+    var tile = h('div', 'scr scr--' + s.id + (s.w ? ' scr--big' : ''));
+    tile.style.setProperty('--iw', s.w || 320); tile.style.setProperty('--ih', s.hh || 200);
+    tile.setAttribute('role', 'button'); tile.setAttribute('tabindex', '0'); tile.dataset.id = s.id;
+    tile.appendChild(h('div', 'scr__in')); tile.appendChild(h('span', 'scr__tag', ''));
+    grid.appendChild(tile); tiles[s.id] = tile;
+  });
+  function buildAll() { SLOTS.forEach(function (s) { buildOne(s); }); }
+  function buildOne(s) { var tile = tiles[s.id], inner = h('div', 'scr__in'); tile.replaceChild(inner, q('.scr__in', tile)); s.api = s.build(inner, U, CTL, s.ix); s.api.reset(); var meta = slotMeta(s); q('.scr__tag', tile).textContent = meta.t; tile.setAttribute('aria-label', meta.t + ' — zoom'); }
+  function slotMeta(s) { if (s.ix != null) { var im = U.images[s.ix]; return { t: im[1], k: U.t, page: U.page, pt: U.pt, d: 'An Innfini ' + U.pt + ' screen — ' + im[1].toLowerCase() + ' (' + im[2].toLowerCase() + ').', how: 'Click to toggle zoom, then move the pointer to pan.' }; } return s; }
+  function fit() { SLOTS.forEach(function (s) { var t = tiles[s.id]; t.style.setProperty('--s', (t.clientWidth / (s.w || 320)).toFixed(4)); }); }
+  // grid sizing: fill the room
+  function sizeGrid() {
+    var room = q('.wall__chassis', WALL), grid_ = grid; if (!room) return;
+    var mq = window.innerWidth;
+    if (mq <= 720) { room.style.maxWidth = ''; fit(); return; }
+    var cols = mq <= 1180 ? 4 : 6, rows = mq <= 1180 ? 5 : 3, gap = 10, pad = 12;
+    var others = 0; qa('.wall__bar, .wall__cap, .wall__ticker', room).forEach(function (e) { others += e.offsetHeight; });
+    var availH = Math.max(320, (window.innerHeight - (WALL.getBoundingClientRect().top + window.scrollY > 0 ? 0 : 0)) - others - pad * 2 - q('.wall__uc', ROOM).offsetHeight - 120);
+    var rowH = (availH - gap * (rows - 1)) / rows, tileW = rowH * 1.6, w = tileW * cols + gap * (cols - 1) + pad * 2 + 2;
+    room.style.maxWidth = Math.max(720, Math.round(w)) + 'px';
+    fit();
   }
+  buildAll(); sizeGrid(); window.addEventListener('resize', sizeGrid); if (window.ResizeObserver) new ResizeObserver(fit).observe(grid);
+  (function tick() { var d = new Date(); clock.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()].map(function (n) { return (n < 10 ? '0' : '') + n; }).join(':'); setTimeout(tick, 1000); })();
 
-  /* ───────────── page sections as screens ───────────── */
-  var scrs = qa('.cc-scr');
-  if (scrs.length) {
-    // benchmark bars
-    qa('.cc-scr--benchmarks tr').forEach(function (tr) { var c = tr.cells; if (!c || c.length < 4) return; var m = /−(\d+)%/.exec(c[3].textContent); if (m) { c[3].insertAdjacentHTML('beforeend', '<i class="cc-bar" style="--w:' + m[1] + '%"><b></b></i>'); } });
-    function powerOn(el) { if (!el.classList.contains('is-on')) { el.classList.add('is-on'); } }
-    function sweep() { var vh = window.innerHeight || 800; scrs.forEach(function (s) { if (s.classList.contains('is-on')) return; var r = s.getBoundingClientRect(); if (r.top < vh * 0.88 && r.bottom > 0 || r.bottom <= 0) powerOn(s); }); }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting || e.boundingClientRect.bottom < 0) { powerOn(e.target); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      scrs.forEach(function (s) { io.observe(s); });
-    }
-    var sc = null; window.addEventListener('scroll', function () { if (sc) return; sc = setTimeout(function () { sc = null; sweep(); }, 120); }, { passive: true });
-    sweep(); setTimeout(sweep, 600);
+  /* ───────────── scenario engine ───────────── */
+  var idx = -1, timer = null, running = false, visible = false, loops = 0, manualUntil = 0;
+  function setStage(i) {
+    idx = i; var st = STAGES[i];
+    WALL.setAttribute('data-stage', st.id);
+    qa('.wall__step', stepper).forEach(function (e, j) { e.className = 'wall__step' + (j < i ? ' is-done' : j === i ? ' is-now' : ''); });
+    SLOTS.forEach(function (s) { tiles[s.id].classList.toggle('is-focus', st.f.indexOf(s.id) >= 0); var fn = s.api.on[st.id]; if (fn) fn(); });
+    q('.wall__now', WALL).textContent = st.t;
+    var cap = q('.wall__cap span', WALL); if (cap) { cap.classList.remove('is-in'); cap.textContent = U.cap[i]; void cap.offsetWidth; cap.classList.add('is-in'); }
   }
-  window.InnoventWall = API;
+  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; }
+  function next() {
+    if (!running) return;
+    var i = idx + 1;
+    if (i >= STAGES.length) { loops++; if (Date.now() > manualUntil && !zoom) { timer = setTimeout(function () { go(cur + 1, true); }, 1200); return; } WALL.classList.add('is-reset'); timer = setTimeout(function () { resetAll(); WALL.classList.remove('is-reset'); idx = -1; timer = setTimeout(next, 600); }, 900); return; }
+    setStage(i); timer = setTimeout(next, RM ? 2500 : STAGES[i].d);
+  }
+  function start() { if (running) return; running = true; if (idx < 0) resetAll(); timer = setTimeout(next, 900); }
+  function stop() { running = false; clearTimeout(timer); }
+  function sync() { if (visible && !document.hidden) start(); else stop(); }
+  function jumpTo(id) { var target = STAGE_IDS.indexOf(id); if (target < 0) return; manualUntil = Date.now() + 90000; clearTimeout(timer); running = true; for (var k = idx + 1; k <= target; k++) setStage(k); timer = setTimeout(next, STAGES[target].d); }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; sync(); }, { threshold: 0.15 }).observe(WALL); else { visible = true; sync(); }
+  document.addEventListener('visibilitychange', sync);
+
+  /* ───────────── use-case slider (infinite) ───────────── */
+  var flipping = false;
+  function go(i, auto) {
+    if (flipping) return; if (!auto) manualUntil = Date.now() + 90000;
+    var n = USE.length; i = ((i % n) + n) % n; if (i === cur && !auto) return;
+    flipping = true; stop(); closeZoom();
+    var dir = i === (cur + 1) % n ? 1 : i === (cur - 1 + n) % n ? -1 : 1; cur = i; U = USE[cur];
+    qa('.wall__uc-tab', ucTabs).forEach(function (t, j) { t.classList.toggle('is-on', j === cur); t.setAttribute('aria-pressed', j === cur ? 'true' : 'false'); });
+    var act = q('.wall__uc-tab.is-on', ucTabs); if (act) { var left = act.getBoundingClientRect().left - ucTabs.getBoundingClientRect().left + ucTabs.scrollLeft - (ucTabs.clientWidth - act.offsetWidth) / 2; try { ucTabs.scrollTo({ left: left, behavior: RM ? 'auto' : 'smooth' }); } catch (e) { ucTabs.scrollLeft = left; } }
+    q('.wall__uc-name', ROOM).textContent = U.t; q('.wall__uc-count', ROOM).textContent = '0' + (cur + 1) + ' / 0' + n;
+    WALL.setAttribute('data-uc', U.id); WALL.style.setProperty('--dir', dir);
+    var order = SLOTS.slice(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.add('is-flip'); }, RM ? 0 : k * 35); });
+    setTimeout(function () { resetAll(); buildAll(); fit(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.remove('is-flip'); }, RM ? 0 : k * 35); }); idx = -1; setTimeout(function () { flipping = false; resetAll(); sync(); }, RM ? 50 : 700); }, RM ? 30 : 380);
+  }
+  ucTabs.addEventListener('click', function (e) { var t = e.target.closest('.wall__uc-tab'); if (t) go(+t.getAttribute('data-i')); });
+  qa('[data-uc-prev]', ROOM).forEach(function (b) { b.addEventListener('click', function () { go(cur - 1); }); });
+  qa('[data-uc-next]', ROOM).forEach(function (b) { b.addEventListener('click', function () { go(cur + 1); }); });
+  WALL.addEventListener('keydown', function (e) { if (zoom) return; if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); } else if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); } });
+  (function swipe() { var x0 = null, y0 = null; grid.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true }); grid.addEventListener('touchend', function (e) { if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1)); }, { passive: true }); })();
+  stepper.addEventListener('click', function (e) { var st = e.target.closest('.wall__step'); if (!st) return; var i = qa('.wall__step', stepper).indexOf(st); manualUntil = Date.now() + 90000; stop(); resetAll(); for (var k = 0; k <= i; k++) setStage(k); running = true; timer = setTimeout(next, 9000); });
+  go(0, true);
+
+  /* ───────────── zoom (live screen, interactive) ───────────── */
+  var zoom = null, zoomSlot = null;
+  function openZoom(id) {
+    var s = SLOTS.filter(function (x) { return x.id === id; })[0]; if (!s) return;
+    if (zoom) { if (zoomSlot === s) return; swapZoom(s); return; }
+    manualUntil = Date.now() + 90000; var m = slotMeta(s);
+    zoom = h('div', 'wall-zoom', '<div class="wall-zoom__bd"></div><div class="wall-zoom__card" role="dialog" aria-modal="true"><div class="wall-zoom__hd"><span class="wall-zoom__k"></span><span class="wall-zoom__nav"><button type="button" class="wall-zoom__arrow" data-z="-1" aria-label="Previous screen">‹</button><button type="button" class="wall-zoom__arrow" data-z="1" aria-label="Next screen">›</button><button class="wall-zoom__x" type="button" aria-label="Close">×</button></span></div><div class="wall-zoom__scr"></div><div class="wall-zoom__txt"><h3 class="wall-zoom__t"></h3><p class="wall-zoom__d"></p><p class="wall-zoom__how"></p></div><div class="wall-zoom__btns"><a class="btn btn--primary wall-zoom__open" href="#"></a><button class="btn btn--secondary wall-zoom__close" type="button">Back to the wall</button></div></div>');
+    document.body.appendChild(zoom); document.body.classList.add('wall-zoom-open');
+    qa('.wall-zoom__x,.wall-zoom__close,.wall-zoom__bd', zoom).forEach(function (b) { b.addEventListener('click', closeZoom); });
+    qa('.wall-zoom__arrow', zoom).forEach(function (b) { b.addEventListener('click', function () { var i = SLOTS.indexOf(zoomSlot), n = SLOTS.length; swapZoom(SLOTS[((i + (+b.getAttribute('data-z'))) % n + n) % n]); }); });
+    zoom._fit = function () { var holder = q('.wall-zoom__scr', zoom); holder.style.setProperty('--s', (holder.clientWidth / (zoomSlot.w || 320)).toFixed(4)); };
+    window.addEventListener('resize', zoom._fit);
+    placeZoom(s);
+    requestAnimationFrame(function () { zoom.classList.add('is-in'); q('.wall-zoom__x', zoom).focus(); });
+  }
+  function placeZoom(s) {
+    zoomSlot = s; var m = slotMeta(s), holder = q('.wall-zoom__scr', zoom), inner = q('.scr__in', tiles[s.id]);
+    holder.style.setProperty('--iw', s.w || 320); holder.style.setProperty('--ih', s.hh || 200); holder.innerHTML = ''; holder.appendChild(inner);
+    tiles[s.id].classList.add('is-away');
+    q('.wall-zoom__k', zoom).textContent = (m.k || U.t) + ' · ' + U.t; q('.wall-zoom__t', zoom).textContent = m.t; q('.wall-zoom__d', zoom).textContent = m.d; q('.wall-zoom__how', zoom).textContent = m.how || ''; q('.wall-zoom__how', zoom).style.display = m.how ? '' : 'none';
+    var a = q('.wall-zoom__open', zoom); a.href = m.page; a.textContent = 'Open ' + m.pt + ' →';
+    zoom._fit();
+  }
+  function returnZoomed() { if (!zoomSlot) return; var inner = q('.scr__in', q('.wall-zoom__scr', zoom)); if (inner) { var tile = tiles[zoomSlot.id]; tile.insertBefore(inner, q('.scr__tag', tile)); tile.classList.remove('is-away'); } zoomSlot = null; }
+  function swapZoom(s) { returnZoomed(); placeZoom(s); }
+  function closeZoom() { if (!zoom) return; returnZoomed(); window.removeEventListener('resize', zoom._fit); var z = zoom; zoom = null; z.classList.remove('is-in'); document.body.classList.remove('wall-zoom-open'); setTimeout(function () { if (z.parentNode) z.parentNode.removeChild(z); }, 260); }
+  grid.addEventListener('click', function (e) { var t = e.target.closest('.scr'); if (t && !flipping) openZoom(t.dataset.id); });
+  grid.addEventListener('keydown', function (e) { var t = e.target.closest('.scr'); if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openZoom(t.dataset.id); } });
+  document.addEventListener('keydown', function (e) { if (!zoom) return; if (e.key === 'Escape') closeZoom(); else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var i = SLOTS.indexOf(zoomSlot), n = SLOTS.length; swapZoom(SLOTS[((i + (e.key === 'ArrowRight' ? 1 : -1)) % n + n) % n]); } });
+
+  window.InnoventWall = { go: go, openZoom: openZoom, setStage: setStage, jump: jumpTo, stages: STAGES, uses: USE, stop: stop, start: start, reset: resetAll, current: function () { return cur; } };
 })();
