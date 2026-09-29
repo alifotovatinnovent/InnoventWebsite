@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="800" viewBox="0 0 1920 800">
+  <rect width="1920" height="800" fill="#F5F6F9"/>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7A32FE"/>
+      <stop offset="45%" stop-color="#5465F8"/>
+      <stop offset="100%" stop-color="#49A4FD"/>
+    </linearGradient>
+  </defs>
+  <rect x="80" y="48" width="1760" height="3" fill="url(#accent)"/>
+  <text x="80" y="82" font-family="IBM Plex Mono, monospace" font-size="13" fill="#6B7385">CATEGORY EDUCATION  ·  BLOG D  ·  WEEK 2026-09-29</text>
+  <text x="80" y="128" font-family="Jost, sans-serif" font-size="34" font-weight="300" fill="#0B0D14">Physical Intelligence vs Enterprise Operational Intelligence</text>
+  <text x="80" y="160" font-family="IBM Plex Sans, sans-serif" font-size="16" fill="#6B7385">Item visibility stops at the read — EOI via Innfini puts sensor truth to work under policy</text>
+  <!-- Left Eclipse -->
+  <rect x="80" y="210" width="820" height="470" rx="16" fill="#0B0D14"/>
+  <text x="112" y="240" font-family="IBM Plex Mono, monospace" font-size="12" fill="#6B7385">INDUSTRY NARRATIVE</text>
+  <text x="112" y="276" font-family="Jost, sans-serif" font-size="24" font-weight="500" fill="#F5F6F9">Physical Intelligence — item visibility</text>
+  <g font-family="IBM Plex Sans, sans-serif" font-size="16" fill="#F5F6F9" text-anchor="middle">
+    <rect x="140" y="380" width="150" height="64" rx="12" fill="#161C2B" stroke="#373C4B" stroke-width="2"/>
+    <text x="215" y="418">Identify</text>
+    <rect x="326" y="380" width="150" height="64" rx="12" fill="#161C2B" stroke="#373C4B" stroke-width="2"/>
+    <text x="401" y="418">Track</text>
+    <rect x="512" y="380" width="150" height="64" rx="12" fill="#161C2B" stroke="#373C4B" stroke-width="2"/>
+    <text x="587" y="418">Analyze</text>
+    <rect x="698" y="380" width="150" height="64" rx="12" fill="#161C2B" stroke="#373C4B" stroke-width="2"/>
+    <text x="773" y="418">Automate</text>
+  </g>
+  <text x="490" y="640" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#A0A5B2" text-anchor="middle">RAIN / item reads (industry narrative)</text>
+  <!-- Divider -->
+  <rect x="943" y="295" width="74" height="200" rx="12" fill="#161C2B" stroke="#7A32FE" stroke-width="2"/>
+  <text x="980" y="340" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#F5F6F9" text-anchor="middle">Sensor</text>
+  <text x="980" y="366" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#F5F6F9" text-anchor="middle">truth</text>
+  <text x="980" y="392" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#7A32FE" text-anchor="middle">→</text>
+  <text x="980" y="418" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#F5F6F9" text-anchor="middle">work</text>
+  <text x="980" y="444" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#F5F6F9" text-anchor="middle">under</text>
+  <text x="980" y="470" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#F5F6F9" text-anchor="middle">policy</text>
+  <!-- Right Paper -->
+  <rect x="1060" y="210" width="780" height="470" rx="16" fill="#F5F6F9" stroke="#161C2B" stroke-width="2"/>
+  <rect x="1062" y="212" width="8" height="466" fill="#7A32FE"/>
+  <text x="1096" y="240" font-family="IBM Plex Mono, monospace" font-size="12" fill="#7A32FE">EOI VIA INNFINI</text>
+  <text x="1096" y="276" font-family="Jost, sans-serif" font-size="22" font-weight="500" fill="#0B0D14">Enterprise Operational Intelligence</text>
+  <text x="1096" y="306" font-family="Jost, sans-serif" font-size="22" font-weight="500" fill="#7A32FE">via Innfini</text>
+  <text x="1450" y="640" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#6B7385" text-anchor="middle">Governed ops action.</text>
+  <!-- Footer -->
+  <rect x="80" y="730" width="1760" height="46" rx="8" fill="#161C2B"/>
+  <text x="960" y="760" font-family="IBM Plex Sans, sans-serif" font-size="15" font-weight="500" fill="#F5F6F9" text-anchor="middle">Third-party public example — not an Innovent project or partnership.</text>
+</svg>

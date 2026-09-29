@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="700" viewBox="0 0 1920 700">
+  <rect width="1920" height="700" fill="#F5F6F9"/>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7A32FE"/>
+      <stop offset="45%" stop-color="#5465F8"/>
+      <stop offset="100%" stop-color="#49A4FD"/>
+    </linearGradient>
+  </defs>
+  <rect x="80" y="48" width="1760" height="3" fill="url(#accent)"/>
+  <text x="80" y="82" font-family="IBM Plex Mono, monospace" font-size="13" fill="#6B7385">SENSOR CLASS  ·  BLOG D  ·  HARDWARE-AGNOSTIC</text>
+  <text x="80" y="128" font-family="Jost, sans-serif" font-size="36" font-weight="300" fill="#0B0D14">Six peer inputs → one operating picture</text>
+  <g font-family="IBM Plex Sans, sans-serif" font-size="18" fill="#F5F6F9" text-anchor="middle">
+    <rect x="132" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="242" y="292">RFID</text>
+    <rect x="376" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="486" y="292">BLE / UWB</text>
+    <rect x="620" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="730" y="292">Vision</text>
+    <rect x="864" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="974" y="292">GNSS</text>
+    <rect x="1108" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="1218" y="292">OT events</text>
+    <rect x="1352" y="240" width="220" height="88" rx="14" fill="#0B0D14"/><text x="1462" y="292">Human confirm</text>
+  </g>
+  <rect x="780" y="480" width="360" height="72" rx="14" fill="#7A32FE"/>
+  <text x="960" y="524" font-family="IBM Plex Sans, sans-serif" font-size="20" font-weight="600" fill="#F5F6F9" text-anchor="middle">operating picture</text>
+  <text x="960" y="600" font-family="IBM Plex Sans, sans-serif" font-size="18" font-weight="500" fill="#6B7385" text-anchor="middle">Hardware-agnostic inputs.</text>
+</svg>

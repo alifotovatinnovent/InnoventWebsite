@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="700" viewBox="0 0 1920 700">
+  <rect width="1920" height="700" fill="#F5F6F9"/>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7A32FE"/>
+      <stop offset="45%" stop-color="#5465F8"/>
+      <stop offset="100%" stop-color="#49A4FD"/>
+    </linearGradient>
+  </defs>
+  <rect x="80" y="48" width="1760" height="3" fill="url(#accent)"/>
+  <text x="80" y="82" font-family="IBM Plex Mono, monospace" font-size="13" fill="#6B7385">OPS FLOW  ·  BLOG D  ·  READ → POLICY → WORK</text>
+  <text x="80" y="128" font-family="Jost, sans-serif" font-size="36" font-weight="300" fill="#0B0D14">From trusted read to governed work</text>
+  <text x="80" y="160" font-family="IBM Plex Sans, sans-serif" font-size="16" fill="#6B7385">sense → decide → act → verify  ·  under policy</text>
+  <rect x="216" y="220" width="480" height="320" rx="16" fill="#0B0D14"/>
+  <rect x="720" y="220" width="480" height="320" rx="16" fill="#161C2B" stroke="#7A32FE" stroke-width="3"/>
+  <rect x="1224" y="220" width="480" height="320" rx="16" fill="#0B0D14"/>
+  <text x="456" y="320" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#F5F6F9" text-anchor="middle">Read</text>
+  <text x="960" y="320" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#F5F6F9" text-anchor="middle">Policy</text>
+  <text x="1464" y="320" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#F5F6F9" text-anchor="middle">Work</text>
+  <text x="960" y="580" font-family="IBM Plex Sans, sans-serif" font-size="16" font-weight="500" fill="#6B7385" text-anchor="middle">Companion, not replace.</text>
+  <rect x="80" y="630" width="1760" height="46" rx="8" fill="#161C2B"/>
+  <text x="960" y="660" font-family="IBM Plex Sans, sans-serif" font-size="15" font-weight="500" fill="#F5F6F9" text-anchor="middle">Third-party public example — not an Innovent project or partnership.</text>
+</svg>
