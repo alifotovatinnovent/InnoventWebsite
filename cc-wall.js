@@ -115,6 +115,127 @@
       cap: ['Density sensors on the Gate C concourse report 4.1 people per square metre and rising, 18 minutes before kick-off.', 'CAM-C-07 confirms crowd compression. Two independent signals agree — INC-VE-0118 is opened.', 'Inbound crowd, time to kick-off and precedent set the severity. SOP-CR-2 is attached; venue ops are alerted.', 'The agent proposes extra Gate D lanes, a redirect via the south concourse and medical at Gate C — evidence cited.', 'The venue commander approves. The approval is written to the ledger before a lane opens.', 'Stewards S-4 move; police, medical, transport and the club are notified in 9 s. The queue gets the message.', 'Density back below threshold. The whole sequence is on the record for the event review.'] }
   ];
 
+  /* ───────────── execution layer: actions, tasks, comms, notifications per use case ───────────── */
+  var EXEC = {
+    city: {
+      acts: [['assess', 'BMS · BACnet', 'Smoke-control mode on · Zone 4 HVAC'], ['assess', 'Lifts', 'Recall to ground · Level 2 bank'], ['assess', 'PA', 'Evacuation message · Zone 4, Level 2'], ['assess', 'Access', 'Fire doors released · Zone 4'], ['approve', 'CAD', 'Engine-12 dispatched to Gate 3'], ['approve', 'Traffic', 'Signal pre-emption · Al Salam St'], ['dispatch', 'Signs', '"Avoid Al Salam St" · 3 road signs'], ['dispatch', 'VMS', 'Camera tour follows Engine-12'], ['debrief', 'BMS · BACnet', 'Zone 4 returned to normal mode']],
+      tasks: [['Sweep Level 2 · Zone 4', 'Mall security', 'assess', 'dispatch'], ['Hold Gate 3 open for Engine-12', 'Gate officer', 'assess', 'approve'], ['Account for occupants at muster B', 'Floor wardens', 'approve', 'debrief'], ['Confirm alarm source on scene', 'Engine-12', 'dispatch', 'debrief'], ['Reset panel and reopen Zone 4', 'Facilities', 'debrief', '']],
+      comms: [['verify', 'radio', 'Mall security → Control', 'Haze by the Zone 4 escalators. Clearing the floor.'], ['assess', 'cast', 'Occupant alert', 'Please leave Level 2 by the nearest exit. Staff will guide you.', ['APP', 'SIGNAGE', 'PA']], ['approve', 'radio', 'Control → Engine-12', 'Engine-12, fire alarm Riverside Mall. Gate 3 via Al Salam St.'], ['dispatch', 'radio', 'Engine-12 → Control', 'Copy. En route, three minutes.'], ['debrief', 'radio', 'Engine-12 → Control', 'On scene. Kitchen extract fire, out. Zone 4 safe.']],
+      notifs: [['detect', 'SMK-4-08 · smoke alarm', 'verify', 'Linked to INC-0007'], ['detect', 'Fire panel · Zone 4 pre-alarm', 'assess', 'Acknowledged · facilities'], ['verify', 'CAM-4-12 · haze detected', 'verify', 'Attached as evidence'], ['assess', 'Lift L2-B · recall fault', 'dispatch', 'Work order raised · fixed'], ['dispatch', 'Queue building · Al Salam St', 'debrief', 'Cleared by signal plan'], ['debrief', 'Panel reset requested', 'debrief', 'Closed · facilities']],
+      cap: ['A smoke detector fires in Zone 4. The nearest cameras come forward and the alert is owned the moment it lands.', 'Camera vision confirms haze. INC-0007 opens, mall security is already on the radio, and every alert is linked to one incident.', 'Pre-approved actions fire at once — smoke-control mode, lift recall, evacuation message, fire doors released. Tasks are created and assigned.', 'The agent drafts the dispatch with its evidence cited. The dispatcher approves it in one click.', 'Engine-12 rolls with signal pre-emption on its route and is briefed over the radio.', 'Civil Defence gets the live picture, occupants get the alert, tasks move to in progress and every notification is answered.', 'Contained. Tasks closed, alerts addressed, the building back to normal — and the record is already written.'] },
+    ps: {
+      acts: [['assess', 'CAD', 'Incident card created · priority 1'], ['assess', 'Traffic', 'Signal plan 4 · divert via 5th Ave'], ['assess', 'Signs', '"Collision ahead" · 2 signs on Main St'], ['assess', 'RMS', 'Case pre-populated · INC-2025-0841'], ['approve', 'CAD', 'AMB M-04 and Traffic T-11 dispatched'], ['approve', 'Hospital', 'Pre-alert · Mercy ED · 2 casualties'], ['dispatch', 'Traffic', 'Green wave on the ambulance route'], ['dispatch', 'Contract', 'Tow T-2 requested'], ['debrief', 'Traffic', 'Signal plan restored · lanes reopened']],
+      tasks: [['Close lanes and set cones', 'Traffic T-11', 'assess', 'dispatch'], ['Triage two casualties', 'AMB M-04', 'approve', 'debrief'], ['Take witness statements', 'Patrol P-07', 'approve', 'debrief'], ['Recover both vehicles', 'Tow T-2', 'dispatch', 'debrief'], ['File case report to RMS', 'Records', 'debrief', '']],
+      comms: [['verify', 'radio', '911 call-taker → Dispatch', 'Caller reports two vehicles, two people hurt, lanes blocked.'], ['assess', 'cast', 'Driver alert', 'Collision at 5th & Main — use Oak St.', ['SIGNS', 'NAV FEED', 'RADIO']], ['approve', 'radio', 'Dispatch → AMB M-04', 'M-04, priority one, 5th and Main, two casualties.'], ['dispatch', 'radio', 'AMB M-04 → Dispatch', 'En route, four minutes.'], ['debrief', 'radio', 'Traffic T-11 → Dispatch', 'Scene clear. Lanes open.']],
+      notifs: [['detect', '911 call · 5th & Main', 'verify', 'Linked to INC-2025-0841'], ['detect', 'Duplicate 911 call · same location', 'verify', 'Merged into incident'], ['verify', 'CAM-5M-02 · stopped vehicles', 'verify', 'Attached as evidence'], ['assess', 'Queue building · Main St', 'dispatch', 'Diversion active'], ['dispatch', 'Hospital bed check', 'dispatch', 'Mercy ED accepted'], ['debrief', 'RMS report pending', 'debrief', 'Filed']],
+      cap: ['A 911 call reports a two-vehicle collision with injuries. The incident opens while the caller is still on the line.', 'CAM-5M-02 confirms the blockage. A duplicate call is merged automatically — one incident, not two.', 'Pre-approved actions fire at once — incident card, signal plan 4, warning signs, RMS case. Lane closure is tasked to Traffic T-11.', 'The agent proposes EMS plus a traffic unit and a hospital pre-alert, evidence cited. Approved in one click.', 'Ambulance M-04 and Traffic T-11 roll; Mercy ED is pre-alerted automatically.', 'A green wave clears the ambulance route, tow and witness tasks are running, and every alert is answered.', 'Lanes reopened, casualties handed over, report filed from the record — nothing retyped.'] },
+    def: {
+      acts: [['assess', 'ISR', 'UAV ISR-2 re-tasked to TRK-2291'], ['assess', 'C2', 'Track marked SUSPECT · shared to the COP'], ['assess', 'AIS', 'Interrogation sent to TRK-2291'], ['assess', 'Port', 'Harbour traffic hold · Sector 3'], ['approve', 'Naval', 'Patrol P-31 vectored to the intercept line'], ['approve', 'Radio', 'Channel 16 hail queued'], ['dispatch', 'Coalition', 'Live track shared to coalition cell'], ['dispatch', 'EO/IR', 'Continuous track lock · EO/IR-1'], ['debrief', 'C2', 'Track released · COP updated']],
+      tasks: [['Shadow TRK-2291', 'UAV ISR-2', 'assess', 'debrief'], ['Intercept and identify', 'Patrol P-31', 'approve', 'debrief'], ['Hail on channel 16', 'Watch officer', 'approve', 'dispatch'], ['Brief the coalition cell', 'Liaison', 'dispatch', 'debrief'], ['Write the track report', 'Intel analyst', 'debrief', '']],
+      comms: [['verify', 'radio', 'Coast CS-4 → Ops', 'Visual on contact. Small craft, no flag.'], ['assess', 'cast', 'Harbour advisory', 'Traffic hold in Sector 3 until further notice.', ['VHF', 'PORT', 'AIS']], ['approve', 'radio', 'Ops → P-31', 'P-31, intercept TRK-2291, bearing zero-four-zero.'], ['dispatch', 'radio', 'P-31 → Ops', 'Copy. Eight minutes to the intercept line.'], ['debrief', 'radio', 'P-31 → Ops', 'Identified — fishing vessel, AIS fault. Escorting clear.']],
+      notifs: [['detect', 'RADAR-N2 · new track, no AIS', 'verify', 'Linked to TRK-2291'], ['verify', 'EO/IR-1 · vessel class', 'verify', 'Attached as evidence'], ['assess', 'Breach in 11 min', 'approve', 'Intercept tasked'], ['approve', 'ISR-2 fuel state', 'dispatch', 'Relief UAV scheduled'], ['dispatch', 'Coalition request for track', 'dispatch', 'Shared'], ['debrief', 'Track closure review', 'debrief', 'Signed off']],
+      cap: ['Coastal radar reports a new surface track with no AIS, heading for the exclusion zone.', 'EO/IR confirms the vessel class. TRK-2291 is verified and the breach clock starts.', 'Pre-approved actions fire at once — ISR re-tasked, track shared to the COP, AIS interrogation, harbour hold. Tasks are assigned.', 'The agent proposes an intercept and a channel-16 hail with the ROE reference. The watch officer approves in one click.', 'Patrol P-31 is vectored to the intercept line and briefed on the radio.', 'The coalition cell has the live track, the hail goes out, and every alert has an owner.', 'Identified and released. The tasking and decision trail are archived under chain of custody.'] },
+    ci: {
+      acts: [['assess', 'Telemetry', 'High-rate polling on segment S-14'], ['assess', 'UAS', 'Drone D-4 launched for a visual'], ['assess', 'CMMS', 'Work order WO-4471 created'], ['assess', 'Notify', 'Operations control and field leads alerted'], ['approve', 'SCADA', 'V-14B and V-14C closed · S-14 isolated'], ['approve', 'SCADA', 'Pump station 3 held at 60%'], ['dispatch', 'GIS', 'Affected customers mapped'], ['dispatch', 'Notify', 'Customer supply advisory sent'], ['debrief', 'SCADA', 'Valves reopened · pressure 6.8 bar']],
+      tasks: [['Drone visual of S-14', 'Drone D-4', 'assess', 'approve'], ['Isolate segment S-14', 'Valve team V-1', 'approve', 'dispatch'], ['Inspect and repair the joint', 'Field F-2', 'approve', 'debrief'], ['Customer advisory', 'Customer comms', 'dispatch', 'debrief'], ['Notify the regulator', 'Compliance', 'dispatch', 'debrief']],
+      comms: [['verify', 'radio', 'Control room → Field', 'Pressure dropping on S-14. Stand by.'], ['assess', 'cast', 'Crew call-out', 'Field F-2 and valve team V-1 to segment S-14.', ['MCPTT', 'SMS', 'APP']], ['approve', 'radio', 'Control room → V-1', 'Close V-14B, then V-14C. Confirm each.'], ['dispatch', 'radio', 'V-1 → Control room', 'Both closed. S-14 isolated.'], ['debrief', 'radio', 'F-2 → Control room', 'Joint repaired. Pressure test passed.']],
+      notifs: [['detect', 'PT-14-07 · pressure low', 'verify', 'Linked to INC-CI-0312'], ['detect', 'FLOW-14 · imbalance', 'verify', 'Correlated'], ['assess', 'PS-3 pump 2 · vibration', 'dispatch', 'Work order raised'], ['approve', 'V-14C · slow travel', 'dispatch', 'Confirmed closed'], ['dispatch', 'Customer call · low pressure', 'debrief', 'Answered with advisory'], ['debrief', 'Regulator report due', 'debrief', 'Submitted']],
+      cap: ['Pressure transmitter PT-14-07 reports an 8 % drop on segment S-14 in 40 seconds.', 'Flow telemetry confirms the imbalance. INC-CI-0312 opens and crews are put on standby.', 'Pre-approved actions fire at once — high-rate polling, drone launched, work order created, operations alerted.', 'The agent proposes isolating S-14 and holding the pump station. Valve commands stay human — approved in one click.', 'Valves close under supervision, the pump station is held at 60 % and the field crew rolls.', 'Customers get a supply advisory, the regulator is notified, and every alert is answered.', 'Isolated, repaired, restored. The runbook trail is ready for the regulator without reconstruction.'] },
+    po: {
+      acts: [['assess', 'Gate', 'Gate 3 inbound hold'], ['assess', 'Cranes', 'Crane 3 paused safely'], ['assess', 'PA', 'Evacuation message · Building 7, Zone 4'], ['assess', 'Access', 'Building 7 doors released'], ['approve', 'CAD', 'Response-12 dispatched to door 2'], ['approve', 'Yard', 'Quay Rd cleared of straddle carriers'], ['dispatch', 'TOS', 'Berth 3 vessel ops re-sequenced'], ['dispatch', 'Notify', 'Shipping line advised'], ['debrief', 'Gate', 'Gate 3 reopened · crane 3 resumed']],
+      tasks: [['Clear Quay Rd', 'Yard Y-2', 'assess', 'approve'], ['Evacuate Building 7, Zone 4', 'Warehouse wardens', 'assess', 'dispatch'], ['Check the hazmat store', 'Port fire', 'approve', 'debrief'], ['Hold affected containers', 'Customs', 'dispatch', 'debrief'], ['Resume gate and crane ops', 'Terminal ops', 'debrief', '']],
+      comms: [['verify', 'radio', 'B7 warden → Control', 'Smoke in the Zone 4 aisle. Evacuating staff.'], ['assess', 'cast', 'Terminal alert', 'Building 7 evacuation — avoid Quay Rd.', ['PA', 'RADIO', 'APP']], ['approve', 'radio', 'Control → Response-12', 'Response-12, Building 7 door 2 via Quay Rd.'], ['dispatch', 'radio', 'Response-12 → Control', 'Copy. Three minutes.'], ['debrief', 'radio', 'Response-12 → Control', 'Fire out — pallet charger. Hazmat store unaffected.']],
+      notifs: [['detect', 'FA-B7-04 · fire alarm', 'verify', 'Linked to INC-PO-0442'], ['verify', 'SD-B7-12 · smoke', 'verify', 'Correlated'], ['assess', 'Gate 3 queue building', 'dispatch', 'Trucks re-routed to Gate 2'], ['assess', 'Crane 3 mid-lift', 'approve', 'Load landed safely'], ['dispatch', 'Shipping line ETA query', 'dispatch', 'Answered'], ['debrief', 'Insurance report', 'debrief', 'Filed']],
+      cap: ['A fire alarm fires in Building 7, Zone 4 — next to the hazmat store.', 'The smoke detector confirms. INC-PO-0442 opens and the warden is already on the radio.', 'Pre-approved actions fire at once — gate hold, crane 3 paused, evacuation message, doors released. Tasks are created.', 'The agent proposes Response-12 via Quay Rd with the evidence cited. The duty manager approves in one click.', 'Response-12 rolls, Quay Rd is cleared, and the unit is briefed on the radio.', 'Berth ops are re-sequenced, customs and the shipping line are informed, and every alert is answered.', 'Contained, operations resumed — gate hold, crane pause and every decision on the record.'] },
+    ve: {
+      acts: [['assess', 'VMS', 'Camera tour · Gate C concourse'], ['assess', 'Signs', 'Queue-time signs updated'], ['assess', 'Fan app', '"Gate D is quicker" push sent'], ['assess', 'Staff', 'Stewards S-4 paged to Gate C'], ['approve', 'Gates', 'Gate D lanes 5–8 opened'], ['approve', 'Wayfinding', 'Signs redirect to the south concourse'], ['dispatch', 'Medical', 'First-aid point stood up · Gate C'], ['dispatch', 'Transit', 'Metro advised · hold exit flow'], ['debrief', 'Gates', 'Normal gate configuration restored']],
+      tasks: [['Redirect Section 3/4 flow', 'Stewards S-4', 'assess', 'dispatch'], ['Open Gate D lanes 5–8', 'Gate D team', 'approve', 'dispatch'], ['First-aid point at Gate C', 'Medical M-2', 'approve', 'debrief'], ['Watch density to kick-off', 'Venue ops', 'dispatch', 'debrief'], ['Add to the post-event review', 'Venue commander', 'debrief', '']],
+      comms: [['verify', 'radio', 'Gate C steward → Control', 'Queue backing up past the barriers.'], ['assess', 'cast', 'Fan message', 'Gate D is quicker — follow the signs.', ['APP', 'SCREENS', 'PA']], ['approve', 'radio', 'Control → Gate D', 'Open lanes five to eight now.'], ['dispatch', 'radio', 'Gate D → Control', 'Lanes open. Flowing.'], ['debrief', 'radio', 'Stewards S-4 → Control', 'Gate C density back to normal.']],
+      notifs: [['detect', 'DENS-C2 · density high', 'verify', 'Linked to INC-VE-0118'], ['verify', 'CAM-C-07 · compression', 'verify', 'Attached as evidence'], ['assess', 'Turnstile C4 · fault', 'dispatch', 'Engineer fixed'], ['approve', 'Lost child · Gate C', 'dispatch', 'Reunited with family'], ['dispatch', 'Metro platform crowding', 'debrief', 'Exits held by transit'], ['debrief', 'Density report', 'debrief', 'Filed']],
+      cap: ['Density on the Gate C concourse hits 4.1 people per square metre and rising, 18 minutes before kick-off.', 'CAM-C-07 confirms compression. INC-VE-0118 opens and the Gate C steward is on the radio.', 'Pre-approved actions fire at once — camera tour, queue signs, a push to the fan app, stewards paged. Tasks are created.', 'The agent proposes extra Gate D lanes and a redirect, evidence cited. The venue commander approves in one click.', 'Gate D lanes open and the south-concourse wayfinding switches on.', 'Medical stands up at Gate C, transit holds the exits, the queue gets the message, and every alert is answered.', 'Density back below threshold. The whole sequence is on the record for the event review.'] }
+  };
+  USE.forEach(function (u) { var x = EXEC[u.id]; if (!x) return; u.acts = x.acts; u.tasks = x.tasks; u.comms = x.comms; u.notifs = x.notifs; u.cap = x.cap; u.map.st[2] = 'ACTING · ' + u.sop.name + ' RUNNING'; });
+  var STAGE_T = { detect: EL.detect, verify: EL.verify, assess: EL.assess, recommend: EL.recommend, approve: EL.approve, dispatch: EL.dispatch, debrief: EL.debrief };
+
+  function buildActions(el, U, ctl) {
+    el.innerHTML = HD('Actions', 'EXECUTING · POLICY-GATED') + '<div class="w-act"><div class="w-act__list"></div><div class="w-act__ft"><span><b class="w-act__n">0</b> executed</span><span><b>0</b> failed</span><span class="w-act__live">LIVE</span></div></div>';
+    var list = q('.w-act__list', el), nEl = q('.w-act__n', el), n = 0, tm = [];
+    function add(a, k) {
+      var r = h('div', 'w-act__row is-run', '<span class="w-act__sys">' + esc(a[1]) + '</span><span class="w-act__x">' + esc(a[2]) + '</span><span class="w-act__st"><i></i><em>RUNNING</em></span>');
+      r.setAttribute('data-pol', a[0] === 'assess' || a[0] === 'dispatch' || a[0] === 'debrief' ? 'AUTO · pre-approved policy' : 'APPROVED · ' + U.approver.split('·')[0].trim());
+      list.appendChild(r); while (list.children.length > 7) list.removeChild(list.firstChild);
+      tm.push(setTimeout(function () { r.className = 'w-act__row is-done'; q('.w-act__st em', r).textContent = ts(STAGE_T[a[0]] + 2 + k * 2); n++; nEl.textContent = n; }, RM ? 0 : 900));
+    }
+    function reset() { tm.forEach(clearTimeout); tm = []; list.innerHTML = ''; n = 0; nEl.textContent = '0'; }
+    el.addEventListener('click', function (e) { var r = e.target.closest('.w-act__row'); if (!r || !inZoom(el)) return; e.stopPropagation(); r.classList.toggle('is-open'); var d = q('.w-act__pol', r); if (!d) { r.appendChild(h('span', 'w-act__pol', esc(r.getAttribute('data-pol')) + ' · written to the ledger')); } });
+    var on = {};
+    ['assess', 'approve', 'dispatch', 'debrief'].forEach(function (st) { on[st] = function () { var k = 0; U.acts.forEach(function (a) { if (a[0] !== st) return; var kk = k++; tm.push(setTimeout(function () { add(a, kk); }, RM ? 0 : kk * 480)); }); }; });
+    return { reset: reset, on: on };
+  }
+
+  function buildTasks(el, U) {
+    el.innerHTML = HD('Tasks', 'AUTO-CREATED · ASSIGNED') + '<div class="w-tk"><div class="w-tk__list"></div><div class="w-tk__ft"><span>Created <b class="w-tk__c">0</b></span><span>In progress <b class="w-tk__p">0</b></span><span>Done <b class="w-tk__d">0</b></span></div></div>';
+    var list = q('.w-tk__list', el), rows = {}, tm = [], doneFlag = {};
+    function initials(s) { return s.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); }
+    function count() { var c = 0, p = 0, d = 0; qa('.w-tk__row', list).forEach(function (r) { c++; if (r.classList.contains('is-done')) d++; else if (r.classList.contains('is-prog')) p++; }); q('.w-tk__c', el).textContent = c; q('.w-tk__p', el).textContent = p; q('.w-tk__d', el).textContent = d; }
+    function setSt(r, st) { r.className = 'w-tk__row is-' + st; q('.w-tk__chip', r).textContent = st === 'new' ? 'NEW' : st === 'prog' ? 'IN PROGRESS' : 'DONE'; count(); }
+    function create(t, i) {
+      var r = h('div', 'w-tk__row is-new', '<i class="w-tk__ck"></i><span class="w-tk__t">' + esc(t[0]) + '</span><span class="w-tk__av" title="' + esc(t[1]) + '">' + initials(t[1]) + '</span><span class="w-tk__o">' + esc(t[1]) + '</span><span class="w-tk__chip">NEW</span>');
+      list.appendChild(r); rows[i] = r; count();
+      if (doneFlag[i]) { tm.push(setTimeout(function () { setSt(r, 'done'); }, RM ? 0 : 700)); return; }
+      tm.push(setTimeout(function () { if (!r.classList.contains('is-done')) setSt(r, 'prog'); }, RM ? 0 : 1300));
+    }
+    function reset() { tm.forEach(clearTimeout); tm = []; list.innerHTML = ''; rows = {}; doneFlag = {}; count(); }
+    el.addEventListener('click', function (e) { var r = e.target.closest('.w-tk__row'); if (!r || !inZoom(el)) return; e.stopPropagation(); setSt(r, r.classList.contains('is-new') ? 'prog' : r.classList.contains('is-prog') ? 'done' : 'prog'); });
+    var on = {};
+    STAGE_IDS.forEach(function (st) { on[st] = function () {
+      var k = 0;
+      U.tasks.forEach(function (t, i) { if (t[3] === st) { doneFlag[i] = true; var kk = k++; tm.push(setTimeout(function () { if (rows[i]) setSt(rows[i], 'done'); }, RM ? 0 : 400 + kk * 500)); } });
+      U.tasks.forEach(function (t, i) { if (t[2] === st && !rows[i]) { var kk = k++; tm.push(setTimeout(function () { create(t, i); }, RM ? 0 : 300 + kk * 520)); } });
+    }; });
+    return { reset: reset, on: on };
+  }
+
+  function buildComms(el, U) {
+    el.innerHTML = HD('Comms', 'MCPTT · SMS · CAD-TO-CAD') + '<div class="w-cm"><div class="w-cm__list"></div><div class="w-cm__ag">' + U.agencies.map(function (a) { return '<span title="' + esc(a) + '"><i></i>' + esc(a.split(' ')[0]) + '</span>'; }).join('') + '</div><div class="w-cm__ft"><span class="w-cm__agn">AGENCIES 0/' + U.agencies.length + '</span><span class="w-btn w-btn--sm" data-act="send">Send update</span><b class="w-cm__agt">—</b></div></div>';
+    var list = q('.w-cm__list', el), ags = qa('.w-cm__ag span', el), tm = [];
+    function wave() { var o = ''; for (var i = 0; i < 14; i++) o += '<i style="--h:' + (0.25 + ((i * 37) % 11) / 14).toFixed(2) + ';animation-delay:' + (-(i * 0.09)).toFixed(2) + 's"></i>'; return '<span class="w-cm__wave">' + o + '</span>'; }
+    function msg(m, sec) {
+      var cast = m[1] === 'cast';
+      var r = h('div', 'w-cm__msg w-cm__msg--' + m[1], '<div class="w-cm__hd"><span class="w-cm__who">' + (cast ? 'BROADCAST · ' : '') + esc(m[2]) + '</span><span class="w-cm__t">' + ts(sec) + '</span></div><div class="w-cm__txt">' + (m[1] === 'radio' ? wave() : '') + '<span>' + esc(m[3]) + '</span></div>' + (cast ? '<div class="w-cm__ch">' + m[4].map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : ''));
+      list.appendChild(r); while (list.children.length > 3) list.removeChild(list.firstChild);
+      if (cast) qa('.w-cm__ch span', r).forEach(function (c, i) { tm.push(setTimeout(function () { c.classList.add('is-ok'); }, RM ? 0 : 600 + i * 450)); });
+      if (m[1] === 'radio') tm.push(setTimeout(function () { r.classList.add('is-said'); }, RM ? 0 : 2200));
+    }
+    function notifyAgencies() { ags.forEach(function (a, i) { tm.push(setTimeout(function () { a.classList.add('is-ok'); q('.w-cm__agn', el).textContent = 'AGENCIES ' + (i + 1) + '/' + ags.length; }, RM ? 0 : 500 + i * 420)); }); tm.push(setTimeout(function () { q('.w-cm__agt', el).textContent = '9 s'; }, RM ? 0 : 600 + ags.length * 420)); }
+    function reset() { tm.forEach(clearTimeout); tm = []; list.innerHTML = ''; ags.forEach(function (a) { a.className = ''; }); q('.w-cm__agn', el).textContent = 'AGENCIES 0/' + ags.length; q('.w-cm__agt', el).textContent = '—'; }
+    el.addEventListener('click', function (e) { var b = e.target.closest('[data-act="send"]'); if (!b || !inZoom(el)) return; e.stopPropagation(); msg(['x', 'cast', 'Control → all units', 'Status update: ' + U.inc.id + ' — ' + U.inc.title.toLowerCase() + ', response under way.', ['RADIO', 'SMS', 'APP']], EL.dispatch + 20); if (!ags[0].classList.contains('is-ok')) notifyAgencies(); });
+    var on = {};
+    STAGE_IDS.forEach(function (st) { on[st] = function () {
+      var k = 0; U.comms.forEach(function (m) { if (m[0] !== st) return; var kk = k++; tm.push(setTimeout(function () { msg(m, STAGE_T[st] + 3 + kk * 6); }, RM ? 0 : 250 + kk * 2400)); });
+      if (st === 'dispatch' && !ags[0].classList.contains('is-ok')) notifyAgencies();
+      if (st === 'debrief') ags.forEach(function (a) { a.classList.add('is-ack'); });
+    }; });
+    return { reset: reset, on: on };
+  }
+
+  function buildNotifs(el, U) {
+    el.innerHTML = HD('Notifications', '<span class="w-nt__open">0 OPEN</span> · <span class="w-nt__done">0 ADDRESSED</span>') + '<div class="w-nt"><div class="w-nt__list"></div><div class="w-nt__ft"><i class="w-nt__bar"><b></b></i><span class="w-nt__pct">—</span></div></div>';
+    var list = q('.w-nt__list', el), rows = {}, tm = [], pend = {};
+    function count() { var o = 0, d = 0; qa('.w-nt__row', list).forEach(function (r) { if (r.classList.contains('is-done')) d++; else o++; }); q('.w-nt__open', el).textContent = o + ' OPEN'; q('.w-nt__done', el).textContent = d + ' ADDRESSED'; var t = o + d; q('.w-nt__bar b', el).style.width = (t ? d / t * 100 : 0) + '%'; q('.w-nt__pct', el).textContent = t ? Math.round(d / t * 100) + '% ADDRESSED' : '—'; el.classList.toggle('is-clear', t > 0 && o === 0); }
+    function raise(nf, i) { var r = h('div', 'w-nt__row is-new', '<i class="w-nt__dot"></i><span class="w-nt__x">' + esc(nf[1]) + '</span><span class="w-nt__res">NEW</span>'); list.insertBefore(r, list.firstChild); rows[i] = r; while (list.children.length > 6) list.removeChild(list.lastChild); count(); if (pend[i]) { var txt = pend[i]; tm.push(setTimeout(function () { address(i, txt); }, RM ? 0 : 700)); } }
+    function address(i, txt) { var r = rows[i]; if (!r) { pend[i] = txt; return; } if (r.classList.contains('is-done')) return; r.className = 'w-nt__row is-done'; q('.w-nt__res', r).textContent = '✓ ' + txt; count(); }
+    function reset() { tm.forEach(clearTimeout); tm = []; list.innerHTML = ''; rows = {}; pend = {}; count(); el.classList.remove('is-clear'); }
+    el.addEventListener('click', function (e) { var r = e.target.closest('.w-nt__row.is-new'); if (!r || !inZoom(el)) return; e.stopPropagation(); for (var k in rows) if (rows[k] === r) address(k, 'Acknowledged by you'); });
+    var on = {};
+    STAGE_IDS.forEach(function (st) { on[st] = function () {
+      var k = 0;
+      U.notifs.forEach(function (nf, i) { if (nf[0] === st) { var kk = k++; tm.push(setTimeout(function () { raise(nf, i); }, RM ? 0 : 150 + kk * 600)); } });
+      U.notifs.forEach(function (nf, i) { if (nf[2] === st) { var kk = k++; tm.push(setTimeout(function () { address(i, nf[3]); }, RM ? 0 : 900 + kk * 650)); } });
+    }; });
+    return { reset: reset, on: on };
+  }
+
   /* ───────────── screen builders (inner box 320×200; map 650×410) ───────────── */
   var HD = function (label, right) { return '<div class="w-hd"><span class="w-hd__l"><i></i>' + label + '</span><span class="w-hd__r">' + (right || '') + '</span></div>'; };
 
@@ -274,18 +395,18 @@
       '<div class="w-ai__txt"><span class="w-ai__type"></span><i class="w-ai__cur"></i></div>' +
       '<div class="w-ai__ev">' + U.ev.map(function (e) { return '<span>' + esc(e) + '</span>'; }).join('') + '</div>' +
       '<div class="w-ai__conf"><span class="w-ai__ck">CONFIDENCE</span><i class="w-ai__bar"><b></b></i><span class="w-ai__cv">—</span></div>' +
-      '<div class="w-ai__btns"><span class="w-btn w-btn--ok" data-act="approve">Approve dispatch</span><span class="w-btn" data-act="escalate">Escalate</span></div>' +
-      '<div class="w-ai__stamp">APPROVED · ' + esc(U.approver) + ' · ' + ts(EL.approve) + '</div><div class="w-ai__esc">ESCALATED TO SHIFT SUPERVISOR · ' + ts(EL.approve - 8) + ' · awaiting co-sign</div></div>';
+      '<div class="w-ai__btns"><span class="w-btn w-btn--ok" data-act="approve">Approve &amp; execute</span><span class="w-btn" data-act="escalate">Escalate</span></div>' +
+      '<div class="w-ai__auto">' + U.acts.filter(function (a) { return a[0] === 'assess'; }).length + ' ACTIONS ALREADY EXECUTED UNDER POLICY</div><div class="w-ai__stamp">APPROVED IN ONE CLICK · ' + esc(U.approver) + ' · ' + ts(EL.approve) + '</div><div class="w-ai__esc">ESCALATED TO SHIFT SUPERVISOR · ' + ts(EL.approve - 8) + ' · awaiting co-sign</div></div>';
     var box = q('.w-ai', el), typeEl = q('.w-ai__type', el), bar = q('.w-ai__bar b', el), cv = q('.w-ai__cv', el), timer = null, iv = null;
     function type(i) { typeEl.textContent = U.rec.slice(0, i); if (i < U.rec.length) timer = setTimeout(function () { type(i + 1); }, RM ? 0 : 22); }
     function reset() { clearTimeout(timer); clearInterval(iv); box.className = 'w-ai'; typeEl.textContent = ''; bar.style.width = '0%'; cv.textContent = '—'; }
     el.addEventListener('click', function (e) { var b = e.target.closest('[data-act]'); if (!b || !inZoom(el)) return; e.stopPropagation(); if (!box.classList.contains('is-draft')) { ctl.jump('recommend'); return; } if (b.getAttribute('data-act') === 'approve') { if (!box.classList.contains('is-approved')) ctl.jump('approve'); } else { box.classList.add('is-esc'); } });
     return { reset: reset, on: {
       detect: function () { box.className = 'w-ai is-listen'; typeEl.textContent = ''; },
-      assess: function () { box.className = 'w-ai is-think'; },
-      recommend: function () { box.className = 'w-ai is-draft'; clearTimeout(timer); type(0); var n = 0; clearInterval(iv); iv = setInterval(function () { n += 4; if (n >= U.conf) { n = U.conf; clearInterval(iv); } bar.style.width = n + '%'; cv.textContent = '0.' + n; }, RM ? 0 : 60); },
-      approve: function () { clearTimeout(timer); typeEl.textContent = U.rec; clearInterval(iv); bar.style.width = U.conf + '%'; cv.textContent = '0.' + U.conf; box.className = 'w-ai is-draft is-approved'; },
-      debrief: function () { box.className = 'w-ai is-draft is-approved is-closed'; }
+      assess: function () { box.className = 'w-ai is-think is-auto'; },
+      recommend: function () { box.className = 'w-ai is-draft is-auto'; clearTimeout(timer); type(0); var n = 0; clearInterval(iv); iv = setInterval(function () { n += 4; if (n >= U.conf) { n = U.conf; clearInterval(iv); } bar.style.width = n + '%'; cv.textContent = '0.' + n; }, RM ? 0 : 60); },
+      approve: function () { clearTimeout(timer); typeEl.textContent = U.rec; clearInterval(iv); bar.style.width = U.conf + '%'; cv.textContent = '0.' + U.conf; box.className = 'w-ai is-draft is-auto is-approved'; },
+      debrief: function () { box.className = 'w-ai is-draft is-auto is-approved is-closed'; }
     } };
   }
 
@@ -312,6 +433,7 @@
     return { reset: reset, on: {
       detect: function () { add('SIGNAL', U.sig[0][0], 0); },
       verify: function () { add('SIGNAL', U.sig[1][0], 7); setTimeout(function () { add('INCIDENT', 'correlator', 12); }, 1400); },
+      assess: function () { add('ACTIONS', 'policy AUTO · ' + U.acts.filter(function (a) { return a[0] === 'assess'; }).length + ' executed', EL.assess + 4); add('TASKS', U.tasks.filter(function (t) { return t[2] === 'assess'; }).length + ' created · assigned', EL.assess + 6); },
       recommend: function () { add('RECOMMEND', 'agent v2.4 · 0.' + U.conf, EL.recommend); },
       approve: function () { add('APPROVAL', U.approver.toLowerCase(), EL.approve); box.classList.add('is-write'); },
       dispatch: function () { add('DISPATCH', U.unit, EL.dispatch); },
@@ -377,18 +499,21 @@
     { id: 'sop', t: 'SOP match', k: 'Operational workflows', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildSOP, d: 'The matching standard operating procedure is attached automatically and tracked step by step, so SOP compliance is measured rather than assumed.', how: 'Click a step to mark it done.' },
     { id: 'ledger', t: 'Audit ledger', k: 'Audited & sovereign', page: 'cc-audited-sovereign.html', pt: 'Audited & Sovereign', build: buildLedger, d: 'Append-only, cryptographically chained. Every signal, recommendation, approval and dispatch is written with actor, timestamp and originating evidence — and the chain verifies itself.', how: 'Click an entry to inspect its hash and predecessor. Press Verify chain.' },
     { id: 'units', t: 'Responders', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildUnits, d: 'Role-aware dispatch. Units are ranked by availability and ETA; the chosen unit moves from proposed to assigned to en route, with the ETA counting down on the same screen.', how: 'Select a unit, then Assign & dispatch.' },
-    { id: 'agencies', t: 'Agency comms', k: 'Multi-agency', page: 'cc-public-safety.html', pt: 'Public Safety & 911', build: buildAgencies, d: 'Partner agencies keep their own systems. What they share is a common operating picture, a shared incident clock and one notification that reaches all of them in seconds.', how: 'Press Notify all.' },
+    { id: 'actions', t: 'Actions', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildActions, d: 'What the platform actually does. Routine actions run the moment their policy allows — building systems, lifts, PA, signs, gates, traffic signals — and consequential ones run the moment a named operator approves. Each shows its system, its result and its time.', how: 'Click an action to see the policy it ran under.' },
+    { id: 'tasks', t: 'Tasks', k: 'Operational workflows', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildTasks, d: 'The SOP turns into work the moment an incident opens. Tasks are created, assigned to a named team or unit, tracked through in progress and closed with the incident — nothing is left in someone’s head.', how: 'Click a task to move it along.' },
+    { id: 'comms', t: 'Comms', k: 'Multi-agency', page: 'cc-public-safety.html', pt: 'Public Safety & 911', build: buildComms, d: 'Radio, messaging and public alerts from the same screen as the incident. Units are briefed over MCPTT, occupants and the public get the right message on the right channels, and partner agencies receive the live picture CAD-to-CAD.', how: 'Press Send update to broadcast to all units.' },
+    { id: 'notifs', t: 'Notifications', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildNotifs, d: 'Every alert gets an owner and an outcome. Duplicates are merged, related alerts are linked to the incident, and the open count runs down to zero — nothing sits unanswered.', how: 'Click an open notification to acknowledge it.' },
     { id: 'kpi', t: 'Response clock', k: 'Benchmarks', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildKPI, d: 'Each stage is timed against the stopwatch — the indicative benchmarks measured with customers during pilots.', how: '' },
-    { id: 'img0', t: '', k: '', build: buildImage, ix: 0 }, { id: 'img1', t: '', k: '', build: buildImage, ix: 1 }, { id: 'img2', t: '', k: '', build: buildImage, ix: 2 }, { id: 'img3', t: '', k: '', build: buildImage, ix: 3 }, { id: 'img4', t: '', k: '', build: buildImage, ix: 4 }, { id: 'img5', t: '', k: '', build: buildImage, ix: 5 }
+    { id: 'img0', t: '', k: '', build: buildImage, ix: 0 }, { id: 'img1', t: '', k: '', build: buildImage, ix: 1 }, { id: 'img2', t: '', k: '', build: buildImage, ix: 2 }
   ];
   var STAGES = [
-    { id: 'detect', t: 'Detect', d: 5200, f: ['feed', 'cams', 'map'] },
-    { id: 'verify', t: 'Verify', d: 5200, f: ['cams', 'feed', 'map'] },
-    { id: 'assess', t: 'Assess', d: 5000, f: ['sop', 'kpi', 'img0', 'agencies'] },
-    { id: 'recommend', t: 'Recommend', d: 6800, f: ['ai', 'map', 'img2', 'units'] },
-    { id: 'approve', t: 'Approve', d: 4600, f: ['ai', 'ledger'] },
-    { id: 'dispatch', t: 'Dispatch', d: 8400, f: ['units', 'map', 'agencies', 'cams'] },
-    { id: 'debrief', t: 'Debrief', d: 7000, f: ['ledger', 'kpi', 'img1', 'img5'] }
+    { id: 'detect', t: 'Detect', d: 5200, f: ['feed', 'cams', 'map', 'notifs'] },
+    { id: 'verify', t: 'Verify', d: 5600, f: ['cams', 'feed', 'comms', 'notifs'] },
+    { id: 'assess', t: 'Act', d: 6400, f: ['actions', 'tasks', 'comms', 'sop'] },
+    { id: 'recommend', t: 'Decide', d: 5600, f: ['ai', 'map', 'units', 'img2'] },
+    { id: 'approve', t: 'Dispatch', d: 6400, f: ['ai', 'actions', 'comms', 'units'] },
+    { id: 'dispatch', t: 'Coordinate', d: 9000, f: ['map', 'comms', 'tasks', 'actions'] },
+    { id: 'debrief', t: 'Resolve', d: 8000, f: ['tasks', 'notifs', 'ledger', 'actions'] }
   ];
 
   /* ───────────── build ───────────── */
