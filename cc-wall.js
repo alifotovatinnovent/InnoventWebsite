@@ -363,23 +363,20 @@
     el.innerHTML = HD(esc(M.title), '<span class="w-lay">LAYERS <b>8</b></span> <span class="w-ping">' + esc(U.inc.id) + '</span>') +
       '<svg class="w-map" viewBox="0 0 ' + MAPW + ' ' + MAPH + '" xmlns="http://www.w3.org/2000/svg">' +
       '<defs><radialGradient id="mGlow" r="0.5"><stop offset="0" stop-color="#7dd3fc" stop-opacity=".25"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient></defs>' +
-      '<g id="mapG"><rect width="' + MAPW + '" height="' + MAPH + '" fill="#06101f"/>' +
+      '<rect width="' + MAPW + '" height="' + MAPH + '" fill="#06101f"/>' +
       '<g class="m-l m-l--base">' + base + '</g>' +
       '<g class="m-l m-l--zones">' + site + '</g>' +
       '<g class="m-sweep"><path d="M325 205 L325 -20 A225 225 0 0 1 480 40 Z" fill="url(#mGlow)"/></g>' +
       '<g class="m-l m-l--route"><path d="' + M.route + '" class="m-route"/></g>' +
       '<g class="m-inc" data-inc="1" transform="translate(' + M.inc[0] + ' ' + M.inc[1] + ')"><circle r="26" class="m-inc__r1"/><circle r="14" class="m-inc__r2"/><circle r="5" class="m-inc__c"/><text x="32" y="3" class="m-lab m-lab--inc">' + esc(U.sig[0][0]) + '</text></g>' +
       '<g class="m-l m-l--units">' + units + '</g>' +
-      '<g class="m-mover" opacity="0"><circle r="7" class="m-mover__c"/><circle r="14" class="m-mover__h"/></g>' +
+      '<g class="m-mover" opacity="0"><circle r="7" class="m-mover__c"/><circle r="14" class="m-mover__h"/><animateMotion class="m-motion" dur="6.2s" begin="indefinite" fill="freeze" path="' + M.route + '"/></g>' +
       '<g class="m-gate" transform="translate(' + M.target.x + ' ' + M.target.y + ')"><rect x="-4" y="-4" width="8" height="8" rx="1"/><g transform="translate(10 4)"><text>' + esc(M.target.l) + '</text></g></g>' +
-      '</g></svg><div class="w-map__st"><span class="w-map__k">STATUS</span><span class="w-map__v">MONITORING</span></div>' +
+      '</svg><div class="w-map__st"><span class="w-map__k">STATUS</span><span class="w-map__v">MONITORING</span></div>' +
       '<div class="w-map__tools"><span class="is-on" data-l="units">Units</span><span class="is-on" data-l="zones">Zones</span><span class="is-on" data-l="route">Route</span><span class="is-on" data-l="base">Basemap</span></div><div class="w-map__card"></div>';
-    var svg = q('svg', el), st = q('.w-map__v', el), mover = q('.m-mover', el), routeP = q('.m-route', el), unitE = q('.m-unit--first', el), card = q('.w-map__card', el), stageIx = -1, raf = 0;
-    function mirror(v) { qa('.wall-mapst').forEach(function (e) { e.textContent = v; }); }
-    function set(i, cls) { stageIx = i; svg.className.baseVal = 'w-map ' + cls; st.textContent = M.st[i]; mirror(M.st[i]); }
-    function place(t) { var L = routeP.getTotalLength(), pt = routeP.getPointAtLength(L * t); mover.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')'); }
-    function drive() { cancelAnimationFrame(raf); var t0 = performance.now(), D = RM ? 1 : 6200; (function f(now) { var t = Math.min(1, (now - t0) / D); try { place(t); } catch (e) {} if (t < 1) raf = requestAnimationFrame(f); })(t0); }
-    function reset() { cancelAnimationFrame(raf); stageIx = -1; svg.className.baseVal = 'w-map'; st.textContent = 'MONITORING'; mirror('MONITORING'); mover.setAttribute('opacity', '0'); unitE.style.opacity = 1; card.className = 'w-map__card'; try { place(0); } catch (e) {} }
+    var svg = q('svg', el), st = q('.w-map__v', el), mover = q('.m-mover', el), motion = q('.m-motion', el), unitE = q('.m-unit--first', el), card = q('.w-map__card', el), stageIx = -1;
+    function set(i, cls) { stageIx = i; svg.className.baseVal = 'w-map ' + cls; st.textContent = M.st[i]; }
+    function reset() { stageIx = -1; svg.className.baseVal = 'w-map'; st.textContent = 'MONITORING'; mover.setAttribute('opacity', '0'); unitE.style.opacity = 1; card.className = 'w-map__card'; try { motion.endElement(); } catch (e) {} }
     el.addEventListener('click', function (e) {
       if (!inZoom(el)) return;
       var t = e.target.closest('.w-map__tools span'); if (t) { t.classList.toggle('is-on'); var g = q('.m-l--' + t.getAttribute('data-l'), el); if (g) g.style.display = t.classList.contains('is-on') ? '' : 'none'; e.stopPropagation(); return; }
@@ -388,7 +385,7 @@
       if (card.classList.contains('is-in')) { card.className = 'w-map__card'; e.stopPropagation(); }
     });
     var on = {};
-    ['is-detect', 'is-verify', 'is-assess', 'is-recommend', 'is-approve', 'is-dispatch', 'is-debrief'].forEach(function (cls, i) { on[STAGE_IDS[i]] = function () { set(i, cls); if (i === 5) { mover.setAttribute('opacity', '1'); unitE.style.opacity = 0.25; drive(); } }; });
+    ['is-detect', 'is-verify', 'is-assess', 'is-recommend', 'is-approve', 'is-dispatch', 'is-debrief'].forEach(function (cls, i) { on[STAGE_IDS[i]] = function () { set(i, cls); if (i === 5) { mover.setAttribute('opacity', '1'); unitE.style.opacity = 0.25; try { motion.beginElement(); } catch (e) {} } }; });
     return { reset: reset, on: on };
   }
 
@@ -544,83 +541,22 @@
   function ucProgressClear() { ucItems.forEach(function (el) { qa('.uc__bar i', el).forEach(function (seg) { seg.className = ''; }); }); }
   var tiles = {}, cur = 0, U = USE[0];
   var CTL = { jump: function (id) { jumpTo(id); } };
-  /* the room: left wing · centre · right wing, consoles on the desk below */
-  var WING_OF = { feed: 'l', cams: 'l', notifs: 'l', sop: 'l', ledger: 'l', kpi: 'l', map: 'c', ai: 'r', actions: 'r', comms: 'r', tasks: 'r', units: 'r', img2: 'r', img0: 'd', img1: 'd' };
-  var ORDER = ['feed', 'notifs', 'ledger', 'cams', 'sop', 'kpi', 'map', 'ai', 'comms', 'units', 'actions', 'tasks', 'img2', 'img0', 'img1'];
-  var ICO = {
-    sense: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11l4 3v4l-4 3H3z"/><circle cx="9" cy="12" r="2.2"/><path d="M18 10.5 21 9v6l-3-1.5"/></svg>',
-    act: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg>',
-    respond: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15V9h11v6"/><path d="M13 11h4l3 3v1h-7"/><circle cx="6.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/><path d="M6 11.5h3M7.5 10v3"/></svg>',
-    resolve: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 6v6c0 5-3.6 8-8 9-4.4-1-8-4-8-9V6z"/><path d="m8.5 12 2.4 2.4L15.6 9.8"/></svg>'
-  };
-  var SLICES = 11;
-  grid.innerHTML = '<div class="cyl"><div class="cyl__ring">' +
-      '<div class="fc fc--hd" data-g="l"><i></i>Situational awareness</div>' +
-      '<div class="fc fc--hd fc--hd-c" data-g="c"><i></i>Live operating picture<span class="wall-mapst">MONITORING</span><span class="wing__inc"></span></div>' +
-      '<div class="fc fc--hd" data-g="r"><i></i>Response &amp; execution</div>' +
-      '<div class="fc fc--col" data-c="l1"></div><div class="fc fc--col" data-c="l2"></div>' +
-      Array.apply(null, Array(SLICES)).map(function (_, i) { return '<div class="fc fc--slice" data-k="' + i + '"><svg viewBox="0 0 10 10" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><use href="#mapG"/></svg></div>'; }).join('') +
-      '<div class="fc fc--col" data-c="r1"></div><div class="fc fc--col" data-c="r2"></div>' +
-    '</div><div class="cyl__src"></div></div>' +
-    '<div class="wing wing--d"><svg class="desk__arc" viewBox="0 0 1000 60" preserveAspectRatio="none"><defs><linearGradient id="deskG" x1="0" x2="1"><stop offset="0" stop-color="#fbbf24" stop-opacity="0"/><stop offset=".2" stop-color="#fbbf24" stop-opacity=".7"/><stop offset=".8" stop-color="#fbbf24" stop-opacity=".7"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></linearGradient></defs><path d="M0 4 Q 500 70 1000 4" fill="none" stroke="url(#deskG)" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg><div class="wing__grid"><div class="flow">' + [['sense', 'Sense'], ['act', 'Act'], ['respond', 'Respond'], ['resolve', 'Resolve']].map(function (f, i) { return (i ? '<span class="flow__link"><i></i></span>' : '') + '<div class="flow__n" data-f="' + f[0] + '"><span class="flow__ico">' + ICO[f[0]] + '</span><span class="flow__l">' + f[1] + '</span><span class="flow__s"></span></div>'; }).join('') + '</div></div></div>';
-  var COL_OF = { feed: 'l1', notifs: 'l1', ledger: 'l1', cams: 'l2', sop: 'l2', kpi: 'l2', ai: 'r1', comms: 'r1', units: 'r1', actions: 'r2', tasks: 'r2', img2: 'r2' };
-  var WINGS = { d: q('.wing--d .wing__grid', grid) }, flowEl = q('.flow', grid), cylEl = q('.cyl', grid), ringEl = q('.cyl__ring', grid), srcEl = q('.cyl__src', grid);
-  qa('.fc--slice', grid).forEach(function (sl) { sl.addEventListener('click', function () { if (!flipping) openZoom('map'); }); });
-  SLOTS.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
   SLOTS.forEach(function (s) {
     var tile = h('div', 'scr scr--' + s.id + (s.w ? ' scr--big' : ''));
     tile.style.setProperty('--iw', s.w || 320); tile.style.setProperty('--ih', s.hh || 200);
     tile.setAttribute('role', 'button'); tile.setAttribute('tabindex', '0'); tile.dataset.id = s.id;
     tile.appendChild(h('div', 'scr__in')); tile.appendChild(h('span', 'scr__tag', ''));
-    if (s.id === 'map') srcEl.appendChild(tile);
-    else if (COL_OF[s.id]) q('.fc--col[data-c="' + COL_OF[s.id] + '"]', grid).appendChild(tile);
-    else if (s.id === 'img0') WINGS.d.insertBefore(tile, flowEl); else WINGS.d.appendChild(tile);
-    tiles[s.id] = tile;
+    grid.appendChild(tile); tiles[s.id] = tile;
   });
-  var FLOW_OF = { detect: 'sense', verify: 'sense', assess: 'act', recommend: 'respond', approve: 'respond', dispatch: 'respond', debrief: 'resolve' };
-  function flowSubs() { var sub = { sense: U.sig[0][0] + ' + ' + U.sig[1][0], act: U.acts.filter(function (a) { return a[0] === 'assess'; }).length + ' actions · ' + U.tasks.length + ' tasks', respond: U.unit + ' · ' + U.agencies.length + ' agencies', resolve: U.resolved }; qa('.flow__n', flowEl).forEach(function (n) { q('.flow__s', n).textContent = sub[n.getAttribute('data-f')]; }); var wi = q('.wing__inc', grid); if (wi) wi.textContent = U.inc.id + ' · ' + U.inc.title; }
-  function flowSet(stId) { var keys = ['sense', 'act', 'respond', 'resolve'], k = stId ? keys.indexOf(FLOW_OF[stId]) : -1; qa('.flow__n', flowEl).forEach(function (n, i) { n.className = 'flow__n' + (i < k ? ' is-done' : i === k ? ' is-now' : ''); }); qa('.flow__link', flowEl).forEach(function (l, i) { l.className = 'flow__link' + (i < k ? ' is-on' : ''); }); }
   function buildAll() { SLOTS.forEach(function (s) { buildOne(s); }); }
   function buildOne(s) { var tile = tiles[s.id], inner = h('div', 'scr__in'); tile.replaceChild(inner, q('.scr__in', tile)); s.api = s.build(inner, U, CTL, s.ix); s.api.reset(); var meta = slotMeta(s); q('.scr__tag', tile).textContent = meta.t; tile.setAttribute('aria-label', meta.t + ' — zoom'); }
   function slotMeta(s) { if (s.ix != null) { var im = U.images[s.ix]; return { t: im[1], k: U.t, page: U.page, pt: U.pt, d: 'An Innfini ' + U.pt + ' screen — ' + im[1].toLowerCase() + ' (' + im[2].toLowerCase() + ').', how: 'Click to toggle zoom, then move the pointer to pan.' }; } return s; }
   function fit() { SLOTS.forEach(function (s) { var t = tiles[s.id]; t.style.setProperty('--s', (t.clientWidth / (s.w || 320)).toFixed(4)); }); }
   // grid sizing: fill the room
-  /* bend every column and every slice of the map onto one cylinder, concave towards the viewer */
-  function layoutCyl() {
-    var Wc = grid.clientWidth; if (!Wc) return;
-    var tw = 100, g = 7, th = tw / 1.6, FH = 3 * th + 2 * g, mapW = FH * (MAPW / MAPH), sw = mapW / SLICES, gs = 10;
-    var items = [], cols = qa('.fc--col', ringEl), slices = qa('.fc--slice', ringEl);
-    items.push({ el: cols[0], w: tw }, { el: cols[1], w: tw, gap: g });
-    slices.forEach(function (el, i) { items.push({ el: el, w: sw, gap: i ? 0 : gs }); });
-    items.push({ el: cols[2], w: tw, gap: gs }, { el: cols[3], w: tw, gap: g });
-    var L = 0; items.forEach(function (it) { L += (it.gap || 0); it.s = L + it.w / 2; L += it.w; });
-    var ARC = 2.5, R = L / ARC, P = R * 2.15;
-    function proj(u, th0, y) { var x = u * Math.cos(th0) + R * Math.sin(th0), z = u * Math.sin(th0) - R * Math.cos(th0) + R, k = P / (P - z); return { x: x * k, y: y * k }; }
-    var hw = 0, hh = 0;
-    items.forEach(function (it) { it.th = (it.s - L / 2) / R; [-it.w / 2, it.w / 2].forEach(function (u) { var p = proj(u, it.th, FH / 2); hw = Math.max(hw, Math.abs(p.x)); hh = Math.max(hh, Math.abs(p.y)); }); });
-    var k = (Wc * 0.985 / 2) / hw, HEAD = 30;
-    cylEl.style.height = Math.round(2 * hh * k + HEAD * 2) + 'px';
-    cylEl.style.perspective = Math.round(P * k) + 'px';
-    ringEl.style.height = Math.round(FH * k) + 'px'; ringEl.style.top = Math.round(hh * k - FH * k / 2 + HEAD) + 'px';
-    function tf(th0) { return 'translateZ(' + (R * k).toFixed(1) + 'px) rotateY(' + (-th0 * 180 / Math.PI).toFixed(3) + 'deg) translateZ(' + (-R * k).toFixed(1) + 'px)'; }
-    items.forEach(function (it, i) {
-      var w = it.w * k; it.el.style.width = (w + (it.el.classList.contains('fc--slice') ? 0.8 : 0)).toFixed(2) + 'px'; it.el.style.marginLeft = (-w / 2).toFixed(2) + 'px'; it.el.style.height = (FH * k).toFixed(1) + 'px';
-      it.el.style.transform = tf(it.th);
-      it.el.style.setProperty('--shade', Math.min(0.5, Math.abs(it.th) * 0.28).toFixed(3));
-    });
-    slices.forEach(function (el, i) { var sv = q('svg', el); sv.setAttribute('viewBox', (i * MAPW / SLICES).toFixed(3) + ' 0 ' + (MAPW / SLICES).toFixed(3) + ' ' + MAPH); });
-    qa('.fc--col', ringEl).forEach(function (c) { c.style.setProperty('--g', (g * k).toFixed(1) + 'px'); });
-    // group headers ride the same curve, just above the wall
-    [['l', 0, 1], ['c', 2, 2 + SLICES - 1], ['r', 2 + SLICES, 3 + SLICES]].forEach(function (gr) {
-      var hd = q('.fc--hd[data-g="' + gr[0] + '"]', ringEl), a0 = items[gr[1]], a1 = items[gr[2]], sMid = (a0.s - a0.w / 2 + a1.s + a1.w / 2) / 2, wG = (a1.s + a1.w / 2) - (a0.s - a0.w / 2);
-      var w = wG * k; hd.style.width = w.toFixed(1) + 'px'; hd.style.marginLeft = (-w / 2).toFixed(1) + 'px'; hd.style.transform = tf((sMid - L / 2) / R);
-    });
-  }
   function sizeGrid() {
     var room = q('.wall__chassis', WALL), grid_ = grid; if (!room) return;
     var mq = window.innerWidth;
     if (mq <= 720) { room.style.maxWidth = ''; fit(); return; }
-    if (mq > 1180) { room.style.maxWidth = Math.round(Math.min(1840, mq - 24)) + 'px'; layoutCyl(); fit(); return; }
     var cols = mq <= 1180 ? 4 : 6, rows = mq <= 1180 ? 5 : 3, gap = 10, pad = 12;
     var others = 0; qa('.wall__bar, .wall__cap, .wall__ticker', room).forEach(function (e) { others += e.offsetHeight; });
     var availH = Math.max(320, (window.innerHeight - (WALL.getBoundingClientRect().top + window.scrollY > 0 ? 0 : 0)) - others - pad * 2 - q('.wall__uc', ROOM).offsetHeight - 120);
@@ -638,11 +574,10 @@
     WALL.setAttribute('data-stage', st.id);
     qa('.wall__step', stepper).forEach(function (e, j) { e.className = 'wall__step' + (j < i ? ' is-done' : j === i ? ' is-now' : ''); });
     SLOTS.forEach(function (s) { tiles[s.id].classList.toggle('is-focus', st.f.indexOf(s.id) >= 0); var fn = s.api.on[st.id]; if (fn) fn(); });
-    ringEl.classList.toggle('is-mapfocus', st.f.indexOf('map') >= 0);
-    q('.wall__now', WALL).textContent = st.t; ucProgress(i); flowSet(st.id);
+    q('.wall__now', WALL).textContent = st.t; ucProgress(i);
     var cap = q('.wall__cap span', WALL); if (cap) { cap.classList.remove('is-in'); cap.textContent = U.cap[i]; void cap.offsetWidth; cap.classList.add('is-in'); }
   }
-  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; ucProgressClear(); flowSet(null); flowSubs(); }
+  function resetAll() { SLOTS.forEach(function (s) { s.api.reset(); tiles[s.id].classList.remove('is-focus'); }); WALL.removeAttribute('data-stage'); qa('.wall__step', stepper).forEach(function (e) { e.className = 'wall__step'; }); var cap = q('.wall__cap span', WALL); if (cap) { cap.textContent = U.t + ' — ' + U.inc.title + ', ' + U.inc.where + '. Standing by.'; cap.classList.add('is-in'); } q('.wall__now', WALL).textContent = 'Standby'; ucProgressClear(); }
   function next() {
     if (!running) return;
     var i = idx + 1;
@@ -666,7 +601,6 @@
     ucProgressClear(); place();
     WALL.setAttribute('data-uc', U.id); WALL.style.setProperty('--dir', dir);
     var order = SLOTS.slice(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.add('is-flip'); }, RM ? 0 : k * 35); });
-    ringEl.classList.add('is-flip'); setTimeout(function () { ringEl.classList.remove('is-flip'); }, RM ? 60 : 760);
     setTimeout(function () { resetAll(); buildAll(); fit(); order.forEach(function (s, k) { setTimeout(function () { tiles[s.id].classList.remove('is-flip'); }, RM ? 0 : k * 35); }); idx = -1; setTimeout(function () { flipping = false; resetAll(); sync(); }, RM ? 50 : 700); }, RM ? 30 : 380);
   }
   track.addEventListener('click', function (e) { var t = e.target.closest('.uc'); if (t) go(+t.getAttribute('data-i')); });
