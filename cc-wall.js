@@ -43,7 +43,7 @@
       inc: { id: 'INC-2025-0841', title: 'Road collision · injuries', where: '5th & Main · high-speed segment', sev: 'HIGH' },
       baseline: [['18:33:10', 'CAD', '14 active calls · 3 pending'], ['18:34:05', 'TRAFFIC', 'Main St · 41 km/h avg · nominal'], ['18:34:50', 'UNITS', '12 of 14 units available'], ['18:35:30', 'RMS', 'Case 2025-CR-0429 linked · closed']],
       sig: [['911 CALL', 'Two-vehicle collision · injuries · 5th & Main'], ['CAM-5M-02', 'Lane blockage · injured occupants · 0.94']], risk: 'Two lanes blocked · 2 injured · peak flow · HIGH',
-      cams: { ids: ['CAM-5M-02', 'CAM-5M-04', 'CAM-MAIN-1', 'CAM-ED'], imgs: ['cc-live-ops.webp', 'cc-sa-hero.webp', 'cc-911-dispatch.webp', 'cc-sa-cop.webp'], hit: 'COLLISION 0.94' },
+      cams: { ids: ['CAM-5M-02', 'CAM-5M-04', 'CAM-MAIN-1', 'CAM-ED'], imgs: ['cc-sa-response.webp', 'cc-sa-hero.webp', 'cc-911-dispatch.webp', 'cc-sa-cop.webp'], hit: 'COLLISION 0.94' },
       unit: 'AMB M-04', units: [['AMB M-04', 'EMS', 'AVAILABLE', '4 min'], ['TRAFFIC T-11', 'Police', 'AVAILABLE', '3 min'], ['PATROL P-07', 'Police', 'ON CALL', '6 min'], ['ENGINE E-3', 'Fire', 'AVAILABLE', '5 min'], ['TOW T-2', 'Contract', 'STANDBY', '12 min']],
       rec: 'Dispatch Ambulance M-04 and Traffic Response T-11. Initiate lane-diversion SOP-TR-04 on 5th & Main; pre-alert Mercy ED for two casualties.', ev: ['911 CALL', 'CAM-5M-02', 'SOP-TR-04', '5 precedents'], conf: 92, approver: 'J. WALSH · DISPATCHER',
       sop: { name: 'SOP-TR-04', desc: 'Road collision · injuries · lane diversion', steps: ['Confirm caller account with camera', 'Dispatch EMS and traffic unit', 'Divert lanes · signal plan 4', 'Pre-alert receiving hospital', 'Scene clear · reopen lanes'] },
@@ -51,14 +51,14 @@
       map: { kind: 'city', title: 'Live map · 5th & Main', inc: [380, 234], site: { x: 335, y: 190, w: 90, h: 88, l: '5TH & MAIN', s: 'COLLISION' }, streets: ['5TH AVE', 'MAIN ST'], zones: ['BEAT 1', 'BEAT 2', 'BEAT 3', 'BEAT 5'], nosite: true,
         units: [{ id: 'AMB M-04', x: 575, y: 340, c: 'a' }, { id: 'TRAFFIC T-11', x: 120, y: 90, c: 'p' }, { id: 'ENGINE E-3', x: 110, y: 346, c: 'e' }], route: 'M575 340 L575 292 L445 292 L445 234 L398 234', target: { x: 398, y: 234, l: 'SCENE' },
         st: ['911 CALL · 5TH & MAIN', '2 SIGNALS · INC-2025-0841', 'SEVERITY HIGH · SOP-TR-04', 'ROUTE PROPOSED · 4 MIN', 'APPROVED · DISPATCHING', 'AMB M-04 EN ROUTE', 'LANES REOPENED · 19:12'] },
-      images: [['cc-911-dispatch.webp', '911 call-taking', 'NENA I3 · NG911', 'r', '48%', '42%'], ['cc-cad-rms.webp', 'CAD ↔ RMS bridge', 'CASE LINKING', 'hl', '52%', '30%', '40%', '38%'], ['cc-ai-dispatch.webp', 'AI dispatch', 'INC-2025-0841 · 0.92', 'hl', '4%', '52%', '92%', '22%'], ['cc-multi-agency.webp', 'Multi-agency coordination', 'POLICE · FIRE · EMS · MUNICIPAL', 'r', '30%', '58%'], ['cc-live-ops.webp', 'Live operations', 'INCIDENTS · UNITS', 'r', '43%', '32%'], ['cc-after-action.webp', 'After-action report', 'SAME SHIFT', 'run']],
+      images: [['cc-911-dispatch.webp', '911 call-taking', 'NENA I3 · NG911', 'r', '48%', '42%'], ['cc-cad-rms.webp', 'CAD ↔ RMS bridge', 'CASE LINKING', 'hl', '52%', '30%', '40%', '38%'], ['cc-multi-agency.webp', 'Multi-agency coordination', 'POLICE · FIRE · EMS · MUNICIPAL', 'r', '30%', '58%'], ['cc-after-action.webp', 'After-action report', 'SAME SHIFT', 'run'], ['cc-ai-dispatch.webp', 'AI dispatch', 'INC-2025-0841 · 0.92', 'hl', '4%', '52%', '92%', '22%'], ['cc-live-ops.webp', 'Live operations', 'INCIDENTS · UNITS', 'r', '43%', '32%']],
       cap: ['A 911 call reports a two-vehicle collision with injuries at 5th & Main. The call is opened as an incident while the caller is still on the line.', 'CAM-5M-02 confirms lane blockage and injured occupants. Two independent signals agree — INC-2025-0841 is verified.', 'Severity is set from injuries, lane blockage and peak flow. SOP-TR-04 is attached; traffic control is alerted.', 'The agent proposes EMS plus a traffic unit, a lane diversion and a hospital pre-alert — with the evidence cited.', 'The dispatcher approves. Identity, time and reasoning go to the ledger before any unit moves.', 'Ambulance M-04 rolls; five agencies are notified in 9 s. The CAD and RMS stay in sync automatically.', 'Lanes reopened. The after-action report is assembled from the record — nothing retyped.'] },
 
     { id: 'def', t: 'Defense & intelligence', short: 'Defense', page: 'cc-defense.html', pt: 'Defense & Intelligence',
       inc: { id: 'TRK-2291', title: 'Unidentified surface track', where: 'Sector 3 · exclusion zone', sev: 'HIGH' },
       baseline: [['18:32:50', 'AIS', '212 tracks · all correlated'], ['18:33:40', 'RADAR', 'Coastal net · 4 sites nominal'], ['18:34:30', 'ISR', 'UAV ISR-2 on station · 6 h endurance'], ['18:35:20', 'COALITION', 'Coalition cell · 3 partners online']],
       sig: [['RADAR-N2', 'New track · 14 kt · no AIS · Sector 3'], ['EO/IR-1', 'Vessel class confirmed · 0.88']], risk: 'Zone breach in 11 min · critical asset · HIGH',
-      cams: { ids: ['EO/IR-1', 'ISR-2 FMV', 'COAST-N2', 'PORT-S'], imgs: ['cc-dfx-mission.webp', 'cc-po-hero.webp', 'cc-dfx-coalition.webp', 'cc-sa-hero.webp'], hit: 'VESSEL 0.88' },
+      cams: { ids: ['EO/IR-1', 'ISR-2 FMV', 'COAST-N2', 'PORT-S'], imgs: ['cc-sa-playback.webp', 'cc-po-hero.webp', 'cc-dfx-coalition.webp', 'cc-sa-hero.webp'], hit: 'VESSEL 0.88' },
       unit: 'PATROL P-31', units: [['PATROL P-31', 'Naval', 'AVAILABLE', '9 min'], ['UAV ISR-2', 'ISR', 'ON STATION', '2 min'], ['HELO H-1', 'Air', 'READY', '14 min'], ['COAST CS-4', 'Station', 'TRACKING', '—'], ['LIAISON', 'Coalition', 'ONLINE', '—']],
       rec: 'Task UAV ISR-2 to shadow TRK-2291 and vector Patrol P-31 to the intercept line. Hail on channel 16; brief the coalition cell.', ev: ['RADAR-N2', 'EO/IR-1', 'SOP-MAR-7', 'ROE 4.2'], conf: 88, approver: 'CDR M. AL-KAABI · WATCH OFFICER',
       sop: { name: 'SOP-MAR-7', desc: 'Unidentified track · exclusion zone', steps: ['Correlate radar and EO/IR', 'Task ISR shadow', 'Vector patrol to intercept line', 'Hail and identify · channel 16', 'Log outcome · release track'] },
@@ -66,14 +66,14 @@
       map: { kind: 'coast', title: 'Mission picture · Sector 3', inc: [455, 118], site: null,
         units: [{ id: 'PATROL P-31', x: 250, y: 330, c: 'p' }, { id: 'UAV ISR-2', x: 560, y: 290, c: 'a' }, { id: 'COAST CS-4', x: 120, y: 120, c: 'e' }], route: 'M250 330 L330 250 L400 170 L432 138', target: { x: 432, y: 138, l: 'INTERCEPT' },
         st: ['NEW TRACK · SECTOR 3', '2 SENSORS · TRK-2291', 'BREACH IN 11 MIN · SOP-MAR-7', 'INTERCEPT PROPOSED · 9 MIN', 'APPROVED · TASKING', 'PATROL P-31 EN ROUTE', 'IDENTIFIED · RELEASED'] },
-      images: [['cc-dfx-mission.webp', 'Mission picture', 'ISR FUSION · SECTORS', 'r', '52%', '38%'], ['cc-dfx-coalition.webp', 'Coalition workflows', 'JADC2-ALIGNED', 'hl', '8%', '22%', '84%', '30%'], ['cc-dfx-custody.webp', 'Chain of custody', 'COMMS KIT CK-204', 'hl', '35%', '18%', '60%', '62%'], ['cc-ad-policies.webp', 'Action policies', 'ROE · HUMAN-ONLY GATES', 'hl', '64%', '29%', '31%', '15%'], ['cc-sa-playback.webp', 'Track playback', 'DETECTED · TASKED · RELEASED', 'run'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY TASKING SIGNED', 'run']],
+      images: [['cc-dfx-coalition.webp', 'Coalition workflows', 'JADC2-ALIGNED', 'hl', '8%', '22%', '84%', '30%'], ['cc-dfx-custody.webp', 'Chain of custody', 'COMMS KIT CK-204', 'hl', '35%', '18%', '60%', '62%'], ['cc-ad-policies.webp', 'Action policies', 'ROE · HUMAN-ONLY GATES', 'hl', '64%', '29%', '31%', '15%'], ['cc-sa-playback.webp', 'Track playback', 'DETECTED · TASKED · RELEASED', 'run'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY TASKING SIGNED', 'run'], ['cc-dfx-mission.webp', 'Mission picture', 'ISR FUSION · SECTORS', 'r', '52%', '38%']],
       cap: ['Coastal radar N2 reports a new surface track with no AIS in Sector 3, 14 knots, heading for the exclusion zone.', 'EO/IR confirms the vessel class. Two sensors agree — TRK-2291 is verified and the breach clock starts.', 'Time to breach, asset criticality and rules of engagement set the severity. SOP-MAR-7 is attached; the coalition cell is alerted.', 'The agent proposes an ISR shadow, a patrol intercept and a channel-16 hail — with every source and the ROE reference cited.', 'The watch officer approves. Identity, time and ROE clause are written to the ledger before any tasking goes out.', 'Patrol P-31 is under way; five agencies and the coalition cell are briefed in 9 s from one screen.', 'Identified and released. The track, tasking and decision trail are archived under chain of custody.'] },
 
     { id: 'ci', t: 'Critical infrastructure', short: 'Infrastructure', page: 'cc-critical-infra.html', pt: 'Critical Infrastructure',
       inc: { id: 'INC-CI-0312', title: 'Pressure anomaly', where: 'Pipeline segment S-14 · Pump station 3', sev: 'HIGH' },
       baseline: [['18:33:00', 'SCADA', 'PS-3 · 4 pumps · 72% load'], ['18:33:55', 'TELEMETRY', 'S-14 · 6.8 bar · nominal'], ['18:34:40', 'ACCESS', 'PS-3 perimeter · secure'], ['18:35:25', 'CAM', 'CAM-PS3-02 · healthy']],
       sig: [['PT-14-07', 'Pressure drop 8% in 40 s · S-14'], ['FLOW-14', 'Flow imbalance confirmed · 0.90']], risk: 'Supply to ~12,400 customers · asset critical · HIGH',
-      cams: { ids: ['CAM-PS3-02', 'CAM-V14B', 'DRONE D-4', 'CAM-S14-N'], imgs: ['cc-ci-hero.webp', 'cc-ci-field.webp', 'cc-ci-scada.webp', 'cc-po-hero.webp'], hit: 'ANOMALY 0.90' },
+      cams: { ids: ['CAM-PS3-02', 'CAM-V14B', 'DRONE D-4', 'CAM-S14-N'], imgs: ['cc-ci-hero.webp', 'cc-ci-impact.webp', 'cc-ci-scada.webp', 'cc-po-hero.webp'], hit: 'ANOMALY 0.90' },
       unit: 'FIELD F-2', units: [['FIELD F-2', 'Field', 'AVAILABLE', '11 min'], ['VALVE V-1', 'Valve team', 'AVAILABLE', '8 min'], ['DRONE D-4', 'UAS', 'READY', '3 min'], ['CONTROL CR', 'Control', 'ON DUTY', '—'], ['CONTRACT C-9', 'Contractor', 'ON CALL', '40 min']],
       rec: 'Close valves V-14B and V-14C to isolate segment S-14, hold Pump station 3 at 60%, dispatch Field crew F-2 and launch Drone D-4 for a visual.', ev: ['PT-14-07', 'FLOW-14', 'RUNBOOK PL-3', '2 precedents'], conf: 90, approver: 'S. MOHAMMED · SHIFT SUPERVISOR',
       sop: { name: 'RUNBOOK PL-3', desc: 'Pressure anomaly · isolate & inspect', steps: ['Confirm with second sensor', 'Isolate segment · close valves', 'Hold pump station at 60%', 'Dispatch field crew · drone visual', 'Inspect · restore · close'] },
@@ -81,14 +81,14 @@
       map: { kind: 'plant', title: 'Asset map · Pump station 3 · S-14', inc: [395, 205], site: { x: 330, y: 150, w: 130, h: 110, l: 'PUMP STATION 3', s: 'SEGMENT S-14' },
         units: [{ id: 'FIELD F-2', x: 100, y: 340, c: 'e' }, { id: 'VALVE V-1', x: 560, y: 320, c: 'p' }, { id: 'DRONE D-4', x: 560, y: 80, c: 'a' }], route: 'M100 340 L100 290 L240 290 L240 235 L326 235', target: { x: 326, y: 235, l: 'V-14B' },
         st: ['PRESSURE DROP · S-14', '2 SENSORS · INC-CI-0312', '12,400 CUSTOMERS · PL-3', 'ISOLATION PROPOSED', 'APPROVED · ISOLATING', 'FIELD F-2 EN ROUTE', 'ISOLATED · RESTORED'] },
-      images: [['cc-ci-scada.webp', 'SCADA + sensor fusion', 'OPC-UA · MODBUS · MQTT', 'run'], ['cc-ci-runbook.webp', 'Runbook automation', 'PL-3 · 5 STEPS', 'hl', '6%', '22%', '48%', '66%'], ['cc-ci-field.webp', 'Field coordination', 'CREWS · DRONES', 'r', '36%', '52%'], ['cc-ci-impact.webp', 'Risk & impact', '~12,400 CUSTOMERS', 'r', '30%', '52%'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY VALVE COMMAND SIGNED', 'run'], ['cc-ci-hero.webp', 'Site digital twin', 'PERIMETER · ASSETS', 'r', '52%', '40%']],
+      images: [['cc-ci-scada.webp', 'SCADA + sensor fusion', 'OPC-UA · MODBUS · MQTT', 'run'], ['cc-ci-runbook.webp', 'Runbook automation', 'PL-3 · 5 STEPS', 'hl', '6%', '22%', '48%', '66%'], ['cc-ci-impact.webp', 'Risk & impact', '~12,400 CUSTOMERS', 'r', '30%', '52%'], ['cc-ci-audit.webp', 'Audit & compliance', 'EVERY VALVE COMMAND SIGNED', 'run'], ['cc-ci-hero.webp', 'Site digital twin', 'PERIMETER · ASSETS', 'r', '52%', '40%'], ['cc-ci-field.webp', 'Field coordination', 'CREWS · DRONES', 'r', '36%', '52%']],
       cap: ['Pressure transmitter PT-14-07 reports an 8 % drop on segment S-14 in 40 seconds.', 'Flow telemetry confirms the imbalance. Two independent sensors agree — INC-CI-0312 is opened.', 'Impact is scored — about 12,400 customers on the segment. Runbook PL-3 is attached; operations control is alerted.', 'The agent proposes isolating S-14, holding the pump station at 60 % and sending a crew plus a drone — every sensor cited.', 'The shift supervisor approves. Valve commands are human-approved actions; the approval is written to the ledger first.', 'Field crew F-2 rolls, valves close under supervision, and the environment agency is notified in the same 9 s.', 'Isolated, inspected, restored. The full runbook trail is ready for the regulator without reconstruction.'] },
 
     { id: 'po', t: 'Ports & logistics', short: 'Ports', page: 'cc-ports.html', pt: 'Ports & Logistics',
       inc: { id: 'INC-PO-0442', title: 'Fire alarm', where: 'Building 7 · Zone 4 · logistics campus', sev: 'HIGH' },
       baseline: [['18:33:20', 'GATE', 'Gate 3 · 62 trucks/hr · nominal'], ['18:34:00', 'YARD', 'Berth 3 · 4 cranes working'], ['18:34:45', 'DWELL', 'Avg dwell 54 h · −6% wk'], ['18:35:30', 'CAM', 'CAM-B7-01 · healthy']],
       sig: [['FA-B7-04', 'Fire alarm · Building 7 · Zone 4'], ['SD-B7-12', 'Smoke detector confirms · 0.93']], risk: 'Hazmat store adjacent · berth 3 ops · HIGH',
-      cams: { ids: ['CAM-B7-01', 'CAM-B7-04', 'CAM-QUAY-3', 'CAM-GATE-3'], imgs: ['cc-ad-port.webp', 'cc-po-yard.webp', 'cc-po-hero.webp', 'cc-po-exception.webp'], hit: 'SMOKE 0.93' },
+      cams: { ids: ['CAM-B7-01', 'CAM-B7-04', 'CAM-QUAY-3', 'CAM-GATE-3'], imgs: ['cc-po-trace.webp', 'cc-po-yard.webp', 'cc-po-hero.webp', 'cc-po-exception.webp'], hit: 'SMOKE 0.93' },
       unit: 'RESPONSE-12', units: [['RESPONSE-12', 'Port fire', 'AVAILABLE', '3 min'], ['PATROL PP-3', 'Port police', 'AVAILABLE', '2 min'], ['MEDIC M-1', 'EMS', 'ON CALL', '6 min'], ['YARD Y-2', 'Ops', 'ON SHIFT', '1 min'], ['GATE OPS', 'Gate', 'ON SHIFT', '—']],
       rec: 'Dispatch Response-12 from the staging area to Building 7 via Quay Rd. Hold Gate 3 inbound; begin EVAC-2 on Zone 4; pause crane 3.', ev: ['FA-B7-04', 'SD-B7-12', 'EVAC-2', '4 precedents'], conf: 93, approver: 'R. HASSAN · TERMINAL DUTY MANAGER',
       sop: { name: 'EVAC-2', desc: 'Fire alarm · warehouse · hazmat adjacent', steps: ['Confirm alarm with detector', 'Hold gate inbound · pause crane 3', 'Dispatch port fire unit', 'Evacuate Building 7 · Zone 4', 'Field confirmation · resume ops'] },
@@ -235,6 +235,138 @@
     }; });
     return { reset: reset, on: on };
   }
+
+  /* ───────────── the centre screen: a real Innfini operating picture per use case, brought to life ───────────── */
+  var HERO = {
+    city: { img: 'cc-ad-console.webp', W: 1600, H: 842, title: 'Agentic dispatch · Riverside Mall', cb: [40, 34, 1525, 776],
+      inc: [281, 200, 'INC-0007 · FIRE ALARM · ZONE 4'], cam: [207, 114],
+      route: [[775, 495], [700, 470], [600, 440], [572, 410], [565, 370], [520, 335]], unit: 'ENGINE-12', eta: 180,
+      zones: [[1140, 160, 405, 108, 'recommend', 'AGENT PLAN'], [1146, 310, 402, 130, 'verify', 'EVIDENCE'], [1146, 505, 402, 88, 'assess', 'RESPONDERS'], [48, 628, 358, 164, 'verify', 'CAM-4-12'], [416, 628, 356, 164, 'dispatch', 'GATE 3 CAM']],
+      ticks: [[1528, 333, 'verify'], [1528, 377, 'verify'], [1528, 421, 'assess']],
+      stamp: [1150, 608, 234, 52, 'APPROVED · EXECUTING'], status: [1142, 692, 412, 96], amb: [] },
+    ps: { img: 'cc-live-ops.webp', W: 1600, H: 902, title: 'Live operations · Abu Dhabi', f: [0, 0.5],
+      inc: [1437, 465, 'INC-2025-0841 · ROAD COLLISION'], cam: null,
+      route: [[1290, 660], [1330, 628], [1352, 590], [1366, 545], [1395, 506], [1425, 478]], unit: 'AMB M-04', eta: 240,
+      zones: [[14, 358, 442, 162, 'detect', 'ACTIVE INCIDENT'], [14, 190, 442, 160, 'dispatch', 'CONCURRENT · 2 UNITS'], [14, 530, 442, 160, 'dispatch', 'MEDICAL · 1 UNIT']],
+      ticks: [], stamp: [1010, 560, 250, 46, 'M-04 + T-11 DISPATCHED'], status: [520, 800, 440, 70], amb: [[855, 313, 'r'], [1288, 662, 'b'], [1263, 140, 'g']] },
+    def: { img: 'cc-dfx-mission.webp', W: 1600, H: 1234, title: 'Mission picture · AO South',
+      inc: [672, 745, 'TRK-118 · UNIDENTIFIED'], cam: [462, 343],
+      route: [[451, 505], [500, 560], [560, 620], [615, 680], [650, 722]], unit: 'PATROL P-31', eta: 540,
+      zones: [[228, 658, 573, 250, 'detect', 'RESTRICTED'], [249, 228, 503, 340, 'assess', 'ISR RE-TASKED'], [969, 665, 336, 268, 'verify', 'SIGINT'], [862, 228, 498, 316, 'dispatch', 'COALITION VIEW']],
+      ticks: [], stamp: [820, 780, 290, 50, 'INTERCEPT TASKED'], status: [1282, 860, 224, 168], amb: [[512, 838, 'r'], [1135, 590, 'g']] },
+    ci: { img: 'cc-ci-field.webp', W: 1600, H: 1235, title: 'Field coordination · Segment S-14',
+      inc: [763, 465, 'INC-CI-0312 · PRESSURE DROP'], cam: null,
+      route: [[557, 598], [665, 648], [705, 508], [755, 522], [763, 492]], unit: 'FIELD T-22', eta: 480,
+      zones: [[1032, 328, 442, 262, 'approve', 'CREW DISPATCHED'], [1032, 606, 442, 162, 'dispatch', 'SECOND CREW'], [1020, 790, 465, 262, 'debrief', 'EVIDENCE FILED'], [118, 272, 885, 780, 'detect', 'SEGMENT S-14']],
+      ticks: [[1250, 512, 'dispatch'], [1408, 512, 'debrief']], valves: [[604, 852, 'V-14B'], [800, 712, 'V-14C']],
+      stamp: [610, 900, 300, 50, 'VALVES CLOSED · ISOLATED'], status: [620, 976, 380, 72], amb: [] },
+    po: { img: 'cc-ad-port.webp', W: 1600, H: 842, title: 'Port logistics campus · Building 7', cb: [40, 62, 1512, 744],
+      inc: [985, 336, 'INC-PO-0442 · FIRE ALARM · ZONE 4'], cam: null,
+      route: [[300, 492], [420, 472], [560, 446], [720, 410], [860, 378], [962, 346]], unit: 'RESPONSE-12', eta: 180,
+      zones: [[1260, 140, 280, 60, 'recommend', 'UNIT'], [1260, 262, 280, 60, 'recommend', 'ETA'], [1260, 325, 280, 60, 'assess', 'EVAC-2'], [58, 682, 470, 114, 'verify', 'EVIDENCE'], [548, 682, 470, 114, 'recommend', 'PLAN']],
+      ticks: [[508, 745, 'verify'], [1000, 745, 'recommend'], [1525, 745, 'approve']],
+      stamp: [1300, 392, 240, 60, 'APPROVED · EXECUTING'], status: [1302, 696, 240, 90], amb: [] },
+    ve: { img: 'cc-ve-command.webp', W: 1600, H: 1235, title: 'Venue command · Gate 3', f: [0.5, 0.47],
+      inc: [624, 632, 'INC-VE-0118 · CROWD DENSITY'], cam: null,
+      route: [[946, 482], [940, 540], [905, 598], [840, 625], [700, 640]], unit: 'STEWARDS S-4', eta: 120,
+      zones: [[97, 915, 697, 188, 'detect', 'GATE 3 QUEUE'], [1122, 240, 380, 62, 'verify', '58,240 ON SITE'], [1122, 465, 380, 80, 'assess', 'SCREENING'], [807, 915, 697, 188, 'dispatch', 'MEDICAL'], [1122, 695, 380, 80, 'dispatch', 'MEDICAL UNITS']],
+      ticks: [], stamp: [905, 395, 210, 44, 'GATE 7 · OPENED'], status: [150, 818, 420, 72], heat: [624, 660, 170, 110], amb: [[407, 592, 'r'], [830, 608, 'r']] }
+  };
+  var RENAME = {
+    ps: [[/5th & Main/g, 'Sheikh Zayed Rd'], [/5TH & MAIN/g, 'SHEIKH ZAYED RD'], [/Mercy Hospital ED|Mercy ED/g, 'City Hospital ED'], [/Mercy/g, 'City Hospital']],
+    def: [[/TRK-2291/g, 'TRK-118'], [/Sector 3/g, 'AO South'], [/SECTOR 3/g, 'AO SOUTH']],
+    ci: [[/\bF-2\b/g, 'T-22']],
+    ve: [[/Gate C\b/g, 'Gate 3'], [/GATE C\b/g, 'GATE 3'], [/Gate D\b/g, 'Gate 7'], [/GATE D\b/g, 'GATE 7']]
+  };
+  function deepRename(o, rules) { if (typeof o === 'string') { rules.forEach(function (r) { o = o.replace(r[0], r[1]); }); return o; } if (Array.isArray(o)) return o.map(function (v) { return deepRename(v, rules); }); if (o && typeof o === 'object') { Object.keys(o).forEach(function (k) { if (k !== 'hero') o[k] = deepRename(o[k], rules); }); return o; } return o; }
+  USE.forEach(function (u) { if (RENAME[u.id]) deepRename(u, RENAME[u.id]); u.hero = HERO[u.id]; });
+
+  function buildHero(el, U, ctl) {
+    var X = U.hero, W = X.W, H = X.H, SVG = 'http://www.w3.org/2000/svg';
+    el.classList.add('scr__in--hero');
+    function pct(v, t) { return (v / t * 100).toFixed(2) + '%'; }
+    var rd = 'M' + X.route.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L');
+    var ix = X.inc[0], iy = X.inc[1], s = W / 1600;
+    var zones = X.zones.map(function (z, i) {
+      var b = 18 * s, x = z[0], y = z[1], w = z[2], h = z[3];
+      var br = 'M' + x + ' ' + (y + b) + ' V' + y + ' H' + (x + b) + ' M' + (x + w - b) + ' ' + y + ' H' + (x + w) + ' V' + (y + b) + ' M' + (x + w) + ' ' + (y + h - b) + ' V' + (y + h) + ' H' + (x + w - b) + ' M' + (x + b) + ' ' + (y + h) + ' H' + x + ' V' + (y + h - b);
+      return '<g class="hx-z" data-st="' + z[4] + '" data-i="' + i + '"><rect class="hx-z__f" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + (6 * s) + '"/><path class="hx-z__b" d="' + br + '"/><g class="hx-z__t" transform="translate(' + (x + 6) + ' ' + (y - 10) + ')"><rect x="-4" y="-17" width="' + (z[5].length * 10.5 * s + 18) + '" height="' + (24 * s) + '" rx="3"/><text x="4" y="0">' + esc(z[5]) + '</text></g><line class="hx-z__link" x1="' + ix + '" y1="' + iy + '" x2="' + (x + w / 2) + '" y2="' + (y + h / 2) + '"/></g>';
+    }).join('');
+    var ticks = X.ticks.map(function (t) { return '<g class="hx-tick" data-st="' + t[2] + '" transform="translate(' + t[0] + ' ' + t[1] + ')"><circle r="' + (15 * s) + '"/><path d="M' + (-7 * s) + ' 0 L' + (-2 * s) + ' ' + (5 * s) + ' L' + (8 * s) + ' ' + (-6 * s) + '"/></g>'; }).join('');
+    var valves = (X.valves || []).map(function (v) { return '<g class="hx-valve" transform="translate(' + v[0] + ' ' + v[1] + ')"><circle r="' + (26 * s) + '" class="hx-valve__r"/><rect x="' + (-9 * s) + '" y="' + (-9 * s) + '" width="' + (18 * s) + '" height="' + (18 * s) + '" transform="rotate(45)"/><g transform="translate(' + (32 * s) + ' ' + (6 * s) + ')"><text>' + esc(v[2]) + '</text><text class="hx-valve__st" y="' + (24 * s) + '">CLOSING</text></g></g>'; }).join('');
+    var amb = X.amb.map(function (a, i) { return '<g class="hx-amb hx-amb--' + a[2] + '" transform="translate(' + a[0] + ' ' + a[1] + ')"><circle r="' + (22 * s) + '" style="animation-delay:' + (-i * 0.7) + 's"/><circle r="' + (22 * s) + '" style="animation-delay:' + (-i * 0.7 - 1.2) + 's"/></g>'; }).join('');
+    var heat = X.heat ? '<ellipse class="hx-heat" cx="' + X.heat[0] + '" cy="' + X.heat[1] + '" rx="' + X.heat[2] + '" ry="' + X.heat[3] + '"/>' : '';
+    var cam = X.cam ? '<g class="hx-cam" transform="translate(' + X.cam[0] + ' ' + X.cam[1] + ')"><path d="M0 0 L' + (160 * s) + ' ' + (-60 * s) + ' A' + (170 * s) + ' ' + (170 * s) + ' 0 0 1 ' + (160 * s) + ' ' + (60 * s) + ' Z"/></g>' : '';
+    var L = 58 * s, K = 22 * s;
+    var lock = '<g class="hx-lock">' + [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (q) { return '<path d="M' + (q[0] * L) + ' ' + (q[1] * (L - K)) + ' V' + (q[1] * L) + ' H' + (q[0] * (L - K)) + '"/>'; }).join('') + '</g>';
+    var chipW = X.inc[2].length * 12.4 * s + 34 * s, chipX = ix + chipW + 90 * s > W ? -chipW - 70 * s : 70 * s;
+    var st = X.status, stW = Math.max(X.stamp[2], X.stamp[4].length * 14.5 * s + 56 * s);
+    el.innerHTML = HD('Live operating picture · ' + esc(X.title), '<span class="w-hero__rec">● REC <b class="w-hero__clk">' + ts(0) + '</b></span> <span class="w-lay">INNFINI <b>LIVE</b></span> <span class="w-ping">' + esc(U.inc.id) + '</span>') +
+      '<div class="w-hero"><div class="w-hero__stage" style="--ox:' + pct(ix, W) + ';--oy:' + pct(iy, H) + '">' +
+      '<img src="' + ASSETS + X.img + '" alt="" decoding="async">' +
+      '<svg class="hx" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid slice" xmlns="' + SVG + '" style="--s:' + s + '">' +
+      '<defs><radialGradient id="hxHeat"><stop offset="0" stop-color="#fda4af" stop-opacity=".55"/><stop offset=".6" stop-color="#fb7185" stop-opacity=".18"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="hxScan" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7dd3fc" stop-opacity="0"/><stop offset=".8" stop-color="#7dd3fc" stop-opacity=".04"/><stop offset="1" stop-color="#e0f2fe" stop-opacity=".12"/></linearGradient></defs>' +
+      '<rect class="hx-scan" x="0" y="0" width="' + W + '" height="' + (H * 0.22) + '" fill="url(#hxScan)"/>' +
+      heat + amb + cam + zones +
+      '<path class="hx-route" d="' + rd + '"/><path class="hx-route hx-route--done" d="' + rd + '"/>' +
+      '<g class="hx-tgt" transform="translate(' + X.route[X.route.length - 1][0] + ' ' + X.route[X.route.length - 1][1] + ')"><circle r="' + (10 * s) + '"/></g>' +
+      valves + ticks +
+      '<g class="hx-inc" transform="translate(' + ix + ' ' + iy + ')"><circle class="hx-inc__w" r="' + (34 * s) + '"/><circle class="hx-inc__w" r="' + (34 * s) + '"/><circle class="hx-inc__w" r="' + (34 * s) + '"/>' +
+        '<g class="hx-radar"><path d="M0 0 L0 ' + (-120 * s) + ' A' + (120 * s) + ' ' + (120 * s) + ' 0 0 1 ' + (85 * s) + ' ' + (-85 * s) + ' Z"/></g>' + lock +
+        '<circle class="hx-inc__c" r="' + (9 * s) + '"/><path class="hx-inc__ok" d="M' + (-12 * s) + ' 0 L' + (-3 * s) + ' ' + (9 * s) + ' L' + (14 * s) + ' ' + (-9 * s) + '"/>' +
+        '<g class="hx-chip" transform="translate(' + chipX + ' ' + (-50 * s) + ')"><rect width="' + chipW + '" height="' + (34 * s) + '" rx="' + (5 * s) + '"/><text x="' + (16 * s) + '" y="' + (23 * s) + '">' + esc(X.inc[2]) + '</text></g>' +
+        '<g class="hx-bcast"><circle r="' + (40 * s) + '"/><circle r="' + (40 * s) + '"/><circle r="' + (40 * s) + '"/></g></g>' +
+      '<g class="hx-mover" opacity="0"><circle class="hx-mover__h" r="' + (26 * s) + '"/><circle class="hx-mover__c" r="' + (11 * s) + '"/><g class="hx-eta" transform="translate(' + (20 * s) + ' ' + (-26 * s) + ')"><rect width="' + ((X.unit.length + 7) * 12.2 * s + 22 * s) + '" height="' + (32 * s) + '" rx="' + (5 * s) + '"/><text x="' + (12 * s) + '" y="' + (22 * s) + '"><tspan class="hx-eta__u">' + esc(X.unit) + '</tspan> <tspan class="hx-eta__v">00:00</tspan></text></g></g>' +
+      '<g class="hx-stamp" transform="translate(' + Math.min((X.cb ? X.cb[0] + X.cb[2] : W) - stW / 2 - 8, X.stamp[0] + X.stamp[2] / 2) + ' ' + (X.stamp[1] + X.stamp[3] / 2) + ')"><g class="hx-stamp__in"><rect x="' + (-stW / 2) + '" y="' + (-X.stamp[3] / 2) + '" width="' + stW + '" height="' + X.stamp[3] + '" rx="' + (7 * s) + '"/><text y="' + (8 * s) + '" text-anchor="middle">✓ ' + esc(X.stamp[4]) + '</text></g></g>' +
+      '<g class="hx-st" transform="translate(' + st[0] + ' ' + st[1] + ')"><rect width="' + st[2] + '" height="' + st[3] + '" rx="' + (6 * s) + '"/><text class="hx-st__k" x="' + (14 * s) + '" y="' + (st[3] < 80 ? 22 : 30) * s + '">INNFINI · STATUS</text><text class="hx-st__v" x="' + (14 * s) + '" y="' + (st[3] * 0.62) + '">MONITORING</text><rect class="hx-st__bar" x="' + (14 * s) + '" y="' + (st[3] - 14 * s) + '" width="' + (st[2] - 28 * s) + '" height="' + (4 * s) + '" rx="2"/><rect class="hx-st__fill" x="' + (14 * s) + '" y="' + (st[3] - 14 * s) + '" width="0" height="' + (4 * s) + '" rx="2"/></g>' +
+      '</svg></div><i class="w-hero__hud w-hero__hud--tl"></i><i class="w-hero__hud w-hero__hud--tr"></i><i class="w-hero__hud w-hero__hud--bl"></i><i class="w-hero__hud w-hero__hud--br"></i></div>' +
+      '<div class="w-map__card"></div>';
+    var svg = q('svg', el), stage = q('.w-hero__stage', el), mover = q('.hx-mover', el), eta = q('.hx-eta__v', el), routeP = q('.hx-route', el), doneP = q('.hx-route--done', el), card = q('.w-map__card', el), stv = q('.hx-st__v', el), stf = q('.hx-st__fill', el), clk = q('.w-hero__clk', el);
+    var img = q('.w-hero__stage > img', el), F = X.f || [0.5, 0.5];
+    function frame() {
+      var cw = stage.clientWidth, ch = stage.clientHeight; if (!cw || !ch) return;
+      var a = cw / ch, x0 = 0, y0 = 0, vw = W, vh = H, C = X.cb;
+      if (C) { if (C[2] / C[3] > a) { vw = C[2]; vh = vw / a; x0 = C[0]; y0 = C[1] + C[3] / 2 - vh / 2; } else { vh = C[3]; vw = vh * a; y0 = C[1]; x0 = C[0] + C[2] / 2 - vw / 2; } }
+      else if (W / H > a) { vw = H * a; x0 = Math.max(0, Math.min(W - vw, F[0] * W - vw / 2)); }
+      else { vh = W / a; y0 = Math.max(0, Math.min(H - vh, F[1] * H - vh / 2)); }
+      svg.setAttribute('viewBox', x0.toFixed(1) + ' ' + y0.toFixed(1) + ' ' + vw.toFixed(1) + ' ' + vh.toFixed(1));
+      var k = cw / vw; img.style.left = (-x0 * k).toFixed(1) + 'px'; img.style.top = (-y0 * k).toFixed(1) + 'px'; img.style.width = (W * k).toFixed(1) + 'px'; img.style.height = (H * k).toFixed(1) + 'px';
+      stage.style.setProperty('--ox', ((ix - x0) / vw * 100).toFixed(2) + '%'); stage.style.setProperty('--oy', ((iy - y0) / vh * 100).toFixed(2) + '%');
+    }
+    frame(); if (window.ResizeObserver) new ResizeObserver(frame).observe(stage); else window.addEventListener('resize', frame);
+    var stageIx = -1, raf = 0, len = 1, clkT = null, clkS = 0;
+    try { len = routeP.getTotalLength(); } catch (e) {}
+    function setLen() { try { len = routeP.getTotalLength(); } catch (e) {} [routeP, doneP].forEach(function (p) { p.style.strokeDasharray = len; }); routeP.style.strokeDashoffset = len; doneP.style.strokeDashoffset = len; }
+    setLen();
+    function place(t) { var pt = routeP.getPointAtLength(len * t); mover.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')'); doneP.style.strokeDashoffset = (len * (1 - t)).toFixed(1); eta.textContent = mmss(Math.round(X.eta * (1 - t))); }
+    function drive() { cancelAnimationFrame(raf); var t0 = performance.now(), D = RM ? 1 : 7000; (function f(now) { var t = Math.min(1, (now - t0) / D); try { place(t); } catch (e) {} if (t < 1) raf = requestAnimationFrame(f); })(t0); }
+    function tickClock(sec) { clearInterval(clkT); clkS = sec; clk.textContent = ts(clkS); clkT = setInterval(function () { clkS++; clk.textContent = ts(clkS); }, 1000); }
+    function zoneState(i) { qa('.hx-z, .hx-tick', svg).forEach(function (z) { var k = STAGE_IDS.indexOf(z.getAttribute('data-st')); z.classList.toggle('is-on', k <= i && i >= 0); z.classList.toggle('is-now', k === i); }); }
+    function set(i) {
+      stageIx = i; var cls = 'hx'; for (var k = 0; k <= i; k++) cls += ' st-' + STAGE_IDS[k]; cls += ' now-' + STAGE_IDS[i]; svg.setAttribute('class', cls);
+      el.setAttribute('data-hs', STAGE_IDS[i]);
+      fitSt(U.map.st[i]); stf.setAttribute('width', (((i + 1) / 7) * (X.status[2] - 28 * s)).toFixed(1));
+      zoneState(i);
+      qa('.w-map__v').forEach(function () {});
+      qa('.wall-mapst').forEach(function (e) { e.textContent = U.map.st[i]; });
+    }
+    function fitSt(t) { stv.textContent = t; stv.style.fontSize = ''; var avail = X.status[2] - 28 * s; try { var l = stv.getComputedTextLength(); if (l > avail) stv.style.fontSize = (18 * s * avail / l).toFixed(2) + 'px'; } catch (e) {} }
+    function reset() { cancelAnimationFrame(raf); stageIx = -1; svg.setAttribute('class', 'hx'); el.removeAttribute('data-hs'); fitSt('MONITORING'); stf.setAttribute('width', 0); mover.setAttribute('opacity', '0'); card.className = 'w-map__card'; zoneState(-1); setLen(); tickClock(-8); }
+    el.addEventListener('click', function (e) {
+      if (!inZoom(el)) return;
+      var z = e.target.closest('.hx-z'); var inc = e.target.closest('.hx-inc'); var r = e.target.closest('.hx-route, .hx-mover');
+      if (inc) { card.innerHTML = '<b>' + esc(U.inc.id) + ' · ' + esc(U.inc.title) + '</b><span>' + esc(U.inc.where) + '</span><em>' + esc(U.sig[0][0]) + ' · ' + esc(U.sig[0][1]) + (stageIx >= 1 ? ' — ' + esc(U.sig[1][0]) + ' confirmed' : '') + '</em>'; }
+      else if (r) { card.innerHTML = '<b>' + esc(X.unit) + '</b><span>' + (stageIx >= 5 ? 'En route · ETA ' + esc(eta.textContent) : stageIx >= 3 ? 'Route proposed · ' + mmss(X.eta) : 'Standing by') + '</span><em>' + esc(U.rec) + '</em>'; }
+      else if (z) { var zz = X.zones[+z.getAttribute('data-i')]; card.innerHTML = '<b>' + esc(zz[5]) + '</b><span>' + (z.classList.contains('is-on') ? 'Live · updated by the scenario' : 'Waiting for the ' + STAGES[STAGE_IDS.indexOf(zz[4])].t.toLowerCase() + ' step') + '</span><em>Part of the ' + esc(U.pt) + ' operating picture</em>'; }
+      else { if (card.classList.contains('is-in')) { card.className = 'w-map__card'; e.stopPropagation(); } return; }
+      card.className = 'w-map__card is-in'; e.stopPropagation();
+    });
+    var on = {};
+    STAGE_IDS.forEach(function (sid, i) { on[sid] = function () { set(i); if (i === 0) tickClock(0); if (sid === 'dispatch') { mover.setAttribute('opacity', '1'); drive(); } if (sid === 'approve') { mover.setAttribute('opacity', '1'); try { place(0); } catch (e) {} } }; });
+    return { reset: reset, on: on };
+  }
+  function buildCentre(el, U, ctl) { return U.hero ? buildHero(el, U, ctl) : buildMap(el, U, ctl); }
 
   /* ───────────── screen builders (inner box 320×200; map 650×410) ───────────── */
   var HD = function (label, right) { return '<div class="w-hd"><span class="w-hd__l"><i></i>' + label + '</span><span class="w-hd__r">' + (right || '') + '</span></div>'; };
@@ -494,7 +626,7 @@
   var SLOTS = [
     { id: 'feed', t: 'Signal feed', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildFeed, d: 'Every sensor, camera, access-control event and system feed arrives on one timeline. Correlation groups independent signals into a single candidate incident instead of six separate alarms.', how: 'Filter the feed with the chips at the top.' },
     { id: 'cams', t: 'Camera wall', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildCams, d: 'ONVIF cameras and VMS streams with edge analytics. When a detector fires, the nearest cameras are pulled forward automatically and vision confirms or rejects the signal.', how: 'Click a camera to bring it forward.' },
-    { id: 'map', t: 'Live map', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildMap, w: 650, hh: 410, d: 'The geo-temporal canvas. Incidents, responders, routes, zones and layers on one map — the proposed route is drawn before anyone moves, and the unit is tracked once dispatch is approved.', how: 'Toggle layers at the top right. Click a unit or the incident for details.' },
+    { id: 'map', t: 'Live operating picture', k: 'Situational awareness', page: 'cc-situational-awareness.html', pt: 'Situational Awareness', build: buildCentre, w: 650, hh: 410, d: 'The geo-temporal canvas. Incidents, responders, routes, zones and layers on one map — the proposed route is drawn before anyone moves, and the unit is tracked once dispatch is approved.', how: 'Toggle layers at the top right. Click a unit or the incident for details.' },
     { id: 'ai', t: 'Agent recommendation', k: 'Agentic dispatch', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildAI, d: 'The agent drafts the next-best action with the evidence it rests on, the matching SOP and a confidence value. Nothing executes until a named operator approves — and the approval is written to the ledger.', how: 'Press Approve to dispatch, or Escalate to hand the decision up.' },
     { id: 'sop', t: 'SOP match', k: 'Operational workflows', page: 'cc-agentic-dispatch.html', pt: 'Agentic Dispatch', build: buildSOP, d: 'The matching standard operating procedure is attached automatically and tracked step by step, so SOP compliance is measured rather than assumed.', how: 'Click a step to mark it done.' },
     { id: 'ledger', t: 'Audit ledger', k: 'Audited & sovereign', page: 'cc-audited-sovereign.html', pt: 'Audited & Sovereign', build: buildLedger, d: 'Append-only, cryptographically chained. Every signal, recommendation, approval and dispatch is written with actor, timestamp and originating evidence — and the chain verifies itself.', how: 'Click an entry to inspect its hash and predecessor. Press Verify chain.' },
@@ -550,7 +682,7 @@
   });
   function buildAll() { SLOTS.forEach(function (s) { buildOne(s); }); }
   function buildOne(s) { var tile = tiles[s.id], inner = h('div', 'scr__in'); tile.replaceChild(inner, q('.scr__in', tile)); s.api = s.build(inner, U, CTL, s.ix); s.api.reset(); var meta = slotMeta(s); q('.scr__tag', tile).textContent = meta.t; tile.setAttribute('aria-label', meta.t + ' — zoom'); }
-  function slotMeta(s) { if (s.ix != null) { var im = U.images[s.ix]; return { t: im[1], k: U.t, page: U.page, pt: U.pt, d: 'An Innfini ' + U.pt + ' screen — ' + im[1].toLowerCase() + ' (' + im[2].toLowerCase() + ').', how: 'Click to toggle zoom, then move the pointer to pan.' }; } return s; }
+  function slotMeta(s) { if (s.id === 'map' && U.hero) return { t: 'Live operating picture', k: 'Innfini operating picture', page: U.page, pt: U.pt, d: 'The Innfini operating picture for ' + U.t.toLowerCase() + ' — the incident is detected, locked on, planned, dispatched and resolved on the same screen, with every panel updating as the response runs.', how: 'Click the incident, the route or any highlighted panel.' }; if (s.ix != null) { var im = U.images[s.ix]; return { t: im[1], k: 'Innfini ' + U.pt, page: U.page, pt: U.pt, d: 'An Innfini ' + U.pt + ' screen — ' + im[1].toLowerCase() + ' (' + im[2].toLowerCase() + ').', how: 'Click to toggle zoom, then move the pointer to pan.' }; } return s; }
   function fit() { SLOTS.forEach(function (s) { var t = tiles[s.id]; t.style.setProperty('--s', (t.clientWidth / (s.w || 320)).toFixed(4)); }); }
   // grid sizing: fill the room
   function sizeGrid() {
